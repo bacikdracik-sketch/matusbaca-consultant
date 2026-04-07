@@ -379,40 +379,7 @@ Matúš Bača vykonáva finančné sprostredkovanie ako podriadený finančný a
 <p class="copyright">Všetky práva vyhradené &copy; 2026 | Matúš Bača</p>
 </footer>
 
-<!-- --- JavaScript pre Formspree a potvrdenie --- -->
-<script>
-const form = document.querySelector("#kariera-form form");
 
-form.addEventListener("submit", async function(e) {
-    e.preventDefault();
-    const formData = new FormData(form);
-    const action = form.action;
-
-    try {
-        const response = await fetch(action, {
-            method: form.method,
-            body: formData,
-            headers: { 'Accept': 'application/json' }
-        });
-
-        if (response.ok) {
-            const confirmation = document.createElement("p");
-            confirmation.textContent = "Ďakujeme za vašu žiadosť! Ozveme sa vám čo najskôr.";
-            confirmation.style.color = "#0F172A";
-            confirmation.style.fontWeight = "600";
-            confirmation.style.textAlign = "center";
-            confirmation.style.marginTop = "20px";
-            form.style.display = "none";
-            form.parentNode.appendChild(confirmation);
-        } else {
-            alert("Niečo sa pokazilo. Skúste prosím znova.");
-        }
-    } catch (error) {
-        alert("Chyba pri odosielaní formulára. Skúste prosím znova.");
-        console.error(error);
-    }
-});
-<script>
 window.addEventListener("DOMContentLoaded", () => {
     if(window.location.hash === "#kariera-opportunity") {
         const section = document.querySelector(window.location.hash);

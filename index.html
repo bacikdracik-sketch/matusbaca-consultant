@@ -199,51 +199,69 @@
             font-weight: 700;
         }
 
-        /* GRID ŠTRUKTÚRA */
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
-        }
+       /* GRID ŠTRUKTÚRA */
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+}
 
-        .card {
-            background: white;
-            padding: 70px 50px;
-            border: 1px solid var(--border-color);
-            transition: all 0.5s ease;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
+.card {
+    background: white;
+    padding: 30px; /* Zmenšené, aby karta s fotkou nevyzerala masívne */
+    border: 1px solid var(--border-color);
+    transition: all 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
 
-        .card:hover {
-            border-color: var(--gold-muted);
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-subtle);
-        }
+.card:hover {
+    border-color: var(--gold-muted);
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-subtle);
+}
 
-        .card-icon {
-            font-size: 2rem;
-            color: var(--gold-muted);
-            margin-bottom: 30px;
-        }
+/* Obal pre fotku */
+.card-icon {
+    margin-bottom: 25px;
+    overflow: hidden;
+    border-radius: 4px;
+    height: 180px; 
+}
 
-        .card h3 {
-            margin-bottom: 25px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: var(--primary-navy);
-            text-transform: uppercase;
-            font-size: 1.1rem;
-        }
+/* Samotná fotka */
+.card-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    transition: transform 0.5s ease;
+    display: block;
+}
 
-        .card p {
-            font-size: 1rem;
-            color: var(--text-light);
-            font-weight: 300;
-            flex-grow: 1;
-        }
+/* Efekt na fotku pri hoveri */
+.card:hover .card-icon img {
+    transform: scale(1.05);
+}
 
+/* TEXTY V KARTÁCH (Dôležité doplniť!) */
+.card h3 {
+    margin-bottom: 15px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--primary-navy);
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    line-height: 1.4;
+}
+
+.card p {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    font-weight: 300;
+    flex-grow: 1;
+    line-height: 1.6;
+}
         .bg-light { background-color: var(--light-blue-bg); }
 
         /* --- O MNE (BIO) --- */

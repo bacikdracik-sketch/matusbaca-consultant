@@ -408,20 +408,21 @@
         }
 
         .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 15px 0;
-            border: none;
-            border-bottom: 1px solid #cbd5e1;
-            background: transparent;
-            font-family: inherit;
-            font-size: 1rem;
-            outline: none;
-            transition: border-color 0.3s;
-        }
+    width: 100%;
+    padding: 15px 0;
+    border: none;
+    border-bottom: 2px solid #cbd5e1; /* Zvýšené na 2px pre lepší vzhľad */
+    background: transparent;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem; /* Väčšie písmo */
+    color: var(--primary-navy);
+    outline: none;
+    transition: border-color 0.3s;
+}
 
-        .form-group input:focus, .form-group textarea:focus {
-            border-bottom-color: var(--gold-muted);
-        }
+.form-group input:focus, .form-group textarea:focus {
+    border-bottom-color: var(--gold-muted); /* Pri písaní zmení farbu na zlatú */
+}
 
         /* --- FOOTER --- */
         footer {

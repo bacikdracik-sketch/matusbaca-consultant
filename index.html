@@ -28,9 +28,10 @@
         }
         
         html {
-            scroll-behavior: smooth;
-            scroll-padding-top: 90px;
-        }
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px;
+    overflow-x: hidden; /* ZABRÁNI TRASENIU STRÁNKY NA MOBILOCH */
+}
 
         body {
             font-family: 'Montserrat', sans-serif;
@@ -59,10 +60,12 @@
         }
 
         .logo-container {
-            border-left: 3px solid var(--gold-muted);
-            padding-left: 15px;
-            cursor: pointer;
-        }
+    border-left: 3px solid var(--gold-muted);
+    padding-left: 15px;
+    cursor: pointer;
+    display: flex;         /* PRIDANÉ */
+    flex-direction: column; /* PRIDANÉ */
+}
 
         .logo-name {
             font-weight: 700;
@@ -159,17 +162,19 @@
     }
 }
 
-/* Hamburger animácia pri otvorení */
+/* --- HAMBURGER ANIMÁCIA PRI OTVORENÍ --- */
 .hamburger.active span:nth-child(1) {
     transform: rotate(45deg) translate(5px, 5px);
 }
+
 .hamburger.active span:nth-child(2) {
-    opacity: 0;
-}
-.hamburger.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
+    opacity: 0; /* Stredná palička zmizne */
 }
 
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+        
 /* Hover efekt menu linkov */
 .nav-links a:hover {
     color: var(--gold-muted);

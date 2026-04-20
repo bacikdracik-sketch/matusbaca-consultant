@@ -257,37 +257,48 @@ form {
     border-bottom-color: var(--gold-muted);
 }
 
-/* --- FOOTER --- */
+/* --- PROFESIONÁLNY FOOTER --- */
 footer {
-    padding: 80px 10% 60px;
-    background: #0f172a;
-    color: white;
+    padding: 60px 10% 40px;
+    background: #f8fafc; /* Veľmi jemná svetlosivá - pôsobí čisto */
+    border-top: 1px solid var(--border-color);
+    color: var(--text-main);
     text-align: center;
 }
 
 .footer-logo {
     font-weight: 700;
-    font-size: 1.2rem;
-    letter-spacing: 3px;
-    color: var(--gold-muted);
-    margin-bottom: 30px;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    color: var(--primary-navy);
+    margin-bottom: 20px;
     display: block;
+    text-transform: uppercase;
+}
+
+.footer-divider {
+    width: 50px;
+    height: 2px;
+    background: var(--gold-muted);
+    margin: 20px auto;
 }
 
 .footer-legal {
-    font-size: 0.8rem;
-    opacity: 0.5;
-    max-width: 800px;
-    margin: 0 auto 20px;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    max-width: 750px;
+    margin: 0 auto 30px;
     line-height: 1.6;
+    font-weight: 400;
 }
 
 .copyright {
     font-size: 0.75rem;
     letter-spacing: 1px;
     text-transform: uppercase;
-    opacity: 0.3;
-}
+    color: var(--text-light);
+    opacity: 0.7;
+}}
 
 /* --- RESPONSIVITA --- */
 @media (max-width: 1100px) {

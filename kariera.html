@@ -99,48 +99,69 @@ nav {
 
 /* --- HERO --- */
 .hero {
-    padding: 200px 10% 100px;
+    padding: 160px 10% 100px;
     background: radial-gradient(circle at top right, #f8fafc, #ffffff);
-    text-align: left;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+}
+
+.hero-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+    width: 100%;
+}
+
+.hero-text {
+    flex: 1;
+}
+
+.hero-image-wrapper {
+    flex: 0 0 350px; /* Šírka fotky */
+    height: 350px;
+    border-radius: 50%; /* Kruhový výrez */
+    overflow: hidden;
+    border: 5px solid var(--gold-muted); /* Zlatý lem okolo fotky */
+    box-shadow: var(--shadow-subtle);
+}
+
+.hero-portrait {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Zabezpečí, že fotka vyplní kruh bez deformácie */
 }
 
 .hero h1 {
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
     color: var(--primary-navy);
     font-weight: 200;
     line-height: 1.1;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
 .hero h1 b { font-weight: 700; }
 
 .hero p {
-    font-size: 1.2rem;
-    max-width: 700px;
+    font-size: 1.1rem;
     margin-bottom: 40px;
     color: var(--text-light);
     font-weight: 300;
 }
 
-.btn-primary {
-    background: var(--primary-navy);
-    color: white;
-    padding: 18px 45px;
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 600;
-    letter-spacing: 2px;
-    display: inline-block;
-    transition: all 0.4s;
-    text-transform: uppercase;
-    border: none;
-}
-
-.btn-primary:hover {
-    background: var(--gold-muted);
-    transform: translateY(-3px);
-    box-shadow: 0 15px 30px rgba(179, 142, 68, 0.2);
-}
+/* Úprava pre mobilné zariadenia */
+@media (max-width: 900px) {
+    .hero-container {
+        flex-direction: column-reverse;
+        text-align: center;
+    }
+    .hero-image-wrapper {
+        flex: 0 0 250px;
+        height: 250px;
+        margin-bottom: 30px;
+    }
+}}
 
 /* --- SEKCIE --- */
 section {

@@ -547,6 +547,18 @@
     }
 }
 
+   /* --- Nastavenie pre postupné vynáranie --- */
+.reveal {
+    opacity: 0;
+    transform: translateY(50px); /* Sekcia je o 50px nižšie */
+    transition: all 1.0s ease-out; /* Animácia trvá 1 sekundu */
+}
+
+/* --- Stav, keď sa sekcia aktivuje --- */
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0); /* Vráti sa na pôvodné miesto */
+}
     </style>
   <nav>
       
@@ -581,7 +593,7 @@
         </div>
     </section>
 
-    <section id="sluzby" class="bg-light">
+    <section id="sluzby" class="bg-light reveal">
         <div class="section-header">
             <h2>Cesta k <span>Vlastnému Bývaniu</span></h2>
         </div>
@@ -612,7 +624,7 @@
         </div>
     </section>
 
-    <section id="investicie">
+    <section id="investicie" class="reveal">
         <div class="section-header">
             <h2>Rast a <span>Ochrana Majetku</span></h2>
         </div>
@@ -687,7 +699,7 @@
         </div>
     </section>
 
-    <section id="recenzie" class="bg-light">
+    <section id="recenzie" class="bg-light reveal">
     <div class="section-header">
         <h2>Hlasy <span>Mojich Klientov</span></h2>
     </div>
@@ -793,7 +805,7 @@
     </div>
 </section>
 
-<section id="kontakt">
+<section id="kontakt" class="reveal">
     <div class="contact-container">
         <div class="contact-info">
             <h2>Navrhnime Vašu <span>Stratégiu</span>.</h2>
@@ -842,10 +854,38 @@
 </footer>
 
 <script>
+    // 1. Ovládanie mobilného menu (hamburger)
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('nav-links');
 
-    hamburger.addEventListener('click', () => {
-        navLinks.classList.toggle('open');
-    });
+    if (hamburger) {
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+            // Ak máš v CSS animáciu krížika, pridaj toto:
+            hamburger.classList.toggle('active');
+        });
+    }
+
+    // 2. Funkcia pre postupné vynáranie sekcií (Bod 2)
+    function reveal() {
+        var reveals = document.querySelectorAll(".reveal");
+
+        for (var i = 0; i < reveals.length; i++) {
+            var windowHeight = window.innerHeight;
+            var elementTop = reveals[i].getBoundingClientRect().top;
+            var elementVisible = 150; 
+
+            if (elementTop < windowHeight - elementVisible) {
+                reveals[i].classList.add("active");
+            }
+        }
+    }
+
+    // Spúšťače
+    window.addEventListener("scroll", reveal);
+    // Spustí sa aj hneď po načítaní
+    reveal();
 </script>
+
+</body>
+</html>

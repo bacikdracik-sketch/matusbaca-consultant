@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Matúš Bača | Kariéra v OVB</title>
+<title>Matúš Bača | Kariéra</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -39,7 +39,7 @@ body {
     overflow-x: hidden;
 }
 
-/* --- NAVIGÁCIA --- */
+/* --- NAVIGÁCIA (MENU) --- */
 nav {
     display: flex;
     justify-content: space-between;
@@ -90,142 +90,156 @@ nav {
     letter-spacing: 1.2px;
     text-transform: uppercase;
     transition: color 0.3s;
+    position: relative;
 }
 
-.nav-links a:hover { color: var(--gold-muted); }
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--gold-muted);
+    transition: width 0.3s;
+}
 
-/* --- HERO SEKCIA --- */
+.nav-links a:hover {
+    color: var(--gold-muted);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* --- HERO --- */
 .hero {
-    padding: 160px 10% 100px;
+    padding: 200px 10% 140px;
     background: radial-gradient(circle at top right, #f8fafc, #ffffff);
-    min-height: 85vh;
+    min-height: 70vh;
     display: flex;
-    align-items: center;
-}
-
-.hero-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 50px;
-    width: 100%;
-}
-
-.hero-text { flex: 1; }
-
-.hero-image-wrapper {
-    flex: 0 0 350px;
-    height: 350px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 5px solid var(--gold-muted);
-    box-shadow: var(--shadow-subtle);
-}
-
-.hero-portrait {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .hero h1 {
-    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
     color: var(--primary-navy);
     font-weight: 200;
     line-height: 1.1;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
 }
 
 .hero h1 b { font-weight: 700; }
 
 .hero p {
-    font-size: 1.1rem;
-    margin-bottom: 40px;
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin-bottom: 50px;
     color: var(--text-light);
     font-weight: 300;
-    max-width: 600px;
 }
 
 .btn-primary {
     background: var(--primary-navy);
     color: white;
-    padding: 18px 40px;
+    padding: 18px 45px;
     text-decoration: none;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 600;
     letter-spacing: 2px;
     display: inline-block;
     transition: all 0.4s;
     text-transform: uppercase;
-    border: none;
-    cursor: pointer;
+    border: 1px solid var(--primary-navy);
 }
 
 .btn-primary:hover {
     background: var(--gold-muted);
+    border-color: var(--gold-muted);
     transform: translateY(-3px);
     box-shadow: 0 15px 30px rgba(179, 142, 68, 0.2);
 }
 
-/* --- OSTATNÉ SEKCIE --- */
-section { padding: 100px 10%; }
+/* --- SEKCIE --- */
+section {
+    padding: 140px 10%;
+}
 
-.section-header { text-align: center; margin-bottom: 60px; }
+.section-header {
+    text-align: center;
+    margin-bottom: 80px;
+}
 
 .section-header h2 {
     font-weight: 200;
     font-size: 2.5rem;
     color: var(--primary-navy);
+    letter-spacing: 1px;
     text-transform: uppercase;
 }
 
-.section-header span { color: var(--gold-muted); font-weight: 700; }
+.section-header span {
+    color: var(--gold-muted);
+    font-weight: 700;
+}
 
 .grid-3 {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+    gap: 40px;
 }
 
 .card {
     background: white;
-    padding: 40px;
+    padding: 50px 30px;
     border: 1px solid var(--border-color);
-    transition: all 0.4s ease;
+    transition: all 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
-.card:hover { border-color: var(--gold-muted); transform: translateY(-5px); }
-
-.card-icon { font-size: 1.5rem; color: var(--gold-muted); font-weight: 700; margin-bottom: 15px; }
-
-/* --- PODPIS SEKCIA --- */
-.personal-invite {
-    background-color: var(--primary-navy);
-    color: white;
-    text-align: center;
-    padding: 80px 10%;
+.card:hover {
+    border-color: var(--gold-muted);
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-subtle);
 }
 
-.invite-text {
-    font-size: 1.3rem;
+.card-icon {
+    font-size: 2rem;
+    color: var(--gold-muted);
+    margin-bottom: 20px;
+}
+
+.card h3 {
+    margin-bottom: 15px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--primary-navy);
+    text-transform: uppercase;
+    font-size: 1.1rem;
+}
+
+.card p {
+    font-size: 1rem;
+    color: var(--text-light);
     font-weight: 300;
-    font-style: italic;
-    max-width: 800px;
-    margin: 0 auto 30px;
+    flex-grow: 1;
 }
 
-.signature-img { max-width: 250px; height: auto; filter: brightness(1.2); }
+.bg-light { background-color: var(--light-blue-bg); }
 
-/* --- FORMULÁR --- */
+/* --- FORM --- */
 form {
     background: var(--soft-white);
     padding: 50px;
     border: 1px solid var(--border-color);
-    max-width: 800px;
-    margin: 0 auto;
 }
 
-.form-group { margin-bottom: 25px; }
+.form-group {
+    margin-bottom: 30px;
+}
 
 .form-group input, .form-group textarea {
     width: 100%;
@@ -234,21 +248,52 @@ form {
     border-bottom: 1px solid #cbd5e1;
     background: transparent;
     font-family: inherit;
+    font-size: 1rem;
     outline: none;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus, .form-group textarea:focus {
+    border-bottom-color: var(--gold-muted);
 }
 
 /* --- FOOTER --- */
-footer { padding: 60px 10%; background: #0f172a; color: white; text-align: center; }
+footer {
+    padding: 80px 10% 60px;
+    background: #0f172a;
+    color: white;
+    text-align: center;
+}
 
-.footer-legal { font-size: 0.8rem; opacity: 0.5; margin-bottom: 20px; }
+.footer-logo {
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 3px;
+    color: var(--gold-muted);
+    margin-bottom: 30px;
+    display: block;
+}
+
+.footer-legal {
+    font-size: 0.8rem;
+    opacity: 0.5;
+    max-width: 800px;
+    margin: 0 auto 20px;
+    line-height: 1.6;
+}
+
+.copyright {
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0.3;
+}
 
 /* --- RESPONSIVITA --- */
-@media (max-width: 950px) {
-    .hero-container { flex-direction: column-reverse; text-align: center; }
-    .hero-text { display: flex; flex-direction: column; align-items: center; }
-    .hero-image-wrapper { flex: 0 0 280px; height: 280px; margin-bottom: 30px; }
+@media (max-width: 1100px) {
     .nav-links { display: none; }
-    section { padding: 60px 5%; }
+    .grid-3 { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 2.5rem; }
 }
 </style>
 </head>
@@ -257,62 +302,50 @@ footer { padding: 60px 10%; background: #0f172a; color: white; text-align: cente
 <nav>
 <div class="logo-container" onclick="window.location.href='index.html'">
     <div class="logo-name">Matúš Bača</div>
-    <div class="logo-sub">Senior Konzultant</div>
+    <div class="logo-sub">Finančný Konzultant</div>
 </div>
 <div class="nav-links">
     <a href="index.html#sluzby">Služby</a>
+    <a href="index.html#investicie">Investovanie</a>
     <a href="index.html#filozofia">O mne</a>
+    <a href="index.html#recenzie">Recenzie</a>
     <a href="kariera.html">Kariéra</a>
-    <a href="#kariera-form">Dohodnúť konzultáciu</a>
+    <a href="#kariera-form">Dohodnúť si nezáväznú konzultáciu</a>
 </div>
 </nav>
 
-<section class="hero">
-    <div class="hero-container">
-        <div class="hero-text">
-            <a href="index.html" style="text-decoration: none; color: var(--gold-muted); font-weight: 600; margin-bottom: 20px; display: block;">← SPÄŤ NA HLAVNÚ STRÁNKU</a>
-            <h1>Budujte vlastné podnikanie s <b>tímom Matúša Baču</b></h1>
-            <p>Nestaňte sa len zamestnancom. Staňte sa partnerom v najsilnejšom finančnom koncerne v Európe a vezmite svoju budúcnosť do vlastných rúk.</p>
-            <a href="#kariera-form" class="btn-primary">CHCEM SA PRIDAŤ DO TÍMU</a>
-        </div>
-        <div class="hero-image-wrapper">
-            <img src="image_0.png" alt="Matúš Bača" class="hero-portrait">
-        </div>
-    </div>
+<section class="hero" id="home">
+    <a href="index.html" class="btn-primary" style="margin-bottom:30px; display:inline-block;">← Späť na hlavnú stránku</a>
+    <h1>Budujte kariéru s <b>OVB Allfinanz</b></h1>
+    <p>Pridajte sa k nášmu tímu a staňte sa odborníkom vo financiách s podporou skúseného mentora a kompletným školením.</p>
 </section>
 
-<section style="background-color: var(--light-blue-bg);">
+<section id="kariera-opportunity" class="bg-light">
 <div class="section-header">
-    <h2>Prečo budovať <span>Kariéru</span> u nás?</h2>
+    <h2>Otvárame <span>Pozície</span></h2>
 </div>
 <div class="grid-3">
     <div class="card">
         <div class="card-icon">01</div>
-        <h3>Finančná nezávislosť</h3>
-        <p>Váš príjem nie je limitovaný tabuľkovým platom. Odmeňujeme vás za výsledky a kvalitu vašej práce.</p>
+        <h3>Finančný Konzultant</h3>
+        <p>Pomáhajte klientom dosahovať finančnú istotu. Poskytneme vám školenie a podporu, aby ste sa rýchlo stali odborníkom.</p>
     </div>
     <div class="card">
         <div class="card-icon">02</div>
-        <h3>Profesionálny rast</h3>
-        <p>Vlastný vzdelávací systém a mentoring. Naučím vás všetko, čo potrebujete na ceste k špičke v obore.</p>
+        <h3>Asistent Konzultanta</h3>
+        <p>Pomáhajte pri administratíve, komunikácii s klientmi a správe dokumentov. Praktické skúsenosti a možnosť postupu na konzultanta.</p>
     </div>
     <div class="card">
         <div class="card-icon">03</div>
-        <h3>Časová flexibilita</h3>
-        <p>Pracujte vtedy, kedy vám to vyhovuje. Vy rozhodujete o tom, ako si nastavíte svoj pracovný deň.</p>
+        <h3>Stážista / Junior</h3>
+        <p>Pre tých, ktorí chcú začať kariéru vo financiách. Školenia, mentoring a priestor učiť sa od skúsených profesionálov.</p>
     </div>
 </div>
 </section>
 
-<section class="personal-invite">
-    <p class="invite-text">"Mojím cieľom nie je len nájsť spolupracovníka, ale vybudovať silného partnera, ktorý bude rásť spolu so mnou. Ak máte ambície, know-how vám dodám ja."</p>
-    <img src="podpis-cisty.png" alt="Podpis Matúš Bača" class="signature-img">
-</section>
-
 <section id="kariera-form">
   <div class="section-header">
-      <h2>Dohodnite si <span>Vstupný pohovor</span></h2>
-      <p>Vyplňte formulár a ja vás budem kontaktovať pre dohodnutie termínu.</p>
+      <h2>Pošlite nám <span>Žiadosť</span></h2>
   </div>
   <form action="https://formspree.io/f/xeepvqqy" method="POST">
       <div class="form-group">
@@ -322,12 +355,12 @@ footer { padding: 60px 10%; background: #0f172a; color: white; text-align: cente
           <input type="email" name="email" placeholder="Váš e-mail" required>
       </div>
       <div class="form-group">
-          <input type="tel" name="phone" placeholder="Telefónne číslo" required>
+          <input type="tel" name="phone" placeholder="Telefónne číslo">
       </div>
       <div class="form-group">
-          <textarea name="message" rows="4" placeholder="Napíšte niečo krátke o sebe..." required></textarea>
+          <textarea name="message" rows="4" placeholder="Prečo sa chcete pridať k nám?" required></textarea>
       </div>
-      <button type="submit" class="btn-primary" style="width:100%;">ODOSLAŤ ŽIADOSŤ</button>
+      <button type="submit" class="btn-primary" style="width:100%; border:none; cursor:pointer;">ODOSLAŤ ŽIADOSŤ</button>
   </form>
 </section>
 

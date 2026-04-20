@@ -238,7 +238,7 @@
     object-fit: contain; /* Zabezpečí, že uvidíš celú fotku */
     border-radius: 8px;
     transition: transform 0.5s ease;
-/* Efekt na fotku pri hoveri */
+}       /* Efekt na fotku pri hoveri */
 .card:hover .card-icon img {
     transform: scale(1.05);
 }
@@ -265,25 +265,20 @@
 
         /* --- O MNE (BIO) --- */
         .bio {
-            display: flex;
-            flex-wrap: wrap;
-            background: var(--primary-navy);
-            color: white;
-            padding: 0;
-        }
+    display: flex;
+    flex-wrap: wrap;
+    background: #0F172A !important; /* Tmavomodrá farba */
+    color: white;
+    padding: 0;
+}
 
-        .bio-image {
+.bio-image {
     flex: 1;
     min-width: 500px;
     min-height: 700px;
-    background-color: #0F172A; /* tmavý fallback */
-    background-image: url('image_0.png'); /* tvoja fotka */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background: url('image_0.png') center/cover no-repeat; /* Tvoja fotka */
     border-right: 8px solid var(--gold-muted);
 }
-
         .bio-text {
             flex: 1.2;
             padding: 150px 10%;

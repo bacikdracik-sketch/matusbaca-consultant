@@ -296,45 +296,46 @@ footer {
     line-height: 1.1;
 }
 
-.mentor-label {
-    font-size: 0.65rem; 
-    color: #d4af37; 
-    font-weight: 600; 
-    text-transform: uppercase; 
-    letter-spacing: 2px;
+.card p {
+    font-size: 1rem;
+    color: var(--text-light);
+    font-weight: 300;
+    flex-grow: 1;
 }
-/* --- RESPONZIVITA (MOBILNÁ VERZIA - ABY BOLI HLAVY OK) --- */
+
+/* --- RESPONZIVITA (MOBILNÁ VERZIA) --- */
 @media (max-width: 768px) {
     .hero {
-        flex-direction: column;
+        display: block !important;
         padding: 0 !important;
-        background-size: 100% auto !important; /* Celá šírka fotky, nič neodreže */
+        background-size: 100% auto !important; 
         background-position: top center !important;
         min-height: auto !important;
-        display: block !important;
     }
 
     .hero-container {
         margin-top: 0 !important;
-        /* Padding-top prispôsob podľa fotky (60vw-70vw zvyčajne sedí) */
-        padding: 65vw 20px 80px !important; 
+        /* Priestor pod hlavami na fotke */
+        padding: 70vw 20px 60px !important; 
         text-align: center;
     }
 
     .hero h1 { 
-        font-size: 2rem !important; 
+        font-size: 2.2rem !important; 
+        line-height: 1.2;
     }
 
-    /* Vycentrovanie tlačidla a podpisu na mobile */
     .hero-container > div {
         justify-content: center !important;
     }
 
     .mentor-signature {
-        text-align: left; /* Aby meno ostalo pekne pri čiare */
-        margin-top: 15px;
+        text-align: left;
+        margin-top: 20px;
     }
 }
+</style>
+    
 /* --- SEKCIE --- */
 section {
     padding: 140px 10%;

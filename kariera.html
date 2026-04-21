@@ -210,6 +210,7 @@ section {
     font-size: 2rem;
     color: var(--gold-muted);
     margin-bottom: 20px;
+    font-weight: 700;
 }
 
 .card h3 {
@@ -260,17 +261,17 @@ form {
 /* --- PRÉMIOVÝ MODRÝ FOOTER --- */
 footer {
     padding: 80px 10% 40px;
-    background-color: var(--primary-navy); /* Tvoja hlavná modrá */
+    background-color: var(--primary-navy);
     color: white;
     text-align: center;
-    border-top: 3px solid var(--gold-muted); /* Elegantná zlatá linka na vrchu */
+    border-top: 3px solid var(--gold-muted);
 }
 
 .footer-logo {
     font-weight: 700;
     font-size: 1.2rem;
     letter-spacing: 3px;
-    color: var(--gold-muted); /* Zlaté logo v tme vynikne */
+    color: var(--gold-muted);
     margin-bottom: 10px;
     display: block;
     text-transform: uppercase;
@@ -286,7 +287,7 @@ footer {
 
 .footer-legal {
     font-size: 0.85rem;
-    color: #cbd5e1; /* Jemná sivomodrá, aby text "nekričal" */
+    color: #cbd5e1;
     max-width: 800px;
     margin: 0 auto 30px;
     line-height: 1.7;
@@ -305,7 +306,7 @@ footer {
 @media (max-width: 1100px) {
     .nav-links { display: none; }
     .grid-3 { grid-template-columns: 1fr; }
-    .hero h1 { font-size: 2.5rem; }
+    .hero h1 { font-size: 2.2rem; }
 }
 </style>
 </head>
@@ -327,21 +328,20 @@ footer {
 </nav>
 
 <section class="hero" id="home">
-    <a href="index.html" class="btn-primary" style="margin-bottom:30px; display:inline-block;">← Späť na hlavnú stránku</a>
     <h1>Budujte kariéru s <b>OVB Allfinanz</b></h1>
     <p>Pridajte sa k nášmu tímu a staňte sa odborníkom vo financiách s podporou skúseného mentora a kompletným školením.</p>
     
-    <div style="margin-top: 40px; text-align: left;">
-    <img src="image_0.png" alt="Matúš Bača" 
-         style="width: 250px; 
-                height: 250px; 
-                border-radius: 50%; 
-                object-fit: cover; 
-                object-position: center top; /* TOTO OPRAVÍ OREZANIE: Posunie fotku nadol */
-                border: 4px solid var(--gold-muted); 
-                box-shadow: var(--shadow-subtle);
-                display: block;">
-</div>
+    <div style="margin-top: 30px; text-align: left;">
+        <img src="image_0.png" alt="Matúš Bača" 
+             style="width: 250px; 
+                    height: 250px; 
+                    border-radius: 50%; 
+                    object-fit: cover; 
+                    object-position: center top; 
+                    border: 4px solid var(--gold-muted); 
+                    box-shadow: var(--shadow-subtle);
+                    display: block;">
+    </div>
 </section>
 
 <section id="kariera-opportunity" class="bg-light">
@@ -389,11 +389,12 @@ footer {
 </section>
 
 <footer>
-<span class="footer-logo">OVB ALLFINANZ SLOVENSKO A.S.</span>
-<div class="footer-legal">
-Matúš Bača vykonáva finančné sprostredkovanie ako podriadený finančný agent pod záštitou spoločnosti OVB Allfinanz Slovensko a.s.
-</div>
-<p class="copyright">Všetky práva vyhradené &copy; 2026 | Matúš Bača</p>
+    <span class="footer-logo">OVB Allfinanz Slovensko a.s.</span>
+    <div class="footer-divider"></div>
+    <div class="footer-legal">
+        Matúš Bača vykonáva finančné sprostredkovanie ako podriadený finančný agent spoločnosti OVB Allfinanz Slovensko a.s., zapísanej v registri NBS pod číslom 5538917.
+    </div>
+    <p class="copyright">© 2026 Matúš Bača | Všetky práva vyhradené</p>
 </footer>
 
 </body>

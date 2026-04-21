@@ -39,7 +39,7 @@ body {
     overflow-x: hidden;
 }
 
-/* --- NAVIGÁCIA (MENU) --- */
+/* --- NAVIGÁCIA --- */
 nav {
     display: flex;
     justify-content: space-between;
@@ -90,56 +90,26 @@ nav {
     letter-spacing: 1.2px;
     text-transform: uppercase;
     transition: color 0.3s;
-    position: relative;
 }
 
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -5px;
-    left: 0;
-    background-color: var(--gold-muted);
-    transition: width 0.3s;
-}
+.nav-links a:hover { color: var(--gold-muted); }
 
-.nav-links a:hover {
-    color: var(--gold-muted);
-}
-
-.nav-links a:hover::after {
-    width: 100%;
-}
-
-/* --- HERO KARIÉRA (OPRAVENÉ HLAVY PRE PC) --- */
+/* --- HERO SEKICA --- */
 .hero {
     position: relative;
     min-height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
     padding: 0 10%;
-    /* ZMENA: posunuli sme fotku o 80px nižšie kvôli menu a dali background-size: contain */
     background: url('tim-kariera.png') no-repeat center 80px;
     background-size: contain; 
     background-color: #0F172A;
-    overflow: hidden;
-}
-
-.hero-overlay {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    /* ZMENA: Jemnejší prechod navrchu, aby hlavy neboli hneď v tme */
-    background: linear-gradient(to bottom, rgba(15, 23, 42, 0) 0%, rgba(15, 23, 42, 0.5) 40%, rgba(15, 23, 42, 0.95) 100%);
-    z-index: 1;
 }
 
 .hero-container {
     position: relative;
     z-index: 2;
     max-width: 700px;
-    /* ZMENA: Odsadenie textu sme upravili, aby neskákal do fotky pri contain */
     margin-top: 35vh; 
 }
 
@@ -147,7 +117,6 @@ nav {
     font-size: 3.5rem;
     color: #fff !important;
     line-height: 1.1;
-    margin-bottom: 20px;
     font-weight: 700;
 }
 
@@ -156,10 +125,30 @@ nav {
 .hero p {
     font-size: 1.2rem;
     color: #fff !important;
-    margin-bottom: 35px;
+    margin: 25px 0 35px;
     opacity: 0.9;
 }
-/* --- TLAČIDLO A MENTOR ŠTÝLY --- */
+
+/* --- SPOLOČNÉ SEKCE A KARTY --- */
+section { padding: 100px 10%; }
+
+.section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    color: var(--primary-navy);
+    text-transform: uppercase;
+    font-weight: 200;
+}
+
+.section-header h2 span, .section-header h2 b {
+    font-weight: 700;
+    color: var(--gold-muted);
+}
+
 .btn-primary {
     background: #c5a059;
     color: white !important;
@@ -170,206 +159,79 @@ nav {
     text-transform: uppercase;
     border-radius: 5px;
     display: inline-block;
+    transition: all 0.3s ease;
     border: none;
     cursor: pointer;
-    transition: all 0.3s ease;
 }
 
 .btn-primary:hover {
     background: #b38e44;
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-/* --- DIZAJN KARIET POZÍCIÍ --- */
-.card-new {
-    background: #fff;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05); /* Jemný tieň */
-    transition: all 0.3s ease;
-}
-
-.card-new:hover {
-    transform: translateY(-10px); /* Karta sa pri prejdení myšou nadvihne */
-    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-}
-
-.card-img {
-    overflow: hidden; /* Dôležité pre zoom efekt */
-}
-
-.card-img img {
-    transition: transform 0.5s ease;
-}
-
-.card-new:hover .card-img img {
-    transform: scale(1.1); /* Obrázok sa jemne priblíži */
-}
-
-/* --- DIZAJN FORMULÁRA --- */
-#kariera-form {
-    padding: 80px 10%;
-    background: #0F172A; /* Tmavé pozadie pre formulár, pôsobí to profi */
-    color: #fff;
-}
-
-#kariera-form .section-header h2 {
-    text-align: center;
-    color: #fff;
-    margin-bottom: 40px;
-    font-size: 2.5rem;
-}
-
-#kariera-form .section-header span {
-    color: #c5a059;
-}
-
-#kariera-form form {
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group input, .form-group textarea {
-    width: 100%;
-    padding: 15px;
-    border-radius: 5px;
-    border: 1px solid #2d3748;
-    background: #1a202c;
-    color: #fff;
-    font-size: 1rem;
-}
-
-.form-group input::placeholder, .form-group textarea::placeholder {
-    color: #718096;
-}
-
-/* --- FOOTER DIZAJN --- */
-footer {
-    padding: 60px 10% 30px;
-    background: #0a101f;
-    text-align: center;
-    color: #cbd5e0;
-}
-
-.footer-logo {
-    font-weight: 700;
-    color: #fff;
-    letter-spacing: 1px;
-}
-
-.footer-divider {
-    width: 40px;
-    height: 2px;
-    background: #c5a059;
-    margin: 20px auto;
-}
-
-.footer-legal {
-    font-size: 0.8rem;
-    line-height: 1.6;
-    max-width: 800px;
-    margin: 0 auto 20px;
-    opacity: 0.7;
-}
-
-.copyright {
-    font-size: 0.85rem;
-    opacity: 0.5;
-}
-
-.mentor-signature {
-    display: flex; 
-    flex-direction: column; 
-    border-left: 2px solid #d4af37; 
-    padding-left: 20px;
-}
-
-.mentor-name {
-    font-family: serif; 
-    font-style: italic; 
-    font-size: 1.8rem; 
-    color: #d4af37; 
-    line-height: 1.1;
-}
-
-.card p {
-    font-size: 1rem;
-    color: var(--text-light);
-    font-weight: 300;
-    flex-grow: 1;
-}
-
-/* --- RESPONZIVITA (MOBILNÁ VERZIA) --- */
-@media (max-width: 768px) {
-    .hero {
-        display: block !important;
-        padding: 0 !important;
-        background-size: 100% auto !important; 
-        background-position: top center !important;
-        min-height: auto !important;
-    }
-
-    .hero-container {
-        margin-top: 0 !important;
-        padding: 70vw 20px 60px !important; 
-        text-align: center;
-    }
-
-    .hero h1 { 
-        font-size: 2.2rem !important; 
-        line-height: 1.2;
-    }
-
-    .hero-container > div {
-        justify-content: center !important;
-    }
-
-    .mentor-signature {
-        text-align: left;
-        margin-top: 20px;
-    }
-}
-
-/* --- SEKCIE (TERAZ SÚ SPRÁVNE VNÚTRI) --- */
-section {
-    padding: 140px 10%;
-}
-
-.section-header {
-    text-align: center;
-    margin-bottom: 80px;
-}
-
-.section-header h2 {
-    font-weight: 200;
-    font-size: 2.5rem;
-    color: var(--primary-navy);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-}
-
-.section-header span {
-    color: var(--gold-muted);
-    font-weight: 700;
 }
 
 .grid-3 {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 40px;
+    gap: 30px;
 }
 
-.card p {
-    font-size: 1rem;
-    color: var(--text-light);
-    font-weight: 300;
-    flex-grow: 1;
+.card-new {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow-subtle);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-new:hover { transform: translateY(-10px); }
+
+.card-body { padding: 30px; flex-grow: 1; display: flex; flex-direction: column; }
+
+.card-body h3 { margin-bottom: 15px; color: var(--primary-navy); text-transform: uppercase; font-size: 1.2rem; }
+
+.card-body p { color: var(--text-light); margin-bottom: 20px; flex-grow: 1; font-size: 0.95rem; }
+
+/* --- BENEFITY --- */
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.benefit-card {
+    padding: 40px;
+    background: var(--soft-white);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.benefit-icon { font-size: 2.5rem; margin-bottom: 20px; }
+
+/* --- FORMULÁR --- */
+#kariera-form { background: #0F172A; color: #fff; }
+#kariera-form .section-header h2 { color: #fff; }
+
+.form-group { margin-bottom: 20px; }
+.form-group input, .form-group textarea {
+    width: 100%; padding: 15px; border-radius: 5px; border: 1px solid #2d3748;
+    background: #1a202c; color: #fff; font-family: inherit;
+}
+
+/* --- FOOTER --- */
+footer { padding: 60px 10% 30px; background: #0a101f; text-align: center; color: #cbd5e0; }
+.footer-divider { width: 40px; height: 2px; background: #c5a059; margin: 20px auto; }
+
+/* --- RESPONZIVITA --- */
+@media (max-width: 768px) {
+    .hero { display: block; padding: 0; background-size: 100% auto; background-position: top center; min-height: auto; }
+    .hero-container { margin-top: 0; padding: 70vw 20px 60px; text-align: center; }
+    .hero h1 { font-size: 2.2rem; }
+    .nav-links { display: none; }
 }
 </style>
+</head>
     
 /* --- SEKCIE --- */
 section {
@@ -444,161 +306,109 @@ section {
 <body>
 
 <nav>
-<div class="logo-container" onclick="window.location.href='index.html'">
-    <div class="logo-name">Matúš Bača</div>
-    <div class="logo-sub">Finančný Konzultant</div>
-</div>
-<div class="nav-links">
-    <a href="index.html#sluzby">Služby</a>
-    <a href="index.html#investicie">Investovanie</a>
-    <a href="index.html#filozofia">O mne</a>
-    <a href="index.html#recenzie">Recenzie</a>
-    <a href="kariera.html#">Kariéra</a>
-    <a href="#kariera-form">Dohodnúť si nezáväznú konzultáciu</a>
-</div>
+    <div class="logo-container" onclick="window.location.href='index.html'">
+        <div class="logo-name">Matúš Bača</div>
+        <div class="logo-sub">Finančný Konzultant</div>
+    </div>
+    <div class="nav-links">
+        <a href="index.html#sluzby">Služby</a>
+        <a href="index.html#investicie">Investovanie</a>
+        <a href="index.html#filozofia">O mne</a>
+        <a href="#kariera-form">Konzultácia</a>
+    </div>
 </nav>
 
 <section class="hero" id="home">
-    <div style="
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(to bottom, rgba(15, 23, 42, 0.2) 0%, rgba(15, 23, 42, 0.8) 60%, rgba(15, 23, 42, 0.95) 100%);
-        z-index: 1;
-    "></div>
-
-    <div class="hero-container" style="position: relative; z-index: 2; max-width: 800px; width: 100%;">
-        
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(15,23,42,0.2), rgba(15,23,42,0.95)); z-index: 1;"></div>
+    <div class="hero-container">
         <h1>Budujte kariéru s <br><b>OVB Allfinanz</b></h1>
-        
-        <p>Pridajte sa k úspešnému tímu Matúša Baču. Staňte sa odborníkom vo financiách a vybudujte si vlastné podnikanie pod záštitou európskeho lídra.</p>
-        
-        <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap; margin-top: 30px;">
+        <p>Pridajte sa k úspešnému tímu Matúša Baču. Staňte sa odborníkom vo financiách pod záštitou európskeho lídra.</p>
+        <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap; justify-content: flex-start;">
             <a href="#kariera-form" class="btn-primary">Začať spoluprácu</a>
-            
-            <div style="display: flex; flex-direction: column; border-left: 2px solid #d4af37; padding-left: 20px;">
-                <span style="font-family: serif; font-style: italic; font-size: 1.8rem; color: #d4af37; line-height: 1.1;">
-                    Matúš Bača
-                </span>
-                <span style="font-size: 0.65rem; color: #d4af37; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;">
-                    Váš mentor
-                </span>
+            <div style="border-left: 2px solid #d4af37; padding-left: 20px;">
+                <span style="font-family: serif; font-style: italic; font-size: 1.8rem; color: #d4af37; display: block; line-height: 1;">Matúš Bača</span>
+                <span style="font-size: 0.65rem; color: #d4af37; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;">Váš mentor</span>
             </div>
         </div>
     </div>
 </section>
-    <section class="benefits" id="benefity">
-    <div class="benefits-header">
-        <h2>Prečo budovať kariéru <b>v našom tíme?</b></h2>
-        <div class="divider"></div>
-        <p>Ponúkame zázemie európskeho lídra a individuálny prístup mentora.</p>
-    </div>
 
+<section id="benefity">
+    <div class="section-header">
+        <h2>Prečo budovať kariéru <b>v našom tíme?</b></h2>
+    </div>
     <div class="benefits-grid">
         <div class="benefit-card">
             <div class="benefit-icon">📈</div>
             <h3>Neobmedzený príjem</h3>
-            <p>Vaša odmena rastie priamoúmerne s vašimi výsledkami. Žiadne platové stropy, len férový provízny systém.</p>
+            <p>Vaša odmena rastie priamoúmerne s výsledkami. Žiadne stropy, len férový provízny systém.</p>
         </div>
-
         <div class="benefit-card">
             <div class="benefit-icon">🎓</div>
             <h3>Top vzdelávanie</h3>
-            <p>Získate prístup k exkluzívnemu know-how a certifikáciám, ktoré vás posunú medzi elitu finančného trhu.</p>
+            <p>Získate prístup k exkluzívnemu know-how a certifikáciám, ktoré vás posunú medzi elitu trhu.</p>
         </div>
-
         <div class="benefit-card">
             <div class="benefit-icon">🤝</div>
             <h3>Osobný mentoring</h3>
-            <p>Nenecháme vás v tom samých. Ako váš mentor vás osobne prevediem celým procesom až k úspechu.</p>
-        </div>
-
-        <div class="benefit-card">
-            <div class="benefit-icon">🌍</div>
-            <h3>Stabilita značky</h3>
-            <p>Budujete si vlastné podnikanie pod krídlami OVB Allfinanz – lídra s viac ako 50-ročnou tradíciou.</p>
+            <p>Nenecháme vás v tom samých. Ako váš mentor vás osobne prevediem celým procesom k úspechu.</p>
         </div>
     </div>
 </section>
-<style>
- 
 
-    <div class="grid-3" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
-        
+<section id="pozicie" style="background: var(--light-blue-bg);">
+    <div class="section-header">
+        <h2>Otvárame <span>Pozície</span></h2>
+    </div>
+    <div class="grid-3">
         <div class="card-new">
-            <div class="card-img">
-                <img src="konzultant.jpg" alt="Finančný Konzultant" style="width:100%; height:200px; object-fit:cover;">
-            </div>
-            <div class="card-body" style="padding: 25px; background: #fff; border-radius: 0 0 10px 10px;">
-                <h3 style="color: #0F172A; margin-bottom: 15px;">Finančný Konzultant</h3>
-                <p style="color: #64748b; font-size: 0.95rem; line-height: 1.6;">Pomáhajte klientom dosahovať finančnú istotu. Poskytneme vám školenie a podporu, aby ste sa rýchlo stali odborníkom.</p>
-                <a href="#kariera-form" class="btn-link" style="display:inline-block; margin-top:15px; color:#c5a059; font-weight:700; text-decoration:none;">MÁM ZÁUJEM →</a>
+            <img src="konzultant.jpg" alt="Konzultant" style="width:100%; height:200px; object-fit:cover;">
+            <div class="card-body">
+                <h3>Finančný Konzultant</h3>
+                <p>Pomáhajte klientom dosahovať finančnú istotu. Kompletné zaškolenie a podpora sú samozrejmosťou.</p>
+                <a href="#kariera-form" style="color:var(--gold-muted); font-weight:700; text-decoration:none;">MÁM ZÁUJEM →</a>
             </div>
         </div>
-        
         <div class="card-new">
-            <div class="card-img">
-                <img src="manazer.jpg" alt="Manažér tímu" style="width:100%; height:200px; object-fit:cover;">
-            </div>
-            <div class="card-body" style="padding: 25px; background: #fff; border-radius: 0 0 10px 10px;">
-                <h3 style="color: #0F172A; margin-bottom: 15px;">Manažér tímu</h3>
-                <p style="color: #64748b; font-size: 0.95rem; line-height: 1.6;">Veďte vlastnú skupinu konzultantov. Získajte nadštandardné ohodnotenie za rozvoj a motiváciu svojich spolupracovníkov.</p>
-                <a href="#kariera-form" class="btn-link" style="display:inline-block; margin-top:15px; color:#c5a059; font-weight:700; text-decoration:none;">MÁM ZÁUJEM →</a>
+            <img src="manazer.jpg" alt="Manažér" style="width:100%; height:200px; object-fit:cover;">
+            <div class="card-body">
+                <h3>Manažér tímu</h3>
+                <p>Veďte vlastnú skupinu konzultantov a získajte nadštandardné ohodnotenie za ich rozvoj.</p>
+                <a href="#kariera-form" style="color:var(--gold-muted); font-weight:700; text-decoration:none;">MÁM ZÁUJEM →</a>
             </div>
         </div>
-        
         <div class="card-new">
-            <div class="card-img">
-                <img src="specialista.jpg" alt="Regionálny špecialista" style="width:100%; height:200px; object-fit:cover;">
-            </div>
-            <div class="card-body" style="padding: 25px; background: #fff; border-radius: 0 0 10px 10px;">
-                <h3 style="color: #0F172A; margin-bottom: 15px;">Regionálny špecialista</h3>
-                <p style="color: #64748b; font-size: 0.95rem; line-height: 1.6;">Staňte sa tvárou OVB vo svojom regióne. Budujte silné meno značky a využívajte náš prepracovaný kariérny systém.</p>
-                <a href="#kariera-form" class="btn-link" style="display:inline-block; margin-top:15px; color:#c5a059; font-weight:700; text-decoration:none;">MÁM ZÁUJEM →</a>
+            <img src="specialista.jpg" alt="Špecialista" style="width:100%; height:200px; object-fit:cover;">
+            <div class="card-body">
+                <h3>Regionálny špecialista</h3>
+                <p>Staňte sa tvárou OVB vo svojom regióne a využívajte náš prepracovaný kariérny systém.</p>
+                <a href="#kariera-form" style="color:var(--gold-muted); font-weight:700; text-decoration:none;">MÁM ZÁUJEM →</a>
             </div>
         </div>
-
-    </div> 
+    </div>
 </section>
 
 <section id="kariera-form">
-  <div class="section-header">
-      <h2>Pošlite nám <span>Žiadosť</span></h2>
-  </div>
-  <form action="https://formspree.io/f/xeepvqqy" method="POST">
-      <div class="form-group">
-          <input type="text" name="name" placeholder="Meno a priezvisko" required>
-      </div>
-      <div class="form-group">
-          <input type="email" name="email" placeholder="Váš e-mail" required>
-      </div>
-      <div class="form-group">
-          <input type="tel" name="phone" placeholder="Telefónne číslo">
-      </div>
-      <div class="form-group">
-          <textarea name="message" rows="4" placeholder="Prečo sa chcete pridať k nám?" required></textarea>
-      </div>
-      <button type="submit" class="btn-primary" style="width:100%; border:none; cursor:pointer;">ODOSLAŤ ŽIADOSŤ</button>
-  </form>
+    <div class="section-header">
+        <h2>Pošlite nám <span>Žiadosť</span></h2>
+    </div>
+    <form action="https://formspree.io/f/xeepvqqy" method="POST" style="max-width: 600px; margin: 0 auto;">
+        <div class="form-group"><input type="text" name="name" placeholder="Meno a priezvisko" required></div>
+        <div class="form-group"><input type="email" name="email" placeholder="Váš e-mail" required></div>
+        <div class="form-group"><input type="tel" name="phone" placeholder="Telefónne číslo"></div>
+        <div class="form-group"><textarea name="message" rows="4" placeholder="Prečo sa chcete pridať k nám?" required></textarea></div>
+        <button type="submit" class="btn-primary" style="width:100%; border:none; cursor:pointer;">ODOSLAŤ ŽIADOSŤ</button>
+    </form>
 </section>
 
 <footer>
     <span class="footer-logo">OVB Allfinanz Slovensko a.s.</span>
     <div class="footer-divider"></div>
-    <div class="footer-legal">
+    <div style="font-size: 0.8rem; opacity: 0.7; max-width: 800px; margin: 0 auto 20px; line-height: 1.6;">
         Matúš Bača vykonáva finančné sprostredkovanie ako podriadený finančný agent spoločnosti OVB Allfinanz Slovensko a.s., zapísanej v registri NBS pod číslom 5538917.
     </div>
-    <p class="copyright">© 2026 Matúš Bača | Všetky práva vyhradené</p>
+    <p style="font-size: 0.85rem; opacity: 0.5;">© 2026 Matúš Bača | Všetky práva vyhradené</p>
 </footer>
-<script>
-  // Tento kód prinúti stránku skočiť na vrch pri každom načítaní
-  window.onload = function() {
-    setTimeout(function() {
-      window.scrollTo(0, 0);
-    }, 10);
-  };
-</script>
+
 </body>
 </html>

@@ -115,14 +115,31 @@ nav {
 /* --- HERO KARIÉRA (OPRAVENÉ HLAVY) --- */
 .hero {
     position: relative;
-    padding: 380px 10% 120px !important;
+    padding: 420px 10% 120px !important; 
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    background: url('tim-kariera.png') no-repeat 50% 0%;
+    background: url('tim-kariera.png') no-repeat center top; 
     background-size: cover;
     color: white;
+}
+
+/* --- OPRAVA HLÁV PRE MOBILY (768px a menej) --- */
+@media (max-width: 768px) {
+    .hero {
+        padding-top: 60vh !important;  
+        background-position: center top !important;
+        min-height: 110vh !important;
+        justify-content: center;
+        text-align: center;
+    }
+    .hero-container {
+        max-width: 100%;
+    }
+    .hero h1 {
+        font-size: 1.8rem !important; 
+    }
 }
 
 .hero-overlay {
@@ -132,6 +149,7 @@ nav {
     z-index: 1;
 }
 
+/* TOTO SI TAM NEMAL (DOPLNENÉ) - aby text vyzeral dobre aj na PC */
 .hero-container { position: relative; z-index: 2; max-width: 800px; width: 100%; }
 .hero h1 { font-size: 3rem; color: white !important; line-height: 1.2; margin-bottom: 20px; }
 .hero h1 b { color: #d4af37; font-weight: 700; }
@@ -292,10 +310,14 @@ footer {
 }
 
 /* --- RESPONSIVITA --- */
-@media (max-width: 1100px) {
-    .nav-links { display: none; }
-    .grid-3 { grid-template-columns: 1fr; }
-    .hero h1 { font-size: 2.2rem; }
+@media (max-width: 768px) {
+    .hero {
+        /* Vypočíta padding podľa výšky obrazovky (50vh = 50 % výšky displeja) */
+        padding-top: 55vh !important; 
+        background-attachment: scroll;
+        /* 'contain' by fotku zmenšilo priveľa, 'cover' je fajn, ale s top pozíciou */
+        background-position: center top !important; 
+    }
 }
 </style>
 </head>

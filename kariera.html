@@ -421,6 +421,13 @@ footer {
     </div>
     <p class="copyright">© 2026 Matúš Bača | Všetky práva vyhradené</p>
 </footer>
-
+<script>
+  // Tento kód prinúti stránku skočiť na vrch pri každom načítaní
+  window.onload = function() {
+    setTimeout(function() {
+      window.scrollTo(0, 0);
+    }, 10);
+  };
+</script>
 </body>
 </html>

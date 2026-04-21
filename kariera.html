@@ -112,36 +112,38 @@ nav {
     width: 100%;
 }
 
-/* --- HERO --- */
+/* --- HERO KARIÉRA (OPRAVENÉ) --- */
 .hero {
-    padding: 200px 10% 140px;
-    background: radial-gradient(circle at top right, #f8fafc, #ffffff);
-    min-height: 70vh;
+    /* Toto zabezpečí, aby sa sekcia neposúvala pod navigáciu */
+    scroll-margin-top: 100px; 
+    
+    position: relative;
+    padding: 220px 10% 120px;
+    min-height: 90vh;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    align-items: center;
+    justify-content: flex-start;
+    
+    /* Fotka tímu */
+    background: url('tim-kariera.png') no-repeat top center;
+    background-size: cover;
+    color: white;
+    overflow: hidden;
 }
 
-.hero h1 {
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
-    color: var(--primary-navy);
-    font-weight: 200;
-    line-height: 1.1;
-    margin-bottom: 30px;
+/* Aby bol text v Hero sekcii biely, keďže pozadie je tmavá fotka */
+.hero h1, .hero p {
+    color: white !important;
 }
 
-.hero h1 b { font-weight: 700; }
-
-.hero p {
-    font-size: 1.2rem;
-    max-width: 700px;
-    margin-bottom: 50px;
-    color: var(--text-light);
-    font-weight: 300;
+.hero h1 b { 
+    color: #d4af37; /* Zlatá pre OVB Allfinanz */
+    font-weight: 700; 
 }
 
+/* Ostatné štýly pre tlačidlo môžu zostať ako si mal */
 .btn-primary {
-    background: var(--primary-navy);
+    background: #c5a059;
     color: white;
     padding: 18px 45px;
     text-decoration: none;
@@ -151,16 +153,9 @@ nav {
     display: inline-block;
     transition: all 0.4s;
     text-transform: uppercase;
-    border: 1px solid var(--primary-navy);
+    border: 1px solid #c5a059;
+    border-radius: 5px;
 }
-
-.btn-primary:hover {
-    background: var(--gold-muted);
-    border-color: var(--gold-muted);
-    transform: translateY(-3px);
-    box-shadow: 0 15px 30px rgba(179, 142, 68, 0.2);
-}
-
 /* --- SEKCIE --- */
 section {
     padding: 140px 10%;
@@ -322,26 +317,12 @@ footer {
     <a href="index.html#investicie">Investovanie</a>
     <a href="index.html#filozofia">O mne</a>
     <a href="index.html#recenzie">Recenzie</a>
-    <a href="kariera.html">Kariéra</a>
+    <a href="kariera.html#">Kariéra</a>
     <a href="#kariera-form">Dohodnúť si nezáväznú konzultáciu</a>
 </div>
 </nav>
 
-<section class="hero" id="home" style="
-    position: relative;
-    /* ZVÄČŠENÝ HORNÝ ODSTUP, ABY TEXT NEBOL CEZ HLAVY */
-    padding: 220px 10% 120px;
-    min-height: 90vh;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    
-    /* OPRAVENÉ ZAROVNANIE NA 'TOP' - OREZÁVA SPODOK, NIE VRCH */
-    background: url('tim-kariera.png') no-repeat top center;
-    background-size: cover;
-    color: white;
-    overflow: hidden;
-">
+<section class="hero" id="home">
     <div style="
         position: absolute;
         top: 0;
@@ -354,32 +335,23 @@ footer {
 
     <div class="hero-container" style="position: relative; z-index: 2; max-width: 800px; width: 100%;">
         
-        <h1 style="font-size: clamp(2.3rem, 5.5vw, 3.8rem); color: white; font-weight: 200; line-height: 1.1; margin-bottom: 25px; text-align: left;">
-            Budujte kariéru s <br><b style="color: #d4af37;">OVB Allfinanz</b>
-        </h1>
+        <h1>Budujte kariéru s <br><b>OVB Allfinanz</b></h1>
         
-        <p style="font-size: 1.2rem; margin-bottom: 40px; color: rgba(255,255,255,0.9); font-weight: 300; max-width: 600px; line-height: 1.6; text-align: left;">
-            Pridajte sa k úspešnému tímu Matúša Baču. Staňte sa odborníkom vo financiách a vybudujte si vlastné podnikanie pod záštitou európskeho lídra.
-        </p>
+        <p>Pridajte sa k úspešnému tímu Matúša Baču. Staňte sa odborníkom vo financiách a vybudujte si vlastné podnikanie pod záštitou európskeho lídra.</p>
         
         <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
-            <a href="#kariera-form" class="btn-primary" style="background: #c5a059; border-color: #c5a059; color: white; padding: 15px 35px; text-decoration: none; border-radius: 5px; font-weight: bold; text-transform: uppercase; font-size: 0.9rem;">
-                Chcem sa pridať
-            </a>
+            <a href="#kariera-form" class="btn-primary">Chcem sa pridať</a>
             
-            <div style="display: flex; align-items: center; gap: 15px; background: rgba(255,255,255,0.1); padding: 8px 20px; border-radius: 50px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);">
-                <img src="image_0.png" alt="Matúš Bača" 
-                     style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid #d4af37; object-fit: cover; object-position: center top;">
-                <div style="text-align: left;">
-                    <div style="font-weight: 700; color: white; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;">Matúš Bača</div>
-                    <div style="font-size: 0.7rem; color: #d4af37; font-weight: 600;">Váš mentor</div>
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: -15px;">
+                <img src="podpis-matus.png" alt="Zlatý podpis" style="height: 100px; width: auto; display: block; margin-bottom: -15px; filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.5));">
+                <div style="font-size: 0.75rem; color: #d4af37; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8; text-align: center;">
+                    Matúš Bača, váš mentor
                 </div>
             </div>
         </div>
 
     </div>
 </section>
-
 <style>
     @media (max-width: 768px) {
         .hero {

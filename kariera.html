@@ -180,7 +180,112 @@ nav {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
+/* --- DIZAJN KARIET POZÍCIÍ --- */
+.card-new {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05); /* Jemný tieň */
+    transition: all 0.3s ease;
+}
 
+.card-new:hover {
+    transform: translateY(-10px); /* Karta sa pri prejdení myšou nadvihne */
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.card-img {
+    overflow: hidden; /* Dôležité pre zoom efekt */
+}
+
+.card-img img {
+    transition: transform 0.5s ease;
+}
+
+.card-new:hover .card-img img {
+    transform: scale(1.1); /* Obrázok sa jemne priblíži */
+}
+
+/* --- DIZAJN FORMULÁRA --- */
+#kariera-form {
+    padding: 80px 10%;
+    background: #0F172A; /* Tmavé pozadie pre formulár, pôsobí to profi */
+    color: #fff;
+}
+
+#kariera-form .section-header h2 {
+    text-align: center;
+    color: #fff;
+    margin-bottom: 40px;
+    font-size: 2.5rem;
+}
+
+#kariera-form .section-header span {
+    color: #c5a059;
+}
+
+#kariera-form form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #2d3748;
+    background: #1a202c;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.form-group input::placeholder, .form-group textarea::placeholder {
+    color: #718096;
+}
+
+/* --- FOOTER DIZAJN --- */
+footer {
+    padding: 60px 10% 30px;
+    background: #0a101f;
+    text-align: center;
+    color: #cbd5e0;
+}
+
+.footer-logo {
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 1px;
+}
+
+.footer-divider {
+    width: 40px;
+    height: 2px;
+    background: #c5a059;
+    margin: 20px auto;
+}
+
+.footer-legal {
+    font-size: 0.8rem;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto 20px;
+    opacity: 0.7;
+}
+
+.copyright {
+    font-size: 0.85rem;
+    opacity: 0.5;
+}
+
+.mentor-signature {
+    display: flex; 
+    flex-direction: column; 
+    border-left: 2px solid #d4af37; 
+    padding-left: 20px;
 .mentor-signature {
     display: flex; 
     flex-direction: column; 
@@ -436,6 +541,39 @@ footer {
         </div>
     </div>
 </section>
+    <section class="benefits" id="benefity">
+    <div class="benefits-header">
+        <h2>Prečo budovať kariéru <b>v našom tíme?</b></h2>
+        <div class="divider"></div>
+        <p>Ponúkame zázemie európskeho lídra a individuálny prístup mentora.</p>
+    </div>
+
+    <div class="benefits-grid">
+        <div class="benefit-card">
+            <div class="benefit-icon">📈</div>
+            <h3>Neobmedzený príjem</h3>
+            <p>Vaša odmena rastie priamoúmerne s vašimi výsledkami. Žiadne platové stropy, len férový provízny systém.</p>
+        </div>
+
+        <div class="benefit-card">
+            <div class="benefit-icon">🎓</div>
+            <h3>Top vzdelávanie</h3>
+            <p>Získate prístup k exkluzívnemu know-how a certifikáciám, ktoré vás posunú medzi elitu finančného trhu.</p>
+        </div>
+
+        <div class="benefit-card">
+            <div class="benefit-icon">🤝</div>
+            <h3>Osobný mentoring</h3>
+            <p>Nenecháme vás v tom samých. Ako váš mentor vás osobne prevediem celým procesom až k úspechu.</p>
+        </div>
+
+        <div class="benefit-card">
+            <div class="benefit-icon">🌍</div>
+            <h3>Stabilita značky</h3>
+            <p>Budujete si vlastné podnikanie pod krídlami OVB Allfinanz – lídra s viac ako 50-ročnou tradíciou.</p>
+        </div>
+    </div>
+</section>
 <style>
     @media (max-width: 768px) {
         .hero {
@@ -448,29 +586,47 @@ footer {
         }
     }
 </style>
-<section id="kariera-opportunity" class="bg-light">
-    <div class="section-header">
-        <h2>Otvárame <span>Pozície</span></h2>
+<section id="kariera-opportunity" class="bg-light" style="padding: 100px 10%;">
+    <div class="section-header" style="text-align: center; margin-bottom: 60px;">
+        <h2 style="font-size: 2.5rem; color: #0F172A;">Otvárame <span>Pozície</span></h2>
+        <div style="width: 50px; height: 3px; background: #c5a059; margin: 20px auto;"></div>
     </div>
 
-    <div class="grid-3">
-        <div class="card">
-            <div class="card-icon">01</div>
-            <h3>Finančný Konzultant</h3>
-            <p>Pomáhajte klientom dosahovať finančnú istotu. Poskytneme vám školenie a podporu, aby ste sa rýchlo stali odborníkom.</p>
+    <div class="grid-3" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+        
+        <div class="card-new">
+            <div class="card-img">
+                <img src="konzultant.jpg" alt="Finančný Konzultant" style="width:100%; height:200px; object-fit:cover;">
+            </div>
+            <div class="card-body" style="padding: 25px; background: #fff; border-radius: 0 0 10px 10px;">
+                <h3 style="color: #0F172A; margin-bottom: 15px;">Finančný Konzultant</h3>
+                <p style="color: #64748b; font-size: 0.95rem; line-height: 1.6;">Pomáhajte klientom dosahovať finančnú istotu. Poskytneme vám školenie a podporu, aby ste sa rýchlo stali odborníkom.</p>
+                <a href="#kariera-form" class="btn-link" style="display:inline-block; margin-top:15px; color:#c5a059; font-weight:700; text-decoration:none;">MÁM ZÁUJEM →</a>
+            </div>
         </div>
         
-        <div class="card">
-            <div class="card-icon">02</div>
-            <h3>Manažér tímu</h3>
-            <p>Veďte vlastnú skupinu konzultantov. Získajte nadštandardné ohodnotenie za rozvoj a motiváciu svojich spolupracovníkov.</p>
+        <div class="card-new">
+            <div class="card-img">
+                <img src="manazer.jpg" alt="Manažér tímu" style="width:100%; height:200px; object-fit:cover;">
+            </div>
+            <div class="card-body" style="padding: 25px; background: #fff; border-radius: 0 0 10px 10px;">
+                <h3 style="color: #0F172A; margin-bottom: 15px;">Manažér tímu</h3>
+                <p style="color: #64748b; font-size: 0.95rem; line-height: 1.6;">Veďte vlastnú skupinu konzultantov. Získajte nadštandardné ohodnotenie za rozvoj a motiváciu svojich spolupracovníkov.</p>
+                <a href="#kariera-form" class="btn-link" style="display:inline-block; margin-top:15px; color:#c5a059; font-weight:700; text-decoration:none;">MÁM ZÁUJEM →</a>
+            </div>
         </div>
         
-        <div class="card">
-            <div class="card-icon">03</div>
-            <h3>Regionálny špecialista</h3>
-            <p>Staňte sa tvárou OVB vo svojom regióne. Budujte silné meno značky a využívajte náš prepracovaný kariérny systém.</p>
+        <div class="card-new">
+            <div class="card-img">
+                <img src="specialista.jpg" alt="Regionálny špecialista" style="width:100%; height:200px; object-fit:cover;">
+            </div>
+            <div class="card-body" style="padding: 25px; background: #fff; border-radius: 0 0 10px 10px;">
+                <h3 style="color: #0F172A; margin-bottom: 15px;">Regionálny špecialista</h3>
+                <p style="color: #64748b; font-size: 0.95rem; line-height: 1.6;">Staňte sa tvárou OVB vo svojom regióne. Budujte silné meno značky a využívajte náš prepracovaný kariérny systém.</p>
+                <a href="#kariera-form" class="btn-link" style="display:inline-block; margin-top:15px; color:#c5a059; font-weight:700; text-decoration:none;">MÁM ZÁUJEM →</a>
+            </div>
         </div>
+
     </div> 
 </section>
 

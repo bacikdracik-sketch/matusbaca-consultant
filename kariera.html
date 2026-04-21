@@ -327,42 +327,50 @@ footer {
 </div>
 </nav>
 
-<section class="hero" id="home" style="padding: 160px 10% 100px; background: radial-gradient(circle at top right, #f8fafc, #ffffff); min-height: 80vh; display: flex; align-items: center; justify-content: center;">
-    
-    <div class="hero-container" style="display: flex; align-items: center; justify-content: space-between; gap: 60px; width: 100%; max-width: 1300px; flex-wrap: wrap;">
+<section class="hero" id="home" style="
+    position: relative;
+    padding: 200px 10% 150px;
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background: url('Snímka obrazovky 2026-04-21 144956.png') no-repeat center center;
+    background-size: cover;
+    color: white;
+">
+    <div style="
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(75deg, rgba(15, 23, 42, 0.9) 30%, rgba(15, 23, 42, 0.4) 100%);
+        z-index: 1;
+    "></div>
+
+    <div class="hero-container" style="position: relative; z-index: 2; max-width: 800px;">
         
-        <div class="hero-text" style="flex: 1.2; min-width: 320px;">
-            <h1 style="font-size: clamp(2.2rem, 5vw, 3.5rem); color: var(--primary-navy); font-weight: 200; line-height: 1.2; margin-bottom: 25px;">
-                Budujte kariéru s <b>OVB Allfinanz</b>
-            </h1>
-            <p style="font-size: 1.15rem; margin-bottom: 40px; color: var(--text-light); font-weight: 300; max-width: 600px; line-height: 1.6;">
-                Pridajte sa k úspešnému tímu Matúša Baču. Staňte sa odborníkom vo financiách s podporou silného partnera a vybudujte si vlastnú cestu k úspechu.
-            </p>
-            <a href="#kariera-form" class="btn-primary">Chcem sa pridať do tímu</a>
+        <h1 style="font-size: clamp(2.5rem, 6vw, 4rem); color: white; font-weight: 200; line-height: 1.1; margin-bottom: 25px;">
+            Budujte kariéru s <br><b style="color: var(--gold-light);">OVB Allfinanz</b>
+        </h1>
+        
+        <p style="font-size: 1.25rem; margin-bottom: 45px; color: rgba(255,255,255,0.9); font-weight: 300; max-width: 600px; line-height: 1.6;">
+            Pridajte sa k úspešnému tímu Matúša Baču. Staňte sa odborníkom vo financiách a vybudujte si vlastné podnikanie pod záštitou európskeho lídra.
+        </p>
+        
+        <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
+            <a href="#kariera-form" class="btn-primary" style="background: var(--gold-muted); border-color: var(--gold-muted);">Chcem sa pridať</a>
             
-            <div style="margin-top: 40px; display: flex; align-items: center; gap: 15px;">
+            <div style="display: flex; align-items: center; gap: 15px; background: rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 50px; backdrop-filter: blur(10px);">
                 <img src="image_0.png" alt="Matúš Bača" 
-                     style="width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--gold-muted); object-fit: cover; object-position: center top;">
-                <div>
-                    <div style="font-weight: 700; color: var(--primary-navy); font-size: 0.9rem; text-transform: uppercase;">Matúš Bača</div>
-                    <div style="font-size: 0.75rem; color: var(--gold-muted); font-weight: 600;">Váš mentor a partner</div>
+                     style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--gold-muted); object-fit: cover; object-position: center top;">
+                <div style="text-align: left;">
+                    <div style="font-weight: 700; color: white; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;">Matúš Bača</div>
+                    <div style="font-size: 0.7rem; color: var(--gold-light); font-weight: 600;">Váš mentor</div>
                 </div>
             </div>
         </div>
-        
-        <div class="hero-image-wrapper" style="flex: 1; min-width: 320px; position: relative;">
-            <div style="position: relative; z-index: 2;">
-                <img src="tim-kariera.png" alt="Profesionálny finančný tím" 
-                     style="width: 100%; 
-                            height: auto; 
-                            border-radius: 20px; 
-                            border: 1px solid var(--border-color);
-                            box-shadow: 0 30px 60px rgba(15, 23, 42, 0.12); 
-                            display: block;">
-            </div>
-            <div style="position: absolute; top: 20px; right: -20px; width: 100%; height: 100%; border: 2px solid var(--gold-muted); border-radius: 20px; z-index: 1;"></div>
-        </div>
-        
+
     </div>
 </section>
 

@@ -405,75 +405,6 @@ section {
 
 .bg-light { background-color: var(--light-blue-bg); }
 
-/* --- FORM --- */
-form {
-    background: var(--soft-white);
-    padding: 50px;
-    border: 1px solid var(--border-color);
-}
-
-.form-group {
-    margin-bottom: 30px;
-}
-
-.form-group input, .form-group textarea {
-    width: 100%;
-    padding: 15px 0;
-    border: none;
-    border-bottom: 1px solid #cbd5e1;
-    background: transparent;
-    font-family: inherit;
-    font-size: 1rem;
-    outline: none;
-    transition: border-color 0.3s;
-}
-
-.form-group input:focus, .form-group textarea:focus {
-    border-bottom-color: var(--gold-muted);
-}
-
-/* --- PRÉMIOVÝ MODRÝ FOOTER --- */
-footer {
-    padding: 80px 10% 40px;
-    background-color: var(--primary-navy);
-    color: white;
-    text-align: center;
-    border-top: 3px solid var(--gold-muted);
-}
-
-.footer-logo {
-    font-weight: 700;
-    font-size: 1.2rem;
-    letter-spacing: 3px;
-    color: var(--gold-muted);
-    margin-bottom: 10px;
-    display: block;
-    text-transform: uppercase;
-}
-
-.footer-divider {
-    width: 60px;
-    height: 2px;
-    background: var(--gold-muted);
-    margin: 25px auto;
-    opacity: 0.6;
-}
-
-.footer-legal {
-    font-size: 0.85rem;
-    color: #cbd5e1;
-    max-width: 800px;
-    margin: 0 auto 30px;
-    line-height: 1.7;
-    font-weight: 300;
-}
-
-.copyright {
-    font-size: 0.75rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: white;
-    opacity: 0.4;
 }
 
 /* --- RESPONSIVITA --- */
@@ -570,22 +501,12 @@ footer {
     </div>
 </section>
 <style>
-    @media (max-width: 768px) {
-        .hero {
-            padding-top: 250px !important; /* Ešte viac miesta pre text pod hlavami */
-            min-height: 100vh !important; /* Plná výška na mobile */
-            background-position: top center !important; /* Vždy zarovnať na vrch */
-        }
+   
         .hero-text h1 {
             font-size: 2.2rem !important;
         }
     }
 </style>
-<section id="kariera-opportunity" class="bg-light" style="padding: 100px 10%;">
-    <div class="section-header" style="text-align: center; margin-bottom: 60px;">
-        <h2 style="font-size: 2.5rem; color: #0F172A;">Otvárame <span>Pozície</span></h2>
-        <div style="width: 50px; height: 3px; background: #c5a059; margin: 20px auto;"></div>
-    </div>
 
     <div class="grid-3" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
         

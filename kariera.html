@@ -289,29 +289,32 @@ footer { padding: 60px 10% 30px; background: #0a101f; text-align: center; color:
     font-weight: 300;
     flex-grow: 1;
 }
-/* Štýl pre karty pozícií */
-.card-new {
-    background: #fff;
-    border-radius: 10px;
-    overflow: hidden;
-    /* ZMENA: Tu sme dali zlatú farbu namiesto sivej */
-    border: 1px solid var(--gold-muted); 
-    box-shadow: var(--shadow-subtle);
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
+/* --- FINÁLNE ZLATÉ ORAMOVANIE --- */
+
+/* 1. Základný stav - jemný sivý okraj */
+.benefit-card, .card-new, .card {
+    border: 1px solid #E2E8F0 !important; 
+    background: #ffffff !important;
+    transition: all 0.3s ease-in-out !important;
+    border-radius: 12px !important;
 }
 
-/* Štýl pre karty benefitov (ak používaš triedu .card) */
-.card {
-    background: white;
-    padding: 50px 30px;
-    /* ZMENA: Tu sme tiež dali zlatú farbu */
-    border: 1px solid var(--gold-muted);
-    transition: all 0.5s ease;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+/* 2. Stav po prejdení myšou - okraj zasvieti na zlato */
+.benefit-card:hover, .card-new:hover, .card:hover {
+    border: 1px solid #B38E44 !important; /* Táto zlatá sa rozsvieti */
+    transform: translateY(-8px) !important; /* Jemné nadvihnutie */
+    box-shadow: 0 10px 20px rgba(179, 142, 68, 0.2) !important; /* Zlatistý tieň */
+    cursor: pointer;
+}
+
+/* 3. Zaistenie, aby text vo vnútri nezmenil farbu divne */
+.benefit-card h3, .card-new h3 {
+    color: #0F172A !important; /* Tmavomodrá ostáva */
+    transition: color 0.3s ease;
+}
+
+.benefit-card:hover h3, .card-new:hover h3 {
+    color: #B38E44 !important; /* Nadpis môže tiež jemne zozlatnúť */
 }
 
 /* Efekt pri prejdení myšou (môžeš nechať alebo ešte zvýrazniť) */

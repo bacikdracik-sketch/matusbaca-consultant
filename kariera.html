@@ -289,6 +289,51 @@ footer { padding: 60px 10% 30px; background: #0a101f; text-align: center; color:
     font-weight: 300;
     flex-grow: 1;
 }
+/* Štýl pre karty pozícií */
+.card-new {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    /* ZMENA: Tu sme dali zlatú farbu namiesto sivej */
+    border: 1px solid var(--gold-muted); 
+    box-shadow: var(--shadow-subtle);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Štýl pre karty benefitov (ak používaš triedu .card) */
+.card {
+    background: white;
+    padding: 50px 30px;
+    /* ZMENA: Tu sme tiež dali zlatú farbu */
+    border: 1px solid var(--gold-muted);
+    transition: all 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Efekt pri prejdení myšou (môžeš nechať alebo ešte zvýrazniť) */
+.card:hover, .card-new:hover {
+    border-color: var(--gold-light); /* Pri prejdení sa ešte viac rozžiari */
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(179, 142, 68, 0.2); /* Jemný zlatý tieň */
+}
+⚠️ Dôležité upozornenie (aby si tam nemal tie písmená):
+Tento kód musíš vložiť PRED značku </style>.
+
+Tvoj kód by mal na konci tej CSS časti vyzerať takto:
+
+CSS
+    ... všetky ostatné štýly ...
+    .card p {
+        font-size: 1rem;
+        color: var(--text-light);
+        font-weight: 300;
+        flex-grow: 1;
+    }
+} 
 
 </style>
 </head>

@@ -157,7 +157,50 @@ nav {
     margin-bottom: 35px;
     opacity: 0.9;
 }
+/* --- TLAČIDLO A MENTOR ŠTÝLY --- */
+.btn-primary {
+    background: #c5a059;
+    color: white !important;
+    padding: 18px 45px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 5px;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
 
+.btn-primary:hover {
+    background: #b38e44;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.mentor-signature {
+    display: flex; 
+    flex-direction: column; 
+    border-left: 2px solid #d4af37; 
+    padding-left: 20px;
+}
+
+.mentor-name {
+    font-family: serif; 
+    font-style: italic; 
+    font-size: 1.8rem; 
+    color: #d4af37; 
+    line-height: 1.1;
+}
+
+.mentor-label {
+    font-size: 0.65rem; 
+    color: #d4af37; 
+    font-weight: 600; 
+    text-transform: uppercase; 
+    letter-spacing: 2px;
+}
 /* --- RESPONZIVITA (MOBIL A TABLET) --- */
 @media (max-width: 768px) {
     nav {

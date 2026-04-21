@@ -114,18 +114,17 @@ nav {
 
 /* --- HERO KARIÉRA (OPRAVENÉ) --- */
 .hero {
-    /* Toto zabezpečí, aby sa sekcia neposúvala pod navigáciu */
-    scroll-margin-top: 100px; 
-    
+    scroll-margin-top: 100px;
     position: relative;
-    padding: 220px 10% 120px;
-    min-height: 90vh;
+    /* Horný padding (350px) vytlačí text pod vaše tváre */
+    padding: 350px 10% 120px; 
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     
-    /* Fotka tímu */
-    background: url('tim-kariera.png') no-repeat top center;
+    /* ZMENA: '50% 0%' povie prehliadaču: začni fotku úplne od vrchu */
+    background: url('tim-kariera.png') no-repeat 50% 0%;
     background-size: cover;
     color: white;
     overflow: hidden;

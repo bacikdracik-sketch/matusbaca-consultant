@@ -329,13 +329,15 @@ footer {
 
 <section class="hero" id="home" style="
     position: relative;
-    padding: 180px 10% 120px;
-    min-height: 80vh;
+    /* ZVÄČŠENÝ HORNÝ ODSTUP, ABY TEXT NEBOL CEZ HLAVY */
+    padding: 220px 10% 120px;
+    min-height: 90vh;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    /* SEM SOM VLOŽIL TVOJ NÁZOV SÚBORU */
-    background: url('tim-kariera.png') no-repeat center center;
+    
+    /* OPRAVENÉ ZAROVNANIE NA 'TOP' - OREZÁVA SPODOK, NIE VRCH */
+    background: url('tim-kariera.png') no-repeat top center;
     background-size: cover;
     color: white;
     overflow: hidden;
@@ -346,17 +348,17 @@ footer {
         left: 0;
         width: 100%;
         height: 100%;
-        background: linear-gradient(75deg, rgba(15, 23, 42, 0.9) 20%, rgba(15, 23, 42, 0.3) 100%);
+        background: linear-gradient(75deg, rgba(15, 23, 42, 0.95) 20%, rgba(15, 23, 42, 0.4) 100%);
         z-index: 1;
     "></div>
 
-    <div class="hero-container" style="position: relative; z-index: 2; max-width: 800px;">
+    <div class="hero-container" style="position: relative; z-index: 2; max-width: 800px; width: 100%;">
         
-        <h1 style="font-size: clamp(2.5rem, 6vw, 4rem); color: white; font-weight: 200; line-height: 1.1; margin-bottom: 25px; text-align: left;">
+        <h1 style="font-size: clamp(2.3rem, 5.5vw, 3.8rem); color: white; font-weight: 200; line-height: 1.1; margin-bottom: 25px; text-align: left;">
             Budujte kariéru s <br><b style="color: #d4af37;">OVB Allfinanz</b>
         </h1>
         
-        <p style="font-size: 1.25rem; margin-bottom: 45px; color: rgba(255,255,255,0.9); font-weight: 300; max-width: 600px; line-height: 1.6; text-align: left;">
+        <p style="font-size: 1.2rem; margin-bottom: 40px; color: rgba(255,255,255,0.9); font-weight: 300; max-width: 600px; line-height: 1.6; text-align: left;">
             Pridajte sa k úspešnému tímu Matúša Baču. Staňte sa odborníkom vo financiách a vybudujte si vlastné podnikanie pod záštitou európskeho lídra.
         </p>
         
@@ -378,27 +380,42 @@ footer {
     </div>
 </section>
 
+<style>
+    @media (max-width: 768px) {
+        .hero {
+            padding-top: 250px !important; /* Ešte viac miesta pre text pod hlavami */
+            min-height: 100vh !important; /* Plná výška na mobile */
+            background-position: top center !important; /* Vždy zarovnať na vrch */
+        }
+        .hero-text h1 {
+            font-size: 2.2rem !important;
+        }
+    }
+</style>
 <section id="kariera-opportunity" class="bg-light">
-<div class="section-header">
-    <h2>Otvárame <span>Pozície</span></h2>
-</div>
-<div class="grid-3">
-    <div class="card">
-        <div class="card-icon">01</div>
-        <h3>Finančný Konzultant</h3>
-        <p>Pomáhajte klientom dosahovať finančnú istotu. Poskytneme vám školenie a podporu, aby ste sa rýchlo stali odborníkom.</p>
+    <div class="section-header">
+        <h2>Otvárame <span>Pozície</span></h2>
     </div>
-    <div class="card">
-        <div class="card-icon">02</div>
-        <h3>Asistent Konzultanta</h3>
-        <p>Pomáhajte pri administratíve, komunikácii s klientmi a správe dokumentov. Praktické skúsenosti a možnosť postupu na konzultanta.</p>
-    </div>
-    <div class="card">
-        <div class="card-icon">03</div>
-        <h3>Stážista / Junior</h3>
-        <p>Pre tých, ktorí chcú začať kariéru vo financiách. Školenia, mentoring a priestor učiť sa od skúsených profesionálov.</p>
-    </div>
-</div>
+
+    <div class="grid-3">
+        <div class="card">
+            <div class="card-icon">01</div>
+            <h3>Finančný Konzultant</h3>
+            <p>Pomáhajte klientom dosahovať finančnú istotu. Poskytneme vám školenie a podporu, aby ste sa rýchlo stali odborníkom.</p>
+        </div>
+        
+        <div class="card">
+            <div class="card-icon">02</div>
+            <h3>Manažér tímu</h3>
+            <p>Veďte vlastnú skupinu konzultantov. Získajte nadštandardné ohodnotenie za rozvoj a motiváciu svojich spolupracovníkov.</p>
+        </div>
+        
+        <div class="card">
+            <div class="card-icon">03</div>
+            <h3>Regionálny špecialista</h3>
+            <p>Staňte sa tvárou OVB vo svojom regióne. Budujte silné meno značky a využívajte náš prepracovaný kariérny systém.</p>
+        </div>
+    </div> 
 </section>
 
 <section id="kariera-form">

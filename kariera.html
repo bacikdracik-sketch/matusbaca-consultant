@@ -327,20 +327,42 @@ footer {
 </div>
 </nav>
 
-<section class="hero" id="home">
-    <h1>Budujte kariéru s <b>OVB Allfinanz</b></h1>
-    <p>Pridajte sa k nášmu tímu a staňte sa odborníkom vo financiách s podporou skúseného mentora a kompletným školením.</p>
+<section class="hero" id="home" style="padding: 160px 10% 100px; background: radial-gradient(circle at top right, #f8fafc, #ffffff); min-height: 80vh; display: flex; align-items: center; justify-content: center;">
     
-    <div style="margin-top: 30px; text-align: left;">
-        <img src="image_0.png" alt="Matúš Bača" 
-             style="width: 250px; 
-                    height: 250px; 
-                    border-radius: 50%; 
-                    object-fit: cover; 
-                    object-position: center top; 
-                    border: 4px solid var(--gold-muted); 
-                    box-shadow: var(--shadow-subtle);
-                    display: block;">
+    <div class="hero-container" style="display: flex; align-items: center; justify-content: space-between; gap: 60px; width: 100%; max-width: 1300px; flex-wrap: wrap;">
+        
+        <div class="hero-text" style="flex: 1.2; min-width: 320px;">
+            <h1 style="font-size: clamp(2.2rem, 5vw, 3.5rem); color: var(--primary-navy); font-weight: 200; line-height: 1.2; margin-bottom: 25px;">
+                Budujte kariéru s <b>OVB Allfinanz</b>
+            </h1>
+            <p style="font-size: 1.15rem; margin-bottom: 40px; color: var(--text-light); font-weight: 300; max-width: 600px; line-height: 1.6;">
+                Pridajte sa k úspešnému tímu Matúša Baču. Staňte sa odborníkom vo financiách s podporou silného partnera a vybudujte si vlastnú cestu k úspechu.
+            </p>
+            <a href="#kariera-form" class="btn-primary">Chcem sa pridať do tímu</a>
+            
+            <div style="margin-top: 40px; display: flex; align-items: center; gap: 15px;">
+                <img src="image_0.png" alt="Matúš Bača" 
+                     style="width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--gold-muted); object-fit: cover; object-position: center top;">
+                <div>
+                    <div style="font-weight: 700; color: var(--primary-navy); font-size: 0.9rem; text-transform: uppercase;">Matúš Bača</div>
+                    <div style="font-size: 0.75rem; color: var(--gold-muted); font-weight: 600;">Váš mentor a partner</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="hero-image-wrapper" style="flex: 1; min-width: 320px; position: relative;">
+            <div style="position: relative; z-index: 2;">
+                <img src="http://googleusercontent.com/image_generation_content/0" alt="Profesionálny finančný tím" 
+                     style="width: 100%; 
+                            height: auto; 
+                            border-radius: 20px; 
+                            border: 1px solid var(--border-color);
+                            box-shadow: 0 30px 60px rgba(15, 23, 42, 0.12); 
+                            display: block;">
+            </div>
+            <div style="position: absolute; top: 20px; right: -20px; width: 100%; height: 100%; border: 2px solid var(--gold-muted); border-radius: 20px; z-index: 1;"></div>
+        </div>
+        
     </div>
 </section>
 

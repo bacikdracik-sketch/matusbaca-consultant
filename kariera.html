@@ -201,35 +201,36 @@ nav {
     text-transform: uppercase; 
     letter-spacing: 2px;
 }
-/* --- RESPONZIVITA (MOBIL A TABLET) --- */
+/* --- RESPONZIVITA (MOBILNÁ VERZIA - ABY BOLI HLAVY OK) --- */
 @media (max-width: 768px) {
-    nav {
-        padding: 0 20px !important;
-        height: 70px !important;
-    }
-    
-    .nav-links {
-        display: none !important; /* Skryje menu, aby sa nerozsypalo */
-    }
-
     .hero {
         flex-direction: column;
         padding: 0 !important;
-        background-size: 100% auto !important; /* Fotka na celú šírku bez orezu */
+        background-size: 100% auto !important; /* Celá šírka fotky, nič neodreže */
         background-position: top center !important;
         min-height: auto !important;
+        display: block !important;
     }
 
     .hero-container {
         margin-top: 0 !important;
-        padding: 40px 20px 80px;
+        /* Padding-top prispôsob podľa fotky (60vw-70vw zvyčajne sedí) */
+        padding: 65vw 20px 80px !important; 
         text-align: center;
-        /* Vytvorí presný odstup od vrchu podľa šírky fotky (pomer strán) */
-        padding-top: 65vw !important; 
     }
 
-    .hero h1 {
-        font-size: 2rem !important;
+    .hero h1 { 
+        font-size: 2rem !important; 
+    }
+
+    /* Vycentrovanie tlačidla a podpisu na mobile */
+    .hero-container > div {
+        justify-content: center !important;
+    }
+
+    .mentor-signature {
+        text-align: left; /* Aby meno ostalo pekne pri čiare */
+        margin-top: 15px;
     }
 }
 /* --- SEKCIE --- */

@@ -564,6 +564,48 @@
     opacity: 1;
     transform: translateY(0); /* Vráti sa na pôvodné miesto */
 }
+        /* --- FINÁLNA OPRAVA PRE MOBILY (Hlava v Hero a Bio) --- */
+    @media (max-width: 768px) {
+        /* Oprava Hero sekcie */
+        .hero {
+            background-size: cover !important;
+            background-position: center top !important; 
+            min-height: 75vh !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: flex-end !important;
+            padding-bottom: 50px !important;
+        }
+        
+        .hero-container {
+            margin-top: 0 !important;
+            text-align: center !important;
+            max-width: 100% !important;
+        }
+
+        /* Oprava Bio sekcie (image_0.png) */
+        .bio {
+            flex-direction: column !important;
+        }
+
+        .bio-image {
+            min-width: 100% !important;
+            min-height: 450px !important;
+            background-position: center top !important; /* Toto zachráni hlavu v Bio */
+            border-right: none !important;
+            border-bottom: 8px solid var(--gold-muted) !important;
+        }
+
+        .bio-text {
+            padding: 50px 8% !important;
+            min-width: 100% !important;
+            text-align: center !important;
+        }
+
+        .bio-text h2 {
+            font-size: 2.2rem !important;
+        }
+    }
     </style>
   <nav>
       

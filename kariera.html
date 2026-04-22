@@ -400,6 +400,36 @@ CSS
 .card-new:hover .card-image-container img {
     transform: scale(1.05); /* Jemné priblíženie */
 }
+    /* --- RESPONZIVITA PRE MOBILY --- */
+@media (max-width: 768px) {
+    .hero {
+        /* Zmeníme contain na cover, aby obrázok vyplnil celú plochu */
+        background-size: cover !important;
+        /* KĽÚČOVÉ: Zarovnáme na vrch, aby neosekalo hlavy */
+        background-position: top center !important; 
+        min-height: 80vh; /* Trochu skrátime výšku na mobile */
+        padding: 0 5%; /* Zmenšíme bočné okraje */
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end; /* Text posunieme nižšie, aby nezakrýval tváre */
+        padding-bottom: 50px;
+    }
+
+    .hero-container {
+        margin-top: 0; /* Zrušíme ten veľký horný okraj */
+        max-width: 100%;
+        text-align: center; /* Na mobile to vyzerá lepšie vycentrované */
+    }
+
+    .hero h1 {
+        font-size: 2.2rem; /* Zmenšíme písmo, aby sa zmestilo na šírku mobilu */
+    }
+
+    .hero p {
+        font-size: 1rem;
+        margin: 15px 0 25px;
+    }
+}
 </style>
 </head>
 <body>

@@ -612,6 +612,58 @@
     opacity: 1 !important;
     filter: invert(1) sepia(1) saturate(5) hue-rotate(10deg) !important; 
 }
+        /* Dizajn biznis vizitky vo footeri */
+.fb-biz-card {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: 1px solid rgba(212, 175, 55, 0.3); /* Jemná zlatá linka */
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.fb-biz-icon {
+    width: 30px;
+    height: 30px;
+    background: var(--gold-muted);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+}
+
+.fb-biz-icon img {
+    width: 15px;
+    filter: brightness(0) invert(1); /* Biela ikonka */
+}
+
+.fb-biz-info {
+    text-align: left;
+    line-height: 1.2;
+}
+
+.fb-biz-name {
+    display: block;
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.fb-biz-user {
+    display: block;
+    color: var(--gold-muted);
+    font-size: 0.7rem;
+    opacity: 0.8;
+}
+
+.fb-biz-card:hover {
+    background: rgba(212, 175, 55, 0.1);
+    transform: translateY(-3px);
+    border-color: var(--gold-muted);
+}
     </style>
   <nav>
       
@@ -908,10 +960,17 @@
 </section>
 
 <footer>
-    <div class="footer-socials" style="margin-bottom: 30px; text-align: center;">
-        <p style="opacity: 0.6; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px; font-size: 0.7rem; font-weight: 600; color: white;">Sledujte moju prácu</p>
-        <a href="https://www.facebook.com/matus.baca.ovb" target="_blank" style="display: inline-block; transition: transform 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-            <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" style="width: 32px; filter: invert(1);">
+    <div class="footer-socials" style="margin-bottom: 40px; text-align: center; display: flex; flex-direction: column; align-items: center;">
+        <p style="opacity: 0.5; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px; font-size: 0.7rem; font-weight: 600; color: white;">Sledujte moju prácu</p>
+        
+        <a href="https://www.facebook.com/matus.baca.ovb" target="_blank" class="fb-biz-card">
+            <div class="fb-biz-icon">
+                <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook">
+            </div>
+            <div class="fb-biz-info">
+                <span class="fb-biz-name">Facebook</span>
+                <span class="fb-biz-user">matus.baca.ovb</span>
+            </div>
         </a>
     </div>
 

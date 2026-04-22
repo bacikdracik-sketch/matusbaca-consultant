@@ -149,9 +149,10 @@ section { padding: 100px 10%; }
     color: var(--gold-muted);
 }
 
+/* Hlavné modré tlačidlo */
 .btn-primary {
-    background: #c5a059;
-    color: white !important;
+    background-color: var(--primary-navy) !important;
+    color: var(--pure-white) !important;
     padding: 18px 45px;
     text-decoration: none;
     font-size: 0.9rem;
@@ -160,15 +161,24 @@ section { padding: 100px 10%; }
     border-radius: 5px;
     display: inline-block;
     transition: all 0.3s ease;
-    border: none;
+    border: 2px solid var(--primary-navy);
     cursor: pointer;
 }
 
+/* Keď na tlačidlo namieriš myšou (Hover) */
 .btn-primary:hover {
-    background: #b38e44;
+    background-color: var(--gold-muted) !important;
+    border-color: var(--gold-muted) !important;
+    color: var(--primary-navy) !important; /* Text stmavne pre lepší kontrast na zlatej */
     transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(179, 142, 68, 0.3);
 }
 
+/* Keď na tlačidlo reálne klikneš */
+.btn-primary:active {
+    background-color: var(--gold-light) !important;
+    transform: translateY(0);
+}
 .grid-3 {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -312,6 +322,20 @@ footer { padding: 60px 10% 30px; background: #0a101f; text-align: center; color:
     color: var(--text-light);
     font-weight: 300;
     flex-grow: 1;
+}
+    /* TOTO TAM DOPLŇ TERAZ */
+.card-body a {
+    color: var(--gold-muted) !important;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block; /* Aby sa šípka mala kam hýbať */
+    margin-top: 15px;
+}
+
+.card-body a:hover {
+    color: var(--primary-navy) !important;
+    padding-left: 8px; /* Ten pekný efekt odskočenia šípky */
 }
 /* --- FINÁLNE ZLATÉ ORAMOVANIE --- */
 

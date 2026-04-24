@@ -33,12 +33,22 @@
         .dot { height: 8px; width: 8px; background-color: var(--success); border-radius: 50%; display: inline-block; margin-right: 8px; animation: pulse 2s infinite; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
 
-        /* PARTNERI - MAXIMÁLNY ZOZNAM */
-        .partners-section { padding: 60px 0; background: #fff; text-align: center; }
-        .partners-title { font-size: 0.8rem; text-transform: uppercase; color: var(--text-gray); letter-spacing: 2px; margin-bottom: 40px; font-weight: 700; }
-        .partners-container { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 25px; padding: 0 20px; }
-        .partners-container img { height: 30px; width: auto; filter: grayscale(100%); opacity: 0.5; transition: 0.3s ease; }
-        .partners-container img:hover { filter: grayscale(0%); opacity: 1; transform: scale(1.1); }
+        /* --- POHYBLIVÝ PÁS PARTNEROV --- */
+        .partners-section { padding: 60px 0; background: #fff; text-align: center; overflow: hidden; }
+        .partners-title { font-size: 0.8rem; text-transform: uppercase; color: var(--text-gray); letter-spacing: 2px; margin-bottom: 30px; font-weight: 700; }
+
+        .marquee { width: 100%; overflow: hidden; white-space: nowrap; position: relative; padding: 20px 0; }
+        .marquee-content { display: flex; width: max-content; animation: scroll 40s linear infinite; }
+        .marquee:hover .marquee-content { animation-play-state: paused; }
+
+        .partner-card { width: 150px; height: 60px; margin: 0 35px; display: flex; justify-content: center; align-items: center; flex-shrink: 0; }
+        .partner-card img { max-height: 100%; max-width: 100%; object-fit: contain; filter: grayscale(100%); opacity: 0.6; transition: 0.3s ease; }
+        .partner-card img:hover { filter: grayscale(0%); opacity: 1; transform: scale(1.1); }
+
+        @keyframes scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
 
         /* SEARCH */
         .search-container { max-width: 600px; margin: 40px auto; padding: 0 20px; }
@@ -121,35 +131,60 @@
         <p>Všetko, čo potrebujete vedieť pred naším stretnutím.</p>
     </header>
     
-<div class="partners-container">
-    <img src="img/vub.png" alt="VÚB">
-    <img src="img/tatra.jpg" alt="Tatra">
-    <img src="img/slspl.jpg" alt="SLSP">
-    <img src="img/csob.jpg" alt="ČSOB">
-    <img src="img/unicredit.png" alt="UniCredit">
-    <img src="img/mbank.png" alt="mBank">
-    <img src="img/Raiffeisen_Bank_logo.png" alt="Raiffeisen">
+<section class="partners-section">
+        <p class="partners-title">Spolupracujem s lídrami na finančnom trhu</p>
+        <div class="marquee">
+            <div class="marquee-content">
+                <div class="partner-card"><img src="img/ovb.png" alt="OVB"></div>
+                <div class="partner-card"><img src="img/vub.png" alt="VÚB"></div>
+                <div class="partner-card"><img src="img/tatra.jpg" alt="Tatra"></div>
+                <div class="partner-card"><img src="img/slspl.png" alt="SLSP"></div>
+                <div class="partner-card"><img src="img/csob.jpg" alt="ČSOB"></div>
+                <div class="partner-card"><img src="img/allianz.png" alt="Allianz"></div>
+                <div class="partner-card"><img src="img/generali.png" alt="Generali"></div>
+                <div class="partner-card"><img src="img/uniqua.png" alt="Uniqa"></div>
+                <div class="partner-card"><img src="img/kooperativa.png" alt="Kooperativa"></div>
+                <div class="partner-card"><img src="img/MetLife.png" alt="MetLife"></div>
+                <div class="partner-card"><img src="img/nn.png" alt="NN"></div>
+                <div class="partner-card"><img src="img/union.png" alt="Union"></div>
+                <div class="partner-card"><img src="img/eic.png" alt="EIC"></div>
+                <div class="partner-card"><img src="img/amundi.png" alt="Amundi"></div>
+                <div class="partner-card"><img src="img/Conseq_logo.png" alt="Conseq"></div>
+                <div class="partner-card"><img src="img/iad_investments.jpg" alt="IAD"></div>
+                <div class="partner-card"><img src="img/pss logo.png" alt="PSS"></div>
+                <div class="partner-card"><img src="img/wüstenrot.png" alt="Wüstenrot"></div>
+                <div class="partner-card"><img src="img/youplus-cz-logo.png" alt="Youplus"></div>
+                <div class="partner-card"><img src="img/Raiffeisen_Bank_logo.png" alt="Raiffeisen"></div>
+                <div class="partner-card"><img src="img/colonade.jpg" alt="Colonnade"></div>
+                <div class="partner-card"><img src="img/unicredit.png" alt="UniCredit"></div>
+                <div class="partner-card"><img src="img/mbank.png" alt="mBank"></div>
 
-    <img src="img/allianz.png" alt="Allianz">
-    <img src="img/generali.png" alt="Generali">
-    <img src="img/uniqua.png" alt="Uniqa">
-    <img src="img/kooperativa.png" alt="Kooperativa">
-    <img src="img/MetLife.png" alt="MetLife">
-    <img src="img/nn.png" alt="NN">
-    <img src="img/union.png" alt="Union">
-    <img src="img/youplus-cz-logo.png" alt="Youplus">
-    <img src="img/colonade.jpg" alt="Colonnade">
-
-    <img src="img/eic.png" alt="EIC">
-    <img src="img/amundi.png" alt="Amundi">
-    <img src="img/Conseq_logo.png" alt="Conseq">
-    <img src="img/iad_investments.jpg" alt="IAD Investments">
-    <img src="img/pss logo.png" alt="PSS">
-    <img src="img/wustenrot.png" alt="Wüstenrot">
-    
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFwAAAAn..." alt="OVB" style="filter:none; opacity:1; height:45px;">
-</div>
-    </div>
+                <div class="partner-card"><img src="img/ovb.png" alt="OVB"></div>
+                <div class="partner-card"><img src="img/vub.png" alt="VÚB"></div>
+                <div class="partner-card"><img src="img/tatra.jpg" alt="Tatra"></div>
+                <div class="partner-card"><img src="img/slspl.png" alt="SLSP"></div>
+                <div class="partner-card"><img src="img/csob.jpg" alt="ČSOB"></div>
+                <div class="partner-card"><img src="img/allianz.png" alt="Allianz"></div>
+                <div class="partner-card"><img src="img/generali.png" alt="Generali"></div>
+                <div class="partner-card"><img src="img/uniqua.png" alt="Uniqa"></div>
+                <div class="partner-card"><img src="img/kooperativa.png" alt="Kooperativa"></div>
+                <div class="partner-card"><img src="img/MetLife.png" alt="MetLife"></div>
+                <div class="partner-card"><img src="img/nn.png" alt="NN"></div>
+                <div class="partner-card"><img src="img/union.png" alt="Union"></div>
+                <div class="partner-card"><img src="img/eic.png" alt="EIC"></div>
+                <div class="partner-card"><img src="img/amundi.png" alt="Amundi"></div>
+                <div class="partner-card"><img src="img/Conseq_logo.png" alt="Conseq"></div>
+                <div class="partner-card"><img src="img/iad_investments.jpg" alt="IAD"></div>
+                <div class="partner-card"><img src="img/pss logo.png" alt="PSS"></div>
+                <div class="partner-card"><img src="img/wüstenrot.png" alt="Wüstenrot"></div>
+                <div class="partner-card"><img src="img/youplus-cz-logo.png" alt="Youplus"></div>
+                <div class="partner-card"><img src="img/Raiffeisen_Bank_logo.png" alt="Raiffeisen"></div>
+                <div class="partner-card"><img src="img/colonade.jpg" alt="Colonnade"></div>
+                <div class="partner-card"><img src="img/unicredit.png" alt="UniCredit"></div>
+                <div class="partner-card"><img src="img/mbank.png" alt="mBank"></div>
+            </div>
+        </div>
+    </section>
     <div class="search-container reveal">
         <input type="text" id="faqSearch" class="search-input" placeholder="Hľadať tému (hypotéka, audit, pilier...)" onkeyup="filterFAQ()">
     </div>

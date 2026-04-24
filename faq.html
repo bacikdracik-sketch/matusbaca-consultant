@@ -66,30 +66,60 @@
         .faq-answer p { padding: 20px 25px; color: var(--text-gray); border-top: 1px solid #eee; font-size: 0.95rem; line-height: 1.7; }
         .faq-item.active .faq-answer { max-height: 1000px; }
 
-        /* CTA BOX S NOVÝM ZLATÝM TLAČIDLOM */
-        .custom-question-box { background: var(--soft-white); padding: 60px 30px; text-align: center; border-radius: 20px; margin: 60px 0; border: 2px dashed #cbd5e1; }
-        .btn-cta-gold {
-            background: var(--ovb-blue);
-            color: white;
-            padding: 18px 40px;
-            border-radius: 8px;
-            text-decoration: none;
-            display: inline-block;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: 0.4s ease;
-            border: 2px solid var(--ovb-blue);
-            margin-top: 20px;
-            cursor: pointer;
-        }
-        .btn-cta-gold:hover {
-            background: var(--ovb-gold);
-            border-color: var(--ovb-gold);
-            color: var(--ovb-blue);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.4);
-        }
+        /* NOVÁ VIZITKA S TLAČIDLOM NA OTÁZKU */
+.contact-card { 
+    display: flex; 
+    align-items: center; 
+    gap: 30px; 
+    background: var(--ovb-blue); 
+    padding: 35px; 
+    border-radius: 20px; 
+    color: white;
+    max-width: 800px;
+    margin: 50px auto;
+    text-align: left;
+}
+
+.contact-photo { 
+    position: relative; 
+    width: 110px; 
+    height: 110px; 
+    flex-shrink: 0; 
+}
+
+.contact-photo img { 
+    width: 100%; 
+    height: 100%; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    border: 3px solid var(--ovb-gold); 
+}
+
+.contact-info h3 { color: var(--ovb-gold); margin-bottom: 8px; font-size: 1.5rem; }
+.contact-info p { color: #cbd5e1; margin-bottom: 20px; font-size: 0.95rem; }
+
+/* MODRÉ TLAČIDLO S PRECHODOM DO ZLATEJ */
+.contact-btn-ask {
+    display: inline-block;
+    text-decoration: none;
+    background: transparent; /* Priehľadné na modrom pozadí */
+    color: white;
+    border: 2px solid white;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    transition: 0.4s ease;
+}
+
+.contact-btn-ask:hover {
+    background: var(--ovb-gold);
+    border-color: var(--ovb-gold);
+    color: var(--ovb-blue);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(212, 175, 55, 0.4);
+}
 /* OPRAVA PRE FOTKU A NOVÚ VIZITKU */
         .contact-card { 
             display: flex; 
@@ -319,16 +349,22 @@
             <img src="image_0.png" alt="Matúš Bača">
             <span class="online-indicator"></span>
         </div>
-        <div class="contact-info">
-            <h3>Nenašli ste odpoveď?</h3>
-            <p>Som tu, aby som vám pomohol. Napíšte mi priamo a vyriešime to spolu.</p>
-            <div class="contact-links">
-                <a href="mailto:5538917@ovbmail.eu" class="contact-btn">5538917@ovbmail.eu</a>
-                <a href="tel:+421951499890" class="contact-btn gold">0951 499 890</a>
+       <section class="direct-contact-section reveal">
+            <div class="contact-card">
+                <div class="contact-photo">
+                    <img src="image_0.png" alt="Matúš Bača">
+                    <span class="online-indicator"></span>
+                </div>
+                <div class="contact-info">
+                    <h3>Nenašli ste odpoveď?</h3>
+                    <p>Moje poradenstvo je individuálne. Napíšte mi vašu otázku a ja vám navrhnem riešenie na mieru.</p>
+                    <div class="contact-links">
+                        <a href="index.html#kontakt" class="contact-btn-ask">Chcem položiť otázku</a>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</section>
+        </section>
+
     </div> <a href="#" id="backToTop">↑</a> 
 
     <footer>

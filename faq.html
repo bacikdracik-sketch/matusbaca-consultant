@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Časté otázky | Matúš Bača - Profesionálny finančný servis</title>
+    
+    <style>
+        :root {
+            --ovb-blue: #0F172A;
+            --ovb-gold: #d4af37;
+            --soft-white: #f8fafc;
+            --text-gray: #64748b;
+            --success: #22c55e;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.6; color: #333; background-color: #fff; overflow-x: hidden; }
+
+        /* MENU */
+        nav { background: white; padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 15px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+        .logo { font-weight: bold; color: var(--ovb-blue); text-decoration: none; font-size: 1.4rem; letter-spacing: -1px; }
+        .logo span { color: var(--ovb-gold); }
+        .nav-links { display: flex; align-items: center; gap: 30px; }
+        .nav-links a { text-decoration: none; color: var(--ovb-blue); font-weight: 500; transition: 0.3s; }
+        .nav-links a:hover { color: var(--ovb-gold); }
+        .btn-nav { background: var(--ovb-blue); color: white !important; padding: 10px 22px; border-radius: 5px; transition: 0.4s; text-transform: uppercase; font-size: 0.85rem; border: none; cursor: pointer; }
+        .btn-nav:hover { background: var(--ovb-gold); transform: translateY(-2px); }
+
+        /* HEADER */
+        .faq-header { background: var(--ovb-blue); color: white; padding: 100px 20px; text-align: center; }
+        .status-badge { display: inline-flex; align-items: center; background: rgba(34, 197, 94, 0.1); color: var(--success); padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 20px; }
+        .dot { height: 8px; width: 8px; background-color: var(--success); border-radius: 50%; display: inline-block; margin-right: 8px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+
+        /* PARTNERI - MAXIMÁLNY ZOZNAM */
+        .partners-section { padding: 60px 0; background: #fff; text-align: center; }
+        .partners-title { font-size: 0.8rem; text-transform: uppercase; color: var(--text-gray); letter-spacing: 2px; margin-bottom: 40px; font-weight: 700; }
+        .partners-container { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 25px; padding: 0 20px; }
+        .partners-container img { height: 30px; width: auto; filter: grayscale(100%); opacity: 0.5; transition: 0.3s ease; }
+        .partners-container img:hover { filter: grayscale(0%); opacity: 1; transform: scale(1.1); }
+
+        /* SEARCH */
+        .search-container { max-width: 600px; margin: 40px auto; padding: 0 20px; }
+        .search-input { width: 100%; padding: 18px 30px; border-radius: 50px; border: 1px solid #ddd; box-shadow: 0 10px 25px rgba(0,0,0,0.05); font-size: 1rem; outline: none; transition: 0.3s; }
+        .search-input:focus { border-color: var(--ovb-gold); box-shadow: 0 10px 25px rgba(212, 175, 55, 0.1); }
+
+        /* FAQ */
+        .faq-container { max-width: 900px; margin: 0 auto 80px; padding: 0 20px; }
+        .faq-category-title { color: var(--ovb-blue); margin: 60px 0 25px; font-size: 1.4rem; border-left: 5px solid var(--ovb-gold); padding-left: 15px; text-transform: uppercase; letter-spacing: 1px; }
+        .faq-item { background: white; border-radius: 12px; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border: 1px solid #f1f5f9; overflow: hidden; transition: 0.3s; }
+        .faq-question { padding: 20px 25px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; color: var(--ovb-blue); font-size: 1.05rem; }
+        .faq-icon { color: var(--ovb-gold); font-size: 1.3rem; transition: 0.3s; }
+        .faq-item.active .faq-icon { transform: rotate(45deg); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: all 0.4s ease-out; background: #fafafa; }
+        .faq-answer p { padding: 20px 25px; color: var(--text-gray); border-top: 1px solid #eee; font-size: 0.95rem; line-height: 1.7; }
+        .faq-item.active .faq-answer { max-height: 1000px; }
+
+        /* CTA BOX S NOVÝM ZLATÝM TLAČIDLOM */
+        .custom-question-box { background: var(--soft-white); padding: 60px 30px; text-align: center; border-radius: 20px; margin: 60px 0; border: 2px dashed #cbd5e1; }
+        .btn-cta-gold {
+            background: var(--ovb-blue);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.4s ease;
+            border: 2px solid var(--ovb-blue);
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        .btn-cta-gold:hover {
+            background: var(--ovb-gold);
+            border-color: var(--ovb-gold);
+            color: var(--ovb-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        /* FOOTER */
+        footer { background: var(--ovb-blue); color: #cbd5e1; padding: 60px 8% 40px; text-align: center; }
+        .fb-biz-card { display: flex; align-items: center; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 12px 20px; border-radius: 12px; text-decoration: none; transition: 0.3s; max-width: 250px; margin: 0 auto 30px; }
+        .fb-biz-card:hover { background: rgba(255,255,255,0.1); border-color: var(--ovb-gold); }
+        .fb-biz-icon img { width: 30px; margin-right: 15px; }
+        .fb-biz-name { color: white; font-weight: bold; text-align: left; display: block; }
+        .fb-biz-user { color: var(--ovb-gold); font-size: 0.8rem; }
+        .footer-legal { max-width: 800px; margin: 0 auto 30px; font-size: 0.85rem; opacity: 0.7; line-height: 1.8; }
+        .copyright { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; color: var(--ovb-gold); font-size: 0.85rem; }
+        
+        #backToTop { position: fixed; bottom: 30px; right: 30px; background: var(--ovb-gold); color: var(--ovb-blue); width: 45px; height: 45px; border-radius: 50%; display: none; align-items: center; justify-content: center; text-decoration: none; font-weight: bold; z-index: 1000; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        
+        .reveal { transform: translateY(30px); opacity: 0; transition: 0.8s all ease; }
+        .reveal.active { transform: translateY(0); opacity: 1; }
+
+        @media (max-width: 768px) { 
+            .nav-links { display: none; } 
+            .partners-container { gap: 15px; } 
+            .partners-container img { height: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">OVB <span>Michalovce</span></a>
+        <div class="nav-links">
+            <a href="index.html">Domov</a>
+            <a href="index.html#sluzby">Služby</a>
+            <a href="faq.html" style="color: var(--ovb-gold);">Časté otázky</a>
+            <a href="index.html#kontakt" class="btn-nav">Bezplatná konzultácia</a>
+        </div>
+    </nav>
+
+    <header class="faq-header">
+        <div class="status-badge"><span class="dot"></span> Aktuálne prijímam nových klientov</div>
+        <h1>Často kladené <span>otázky</span></h1>
+        <p>Všetko, čo potrebujete vedieť pred naším stretnutím.</p>
+    </header>
+
+    <div class="partners-section reveal">
+        <p class="partners-title">Spolupracujem so všetkými kľúčovými inštitúciami na trhu</p>
+        <div class="partners-container">
+            <img src="https://logo.clearbit.com/vub.sk" alt="VÚB">
+            <img src="https://logo.clearbit.com/slsp.sk" alt="SLSP">
+            <img src="https://logo.clearbit.com/tatrabanka.sk" alt="Tatra Banka">
+            <img src="https://logo.clearbit.com/csob.sk" alt="ČSOB">
+            <img src="https://logo.clearbit.com/unicreditbank.sk" alt="UniCredit">
+            <img src="https://logo.clearbit.com/primabanka.sk" alt="Prima Banka">
+            <img src="https://logo.clearbit.com/mbank.sk" alt="mBank">
+            <img src="https://logo.clearbit.com/stavebnysporitelna.sk" alt="PSS">
+            <img src="https://logo.clearbit.com/allianz.sk" alt="Allianz">
+            <img src="https://logo.clearbit.com/generali.sk" alt="Generali">
+            <img src="https://logo.clearbit.com/uniqa.sk" alt="Uniqa">
+            <img src="https://logo.clearbit.com/nn.sk" alt="NN">
+            <img src="https://logo.clearbit.com/metlife.sk" alt="MetLife">
+            <img src="https://logo.clearbit.com/youplus.sk" alt="Youplus">
+            <img src="https://logo.clearbit.com/kooperativa.sk" alt="Kooperativa">
+            <img src="https://logo.clearbit.com/union.sk" alt="Union">
+            <img src="https://logo.clearbit.com/amundi.sk" alt="Amundi">
+            <img src="https://logo.clearbit.com/conseq.sk" alt="Conseq">
+            <img src="https://www.ovb.sk/fileadmin/sk/img/logo-ovb.png" alt="OVB" style="height: 50px; filter: none; opacity: 1;">
+        </div>
+    </div>
+
+    <div class="search-container reveal">
+        <input type="text" id="faqSearch" class="search-input" placeholder="Hľadať tému (hypotéka, audit, pilier...)" onkeyup="filterFAQ()">
+    </div>
+
+    <div class="faq-container">
+        
+        <h3 class="faq-category-title">Spolupráca a servis</h3>
+        <div class="faq-item reveal">
+            <div class="faq-question">Sú vaše služby naozaj bezplatné? <span class="faq-icon">+</span></div>
+            <div class="faq-answer"><p>Áno. Moja konzultácia, vypracovanie finančného plánu a následný servis sú pre vás bezplatné. Moju prácu hradia finančné inštitúcie formou provízie.</p></div>
+        </div>
+        <div class="faq-item reveal">
+            <div class="faq-question">Kde prebiehajú stretnutia? Musím cestovať? <span class="faq-icon">+</span></div>
+            <div class="faq-answer"><p>Rád vás privítam v kancelárii v Michalovciach (Obchodná 2). Celú agendu však vieme vyriešiť aj online cez videohovor.</p></div>
+        </div>
+        <div class="faq-item reveal">
+            <div class="faq-question">Ako prebieha prvé stretnutie? <span class="faq-icon">+</span></div>
+            <div class="faq-answer"><p>Prvé stretnutie je o spoznávaní vašej situácie a cieľov. Na základe toho pripravím bezplatnú analýzu a návrh stratégie.</p></div>
+        </div>
+        <div class="faq-item reveal">
+            <div class="faq-question">Čo ak už mám zmluvy uzatvorené? <span class="faq-icon">+</span></div>
+            <div class="faq-answer"><p>V rámci auditu skontrolujem ich nastavenie a poplatky. Ak sú dobré, potvrdím vám to. Ak nie, navrhnem efektívnejšie riešenie.</p></div>
+        </div>
+
+        <h3 class="faq-category-title">Bývanie a úvery</h3>
+        <div class="faq-item reveal">
+            <div class="faq-question">Kedy je najlepší čas riešiť hypotéku? <span class="faq-icon">+</span></div>
+            <div class="faq-answer"><p>Ideálne ešte pred hľadaním bývania. Preveríme vašu bonitu, aby ste vedeli, s akým rozpočtom môžete počítať.</p></div>
+        </div>
+        <div class="faq-item reveal">
+            <div class="faq-question">Pomôžete mi aj s refinancovaním úveru? <span class="faq-icon">+</span></div>
+            <div class="faq-answer"><p>Áno. Sledujem trh a ak existuje možnosť ušetriť na splátke alebo úroku, vybavím celý proces za vás.</p></div>
+        </div>
+        <div class="faq-item reveal">
+            <div class="faq-question">Viem dostať hypotéku aj ako živnostník? <span class="faq-icon">+</span></div>
+            <div class="faq-answer"><p>Áno, hoci sú banky prísnejšie. Viem, ktoré banky najlepšie akceptujú príjmy SZČO.</p></div>
+        </div>
+
+        <h3 class="faq-category-title">Investovanie a ochrana</h3>
+        <div class="faq-item reveal">
+            <div class="faq-question">Oplatí sa investovať aj v čase krízy? <span class="faq-icon">+</span></div>
+            <div class="faq-answer"><p>Práve vtedy sa rodia najväčšie zisky. Dlhodobé investovanie spoľahlivo poráža infláciu a buduje váš majetok.</p></div>
+        </div>
+        <div class="faq-item reveal">
+            <div class="faq-question">Je investovanie rizikové? Môžem prísť o všetko? <span class="faq-icon">+</span></div>
+            <div class="faq-answer"><p>Diverzifikáciou riziko minimalizujeme. Peniaze máte pod dohľadom NBS u renomovaných svetových správcov.</p></div>
+        </div>
+        <div class="faq-item reveal">
+            <div class="faq-question">Potrebujem poistenie, ak som zdravý? <span class="faq-icon">+</span></div>
+            <div class="faq-answer"><p>Vtedy je najlacnejšie. Chráni váš príjem pred udalosťami, ktoré by mohli finančne ohroziť vás alebo vašu rodinu.</p></div>
+        </div>
+
+        <h3 class="faq-category-title">Dôchodok a deti</h3>
+        <div class="faq-item reveal">
+            <div class="faq-question">Mám si vybrať 2. pilier? <span class="faq-icon">+</span></div>
+            <div class="faq-answer"><p>Jednoznačne áno. Sú to vaše súkromné peniaze. Pomôžem vám vybrať indexový fond, aby úspory reálne rástli.</p></div>
+        </div>
+        <div class="faq-item reveal">
+            <div class="faq-question">Čo je to 3. pilier a kedy sa oplatí? <span class="faq-icon">+</span></div>
+            <div class="faq-answer"><p>Oplatí sa najmä pri príspevku zamestnávateľa. Je to vlastne bonus k mzde s možnosťou daňovej úľavy.</p></div>
+        </div>
+        <div class="faq-item reveal">
+            <div class="faq-question">Dá sa sporenie pre deti neskôr zmeniť? <span class="faq-icon">+</span></div>
+            <div class="faq-answer"><p>Áno, moderné produkty sú flexibilné. Môžete meniť výšku vkladu alebo vybrať peniaze skôr, ak je to potrebné.</p></div>
+        </div>
+
+        <div class="custom-question-box reveal">
+            <h3>Nenašli ste odpoveď na vašu otázku?</h3>
+            <p>Moje poradenstvo je individuálne. Napíšte mi vašu otázku a ja vám navrhnem riešenie na mieru.</p>
+            <a href="index.html#kontakt" class="btn-cta-gold">Chcem bezplatnú odpoveď</a>
+        </div>
+
+    </div>
+
+    <a href="#" id="backToTop">↑</a>
+
+    <footer>
+        <a href="https://www.facebook.com/matus.baca.ovb" target="_blank" class="fb-biz-card">
+            <div class="fb-biz-icon"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="FB"></div>
+            <div class="fb-biz-info"><span class="fb-biz-name">Facebook</span><span class="fb-biz-user">matus.baca.ovb</span></div>
+        </a>
+        <span style="display: block; font-weight: bold; margin-bottom: 20px; color: white; letter-spacing: 2px;">OVB ALLFINANZ SLOVENSKO A.S.</span>
+        <div class="footer-legal">
+            Matúš Bača vykonáva finančné sprostredkovanie ako podriadený finančný agent pod záštitou spoločnosti OVB Allfinanz Slovensko a.s., zapísanej v registri NBS pod číslom 5538917.
+        </div>
+        <p class="copyright">Všetky práva vyhradené &copy; 2026 | Matúš Bača</p>
+    </footer>
+
+    <script>
+        // Accordion
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const faqItem = button.parentElement;
+                document.querySelectorAll('.faq-item').forEach(item => { if (item !== faqItem) item.classList.remove('active'); });
+                faqItem.classList.toggle('active');
+            });
+        });
+
+        // Vyhľadávanie
+        function filterFAQ() {
+            let input = document.getElementById('faqSearch').value.toLowerCase();
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.style.display = item.innerText.toLowerCase().includes(input) ? "block" : "none";
+            });
+        }
+
+        // Animácie a Back to Top
+        window.onscroll = function() {
+            let btt = document.getElementById("backToTop");
+            if (window.pageYOffset > 400) { btt.style.display = "flex"; } else { btt.style.display = "none"; }
+            
+            document.querySelectorAll(".reveal").forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add("active");
+            });
+        };
+    </script>
+</body>
+</html>

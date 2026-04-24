@@ -88,12 +88,16 @@
 }
 
 .contact-photo img { 
-    width: 100%; 
-    height: 100%; 
-    border-radius: 50%; 
-    object-fit: cover; 
-    display: block; 
-    border: 3px solid var(--ovb-gold); 
+    width: 100% !important; 
+    height: 100% !important; 
+    border-radius: 50% !important; 
+    object-fit: cover !important;  
+    
+    /* Tento riadok skús zmeniť na 0%, ak je hlava stále odrezaná */
+    object-position: center 0% !important; 
+    
+    display: block !important; 
+    border: 3px solid var(--ovb-gold) !important; 
 }
 
 .contact-info h3 { color: var(--ovb-gold); margin-bottom: 8px; font-size: 1.5rem; }

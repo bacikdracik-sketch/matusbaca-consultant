@@ -466,6 +466,57 @@
     border-bottom-color: var(--gold-muted); /* Pri písaní zmení farbu na zlatú */
 }
 
+        /* SEKCIA HODNOTY - MODERNE A ČISTO */
+        .values-section {
+            padding: 80px 10%;
+            background: var(--light-blue-bg); /* Jemné svetlé pozadie pre kontrast */
+            margin: 40px 0;
+        }
+
+        .values-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .value-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold-muted);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .value-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .value-card h4 {
+            color: var(--primary-navy);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .value-card p {
+            color: var(--text-light);
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
         /* --- FOOTER --- */
         footer {
             padding: 100px 10% 60px;
@@ -961,6 +1012,31 @@
         </iframe>
     </div>
 </section>
+
+<section class="values-section reveal">
+    <div class="values-container">
+        <div class="value-card">
+            <span class="value-icon">🌍</span>
+            <h4>Globálny prehľad</h4>
+            <p>Sledujem trendy na svetových trhoch a prinášam vám overené informácie, ktoré vám pomôžu robiť správne finančné rozhodnutia.</p>
+        </div>
+
+        <div class="value-card">
+            <span class="value-icon">🛡️</span>
+            <h4>Individuálne riešenia</h4>
+            <p>Financie nie sú univerzálne. Každý plán tvorím na mieru vašim potrebám a cieľom, ktoré chcete v živote dosiahnuť.</p>
+        </div>
+
+        <div class="value-card">
+            <span class="value-icon">🤝</span>
+            <h4>Férový prístup</h4>
+            <p>Zakladám si na úprimnosti a dlhodobom partnerstve. Mojím cieľom je, aby ste presne rozumeli tomu, čo so svojimi peniazmi robíte.</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-socials" style="margin-bottom: 40px; text-align: center; display: flex; flex-direction: column; align-items: center;">
 
 <footer>
     <div class="footer-socials" style="margin-bottom: 40px; text-align: center; display: flex; flex-direction: column; align-items: center;">

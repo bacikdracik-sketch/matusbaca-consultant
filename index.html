@@ -760,6 +760,59 @@
         @media (max-width: 768px) {
             .whatsapp-float { bottom: 20px; right: 20px; width: 50px; height: 50px; }
         }
+
+        /* --- NOVÉ CTA PRVKY --- */
+
+/* Hlavné tlačidlo pod meno - dravé ale profi */
+.hero-cta {
+    display: inline-block;
+    background: var(--pure-white); /* Biela, aby svietila na tmavom pozadí */
+    color: var(--primary-navy) !important;
+    padding: 16px 35px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-top: 25px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.hero-cta:hover {
+    background: var(--gold-muted);
+    color: white !important;
+    transform: translateY(-3px);
+}
+
+/* Plávajúci WhatsApp lapač */
+.whatsapp-float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 30px;
+    right: 30px;
+    background-color: #25d366;
+    color: #FFF !important;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 30px;
+    box-shadow: 2px 10px 20px rgba(0,0,0,0.3);
+    z-index: 10001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
     </style>
   <nav>
       
@@ -786,13 +839,18 @@
 </nav>
 
     <section class="hero" id="home">
-        <div class="hero-tag">Wealth & Asset Management</div>
-        <h1>Budujte <b>istotu</b>, ktorá pretrvá generácie.</h1>
-        <p>Profesionálne finančné konzultácie so zameraním na dlhodobú udržateľnosť, ochranu kapitálu a strategické plánovanie pod záštitou lídra na trhu OVB Allfinanz Slovensko a.s.</p>
-        <div>
-    <a href="#kontakt" class="btn-primary">DOHODNÚŤ SI NEZÁVÄZNÚ KONZULTÁCIU</a>
-</div>
-    </section>
+    <div class="hero-tag">Wealth & Asset Management</div>
+    <h1>Budujte <b>istotu</b>, ktorá pretrvá generácie.</h1>
+    <p>Profesionálne finančné konzultácie so zameraním na dlhodobú udržateľnosť, ochranu kapitálu a strategické plánovanie pod záštitou lídra na trhu OVB Allfinanz Slovensko a.s.</p>
+    
+    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+        <a href="#kontakt" class="btn-primary">DOHODNÚŤ KONZULTÁCIU</a>
+        
+        <a href="https://wa.me/421951499890?text=Dobrý%20deň,%20mám%20záujem%20o%20bezplatnú%20analýzu%20mojich%20zmlúv." class="hero-cta">
+            BEZPLATNÁ ANALÝZA ZMLÚV
+        </a>
+    </div>
+</section>
 
     <section id="sluzby" class="bg-light reveal">
         <div class="section-header">

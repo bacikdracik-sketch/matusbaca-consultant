@@ -761,57 +761,122 @@
             .whatsapp-float { bottom: 20px; right: 20px; width: 50px; height: 50px; }
         }
 
-        /* --- NOVÉ CTA PRVKY --- */
+        /* Zjednotenie tlačidiel v Hero sekcii */
+.hero-btns-container {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
 
-/* Hlavné tlačidlo pod meno - dravé ale profi */
-.hero-cta {
-    display: inline-block;
-    background: var(--pure-white); /* Biela, aby svietila na tmavom pozadí */
-    color: var(--primary-navy) !important;
-    padding: 16px 35px;
-    font-size: 1rem;
+/* Štýl pre obe tlačidlá, aby mali rovnaký základ */
+.hero-btns-container .btn-primary, 
+.hero-btns-container .hero-cta {
+    flex: 0 1 auto;
+    min-width: 250px; /* Rovnaká minimálna šírka */
+    padding: 16px 25px;
+    font-size: 0.95rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
     border-radius: 4px;
+    text-align: center;
     text-decoration: none;
     transition: all 0.3s ease;
-    margin-top: 25px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-}
-
-.hero-cta:hover {
-    background: var(--gold-muted);
-    color: white !important;
-    transform: translateY(-3px);
-}
-
-/* Plávajúci WhatsApp lapač */
-.whatsapp-float {
-    position: fixed;
-    width: 60px;
-    height: 60px;
-    bottom: 30px;
-    right: 30px;
-    background-color: #25d366;
-    color: #FFF !important;
-    border-radius: 50px;
-    text-align: center;
-    font-size: 30px;
-    box-shadow: 2px 10px 20px rgba(0,0,0,0.3);
-    z-index: 10001;
     display: flex;
     align-items: center;
     justify-content: center;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    animation: pulse-green 2s infinite;
 }
 
-@keyframes pulse-green {
-    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-    70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+/* Modré tlačidlo (pôvodné) */
+.hero-btns-container .btn-primary {
+    background: var(--primary-navy);
+    color: white !important;
+    border: 2px solid var(--primary-navy);
+}
+
+/* Biele tlačidlo (WhatsApp) */
+.hero-btns-container .hero-cta {
+    background: var(--pure-white);
+    color: var(--primary-navy) !important;
+    border: 2px solid var(--pure-white);
+    margin-top: 0; /* Zrušíme ten posun, čo sme tam mali predtým */
+}
+
+.hero-btns-container .btn-primary:hover,
+.hero-btns-container .hero-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    background: var(--gold-muted);
+    border-color: var(--gold-muted);
+    color: white !important;
+}
+
+/* Úprava pre mobil, aby boli pod sebou a rovnako široké */
+@media (max-width: 580px) {
+    .hero-btns-container .btn-primary, 
+    .hero-btns-container .hero-cta {
+        width: 100%;
+        flex: 1 1 100%;
+    }
+}/* Zjednotenie tlačidiel v Hero sekcii */
+.hero-btns-container {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+/* Štýl pre obe tlačidlá, aby mali rovnaký základ */
+.hero-btns-container .btn-primary, 
+.hero-btns-container .hero-cta {
+    flex: 0 1 auto;
+    min-width: 250px; /* Rovnaká minimálna šírka */
+    padding: 16px 25px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Modré tlačidlo (pôvodné) */
+.hero-btns-container .btn-primary {
+    background: var(--primary-navy);
+    color: white !important;
+    border: 2px solid var(--primary-navy);
+}
+
+/* Biele tlačidlo (WhatsApp) */
+.hero-btns-container .hero-cta {
+    background: var(--pure-white);
+    color: var(--primary-navy) !important;
+    border: 2px solid var(--pure-white);
+    margin-top: 0; /* Zrušíme ten posun, čo sme tam mali predtým */
+}
+
+.hero-btns-container .btn-primary:hover,
+.hero-btns-container .hero-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    background: var(--gold-muted);
+    border-color: var(--gold-muted);
+    color: white !important;
+}
+
+/* Úprava pre mobil, aby boli pod sebou a rovnako široké */
+@media (max-width: 580px) {
+    .hero-btns-container .btn-primary, 
+    .hero-btns-container .hero-cta {
+        width: 100%;
+        flex: 1 1 100%;
+    }
 }
     </style>
   <nav>
@@ -843,7 +908,7 @@
     <h1>Budujte <b>istotu</b>, ktorá pretrvá generácie.</h1>
     <p>Profesionálne finančné konzultácie so zameraním na dlhodobú udržateľnosť, ochranu kapitálu a strategické plánovanie pod záštitou lídra na trhu OVB Allfinanz Slovensko a.s.</p>
     
-    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+    <div class="hero-btns-container">
         <a href="#kontakt" class="btn-primary">DOHODNÚŤ KONZULTÁCIU</a>
         
         <a href="https://wa.me/421951499890?text=Dobrý%20deň,%20mám%20záujem%20o%20bezplatnú%20analýzu%20mojich%20zmlúv." class="hero-cta">

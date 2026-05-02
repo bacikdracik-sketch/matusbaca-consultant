@@ -1025,36 +1025,37 @@ input[type=range] {
             <h2>Cesta k <span>Vlastnému Bývaniu</span></h2>
         </div>
         <div class="grid-3">
-            <div class="card">
-                <div class="card-icon">
-                    <img src="House.png" alt="Hypotekárny audit">
-                </div>
-                <h3>Hypotekárny Audit</h3>
-                <p>Detailná analýza vašich možností naprieč celým bankovým trhom. Nehľadáme len najnižší úrok, ale najlepšie podmienky pre váš konkrétny životný scenár.</p>
-            </div>
-            <section id="audit" style="padding: 60px 0; background: var(--light-blue-bg); border-radius: 20px; margin-top: 40px;">
-    <div class="hypo-card">
+            <div class="card" onclick="openModal()" style="cursor: pointer;">
+    <div class="card-icon">
+        <img src="House.png" alt="Hypotekárny audit" style="width: 50px;">
+    </div>
+    <h3>Hypotekárny Audit</h3>
+    <p>Detailná analýza vašich možností naprieč celým bankovým trhom. Kliknite pre rýchly online výpočet.</p>
+    <span style="color: var(--gold-muted); font-weight: 600; font-size: 0.8rem;">SPUSTIŤ AUDIT ➔</span>
+</div>
+           <div id="hypoModal" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.8); backdrop-filter: blur(5px);">
+    <div class="hypo-card" style="position:relative; top:50%; transform:translateY(-50%); max-width:500px; margin:auto;">
+        <span onclick="closeModal()" style="position:absolute; right:20px; top:10px; cursor:pointer; font-size:25px; font-weight:bold;">&times;</span>
+        
         <h2>Hypotekárny Audit</h2>
-        <p style="color: var(--text-light); margin-bottom: 30px;">Zistite za 30 sekúnd, či banke neplatíte zbytočné peniaze naviac.</p>
+        <p style="font-size: 0.9rem; color: var(--text-light);">Zistite preplatenie za 30 sekúnd.</p>
 
         <form action="https://formspree.io/f/xeepvqqy" method="POST">
             <div class="range-box">
-                <label>Výška vašej hypotéky (alebo cieľová suma)</label>
+                <label style="font-size: 0.8rem;">Výška hypotéky</label>
                 <div class="range-flex">
                     <input type="range" name="vyska" min="10000" max="500000" step="5000" value="100000" oninput="v_out.value = parseInt(this.value).toLocaleString() + ' €'">
-                    <output name="v_out" class="output-value">100 000 €</output>
+                    <output name="v_out" class="output-value" style="min-width:90px; font-size:0.9rem;">100 000 €</output>
                 </div>
             </div>
-
-            <div class="form-grid">
-                <input type="email" name="email" placeholder="Váš E-mail *" required>
+            <div class="form-grid" style="grid-template-columns: 1fr;">
+                <input type="email" name="email" placeholder="Váš E-mail *" required style="margin-bottom:10px;">
                 <input type="tel" name="phone" placeholder="Váš Telefón *" required>
             </div>
-
-            <button type="submit" class="btn-gold">Odoslať na bezplatné posúdenie ➔</button>
+            <button type="submit" class="btn-gold">Odoslať na posúdenie ➔</button>
         </form>
     </div>
-</section>
+</div>
 
             <div class="card">
                 <div class="card-icon">
@@ -1421,6 +1422,13 @@ input[type=range] {
 </div>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
+<script>
+function openModal() { document.getElementById("hypoModal").style.display = "block"; }
+function closeModal() { document.getElementById("hypoModal").style.display = "none"; }
+window.onclick = function(event) {
+    if (event.target == document.getElementById("hypoModal")) { closeModal(); }
+}
+</script>
+        
 </body>
 </html>

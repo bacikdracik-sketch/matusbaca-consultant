@@ -428,30 +428,38 @@ hr { border: 0; border-top: 1px solid var(--border-color); margin: 35px 0; }
     transition: 0.3s;
 }
 
-/* --- OBRAZOK NA CELÚ ŠÍRKU BOXU --- */
+/* --- OPRAVENÝ OBRAZOK V BOXE (Zarovnanie hore) --- */
 .card-icon {
     width: 100%;
     height: 200px; 
-    display: flex;          /* Zmenené na flex pre centrovanie */
-    align-items: center;    /* Vertikálne centrovanie */
-    justify-content: center;/* Horizontálne centrovanie */
+    display: flex;
+    align-items: flex-start; /* Toto posunie obsah (ikonku) nahor */
+    justify-content: center; /* Horizontálne zostane v strede */
     overflow: hidden;
-    background: #f9f9f9;    /* Jemné pozadie pod ikonky */
+    background: #f9f9f9;
+    padding-top: 20px;       /* Medzera od horného okraja pre ikonky */
 }
 
 .card-icon img {
-    /* Ak má obrázok triedu "ikonka", zostane malý. Ak nie, roztiahne sa. */
+    /* Základné nastavenie pre fotky, aby vyplnili box */
     width: 100%;
     height: 100%;
     object-fit: cover; 
     display: block;
 }
 
-/* NOVÉ: Toto ochráni tvoje malé ikonky pred roztiahnutím */
+/* FIX: Toto pravidlo prebije všetko ostatné pre malé ikonky */
 .card-icon img.icon-small {
-    width: 80px !important;  /* Tu si nastav veľkosť ikonky */
+    width: 80px !important;  
     height: 80px !important;
     object-fit: contain !important;
+    /* Resetujeme výšku na auto pri ikonke, aby ju nenaťahovalo na 200px */
+    flex-shrink: 0; 
+}
+
+/* Ak je v boxe veľká fotka (bez triedy icon-small), padding zrušíme */
+.card-icon:has(img:not(.icon-small)) {
+    padding-top: 0;
 }
 
 /* --- TEXT POD FOTKOU --- */

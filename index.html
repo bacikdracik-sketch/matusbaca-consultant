@@ -392,21 +392,23 @@ input[type=range] {
 }
 
 /* --- IKONY (Pôvodná veľkosť) --- */
+.card-icon img {
+    width: auto !important;
+    height: auto !important;
+    /* Zväčšujeme limit z 80px na 130px */
+    max-width: 130px !important;  
+    max-height: 130px !important;
+    object-fit: contain !important;
+    display: block;
+}
+
+/* A uprav výšku samotného obalu ikony, aby sa tam vošla */
 .card-icon {
-    margin-bottom: 25px;
-    height: 100px; /* Fixná výška priestoru pre ikonu */
+    margin-bottom: 20px;
+    height: 140px; /* Z 100px na 140px */
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.card-icon img {
-    /* Tu nastavujeme tú "pôvodnú" malú veľkosť */
-    width: auto !important;
-    height: auto !important;
-    max-width: 80px !important;  /* Ak chceš trošku väčšie, daj 100px */
-    max-height: 80px !important;
-    object-fit: contain !important;
 }
 
 /* --- TEXTY --- */

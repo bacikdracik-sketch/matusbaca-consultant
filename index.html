@@ -278,97 +278,126 @@ input[type=range] { flex: 1; accent-color: #B38E44; cursor: pointer; }
     text-transform: uppercase; cursor: pointer; transition: 0.3s; margin-top: 20px;
 }
 .btn-calc:hover { background: #0F172A; }
-      /* --- ŠTÝL KALKULAČKY MATÚŠ BAČA --- */
-.hypo-card {
-    background: white;
-    padding: 40px;
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-subtle);
-    max-width: 700px;
-    margin: 40px auto;
-    transition: all 0.5s ease;
-}
-
-.hypo-card:hover {
-    border-color: var(--gold-muted);
-}
-
-.hypo-card h2 {
-    color: var(--primary-navy);
-    font-size: 1.6rem;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-    font-weight: 700;
-}
-
-.range-box {
-    margin: 25px 0;
+        
+      /* --- KALKULAČKA V MOJICH FARBÁCH --- */
+.inline-calculator {
+    display: none;
+    padding: 30px;
+    background: #fff;
+    border-top: 1px solid var(--border-color);
     text-align: left;
+    animation: fadeIn 0.5s ease;
 }
 
-.range-box label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 15px;
-    color: var(--text-main);
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-.range-flex {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+.inline-calculator h4 { 
+    color: var(--primary-navy); 
+    font-size: 1.1rem; 
+    text-align: center; 
+    margin-bottom: 5px; 
+    letter-spacing: 1px;
 }
 
-input[type=range] {
-    flex: 1;
-    accent-color: var(--gold-muted);
-    cursor: pointer;
+.calc-sub { 
+    text-align: center; 
+    font-size: 0.8rem; 
+    color: var(--text-light); 
+    margin-bottom: 25px; 
 }
 
-.output-value {
-    min-width: 120px;
-    padding: 10px;
-    border: 2px solid var(--gold-muted);
-    border-radius: 5px;
-    text-align: center;
-    font-weight: 700;
+.calc-row { 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    margin-bottom: 20px; 
+    gap: 15px; 
+}
+
+.calc-row span { 
+    font-size: 0.85rem; 
+    font-weight: 600; 
+    color: var(--primary-navy); 
+    width: 120px; 
+}
+
+/* Štýlový rámček pre hodnotu (zlatý) */
+.input-mimic { 
+    border: 2px solid var(--gold-muted); 
+    border-radius: 5px; 
+    padding: 8px; 
+    min-width: 110px; 
+    text-align: center; 
+    font-weight: 700; 
     color: var(--primary-navy);
+    background: var(--soft-white);
 }
 
-.form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    margin-top: 30px;
+/* Zlatý posuvník */
+input[type=range] { 
+    flex: 1; 
+    accent-color: var(--gold-muted); 
 }
 
-.form-grid input {
-    padding: 15px;
-    border: 1px solid var(--border-color);
-    font-family: inherit;
-    outline: none;
-}
-
-.form-grid input:focus {
-    border-color: var(--gold-muted);
-}
-
-.btn-gold {
-    background: var(--gold-muted);
-    color: white;
-    border: none;
-    width: 100%;
-    padding: 20px;
-    margin-top: 25px;
-    font-weight: 700;
-    text-transform: uppercase;
+/* Sekcia kontaktu - decentná modrá/zlatá */
+.checkbox-label { 
+    font-size: 0.85rem; 
+    font-weight: 600; 
+    color: var(--gold-muted); 
+    display: block; 
+    margin-bottom: 20px; 
     cursor: pointer;
-    transition: 0.3s;
 }
 
-.btn-gold:hover {
-    background: var(--primary-navy);
+.input-group label { 
+    width: 100px; 
+    font-size: 0.85rem; 
+    color: var(--text-main); 
 }
+
+.input-group input, .phone-input { 
+    flex: 1; 
+    padding: 12px; 
+    border: 1px solid var(--border-color); 
+    border-radius: 5px; 
+    outline: none;
+    font-family: inherit;
+}
+
+/* Zvýraznenie po kliknutí do poľa */
+.input-group input:focus, .phone-input:focus-within { 
+    border-color: var(--gold-muted); 
+    box-shadow: 0 0 5px rgba(179, 142, 68, 0.2);
+}
+
+.phone-input { display: flex; align-items: center; gap: 10px; padding-left: 10px; }
+.phone-input input { border: none; padding: 0; }
+
+/* TLAČIDLO - Tmavomodré so zlatým efektom */
+.btn-gold-action { 
+    width: 100%; 
+    background: var(--gold-muted); 
+    color: #fff; 
+    border: none; 
+    padding: 18px; 
+    border-radius: 5px; /* Viac konzervatívny tvar */
+    font-weight: 700; 
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer; 
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.btn-gold-action:hover { 
+    background: var(--primary-navy); 
+    transform: translateY(-2px); 
+}
+
+hr { border: 0; border-top: 1px solid var(--border-color); margin: 25px 0; }
 /* --- BOX KARTA --- */
 .card {
     background: white;
@@ -1042,14 +1071,57 @@ input[type=range] {
     </div>
     <div class="grid-3">
         <!-- KARTA 1: HYPOTEKÁRNY AUDIT -->
-        <div class="card" onclick="openModal()" style="cursor: pointer;">
-            <div class="card-icon">
-    <img src="House.png" alt="Hypotekárny audit">
-</div>
-            <h3>Hypotekárny Audit</h3>
-            <p>Detailná analýza vašich možností naprieč celým bankovým trhom. Kliknite pre rýchly online výpočet.</p>
-            <span style="color: var(--gold-muted); font-weight: 600; font-size: 0.8rem;">SPUSTIŤ AUDIT ➔</span>
+<div class="card" onclick="openModal()" style="cursor: pointer;">
+    <div class="card-icon">
+        <img src="House.png" alt="Hypotekárny audit">
+    </div>
+    
+    <!-- PRIDANÝ onclick na tento div, aby sa pri rátaní nezatváral/neotváral box -->
+    <div id="inline-calc" class="inline-calculator" onclick="event.stopPropagation()">
+        <h4>KALKULAČKA NAJVÝHODNEJŠEJ HYPOTÉKY</h4>
+        <p class="calc-sub">Sme viac ako hypotekárna kalkulačka. Pripravíme vám hypotéku na mieru.</p>
+
+        <div class="calc-row">
+            <span>Výška hypotéky</span>
+            <div class="range-wrapper">
+                <input type="range" id="rangeAmount" min="10000" max="500000" step="5000" value="80000">
+                <div class="input-mimic"><span id="valAmount">80 000</span> €</div>
+            </div>
         </div>
+
+        <div class="calc-row">
+            <span>Doba splácania</span>
+            <div class="range-wrapper">
+                <input type="range" id="rangeYears" min="1" max="40" value="30">
+                <div class="input-mimic"><span id="valYears">30</span> rokov</div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="calc-contact">
+            <label class="checkbox-label">
+                <input type="checkbox" checked> Chcem nezáväznú ponuku hypotéky
+            </label>
+            
+            <div class="input-group">
+                <label>E-mail *</label>
+                <input type="email" placeholder="vas@email.sk">
+            </div>
+
+            <div class="input-group">
+                <label>Telefón *</label>
+                <div class="phone-input">
+                    <img src="https://flagcdn.com/w20/sk.png" alt="SK">
+                    <input type="tel" placeholder="09XX XXX XXX">
+                </div>
+            </div>
+        </div>
+
+        <p class="calc-legal">Súhlasím so spracovaním osobných údajov pre účely vypracovania ponuky.</p>
+        <button class="btn-gold-action">POROVNAJTE SI HYPOTÉKY</button>
+    </div>
+</div>
 
         <!-- KARTA 2: REFINANCOVANIE -->
         <div class="card">

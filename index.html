@@ -1109,19 +1109,20 @@ hr { border: 0; border-top: 1px solid var(--border-color); margin: 35px 0; }
     </div>
     <div class="grid-3">
         <!-- KARTA 1: HYPOTEKÁRNY AUDIT -->
+<!-- Pridané uzavretie divu pred kalkulačkou -->
 <div class="card" onclick="openModal()" style="cursor: pointer;">
     <div class="card-icon">
         <img src="House.png" alt="Hypotekárny audit">
     </div>
     <h3>Hypotekárny Audit</h3>
         
-        <p class="card-description">
-            Detailná analýza vášho aktuálneho úveru a preverenie trhu. 
-            Zistíme, či nepreplácate zbytočne a nájdeme priestor na úsporu.
-        </p>
+    <p class="card-description">
+        Detailná analýza vášho aktuálneho úveru a preverenie trhu. 
+        Zistíme, či nepreplácate zbytočne a nájdeme priestor na úsporu.
+    </p>
         
-        <span class="click-info">Kliknite pre kalkulačku ↓</span>
-    </div>
+    <span class="click-info">Kliknite pre kalkulačku ↓</span>
+
     <div id="inline-calc" class="inline-calculator" onclick="event.stopPropagation()">
         <h4>KALKULAČKA NAJVÝHODNEJŠEJ HYPOTÉKY</h4>
         <p class="calc-sub">Sme viac ako hypotekárna kalkulačka. Pripravíme vám hypotéku na mieru.</p>
@@ -1151,22 +1152,26 @@ hr { border: 0; border-top: 1px solid var(--border-color); margin: 35px 0; }
             
             <div class="input-group">
                 <label>E-mail *</label>
-                <input type="email" placeholder="vas@email.sk">
+                <!-- DOPLNENÉ id="calcEmail" -->
+                <input type="email" id="calcEmail" placeholder="vas@email.sk" required>
             </div>
 
             <div class="input-group">
                 <label>Telefón *</label>
                 <div class="phone-input">
                     <img src="https://flagcdn.com/w20/sk.png" alt="SK">
-                    <input type="tel" placeholder="09xx xxx xxx">
+                    <!-- DOPLNENÉ id="calcPhone" -->
+                    <input type="tel" id="calcPhone" placeholder="09xx xxx xxx" required>
                 </div>
             </div>
         </div>
 
         <p class="calc-legal">Súhlasím so spracovaním osobných údajov pre účely vypracovania ponuky.</p>
+        
+        <!-- Onclick funkcia je správne -->
         <button class="btn-gold-action" onclick="handleCalcClick(event)">
-    POROVNAJTE SI HYPOTÉKY
-</button>
+            POROVNAJTE SI HYPOTÉKY
+        </button>
     </div>
 </div>
 
@@ -1509,137 +1514,129 @@ hr { border: 0; border-top: 1px solid var(--border-color); margin: 35px 0; }
             hamburger.classList.toggle('active');
         });
     }
-async function handleCalcClick(e) {
-    if(e) e.stopPropagation(); // Zastaví zatvorenie karty
+// 1. Funkcia pre Hypotékárny audit
+    async function handleCalcClick(e) {
+        if(e) e.stopPropagation(); 
 
-    // Získanie hodnôt (ak neexistujú, dáme nulu/prázdno)
-    const suma = document.getElementById('valAmount')?.innerText || "0";
-    const doba = document.getElementById('valYears')?.innerText || "0";
-    const emailEl = document.getElementById('calcEmail');
-    const phoneEl = document.getElementById('calcPhone');
+        const suma = document.getElementById('valAmount')?.innerText || "0";
+        const doba = document.getElementById('valYears')?.innerText || "0";
+        const emailEl = document.getElementById('calcEmail');
+        const phoneEl = document.getElementById('calcPhone');
 
-    if (!emailEl || !phoneEl || !emailEl.value || !phoneEl.value) {
-        alert("Prosím, vyplňte e-mail a telefón.");
-        return;
-    }
-
-    const tlacidlo = e.target;
-    tlacidlo.innerText = "ODOSIELAM...";
-    tlacidlo.disabled = true;
-
-    try {
-        const response = await fetch("https://formspree.io/f/xeepvqqy", {
-            method: "POST",
-            body: JSON.stringify({
-                email: emailEl.value,
-                telefon: phoneEl.value,
-                suma: suma + " €",
-                doba: doba + " rokov",
-                _subject: "Dopyt: Hypo audit (" + suma + " €)"
-            }),
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
-        });
-
-        if (response.ok) {
-            alert("Odoslané! Čoskoro sa vám ozveme.");
-            if(typeof openModal === "function") openModal(); // Zavrie kalkulačku
-        } else {
-            alert("Chyba pri odosielaní. Skúste to neskôr.");
+        if (!emailEl || !phoneEl || !emailEl.value || !phoneEl.value) {
+            alert("Prosím, vyplňte e-mail a telefón.");
+            return;
         }
-    } catch (err) {
-        alert("Chyba spojenia.");
-    } finally {
-        tlacidlo.innerText = "POROVNAJTE SI HYPOTÉKY";
-        tlacidlo.disabled = false;
-    }
-} 
-    async function handleRefClick(event) {
-    // 1. Zabránime obnoveniu stránky alebo zatvoreniu modalu
-    if (event) {
-        event.preventDefault();
-        event.stopPropagation();
-    }
 
-    // 2. Získame elementy z HTML
-    const inputEmail = document.getElementById('refEmail');
-    const inputPhone = document.getElementById('refPhone');
-    const button = event.target;
+        const tlacidlo = e.target;
+        tlacidlo.innerText = "ODOSIELAM...";
+        tlacidlo.disabled = true;
 
-    // 3. Základná kontrola, či používateľ niečo napísal
-    if (!inputEmail.value || !inputPhone.value) {
-        alert("Prosím, vyplňte e-mail aj telefón.");
-        return;
-    }
+        try {
+            const response = await fetch("https://formspree.io/f/xeepvqqy", {
+                method: "POST",
+                body: JSON.stringify({
+                    email: emailEl.value,
+                    telefon: phoneEl.value,
+                    suma: suma + " €",
+                    doba: doba + " rokov",
+                    _subject: "Dopyt: Hypo audit (" + suma + " €)"
+                }),
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+            });
 
-    // 4. Vizuálna spätná väzba na tlačidle
-    const originalText = button.innerText;
-    button.innerText = "ODOSIELAM...";
-    button.disabled = true;
-
-    // 5. Príprava dát pre odoslanie (obohatená o sumu zo sliderov)
-    const formData = {
-        email: inputEmail.value,
-        phone: inputPhone.value,
-        suma_zo_slidera: document.getElementById('valAmount')?.innerText || "neuvedená",
-        doba_zo_slidera: document.getElementById('valYears')?.innerText || "neuvedená",
-        service: "Refinancovanie hypotéky",
-        _subject: "DOPYT: Refinancovanie (" + inputEmail.value + ")"
-    };
-
-    try {
-        // 6. Samotné odoslanie cez Formspree
-        const response = await fetch("https://formspree.io/f/xeepvqqy", {
-            method: "POST",
-            body: JSON.stringify(formData),
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
+            if (response.ok) {
+                alert("Odoslané! Čoskoro sa vám ozveme.");
+                if(typeof openModal === "function") openModal(); 
+            } else {
+                alert("Chyba pri odosielaní. Skúste to neskôr.");
             }
-        });
-
-        if (response.ok) {
-            alert("Úspešne odoslané! Čoskoro vás budem kontaktovať.");
-            inputEmail.value = ""; // Vyčistenie polí
-            inputPhone.value = "";
-        } else {
-            alert("Chyba pri odosielaní. Skúste to neskôr.");
+        } catch (err) {
+            alert("Chyba spojenia.");
+        } finally {
+            tlacidlo.innerText = "POROVNAJTE SI HYPOTÉKY";
+            tlacidlo.disabled = false;
         }
-    } catch (error) {
-        console.error("Chyba:", error);
-        alert("Chyba spojenia. Skontrolujte internet.");
-    } finally {
-        // 7. Vrátime tlačidlo do pôvodného stavu
-        button.innerText = originalText;
-        button.disabled = false;
     }
-}
-    // 2. Funkcia pre postupné vynáranie sekcií (Reveal)
+
+    // 2. Funkcia pre Refinancovanie (VYČISTENÁ VERZIA)
+    async function handleRefClick(event) {
+        if (event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
+        const inputEmail = document.getElementById('refEmail');
+        const inputPhone = document.getElementById('refPhone');
+        const button = event.target;
+
+        const sumaZoSlidera = document.getElementById('valAmount')?.innerText || "neuvedená";
+        const dobaZoSlidera = document.getElementById('valYears')?.innerText || "neuvedená";
+
+        if (!inputEmail || !inputPhone || !inputEmail.value || !inputPhone.value) {
+            alert("Prosím, vyplňte e-mail aj telefón.");
+            return;
+        }
+
+        const originalText = button.innerText;
+        button.innerText = "ODOSIELAM...";
+        button.disabled = true;
+
+        const formData = {
+            email: inputEmail.value,
+            phone: inputPhone.value,
+            suma: sumaZoSlidera + " €",
+            doba: dobaZoSlidera + " rokov",
+            sluzba: "Refinancovanie hypotéky",
+            _subject: "DOPYT: Refinancovanie (" + inputEmail.value + ")"
+        };
+
+        try {
+            const response = await fetch("https://formspree.io/f/xeepvqqy", {
+                method: "POST",
+                body: JSON.stringify(formData),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                alert("Úspešne odoslané! Čoskoro vás budem kontaktovať.");
+                inputEmail.value = ""; 
+                inputPhone.value = "";
+            } else {
+                alert("Chyba pri odosielaní. Skúste to neskôr.");
+            }
+        } catch (error) {
+            console.error("Chyba:", error);
+            alert("Chyba spojenia. Skontrolujte internet.");
+        } finally {
+            button.innerText = originalText;
+            button.disabled = false;
+        }
+    }
+
+    // 3. Ostatná logika (Reveal, Modal, Slidery)
     function reveal() {
         var reveals = document.querySelectorAll(".reveal");
         for (var i = 0; i < reveals.length; i++) {
             var windowHeight = window.innerHeight;
             var elementTop = reveals[i].getBoundingClientRect().top;
             var elementVisible = 150; 
-
             if (elementTop < windowHeight - elementVisible) {
                 reveals[i].classList.add("active");
             }
         }
     }
 
-    // 3. Funkcia na otváranie kalkulačky v boxe
     function openModal() {
         const calc = document.getElementById('inline-calc');
         if (calc) {
-            if (calc.style.display === "block") {
-                calc.style.display = "none";
-            } else {
-                calc.style.display = "block";
-            }
+            calc.style.display = (calc.style.display === "block") ? "none" : "block";
         }
     }
 
-    // 4. Logika výpočtu kalkulačky (posuvníky)
     const rangeAmount = document.getElementById('rangeAmount');
     const rangeYears = document.getElementById('rangeYears');
     const valAmount = document.getElementById('valAmount');
@@ -1655,11 +1652,9 @@ async function handleCalcClick(e) {
         }
     }
 
-    // Naviazanie sledovania pohybu
     if (rangeAmount) rangeAmount.addEventListener('input', updateValues);
     if (rangeYears) rangeYears.addEventListener('input', updateValues);
 
-    // 5. Zabránenie zatvoreniu boxu pri klikaní do vnútra kalkulačky
     const calcContainer = document.getElementById('inline-calc');
     if (calcContainer) {
         calcContainer.addEventListener('click', function(e) {
@@ -1667,19 +1662,10 @@ async function handleCalcClick(e) {
         });
     }
 
-    // 6. Staršie funkcie (ak ich ešte používaš v iných sekciách)
-    function toggleCard(cardId) {
-        var detail = document.getElementById(cardId + "-detail");
-        if (detail) {
-            detail.style.display = (detail.style.display === "block") ? "none" : "block";
-        }
-    }
-
-    // Spúšťače pri scrolle a načítaní
     window.addEventListener("scroll", reveal);
     window.addEventListener("load", () => {
         reveal();
-        updateValues(); // Nastaví čísla v kalkulačke na začiatku
+        updateValues();
     });
 </script>
 

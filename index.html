@@ -369,43 +369,68 @@ input[type=range] {
 .btn-gold:hover {
     background: var(--primary-navy);
 }
-/* Obal pre fotku - vrátime mu pôvodný vzhľad */
+/* --- 3 BOXY VEDĽA SEBA --- */
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Toto drží 3 stĺpce */
+    gap: 30px;
+    padding: 0 10%;
+    margin-top: 50px;
+}
+
+/* --- KARTA --- */
+.card {
+    background: white;
+    padding: 40px 30px;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Vycentruje ikonu aj text */
+    text-align: center;
+    height: 100%;
+}
+
+/* --- IKONY (Pôvodná veľkosť) --- */
 .card-icon {
     margin-bottom: 25px;
-    height: 120px; 
+    height: 100px; /* Fixná výška priestoru pre ikonu */
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.card-icon img { /* <--- TENTO RIADOK TI TAM CHÝBAL */
+.card-icon img {
+    /* Tu nastavujeme tú "pôvodnú" malú veľkosť */
     width: auto !important;
     height: auto !important;
-    max-width: 110px !important; 
-    max-height: 110px !important; 
-    display: block;
+    max-width: 80px !important;  /* Ak chceš trošku väčšie, daj 100px */
+    max-height: 80px !important;
     object-fit: contain !important;
 }
-/* TEXTY V KARTÁCH (Dôležité doplniť!) */
+
+/* --- TEXTY --- */
 .card h3 {
     margin-bottom: 15px;
     font-weight: 700;
-    letter-spacing: 1px;
     color: var(--primary-navy);
     text-transform: uppercase;
     font-size: 1.1rem;
-    line-height: 1.4;
 }
 
 .card p {
     font-size: 0.95rem;
     color: var(--text-light);
-    font-weight: 300;
-    flex-grow: 1;
     line-height: 1.6;
 }
-        .bg-light { background-color: var(--light-blue-bg); }
 
+/* --- RESPONSIVITA (Na mobile pod sebou) --- */
+@media (max-width: 992px) {
+    .grid-3 {
+        grid-template-columns: 1fr;
+        padding: 0 5%;
+    }
+}
         /* --- O MNE (BIO) --- */
         /* --- O MNE (BIO) --- */
         .bio {

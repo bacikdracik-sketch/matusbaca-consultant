@@ -369,32 +369,33 @@ input[type=range] {
 .btn-gold:hover {
     background: var(--primary-navy);
 }
-/* Obal pre fotku - nastavíme mu fixnú výšku, aby boli karty v rovine */
+/* Obal pre ikonu/fotku - tu držíme stabilitu */
 .card-icon {
     margin-bottom: 25px;
-    overflow: hidden;
+    height: 180px; /* Pevne stanovený priestor pre obrázok */
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 200px; /* Zväčšili sme priestor pre obrázok z 120px na 200px */
-    background: #f8fafc; /* Jemné pozadie, ak by obrázok nevyplnil všetko */
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.02); /* Jemný podklad pod obrázky */
+    border-radius: 4px;
 }
 
 .card-icon img {
-    /* Kľúč k úspechu: Obrázok vyplní výšku alebo šírku, ale nedeformuje sa */
-    width: 100% !important;
-    height: 100% !important;
-    max-width: none !important; 
-    max-height: none !important;
-    object-fit: cover; /* Toto zabezpečí, že obrázok vyplní celý priestor ako fotka */
+    /* FIXNÉ ROZMERY - toto nepustí */
+    width: 140px !important; 
+    height: 140px !important;
+    
+    /* Zabezpečí, že sa obrázok nedeformuje (neoztiahne) */
+    object-fit: contain !important; 
+    
     display: block;
-    transition: transform 0.5s ease;
+    transition: transform 0.4s ease;
 }
 
 .card:hover .card-icon img {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
-
 /* TEXTY V KARTÁCH (Dôležité doplniť!) */
 .card h3 {
     margin-bottom: 15px;
@@ -1033,9 +1034,8 @@ input[type=range] {
         <!-- KARTA 1: HYPOTEKÁRNY AUDIT -->
         <div class="card" onclick="openModal()" style="cursor: pointer;">
             <div class="card-icon">
-                <!-- ODSTRÁNENÉ "width: 50px" - teraz ho riadi CSS vyššie -->
-                <img src="House.png" alt="Hypotekárny audit">
-            </div>
+    <img src="House.png" alt="Hypotekárny audit">
+</div>
             <h3>Hypotekárny Audit</h3>
             <p>Detailná analýza vašich možností naprieč celým bankovým trhom. Kliknite pre rýchly online výpočet.</p>
             <span style="color: var(--gold-muted); font-weight: 600; font-size: 0.8rem;">SPUSTIŤ AUDIT ➔</span>
@@ -1044,17 +1044,17 @@ input[type=range] {
         <!-- KARTA 2: REFINANCOVANIE -->
         <div class="card">
             <div class="card-icon">
-                <img src="Refinance.png" alt="Refinančná stratégia">
-            </div>
+    <img src="Refinance.png" alt="Refinančná stratégia">
+</div>
             <h3>Refinančná Stratégia</h3>
             <p>Optimalizácia existujúcich záväzkov. Zníženie mesačnej splátky a celkového preplatenia úveru prostredníctvom včasného a správne načasovaného refinancovania.</p>
         </div>
 
         <!-- KARTA 3: SERVIS -->
         <div class="card">
-            <div class="card-icon">
-                <img src="Service.png" alt="Administratívny servis">
-            </div>
+            <<div class="card-icon">
+    <img src="Service.png" alt="Administratívny servis">
+</div>
             <h3>Administratívny Servis</h3>
             <p>Kompletné zastrešenie procesu. Od komunikácie s bankou a znalcom až po podanie dokumentov na kataster nehnuteľností. Šetríme váš čas aj energiu.</p>
         </div>

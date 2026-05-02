@@ -962,20 +962,7 @@
     </div>
 </section>
 
-<script>
-function toggleCard(id) {
-    const d = document.getElementById(id + '-detail');
-    d.style.display = (d.style.display === 'none' || d.style.display === '') ? 'block' : 'none';
-}
-function doCalc() {
-    const v = document.getElementById('payVal').value;
-    const r = document.getElementById('resRef');
-    if(v > 0) {
-        const s = Math.round(v * 0.12); 
-        r.innerHTML = "Možná mesačná úspora: cca " + s + " €";
-    } else { r.innerHTML = ""; }
-}
-</script>
+
     <section id="investicie" class="reveal">
         <div class="section-header">
             <h2>Rast a <span>Ochrana Majetku</span></h2>
@@ -1291,6 +1278,42 @@ function doCalc() {
     window.addEventListener("scroll", reveal);
     // Spustí sa aj hneď po načítaní
     reveal();
+<script>
+    // 1. Funkcia na animáciu pri skrolovaní
+    function reveal() {
+        var reveals = document.querySelectorAll(".reveal");
+        for (var i = 0; i < reveals.length; i++) {
+            var windowHeight = window.innerHeight;
+            var elementTop = reveals[i].getBoundingClientRect().top;
+            var elementVisible = 150;
+            if (elementTop < windowHeight - elementVisible) {
+                reveals[i].classList.add("active");
+            }
+        }
+    }
+
+    window.addEventListener("scroll", reveal);
+    reveal(); // Spustí sa aj po načítaní
+
+    // 2. Funkcia na otváranie kariet (AUDIT, REFINANC, atď.)
+    function toggleCard(id) {
+        const d = document.getElementById(id + '-detail');
+        if (d) {
+            d.style.display = (d.style.display === 'none' || d.style.display === '') ? 'block' : 'none';
+        }
+    }
+
+    // 3. Kalkulačka úspory
+    function doCalc() {
+        const v = document.getElementById('payVal').value;
+        const r = document.getElementById('resRef');
+        if(v > 0) {
+            const s = Math.round(v * 0.12); // Odhad 12% úspory
+            r.innerHTML = "Možná mesačná úspora: cca " + s + " €";
+        } else { 
+            r.innerHTML = ""; 
+        }
+    }
 </script>
 
 <div style="position: fixed; bottom: 30px; right: 30px; z-index: 10001; display: flex; align-items: center; gap: 10px;">

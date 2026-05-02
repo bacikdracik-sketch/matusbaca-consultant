@@ -1171,13 +1171,38 @@ hr { border: 0; border-top: 1px solid var(--border-color); margin: 35px 0; }
 </div>
 
         <!-- KARTA 2: REFINANCOVANIE -->
-        <div class="card">
-            <div class="card-icon">
-    <img src="Refinance.png" alt="Refinančná stratégia">
-</div>
-            <h3>Refinančná Stratégia</h3>
-            <p>Optimalizácia existujúcich záväzkov. Zníženie mesačnej splátky a celkového preplatenia úveru prostredníctvom včasného a správne načasovaného refinancovania.</p>
+<div class="card">
+    <div class="card-icon">
+        <img src="Refinance.png" alt="Refinančná stratégia" class="icon-small">
+    </div>
+    
+    <h3>Refinancovať hypotéku</h3>
+    <!-- Tvoj pôvodný text -->
+    <p>Optimalizácia existujúcich záväzkov. Zníženie mesačnej splátky a celkového preplatenia úveru prostredníctvom včasného a správne načasovaného refinancovania.</p>
+
+    <!-- Formulár (vzhľadom rovnaký ako pri audite) -->
+    <div class="calc-form-container" style="padding: 0 20px 20px 20px; margin-top: auto;">
+        <div class="input-group" style="margin-bottom: 12px;">
+            <label style="display:block; font-size: 0.85rem; font-weight: 600; margin-bottom: 5px; color: #333;">E-mail *</label>
+            <input type="email" id="refEmail" placeholder="vas@email.sk" required 
+                   style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
         </div>
+        
+        <div class="input-group" style="margin-bottom: 20px;">
+            <label style="display:block; font-size: 0.85rem; font-weight: 600; margin-bottom: 5px; color: #333;">Telefón *</label>
+            <div style="display: flex; align-items: center; border: 1px solid #ccc; border-radius: 5px; padding: 5px 10px; background: white;">
+                <img src="https://flagcdn.com/w20/sk.png" alt="SK" style="width: 20px; height: auto; margin-right: 10px;">
+                <input type="tel" id="refPhone" placeholder="09xx xxx xxx" required 
+                       style="border: none; outline: none; width: 100%; font-size: 1rem;">
+            </div>
+        </div>
+
+        <button class="btn-gold-action" onclick="handleRefClick(event)" 
+                style="width: 100%; padding: 15px; background: #c5a059; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; text-transform: uppercase;">
+            SPOČÍTAŤ ÚSPORU
+        </button>
+    </div>
+</div>
 
         <!-- KARTA 3: SERVIS -->
         <div class="card">
@@ -1528,6 +1553,66 @@ async function handleCalcClick(e) {
         tlacidlo.disabled = false;
     }
 } 
+    async function handleRefClick(event) {
+    // 1. Zabránime obnoveniu stránky alebo zatvoreniu modalu
+    if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
+    // 2. Získame elementy z HTML
+    const inputEmail = document.getElementById('refEmail');
+    const inputPhone = document.getElementById('refPhone');
+    const button = event.target;
+
+    // 3. Základná kontrola, či používateľ niečo napísal
+    if (!inputEmail.value || !inputPhone.value) {
+        alert("Prosím, vyplňte e-mail aj telefón.");
+        return;
+    }
+
+    // 4. Vizuálna spätná väzba na tlačidle
+    const originalText = button.innerText;
+    button.innerText = "ODOSIELAM...";
+    button.disabled = true;
+
+    // 5. Príprava dát pre odoslanie (obohatená o sumu zo sliderov)
+    const formData = {
+        email: inputEmail.value,
+        phone: inputPhone.value,
+        suma_zo_slidera: document.getElementById('valAmount')?.innerText || "neuvedená",
+        doba_zo_slidera: document.getElementById('valYears')?.innerText || "neuvedená",
+        service: "Refinancovanie hypotéky",
+        _subject: "DOPYT: Refinancovanie (" + inputEmail.value + ")"
+    };
+
+    try {
+        // 6. Samotné odoslanie cez Formspree
+        const response = await fetch("https://formspree.io/f/xeepvqqy", {
+            method: "POST",
+            body: JSON.stringify(formData),
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        });
+
+        if (response.ok) {
+            alert("Úspešne odoslané! Čoskoro vás budem kontaktovať.");
+            inputEmail.value = ""; // Vyčistenie polí
+            inputPhone.value = "";
+        } else {
+            alert("Chyba pri odosielaní. Skúste to neskôr.");
+        }
+    } catch (error) {
+        console.error("Chyba:", error);
+        alert("Chyba spojenia. Skontrolujte internet.");
+    } finally {
+        // 7. Vrátime tlačidlo do pôvodného stavu
+        button.innerText = originalText;
+        button.disabled = false;
+    }
+}
     // 2. Funkcia pre postupné vynáranie sekcií (Reveal)
     function reveal() {
         var reveals = document.querySelectorAll(".reveal");

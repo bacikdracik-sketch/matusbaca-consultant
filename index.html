@@ -369,23 +369,25 @@ input[type=range] {
 .btn-gold:hover {
     background: var(--primary-navy);
 }
-/* Obal pre fotku */
+/* Obal pre fotku - nastavíme mu fixnú výšku, aby boli karty v rovine */
 .card-icon {
     margin-bottom: 25px;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 120px; 
+    height: 200px; /* Zväčšili sme priestor pre obrázok z 120px na 200px */
+    background: #f8fafc; /* Jemné pozadie, ak by obrázok nevyplnil všetko */
 }
 
 .card-icon img {
-    width: auto !important;     
-    height: auto !important;    
-    max-width: 100px !important; 
-    max-height: 100px !important;
+    /* Kľúč k úspechu: Obrázok vyplní výšku alebo šírku, ale nedeformuje sa */
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important; 
+    max-height: none !important;
+    object-fit: cover; /* Toto zabezpečí, že obrázok vyplní celý priestor ako fotka */
     display: block;
-    object-fit: contain;
     transition: transform 0.5s ease;
 }
 

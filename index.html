@@ -372,35 +372,19 @@ input[type=range] {
 /* Obal pre fotku - vrátime mu pôvodný vzhľad */
 .card-icon {
     margin-bottom: 25px;
-    height: 250px; /* Pôvodná výška veľkých fotiek */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    background-color: #f4f4f4; /* Pôvodné pozadie */
-}
-
-.card-icon img {
-    /* ZMENA: Obrázok vyplní celú šírku a výšku karty */
-    width: 100% !important; 
-    height: 100% !important;
-    
-    .card-icon {
-    margin-bottom: 25px;
-    height: 120px; /* Fixná výška, aby texty pod ikonami lícovali */
+    height: 120px; 
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.card-icon img {
-    /* Žiadne roťahovanie na 100% */
+.card-icon img { /* <--- TENTO RIADOK TI TAM CHÝBAL */
     width: auto !important;
     height: auto !important;
-    max-width: 110px !important; /* Maximálna rozumná šírka */
-    max-height: 110px !important; /* Maximálna rozumná výška */
+    max-width: 110px !important; 
+    max-height: 110px !important; 
     display: block;
-    object-fit: contain !important; /* Fotky sa neorežú, ostanú celé */
+    object-fit: contain !important;
 }
 /* TEXTY V KARTÁCH (Dôležité doplniť!) */
 .card h3 {

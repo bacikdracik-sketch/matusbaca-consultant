@@ -1279,39 +1279,48 @@
     // Spustí sa aj hneď po načítaní
     reveal();
 <script>
-    // 1. Funkcia na animáciu pri skrolovaní
+    // 1. Plynulé zobrazovanie sekcií pri scrollovaní
     function reveal() {
         var reveals = document.querySelectorAll(".reveal");
         for (var i = 0; i < reveals.length; i++) {
             var windowHeight = window.innerHeight;
             var elementTop = reveals[i].getBoundingClientRect().top;
-            var elementVisible = 150;
-            if (elementTop < windowHeight - elementVisible) {
+            if (elementTop < windowHeight - 150) {
                 reveals[i].classList.add("active");
             }
         }
     }
-
     window.addEventListener("scroll", reveal);
-    reveal(); // Spustí sa aj po načítaní
+    window.onload = reveal;
 
-    // 2. Funkcia na otváranie kariet (AUDIT, REFINANC, atď.)
+    // 2. Oprava prepínania detailov v kartách
     function toggleCard(id) {
         const d = document.getElementById(id + '-detail');
         if (d) {
-            d.style.display = (d.style.display === 'none' || d.style.display === '') ? 'block' : 'none';
+            const isHidden = (window.getComputedStyle(d).display === 'none');
+            d.style.display = isHidden ? 'block' : 'none';
         }
     }
 
-    // 3. Kalkulačka úspory
+    // 3. Funkčná kalkulačka úspory
     function doCalc() {
         const v = document.getElementById('payVal').value;
         const r = document.getElementById('resRef');
         if(v > 0) {
-            const s = Math.round(v * 0.12); // Odhad 12% úspory
+            const s = Math.round(v * 0.15); // Odhadujeme priemernú úsporu 15%
             r.innerHTML = "Možná mesačná úspora: cca " + s + " €";
         } else { 
             r.innerHTML = ""; 
+        }
+    }
+
+    // 4. Hamburger menu pre mobil
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+    if(hamburger) {
+        hamburger.onclick = function() {
+            navLinks.classList.toggle('open');
+            this.classList.toggle('active');
         }
     }
 </script>

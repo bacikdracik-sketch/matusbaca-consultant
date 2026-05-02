@@ -369,32 +369,31 @@ input[type=range] {
 .btn-gold:hover {
     background: var(--primary-navy);
 }
-/* Obal pre ikonu/fotku - tu držíme stabilitu */
+/* Obal pre fotku - vrátime mu pôvodný vzhľad */
 .card-icon {
     margin-bottom: 25px;
-    height: 180px; /* Pevne stanovený priestor pre obrázok */
+    height: 250px; /* Pôvodná výška veľkých fotiek */
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background-color: rgba(0,0,0,0.02); /* Jemný podklad pod obrázky */
-    border-radius: 4px;
+    background-color: #f4f4f4; /* Pôvodné pozadie */
 }
 
 .card-icon img {
-    /* FIXNÉ ROZMERY - toto nepustí */
-    width: 140px !important; 
-    height: 140px !important;
+    /* ZMENA: Obrázok vyplní celú šírku a výšku karty */
+    width: 100% !important; 
+    height: 100% !important;
     
-    /* Zabezpečí, že sa obrázok nedeformuje (neoztiahne) */
-    object-fit: contain !important; 
+    /* ZMENA: Fotky sa pekne orežú, aby nevyzerali zdeformovane */
+    object-fit: cover !important; 
     
     display: block;
     transition: transform 0.4s ease;
 }
 
 .card:hover .card-icon img {
-    transform: scale(1.05);
+    transform: scale(1.1);
 }
 /* TEXTY V KARTÁCH (Dôležité doplniť!) */
 .card h3 {

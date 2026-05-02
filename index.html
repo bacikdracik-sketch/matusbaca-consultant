@@ -1452,7 +1452,47 @@ hr { border: 0; border-top: 1px solid var(--border-color); margin: 25px 0; }
         }
     }
 
-    // 3. Pôvodná funkcia na otváranie kariet (Hypotéky, Investície...)
+    // 3. Funkcia na otváranie kalkulačky v boxe
+    function openModal() {
+        const calc = document.getElementById('inline-calc');
+        if (calc) {
+            if (calc.style.display === "block") {
+                calc.style.display = "none";
+            } else {
+                calc.style.display = "block";
+            }
+        }
+    }
+
+    // 4. Logika výpočtu kalkulačky (posuvníky)
+    const rangeAmount = document.getElementById('rangeAmount');
+    const rangeYears = document.getElementById('rangeYears');
+    const valAmount = document.getElementById('valAmount');
+    const valYears = document.getElementById('valYears');
+
+    function updateValues() {
+        if (rangeAmount && valAmount) {
+            const amount = parseInt(rangeAmount.value);
+            valAmount.innerText = amount.toLocaleString('sk-SK');
+        }
+        if (rangeYears && valYears) {
+            valYears.innerText = rangeYears.value;
+        }
+    }
+
+    // Naviazanie sledovania pohybu
+    if (rangeAmount) rangeAmount.addEventListener('input', updateValues);
+    if (rangeYears) rangeYears.addEventListener('input', updateValues);
+
+    // 5. Zabránenie zatvoreniu boxu pri klikaní do vnútra kalkulačky
+    const calcContainer = document.getElementById('inline-calc');
+    if (calcContainer) {
+        calcContainer.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    }
+
+    // 6. Staršie funkcie (ak ich ešte používaš v iných sekciách)
     function toggleCard(cardId) {
         var detail = document.getElementById(cardId + "-detail");
         if (detail) {
@@ -1460,42 +1500,25 @@ hr { border: 0; border-top: 1px solid var(--border-color); margin: 25px 0; }
         }
     }
 
-    // 4. Pôvodná funkcia pre kalkulačku
-    function doCalc() {
-        var pay = document.getElementById("payVal").value;
-        var res = document.getElementById("resRef");
-        if (pay > 0) {
-            var savings = Math.round(pay * 0.15); // Odhad 15%
-            res.innerHTML = "Možná mesačná úspora: cca <b>" + savings + " €</b>";
-        } else {
-            res.innerHTML = "";
-        }
-    }
-
-    // Spúšťače
+    // Spúšťače pri scrolle a načítaní
     window.addEventListener("scroll", reveal);
-    window.addEventListener("load", reveal);
-    reveal(); // Spustenie kontroly hneď po načítaní
+    window.addEventListener("load", () => {
+        reveal();
+        updateValues(); // Nastaví čísla v kalkulačke na začiatku
+    });
 </script>
-  
 
+<!-- WHATSAPP FLOAT (Fixná poloha na webe) -->
 <div style="position: fixed; bottom: 30px; right: 30px; z-index: 10001; display: flex; align-items: center; gap: 10px;">
-    <span style="background: white; padding: 5px 15px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 14px; font-weight: 600; color: #333;">
+    <span style="background: white; padding: 5px 15px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 14px; font-weight: 600; color: #333; font-family: sans-serif;">
         Napíšte mi
     </span>
-    <a href="https://wa.me/421951499890" class="whatsapp-float" target="_blank" style="position: static;">
+    <a href="https://wa.me/421951499890" class="whatsapp-float" target="_blank" style="position: static; background: #25d366; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 24px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
         <i class="fab fa-whatsapp"></i>
     </a>
 </div>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-<script>
-function openModal() { document.getElementById("hypoModal").style.display = "block"; }
-function closeModal() { document.getElementById("hypoModal").style.display = "none"; }
-window.onclick = function(event) {
-    if (event.target == document.getElementById("hypoModal")) { closeModal(); }
-}
-</script>
         
 </body>
 </html>

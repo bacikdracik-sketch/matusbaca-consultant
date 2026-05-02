@@ -917,54 +917,37 @@
     </div>
 </section>
 
-    
-<section id="sluzby" class="bg-light reveal">
-    <div class="section-header">
-        <h2>Cesta k <span>Vlastnému Bývaniu</span></h2>
-    </div>
-    <div class="grid-3">
-        <!-- 1. KARTA: AUDIT -->
-        <div class="card" onclick="toggleCard('audit')" style="cursor: pointer; transition: 0.3s;">
-            <div class="card-icon">
-                <img src="House.png" alt="Hypotekárny audit">
-            </div>
-            <h3>Hypotekárny Audit</h3>
-            <p>Detailná analýza vašich možností naprieč celým bankovým trhom.</p>
-            <div id="audit-detail" style="display: none; margin-top: 15px; padding-top: 10px; border-top: 1px dashed #ccc;">
-                <p style="font-size: 0.9em;">Preverím všetky banky za vás. Cieľom je nájsť najlepšie podmienky pre váš scenár.</p>
-                <button onclick="window.location.href='tel:0951499890'" style="width:100%; background: #d4af37; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer;">CHCEM ANALÝZU TRHU</button>
-            </div>
+    <section id="sluzby" class="bg-light reveal">
+        <div class="section-header">
+            <h2>Cesta k <span>Vlastnému Bývaniu</span></h2>
         </div>
+        <div class="grid-3">
+            <div class="card">
+                <div class="card-icon">
+                    <img src="House.png" alt="Hypotekárny audit">
+                </div>
+                <h3>Hypotekárny Audit</h3>
+                <p>Detailná analýza vašich možností naprieč celým bankovým trhom. Nehľadáme len najnižší úrok, ale najlepšie podmienky pre váš konkrétny životný scenár.</p>
+            </div>
 
-        <!-- 2. KARTA: REFINANCOVANIE + KALKULAČKA -->
-        <div class="card" onclick="toggleCard('ref')" style="cursor: pointer; transition: 0.3s;">
-            <div class="card-icon">
-                <img src="Refinance.png" alt="Refinančná stratégia">
-            </div>
-            <h3>Refinančná Stratégia</h3>
-            <p>Zníženie splátky a celkového preplatenia úveru.[cite: 1]</p>
-            <div id="ref-detail" style="display: none; margin-top: 15px; padding-top: 10px; border-top: 1px dashed #ccc;" onclick="event.stopPropagation()">
-                <label style="font-size: 0.8em;">Vaša splátka (€):</label>
-                <input type="number" id="payVal" oninput="doCalc()" placeholder="napr. 500" style="width: 100%; padding: 8px; margin-bottom: 10px;">
-                <div id="resRef" style="font-weight: bold; color: #003366; min-height: 20px;"></div>
-            </div>
-        </div>
+            <div class="card">
+                <div class="card-icon">
+                    <img src="Refinance.png" alt="Refinančná stratégia">
+                </div>
+                <h3>Refinančná Stratégia</h3>
+                <p>Optimalizácia existujúcich záväzkov. Zníženie mesačnej splátky a celkového preplatenia úveru prostredníctvom včasného a správne načasovaného refinancovania.</p>
 
-        <!-- 3. KARTA: SERVIS -->
-        <div class="card" onclick="toggleCard('servis')" style="cursor: pointer; transition: 0.3s;">
-            <div class="card-icon">
-                <img src="Service.png" alt="Administratívny servis">
             </div>
-            <h3>Administratívny Servis</h3>
-            <p>Kompletné zastrešenie procesu. Šetríme váš čas aj energiu.[cite: 1]</p>
-            <div id="servis-detail" style="display: none; margin-top: 15px; padding-top: 10px; border-top: 1px dashed #ccc;">
-                <p style="font-size: 0.9em;">Vybavím banku, znalca aj kataster. Vy len podpisujete.[cite: 1]</p>
-                <button onclick="window.location.href='mailto:5538917@ovbmail.eu'" style="width:100%; background: #003366; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer;">MÁM ZÁUJEM O SERVIS[cite: 1]</button>
+
+            <div class="card">
+                <div class="card-icon">
+                    <img src="Service.png" alt="Administratívny servis">
+                </div>
+                <h3>Administratívny Servis</h3>
+                <p>Kompletné zastrešenie procesu. Od komunikácie s bankou a znalcom až po podanie dokumentov na kataster nehnuteľností. Šetríme váš čas aj energiu.</p>
             </div>
         </div>
-    </div>
 </section>
-
 
     <section id="investicie" class="reveal">
         <div class="section-header">

@@ -1021,59 +1021,39 @@ input[type=range] {
 </section>
 
     <section id="sluzby" class="bg-light reveal">
-        <div class="section-header">
-            <h2>Cesta k <span>Vlastnému Bývaniu</span></h2>
-        </div>
-        <div class="grid-3">
-            <div class="card" onclick="openModal()" style="cursor: pointer;">
-    <div class="card-icon">
-        <img src="House.png" alt="Hypotekárny audit" style="width: 50px;">
+    <div class="section-header">
+        <h2>Cesta k <span>Vlastnému Bývaniu</span></h2>
     </div>
-    <h3>Hypotekárny Audit</h3>
-    <p>Detailná analýza vašich možností naprieč celým bankovým trhom. Kliknite pre rýchly online výpočet.</p>
-    <span style="color: var(--gold-muted); font-weight: 600; font-size: 0.8rem;">SPUSTIŤ AUDIT ➔</span>
-</div>
-           <div id="hypoModal" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.8); backdrop-filter: blur(5px);">
-    <div class="hypo-card" style="position:relative; top:50%; transform:translateY(-50%); max-width:500px; margin:auto;">
-        <span onclick="closeModal()" style="position:absolute; right:20px; top:10px; cursor:pointer; font-size:25px; font-weight:bold;">&times;</span>
-        
-        <h2>Hypotekárny Audit</h2>
-        <p style="font-size: 0.9rem; color: var(--text-light);">Zistite preplatenie za 30 sekúnd.</p>
-
-        <form action="https://formspree.io/f/xeepvqqy" method="POST">
-            <div class="range-box">
-                <label style="font-size: 0.8rem;">Výška hypotéky</label>
-                <div class="range-flex">
-                    <input type="range" name="vyska" min="10000" max="500000" step="5000" value="100000" oninput="v_out.value = parseInt(this.value).toLocaleString() + ' €'">
-                    <output name="v_out" class="output-value" style="min-width:90px; font-size:0.9rem;">100 000 €</output>
-                </div>
+    <div class="grid-3">
+        <!-- KARTA 1: HYPOTEKÁRNY AUDIT -->
+        <div class="card" onclick="openModal()" style="cursor: pointer;">
+            <div class="card-icon">
+                <!-- ODSTRÁNENÉ "width: 50px" - teraz ho riadi CSS vyššie -->
+                <img src="House.png" alt="Hypotekárny audit">
             </div>
-            <div class="form-grid" style="grid-template-columns: 1fr;">
-                <input type="email" name="email" placeholder="Váš E-mail *" required style="margin-bottom:10px;">
-                <input type="tel" name="phone" placeholder="Váš Telefón *" required>
-            </div>
-            <button type="submit" class="btn-gold">Odoslať na posúdenie ➔</button>
-        </form>
-    </div>
-</div>
-
-            <div class="card">
-                <div class="card-icon">
-                    <img src="Refinance.png" alt="Refinančná stratégia">
-                </div>
-                <h3>Refinančná Stratégia</h3>
-                <p>Optimalizácia existujúcich záväzkov. Zníženie mesačnej splátky a celkového preplatenia úveru prostredníctvom včasného a správne načasovaného refinancovania.</p>
-
-            </div>
-
-            <div class="card">
-                <div class="card-icon">
-                    <img src="Service.png" alt="Administratívny servis">
-                </div>
-                <h3>Administratívny Servis</h3>
-                <p>Kompletné zastrešenie procesu. Od komunikácie s bankou a znalcom až po podanie dokumentov na kataster nehnuteľností. Šetríme váš čas aj energiu.</p>
-            </div>
+            <h3>Hypotekárny Audit</h3>
+            <p>Detailná analýza vašich možností naprieč celým bankovým trhom. Kliknite pre rýchly online výpočet.</p>
+            <span style="color: var(--gold-muted); font-weight: 600; font-size: 0.8rem;">SPUSTIŤ AUDIT ➔</span>
         </div>
+
+        <!-- KARTA 2: REFINANCOVANIE -->
+        <div class="card">
+            <div class="card-icon">
+                <img src="Refinance.png" alt="Refinančná stratégia">
+            </div>
+            <h3>Refinančná Stratégia</h3>
+            <p>Optimalizácia existujúcich záväzkov. Zníženie mesačnej splátky a celkového preplatenia úveru prostredníctvom včasného a správne načasovaného refinancovania.</p>
+        </div>
+
+        <!-- KARTA 3: SERVIS -->
+        <div class="card">
+            <div class="card-icon">
+                <img src="Service.png" alt="Administratívny servis">
+            </div>
+            <h3>Administratívny Servis</h3>
+            <p>Kompletné zastrešenie procesu. Od komunikácie s bankou a znalcom až po podanie dokumentov na kataster nehnuteľností. Šetríme váš čas aj energiu.</p>
+        </div>
+    </div>
 </section>
 
     <section id="investicie" class="reveal">

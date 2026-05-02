@@ -431,15 +431,27 @@ hr { border: 0; border-top: 1px solid var(--border-color); margin: 35px 0; }
 /* --- OBRAZOK NA CELÚ ŠÍRKU BOXU --- */
 .card-icon {
     width: 100%;
-    height: 200px; /* Výška fotky na vrchu - ak chceš vyššiu, daj 250px */
-    display: block;
+    height: 200px; 
+    display: flex;          /* Zmenené na flex pre centrovanie */
+    align-items: center;    /* Vertikálne centrovanie */
+    justify-content: center;/* Horizontálne centrovanie */
+    overflow: hidden;
+    background: #f9f9f9;    /* Jemné pozadie pod ikonky */
 }
 
 .card-icon img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important; /* Fotka vyplní celý priestor hore bez deformácie */
+    /* Ak má obrázok triedu "ikonka", zostane malý. Ak nie, roztiahne sa. */
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
     display: block;
+}
+
+/* NOVÉ: Toto ochráni tvoje malé ikonky pred roztiahnutím */
+.card-icon img.icon-small {
+    width: 80px !important;  /* Tu si nastav veľkosť ikonky */
+    height: 80px !important;
+    object-fit: contain !important;
 }
 
 /* --- TEXT POD FOTKOU --- */

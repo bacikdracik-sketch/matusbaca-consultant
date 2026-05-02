@@ -1176,39 +1176,54 @@ hr { border: 0; border-top: 1px solid var(--border-color); margin: 35px 0; }
 </div>
 
         <!-- KARTA 2: REFINANCOVANIE -->
-<div class="card">
+<div class="card" id="card-refinance">
     <div class="card-icon">
-        <img src="Refinance.png" alt="Refinančná stratégia" class="icon-small">
+        <img src="Refinance.png" alt="Refinancovanie" class="icon-small">
     </div>
-    
     <h3>Refinancovať hypotéku</h3>
-    <!-- Tvoj pôvodný text -->
-    <p>Optimalizácia existujúcich záväzkov. Zníženie mesačnej splátky a celkového preplatenia úveru prostredníctvom včasného a správne načasovaného refinancovania.</p>
+    <p class="card-description">
+        Optimalizácia existujúcich záväzkov. Zníženie mesačnej splátky a celkového preplatenia úveru prostredníctvom správne načasovaného refinancovania.
+    </p>
+    <span class="click-info">Upravte parametre nižšie ↓</span>
 
-    <!-- Formulár (vzhľadom rovnaký ako pri audite) -->
-    <div class="calc-form-container" style="padding: 0 20px 20px 20px; margin-top: auto;">
-        <div class="input-group" style="margin-bottom: 12px;">
-            <label style="display:block; font-size: 0.85rem; font-weight: 600; margin-bottom: 5px; color: #333;">E-mail *</label>
-            <input type="email" id="refEmail" placeholder="vas@email.sk" required 
-                   style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
-        </div>
+    <div class="inline-calculator" style="display: block; background: none; padding: 0; box-shadow: none;">
+        <h4>KALKULAČKA ÚSPORY PRI REFINANCII</h4>
         
-        <div class="input-group" style="margin-bottom: 20px;">
-            <label style="display:block; font-size: 0.85rem; font-weight: 600; margin-bottom: 5px; color: #333;">Telefón *</label>
-            <div style="display: flex; align-items: center; border: 1px solid #ccc; border-radius: 5px; padding: 5px 10px; background: white;">
-                <img src="https://flagcdn.com/w20/sk.png" alt="SK" style="width: 20px; height: auto; margin-right: 10px;">
-                <input type="tel" id="refPhone" placeholder="09xx xxx xxx" required 
-                       style="border: none; outline: none; width: 100%; font-size: 1rem;">
+        <div class="calc-row">
+            <span>Zostatok úveru</span>
+            <div class="range-wrapper">
+                <input type="range" id="rangeAmountRef" min="10000" max="500000" step="5000" value="80000">
+                <div class="input-mimic"><span id="valAmountRef">80 000</span> €</div>
             </div>
         </div>
 
-        <button class="btn-gold-action" onclick="handleRefClick(event)" 
-                style="width: 100%; padding: 15px; background: #c5a059; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; text-transform: uppercase;">
-            SPOČÍTAŤ ÚSPORU
-        </button>
+        <div class="calc-row">
+            <span>Zostávajúca doba</span>
+            <div class="range-wrapper">
+                <input type="range" id="rangeYearsRef" min="1" max="40" value="20">
+                <div class="input-mimic"><span id="valYearsRef">20</span> rokov</div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="calc-contact">
+            <div class="input-group">
+                <label>E-mail *</label>
+                <input type="email" id="refEmail" placeholder="vas@email.sk" required>
+            </div>
+            <div class="input-group">
+                <label>Telefón *</label>
+                <div class="phone-input">
+                    <img src="https://flagcdn.com/w20/sk.png" alt="SK">
+                    <input type="tel" id="refPhone" placeholder="09xx xxx xxx" required>
+                </div>
+            </div>
+            <p class="calc-legal">Súhlasím so spracovaním osobných údajov pre účely vypracovania ponuky.</p>
+            <button class="btn-gold-action" onclick="handleRefClick(event)">SPOČÍTAŤ ÚSPORU</button>
+        </div>
     </div>
 </div>
-
         <!-- KARTA 3: SERVIS -->
         <div class="card">
             <<div class="card-icon">

@@ -1237,18 +1237,16 @@
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('nav-links');
 
-    if (hamburger) {
+    if (hamburger && navLinks) {
         hamburger.addEventListener('click', () => {
             navLinks.classList.toggle('open');
-            // Ak máš v CSS animáciu krížika, pridaj toto:
             hamburger.classList.toggle('active');
         });
     }
 
-    // 2. Funkcia pre postupné vynáranie sekcií (Bod 2)
+    // 2. Funkcia pre postupné vynáranie sekcií (Reveal)
     function reveal() {
         var reveals = document.querySelectorAll(".reveal");
-
         for (var i = 0; i < reveals.length; i++) {
             var windowHeight = window.innerHeight;
             var elementTop = reveals[i].getBoundingClientRect().top;
@@ -1260,11 +1258,31 @@
         }
     }
 
+    // 3. Pôvodná funkcia na otváranie kariet (Hypotéky, Investície...)
+    function toggleCard(cardId) {
+        var detail = document.getElementById(cardId + "-detail");
+        if (detail) {
+            detail.style.display = (detail.style.display === "block") ? "none" : "block";
+        }
+    }
+
+    // 4. Pôvodná funkcia pre kalkulačku
+    function doCalc() {
+        var pay = document.getElementById("payVal").value;
+        var res = document.getElementById("resRef");
+        if (pay > 0) {
+            var savings = Math.round(pay * 0.15); // Odhad 15%
+            res.innerHTML = "Možná mesačná úspora: cca <b>" + savings + " €</b>";
+        } else {
+            res.innerHTML = "";
+        }
+    }
+
     // Spúšťače
     window.addEventListener("scroll", reveal);
-    // Spustí sa aj hneď po načítaní
-    reveal();
-<script>
+    window.addEventListener("load", reveal);
+    reveal(); // Spustenie kontroly hneď po načítaní
+</script>
   
 
 <div style="position: fixed; bottom: 30px; right: 30px; z-index: 10001; display: flex; align-items: center; gap: 10px;">

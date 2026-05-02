@@ -1265,51 +1265,7 @@
     // Spustí sa aj hneď po načítaní
     reveal();
 <script>
-    // 1. Plynulé zobrazovanie sekcií pri scrollovaní
-    function reveal() {
-        var reveals = document.querySelectorAll(".reveal");
-        for (var i = 0; i < reveals.length; i++) {
-            var windowHeight = window.innerHeight;
-            var elementTop = reveals[i].getBoundingClientRect().top;
-            if (elementTop < windowHeight - 150) {
-                reveals[i].classList.add("active");
-            }
-        }
-    }
-    window.addEventListener("scroll", reveal);
-    window.onload = reveal;
-
-    // 2. Oprava prepínania detailov v kartách
-    function toggleCard(id) {
-        const d = document.getElementById(id + '-detail');
-        if (d) {
-            const isHidden = (window.getComputedStyle(d).display === 'none');
-            d.style.display = isHidden ? 'block' : 'none';
-        }
-    }
-
-    // 3. Funkčná kalkulačka úspory
-    function doCalc() {
-        const v = document.getElementById('payVal').value;
-        const r = document.getElementById('resRef');
-        if(v > 0) {
-            const s = Math.round(v * 0.15); // Odhadujeme priemernú úsporu 15%
-            r.innerHTML = "Možná mesačná úspora: cca " + s + " €";
-        } else { 
-            r.innerHTML = ""; 
-        }
-    }
-
-    // 4. Hamburger menu pre mobil
-    const hamburger = document.getElementById('hamburger');
-    const navLinks = document.getElementById('nav-links');
-    if(hamburger) {
-        hamburger.onclick = function() {
-            navLinks.classList.toggle('open');
-            this.classList.toggle('active');
-        }
-    }
-</script>
+  
 
 <div style="position: fixed; bottom: 30px; right: 30px; z-index: 10001; display: flex; align-items: center; gap: 10px;">
     <span style="background: white; padding: 5px 15px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 14px; font-weight: 600; color: #333;">

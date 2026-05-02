@@ -242,30 +242,133 @@
             color: var(--gold-muted);
             font-weight: 700;
         }
-
-       /* GRID ŠTRUKTÚRA */
-.grid-3 {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 40px;
+        
+        /* --- KÓD PRE KALKULAČKU --- */
+.hypo-box {
+    max-width: 650px;
+    margin: 40px auto;
+    background: #ffffff;
+    border: 1px solid #E2E8F0;
+    border-radius: 20px;
+    padding: 35px;
+    font-family: 'Montserrat', sans-serif;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 
-.card {
+.hypo-box h2 { 
+    color: #0F172A; 
+    font-size: 1.4rem; 
+    text-transform: uppercase; 
+    margin-bottom: 10px; 
+    font-weight: 700; 
+}
+
+.range-container { display: flex; align-items: center; gap: 15px; margin-top: 10px; }
+
+input[type=range] { flex: 1; accent-color: #B38E44; cursor: pointer; }
+
+.display-value { 
+    min-width: 110px; padding: 8px; border: 2px solid #B38E44; 
+    border-radius: 8px; text-align: center; font-weight: 700; color: #0F172A; 
+}
+
+.btn-calc {
+    background: #B38E44; color: white; border: none; width: 100%;
+    padding: 16px; border-radius: 50px; font-weight: 700; 
+    text-transform: uppercase; cursor: pointer; transition: 0.3s; margin-top: 20px;
+}
+.btn-calc:hover { background: #0F172A; }
+      /* --- ŠTÝL KALKULAČKY MATÚŠ BAČA --- */
+.hypo-card {
     background: white;
-    padding: 30px; /* Zmenšené, aby karta s fotkou nevyzerala masívne */
+    padding: 40px;
     border: 1px solid var(--border-color);
-    transition: all 0.5s ease;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-.card:hover {
-    border-color: var(--gold-muted);
-    transform: translateY(-10px);
     box-shadow: var(--shadow-subtle);
+    max-width: 700px;
+    margin: 40px auto;
+    transition: all 0.5s ease;
 }
 
+.hypo-card:hover {
+    border-color: var(--gold-muted);
+}
+
+.hypo-card h2 {
+    color: var(--primary-navy);
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.range-box {
+    margin: 25px 0;
+    text-align: left;
+}
+
+.range-box label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--text-main);
+}
+
+.range-flex {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+input[type=range] {
+    flex: 1;
+    accent-color: var(--gold-muted);
+    cursor: pointer;
+}
+
+.output-value {
+    min-width: 120px;
+    padding: 10px;
+    border: 2px solid var(--gold-muted);
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 700;
+    color: var(--primary-navy);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.form-grid input {
+    padding: 15px;
+    border: 1px solid var(--border-color);
+    font-family: inherit;
+    outline: none;
+}
+
+.form-grid input:focus {
+    border-color: var(--gold-muted);
+}
+
+.btn-gold {
+    background: var(--gold-muted);
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 20px;
+    margin-top: 25px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-gold:hover {
+    background: var(--primary-navy);
+}
 /* Obal pre fotku */
 .card-icon {
     margin-bottom: 25px;
@@ -929,6 +1032,29 @@
                 <h3>Hypotekárny Audit</h3>
                 <p>Detailná analýza vašich možností naprieč celým bankovým trhom. Nehľadáme len najnižší úrok, ale najlepšie podmienky pre váš konkrétny životný scenár.</p>
             </div>
+            <section id="audit" style="padding: 60px 0; background: var(--light-blue-bg); border-radius: 20px; margin-top: 40px;">
+    <div class="hypo-card">
+        <h2>Hypotekárny Audit</h2>
+        <p style="color: var(--text-light); margin-bottom: 30px;">Zistite za 30 sekúnd, či banke neplatíte zbytočné peniaze naviac.</p>
+
+        <form action="https://formspree.io/f/xeepvqqy" method="POST">
+            <div class="range-box">
+                <label>Výška vašej hypotéky (alebo cieľová suma)</label>
+                <div class="range-flex">
+                    <input type="range" name="vyska" min="10000" max="500000" step="5000" value="100000" oninput="v_out.value = parseInt(this.value).toLocaleString() + ' €'">
+                    <output name="v_out" class="output-value">100 000 €</output>
+                </div>
+            </div>
+
+            <div class="form-grid">
+                <input type="email" name="email" placeholder="Váš E-mail *" required>
+                <input type="tel" name="phone" placeholder="Váš Telefón *" required>
+            </div>
+
+            <button type="submit" class="btn-gold">Odoslať na bezplatné posúdenie ➔</button>
+        </form>
+    </div>
+</section>
 
             <div class="card">
                 <div class="card-icon">

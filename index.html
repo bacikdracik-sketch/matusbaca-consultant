@@ -1193,9 +1193,9 @@ hr { border: 0; border-top: 1px solid var(--border-color); margin: 35px 0; }
     <p class="card-description">
         Optimalizácia existujúcich záväzkov. Zníženie mesačnej splátky a celkového preplatenia úveru prostredníctvom správne načasovaného refinancovania.
     </p>
-    <span class="click-info">Upravte parametre nižšie ↓</span>
+    <span class="click-info">Kliknite pre kalkulačku ↓</span>
 
-    <div class="inline-calculator" style="display: block; background: none; padding: 0; box-shadow: none;">
+    <div id="ref-inline-calc" class="inline-calculator" style="display: none; background: none; padding: 0; box-shadow: none;" onclick="event.stopPropagation()">
         <h4>KALKULAČKA ÚSPORY PRI REFINANCII</h4>
         
         <div class="calc-row">

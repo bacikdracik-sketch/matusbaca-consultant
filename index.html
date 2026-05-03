@@ -1185,7 +1185,7 @@ hr { border: 0; border-top: 1px solid var(--border-color); margin: 35px 0; }
 </div>
 
         <!-- KARTA 2: REFINANCOVANIE -->
-<div class="card" id="card-refinance">
+<div class="card" id="card-refinance" onclick="openRefModal()" style="cursor: pointer;">
     <div class="card-icon">
         <img src="Refinance.png" alt="Refinancovanie" class="icon-small">
     </div>
@@ -1561,6 +1561,14 @@ hr { border: 0; border-top: 1px solid var(--border-color); margin: 35px 0; }
     }
 
     // --- 3. ODOSIELANIE FORMULÁRA: HYPOTEKÁRNY AUDIT (KARTA 1) ---
+    function openRefModal() {
+    const calc = document.getElementById('ref-inline-calc');
+    if (calc.style.display === 'none' || calc.style.display === '') {
+        calc.style.display = 'block';
+    } else {
+        calc.style.display = 'none';
+    }
+}
     async function handleCalcClick(e) {
         if(e) {
             e.preventDefault();

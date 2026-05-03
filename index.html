@@ -1241,15 +1241,53 @@ hr { border: 0; border-top: 1px solid var(--border-color); margin: 35px 0; }
     </div> <
 </div>
        
-        <!-- KARTA 3: SERVIS -->
-        <div class="card">
-            <<div class="card-icon">
-    <img src="Service.png" alt="Administratívny servis">
-</div>
-            <h3>Administratívny Servis</h3>
-            <p>Kompletné zastrešenie procesu. Od komunikácie s bankou a znalcom až po podanie dokumentov na kataster nehnuteľností. Šetríme váš čas aj energiu.</p>
+        <!-- KARTA 3: ADMINISTRATÍVNY SERVIS -->
+<div class="card reveal" id="card-admin" onclick="openAdminModal()" style="cursor: pointer;">
+    <div class="card-icon">
+        <img src="Admin.png" alt="Administratívny servis" class="icon-small">
+    </div>
+    <h3>Administratívny servis</h3>
+    <p class="card-description">
+        Kompletné zastrešenie papierovačky. Od katastra cez bankové potvrdenia až po stráženie termínov fixácie.
+    </p>
+    <span class="click-info">Zistite, čo všetko vybavím za vás ↓</span>
+
+    <div id="admin-inline-calc" class="inline-calculator" style="display: none; background: none; padding: 0; box-shadow: none;" onclick="event.stopPropagation()">
+        <h4 style="margin-bottom: 15px;">ČO VŠETKO ZA VÁS VYBAVÍM:</h4>
+        
+        <ul class="admin-list" style="text-align: left; list-style: none; padding: 0; margin-bottom: 20px; font-size: 0.9rem; color: var(--text-light);">
+            <li style="margin-bottom: 8px;">✅ <strong>Katastrálny servis:</strong> Podanie návrhov na vklad a kontrola listov vlastníctva.</li>
+            <li style="margin-bottom: 8px;">✅ <strong>Potvrdenia z banky:</strong> Žiadosti o súhlasy s predčasným splatením či vyčíslenia.</li>
+            <li style="margin-bottom: 8px;">✅ <strong>Stráženie fixácie:</strong> Včasné upozornenie na koniec fixácie a nové úrokové sadzby.</li>
+            <li style="margin-bottom: 8px;">✅ <strong>Poistenie:</strong> Vybavenie poistných zmlúv a vinkulácií potrebných k hypotéke.</li>
+        </ul>
+
+        <hr style="border: 0; border-top: 1px solid #ddd; margin: 20px 0;">
+
+        <div class="calc-contact">
+            <div class="input-group">
+                <label>E-mail *</label>
+                <input type="email" id="adminEmail" placeholder="vas@email.sk" required>
+            </div>
+            <div class="input-group">
+                <label>Telefón *</label>
+                <div class="phone-input">
+                    <img src="https://flagcdn.com/w20/sk.png" alt="SK">
+                    <input type="tel" id="adminPhone" placeholder="09xx xxx xxx" required>
+                </div>
+            </div>
+
+            <div class="checkbox-wrapper" style="display: flex; align-items: flex-start; gap: 10px; margin: 15px 0; text-align: left;">
+                <input type="checkbox" id="adminConsent" required style="width: auto; margin-top: 5px; cursor: pointer;">
+                <label for="adminConsent" style="font-size: 0.85rem; color: var(--text-light); line-height: 1.4; cursor: pointer;">
+                    Mám záujem o administratívny servis a súhlasím so spracovaním údajov. *
+                </label>
+            </div>
+
+            <button class="btn-gold-action" onclick="handleAdminClick(event)">MÁM ZÁUJEM O SERVIS</button>
         </div>
     </div>
+</div>
 </section>
 
     <section id="investicie" class="reveal">
@@ -1697,6 +1735,56 @@ hr { border: 0; border-top: 1px solid var(--border-color); margin: 35px 0; }
         } catch (err) { alert("Chyba spojenia."); }
         finally { tlacidlo.innerText = originalText; tlacidlo.disabled = false; }
     }
+    // OTVÁRANIE 3. BOXU
+function openAdminModal() {
+    const calc = document.getElementById('admin-inline-calc');
+    const card = document.getElementById('card-admin');
+    toggleCalculator(calc, card);
+}
+
+// ODOSIELANIE 3. BOXU
+async function handleAdminClick(e) {
+    if(e) { e.preventDefault(); e.stopPropagation(); }
+
+    const consent = document.getElementById('adminConsent');
+    if (!consent || !consent.checked) {
+        alert("Prosím, zaškrtnite súhlas so spracovaním údajov.");
+        return;
+    }
+
+    const emailEl = document.getElementById('adminEmail');
+    const phoneEl = document.getElementById('adminPhone');
+
+    if (!emailEl?.value || !phoneEl?.value) {
+        alert("Prosím, vyplňte e-mail a telefón.");
+        return;
+    }
+
+    const tlacidlo = e.target;
+    const originalText = tlacidlo.innerText;
+    tlacidlo.innerText = "ODOSIELAM...";
+    tlacidlo.disabled = true;
+
+    try {
+        const response = await fetch("https://formspree.io/f/xeepvqqy", {
+            method: "POST",
+            body: JSON.stringify({
+                email: emailEl.value,
+                telefon: phoneEl.value,
+                sluzba: "Administratívny servis",
+                _subject: "DOPYT: Admin servis (" + emailEl.value + ")"
+            }),
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+        });
+        if (response.ok) {
+            alert("Požiadavka odoslaná! Čoskoro sa vám ozveme.");
+            emailEl.value = ""; phoneEl.value = "";
+            consent.checked = false;
+            openAdminModal();
+        }
+    } catch (err) { alert("Chyba spojenia."); }
+    finally { tlacidlo.innerText = originalText; tlacidlo.disabled = false; }
+}
 
     // --- 5. POMOCNÉ FUNKCIE (REVEAL & INIT) ---
     function reveal() {

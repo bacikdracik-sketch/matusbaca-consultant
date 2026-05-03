@@ -423,9 +423,14 @@ hr { border: 0; border-top: 1px solid var(--border-color); margin: 35px 0; }
     border-radius: 8px;
     display: flex;
     flex-direction: column;
-    overflow: hidden; /* Odreže fotku ak by pretŕčala cez rohy */
-    height: 100%;
+    overflow: visible; /* Odreže fotku ak by pretŕčala cez rohy */
+    height: auto !important;
+    min-height: 100%; /* Udrží pekný tvar, ak je v gride */
     transition: 0.3s;
+    position: relative; /* Dobré pre vrstvenie */
+}
+        .card.active {
+    z-index: 99; /* Zabezpečí, že otvorená karta bude nad ostatnými prvkami */
 }
 
 /* --- OPRAVENÝ OBRAZOK V BOXE (Zarovnanie hore) --- */
@@ -433,11 +438,12 @@ hr { border: 0; border-top: 1px solid var(--border-color); margin: 35px 0; }
     width: 100%;
     height: 200px; 
     display: flex;
-    align-items: flex-start; /* Toto posunie obsah (ikonku) nahor */
-    justify-content: center; /* Horizontálne zostane v strede */
+    align-items: flex-start; /* Posunie ikonku nahor */
+    justify-content: center; /* Vycentruje vodorovne */
     overflow: hidden;
     background: #f9f9f9;
-    padding-top: 20px;       /* Medzera od horného okraja pre ikonky */
+    padding-top: 20px; /* Medzera pre ikonky */
+    border-radius: 8px 8px 0 0; /* Zaoblí horný ľavý a pravý roh */
 }
 
 .card-icon img {
@@ -448,15 +454,13 @@ hr { border: 0; border-top: 1px solid var(--border-color); margin: 35px 0; }
     display: block;
 }
 
-/* FIX: Toto pravidlo prebije všetko ostatné pre malé ikonky */
+/* FIX: Nastavenie pre malé ikonky */
 .card-icon img.icon-small {
     width: 80px !important;  
     height: 80px !important;
     object-fit: contain !important;
-    /* Resetujeme výšku na auto pri ikonke, aby ju nenaťahovalo na 200px */
     flex-shrink: 0; 
 }
-
 /* Ak je v boxe veľká fotka (bez triedy icon-small), padding zrušíme */
 .card-icon:has(img:not(.icon-small)) {
     padding-top: 0;
@@ -487,11 +491,16 @@ hr { border: 0; border-top: 1px solid var(--border-color); margin: 35px 0; }
     padding: 0 5%;
     max-width: 1200px;
     margin: 50px auto;
+    
+    /* PRIDANÉ: Zabezpečí, že sa ostatné karty nebudú nasilu naťahovať */
+    align-items: start; 
 }
 
 /* Na mobiloch pod sebou */
 @media (max-width: 992px) {
-    .grid-3 { grid-template-columns: 1fr; }
+    .grid-3 { 
+        grid-template-columns: 1fr; 
+    }
 }
         /* --- O MNE (BIO) --- */
         .bio {

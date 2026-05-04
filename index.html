@@ -243,110 +243,148 @@
             font-weight: 700;
         }
         
-       /* --- 1. ZLATÉ ČÍSLA (VRCH) --- */
+       /* --- 1. CELKOVÝ KONTAJNER (JEDNOTNÝ ŠTÝL) --- */
+.inline-calculator {
+    width: 100%;
+    padding: 40px;
+    background: #ffffff;
+    border-radius: 24px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+/* --- 2. ZLATÉ ČÍSLA (VRCH) - ČISTÉ, BEZ BOXU, PROFESIONÁLNE --- */
 .input-mimic {
     border: none !important;
     background: transparent !important;
-    color: #B38E44 !important; /* Tvoja zlatá */
+    color: #B38E44 !important; /* Vaša zlatá */
     font-size: 1.8rem !important;
     font-weight: 800;
     text-align: right;
     padding: 0;
     min-width: 140px;
-    display: inline-block;
 }
 
-/* --- 2. NÁVRAT ZLATÝCH POSUVNÍKOV --- */
+/* --- 3. ZLATÉ POSUVNÍKY (ZACHOVANÁ IDENTITA) --- */
 input[type=range] {
     -webkit-appearance: none;
     width: 100%;
     height: 8px;
-    background: #e2e8f0;
+    background: #f1f5f9;
     border-radius: 10px;
+    outline: none;
 }
 
 input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 24px;
     height: 24px;
-    background: #B38E44 !important; /* Zlatý bežec späť */
+    background: #B38E44 !important;
     border: 3px solid #ffffff;
     border-radius: 50%;
     cursor: pointer;
-    box-shadow: 0 2px 6px rgba(179, 142, 68, 0.3);
+    box-shadow: 0 3px 8px rgba(179, 142, 68, 0.3);
+    transition: transform 0.2s;
 }
 
-/* --- 3. PEKNÉ RÁMČEKY PRE MAIL A TELEFÓN --- */
+input[type=range]::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+}
+
+/* --- 4. KONTAKTNÁ ČASŤ - DOKONALÉ ZLADENIE (MAIL A TEL) --- */
 .calc-contact {
     max-width: 550px;
     margin: 40px auto 0;
-    padding: 0;
-    background: transparent;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .form-field label {
     font-weight: 700;
     font-size: 0.85rem;
-    color: #475569;
+    color: #64748b;
     margin-bottom: 8px;
-    display: block;
     text-transform: uppercase;
+    display: block;
 }
 
-/* Rámčeky, ktoré ladia so zlatými prvkami */
+/* Rámčeky pre Mail a Telefón - presne podľa požiadavky na doladenie */
 .form-field input, 
 .phone-input-wrapper {
     width: 100%;
-    height: 55px;
+    height: 58px; /* Poriadna výška pre top feel */
     background: #ffffff !important;
-    /* Jemný rámik s nádychom zlatej */
-    border: 2px solid rgba(179, 142, 68, 0.2) !important; 
+    border: 2px solid #e2e8f0 !important; /* Základný čistý rámik */
     border-radius: 12px !important;
-    padding: 0 18px !important;
+    padding: 0 20px !important;
     font-size: 1.1rem !important;
     color: #0f172a !important;
     transition: all 0.3s ease;
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
 }
 
-/* Efekt pri kliknutí - rámček sa zvýrazní na tvoju zlatú */
+/* Zlatý focus - prepojenie s hornou časťou */
 .form-field input:focus, 
 .phone-input-wrapper:focus-within {
     border-color: #B38E44 !important;
-    background: #fffcf5 !important; /* Veľmi jemný zlatý nádych vnútri */
-    outline: none;
+    background: #fffcf5 !important;
     box-shadow: 0 0 0 4px rgba(179, 142, 68, 0.1) !important;
+    outline: none;
 }
 
-/* Úprava pre telefónnu predvoľbu */
+/* Telefónny detail podľa Snímka obrazovky 2026-05-04 204439.png */
 .phone-input-wrapper .prefix {
-    border-right: 2px solid rgba(179, 142, 68, 0.2) !important;
-    padding-right: 12px;
-    margin-right: 12px;
     font-weight: 700;
-    color: #B38E44 !important; /* Zlatá predvoľba ladí s číslami hore */
+    color: #B38E44 !important; /* Zlatá predvoľba prepojená s číslami */
+    border-right: 2px solid #e2e8f0 !important;
+    padding-right: 15px;
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
 }
 
 .phone-input-wrapper input {
     border: none !important;
     background: transparent !important;
-    padding-left: 0 !important;
+    padding: 0 !important;
+    height: 100% !important;
+    width: 100%;
 }
 
-/* --- 4. TLAČIDLO (ABY TO CELÉ "ZABALILO") --- */
+/* --- 5. FINÁLNE TLAČIDLO (CTA) --- */
 .btn-gold-action {
     width: 100%;
     background: #B38E44 !important;
-    color: #fff !important;
-    padding: 18px;
+    color: #ffffff !important;
+    padding: 20px;
     border-radius: 12px;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: 800;
     text-transform: uppercase;
+    letter-spacing: 1px;
     border: none;
     cursor: pointer;
     margin-top: 15px;
-    box-shadow: 0 8px 16px rgba(179, 142, 68, 0.2);
+    box-shadow: 0 10px 20px rgba(179, 142, 68, 0.25);
+    transition: all 0.3s ease;
+}
+
+.btn-gold-action:hover {
+    background: #0f172a !important; /* Seriózna tmavá pri hoveri */
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(15, 23, 42, 0.2);
+}
+
+/* --- 6. GDPR TEXT --- */
+.gdpr-text {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    text-align: center;
+    margin-top: 15px;
+    line-height: 1.4;
 }
         
 /* --- BOX KARTA --- */

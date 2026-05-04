@@ -243,95 +243,142 @@
             font-weight: 700;
         }
         
-       /* --- OPRAVA VÝBERU SLUŽBY (HORNÁ ČASŤ) --- */
-.service-selection {
-    display: flex;
-    justify-content: center;
-    gap: 25px;
-    margin-bottom: 30px;
+       /* --- CELKOVÝ KONTAJNER KALKULAČKY --- */
+.inline-calculator {
+    width: 100%;
+    margin-top: 40px;
+    padding: 40px;
+    background: linear-gradient(145deg, #ffffff, #f1f5f9);
+    border-radius: 30px;
+    border: 1px solid rgba(179, 142, 68, 0.2);
+    box-shadow: 20px 20px 60px #d1d5db, -20px -20px 60px #ffffff;
 }
 
-.service-selection label {
-    font-weight: 600;
-    color: #334155;
+.inline-calculator h4 {
+    font-size: 2rem;
+    font-weight: 900;
+    background: linear-gradient(90deg, #0f172a, #B38E44);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 40px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* --- RIADKY A VSTUPY --- */
+.calc-row {
+    background: rgba(255, 255, 255, 0.5);
+    padding: 25px;
+    border-radius: 20px;
+    margin-bottom: 25px;
+    border: 1px solid #e2e8f0;
+    transition: transform 0.3s ease;
+}
+
+.calc-row:hover {
+    transform: scale(1.01);
+    border-color: #B38E44;
+}
+
+/* Vizuálna hodnota (Zlatý box) */
+.input-mimic {
+    border: none;
+    background: linear-gradient(135deg, #B38E44 0%, #d4af37 100%);
+    color: #fff;
+    border-radius: 15px;
+    padding: 15px 30px;
+    font-size: 1.8rem;
+    font-weight: 800;
+    min-width: 200px;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(179, 142, 68, 0.3);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* --- LUXUSNÝ POSUVNÍK (RANGE) --- */
+input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 12px;
+    background: #e2e8f0;
+    border-radius: 10px;
+    outline: none;
+}
+
+/* Bežec posuvníka */
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 28px;
+    height: 28px;
+    background: #0f172a;
+    border: 3px solid #B38E44;
+    border-radius: 50%;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    box-shadow: 0 0 10px rgba(179, 142, 68, 0.5);
+    transition: 0.2s;
 }
 
-/* Zachovanie oranžovej/zlatej identity pre rádio buttony */
-.service-selection input[type="radio"] {
-    accent-color: #B38E44; 
-    width: 18px;
-    height: 18px;
+input[type=range]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    background: #B38E44;
 }
 
-/* --- OPRAVA LEN MAIL A TEL (DOLNÁ ČASŤ) --- */
-/* Podľa požiadavky na doladenie k obrázku Snímka obrazovky 2026-05-04 204439.png */
+/* --- KONTAKTNÉ BOXY (MASÍVNE) --- */
+.calc-contact {
+    max-width: 600px;
+    margin: 50px auto 0;
+    padding: 40px;
+    background: #0f172a; /* Tmavé elegantné pozadie */
+    border-radius: 25px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
 
-.form-field {
-    margin-bottom: 15px;
+.calc-contact h5 {
+    color: #fff;
+    text-align: center;
+    font-size: 1.4rem;
+    margin-bottom: 25px;
 }
 
 .form-field label {
-    font-weight: 700;
-    color: #475569;
-    margin-bottom: 5px;
-    display: block;
+    color: #cbd5e1; /* Svetlejší text na tmavom pozadí */
+    font-size: 0.9rem;
 }
 
-.form-field input, 
-.phone-input-wrapper {
-    width: 100%;
-    height: 50px; /* Masívnejšie boxy podľa vašej požiadavky */
-    padding: 0 15px;
-    border: 1.5px solid #cbd5e1; /* Profesionálny border */
-    border-radius: 10px; /* Zladenie so zaoblením kalkulačky */
-    font-size: 1.1rem;
-    background: #ffffff;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    transition: border-color 0.3s;
+.form-field input, .phone-input-wrapper {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(179, 142, 68, 0.4) !important;
+    color: #fff !important;
+    padding: 20px !important;
+    font-size: 1.2rem !important;
 }
 
-/* Aby to pri písaní "svietilo" na zlato ako vrch */
-.form-field input:focus, 
-.phone-input-wrapper:focus-within {
-    border-color: #B38E44;
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(179, 142, 68, 0.1);
+.form-field input:focus {
+    border-color: #B38E44 !important;
+    background: rgba(255, 255, 255, 0.1) !important;
 }
 
-/* Telefón - odstránenie vnútorných rámikov z Snímka obrazovky 2026-05-04 204439.png */
-.phone-input-wrapper input {
-    border: none !important;
-    padding: 0 0 0 10px !important;
-    height: 100% !important;
-    box-shadow: none !important;
-}
-
-.phone-input-wrapper .prefix {
-    border-right: 1px solid #cbd5e1;
-    padding-right: 10px;
-    font-weight: 700;
-    color: #0f172a;
-}
-
-/* Tlačidlo - nechávame pôvodnú logiku, len upravíme výšku */
+/* --- TLAČIDLO (ULTIMÁTNE CTA) --- */
 .btn-gold-action {
     width: 100%;
-    background: #B38E44;
-    color: #fff;
-    padding: 16px;
-    border-radius: 10px;
-    font-size: 1.1rem;
-    font-weight: 800;
+    background: linear-gradient(135deg, #B38E44 0%, #FFD700 100%);
+    color: #0f172a; /* Tmavý text na zlatej pre kontrast */
+    padding: 25px;
+    border-radius: 15px;
+    font-size: 1.4rem;
+    font-weight: 900;
     text-transform: uppercase;
     border: none;
     cursor: pointer;
-    margin-top: 20px;
+    box-shadow: 0 15px 30px rgba(179, 142, 68, 0.4);
+    transition: all 0.4s ease;
+}
+
+.btn-gold-action:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(179, 142, 68, 0.6);
+    filter: brightness(1.1);
 }
         
 /* --- BOX KARTA --- */

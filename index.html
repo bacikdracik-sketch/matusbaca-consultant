@@ -244,109 +244,170 @@
         }
         
         /* --- KONTAKTNÁ ČASŤ (ELEGANTNÁ & PREHĽADNÁ) --- */
-.calc-contact {
-    max-width: 480px; /* Optimalizovaná šírka pre business look */
+.inline-calculator {
     width: 100%;
-    margin: 40px auto 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 30px;
-    background: #f8fafc; /* Jemné pozadie pre oddelenie od kalkulačky */
-    border-radius: 16px;
+    margin-top: 40px;
+    padding: 40px;
+    background: #ffffff;
+    border-radius: 24px;
     border: 1px solid #e2e8f0;
+    box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
 }
 
-.form-field {
-    text-align: left;
+.inline-calculator h4 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #0f172a; /* Tmavomodrá */
+    margin-bottom: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.inline-calculator .subtitle {
+    text-align: center;
+    color: #64748b;
+    margin-bottom: 40px;
+    font-size: 1rem;
+}
+
+/* --- RIADKY KALKULAČKY --- */
+.calc-row {
     display: flex;
     flex-direction: column;
+    gap: 15px;
+    margin-bottom: 35px;
+}
+
+@media (min-width: 768px) {
+    .calc-row {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+.calc-label {
+    font-weight: 700;
+    color: #1e293b;
+    font-size: 1.1rem;
+}
+
+/* Zlatý box s hodnotou */
+.input-mimic {
+    border: 2px solid #B38E44; /* Vaša zlatá */
+    background: #fffcf5;
+    color: #0f172a;
+    border-radius: 12px;
+    padding: 12px 25px;
+    font-size: 1.6rem;
+    font-weight: 800;
+    min-width: 180px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(179, 142, 68, 0.1);
+}
+
+/* --- LUXUSNÝ POSUVNÍK (RANGE) --- */
+input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 5px;
+    outline: none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    background: #B38E44;
+    border: 4px solid #ffffff;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    transition: 0.2s;
+}
+
+input[type=range]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    background: #0f172a;
+}
+
+/* --- KONTAKTNÁ ČASŤ (PREMIUM LOOK) --- */
+.calc-contact {
+    max-width: 500px;
+    margin: 50px auto 0;
+    padding: 35px;
+    background: #f8fafc; /* Veľmi jemná sivá */
+    border-radius: 20px;
+    border: 1px solid #e2e8f0;
 }
 
 .form-field label {
     font-weight: 700;
-    margin-bottom: 8px;
-    display: block;
-    color: #475569;
     font-size: 0.85rem;
+    color: #475569;
+    margin-bottom: 8px;
     text-transform: uppercase;
-    letter-spacing: 0.8px;
+    letter-spacing: 1px;
 }
 
-/* Elegantné vstupné polia */
-.form-field input, 
-.phone-input-wrapper {
-    width: 100%;
-    padding: 14px 18px;
-    border: 1.5px solid #cbd5e1;
-    border-radius: 10px;
-    font-size: 1.05rem;
-    font-weight: 500;
-    transition: all 0.2s ease;
+.form-field input, .phone-input-wrapper {
     background: #ffffff;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 12px;
+    padding: 15px 20px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
 }
 
-/* Focus efekt - decentná zlatá */
-.form-field input:focus, 
-.phone-input-wrapper:focus-within {
+.form-field input:focus, .phone-input-wrapper:focus-within {
     border-color: #B38E44;
+    box-shadow: 0 0 0 4px rgba(179, 142, 68, 0.1);
     outline: none;
-    box-shadow: 0 0 0 3px rgba(179, 142, 68, 0.1);
-}
-
-/* Telefónny box s vlajkou */
-.phone-input-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 0 15px;
 }
 
 .phone-input-wrapper .prefix {
     font-weight: 700;
-    color: #64748b;
+    color: #0f172a;
     border-right: 1px solid #e2e8f0;
     padding-right: 12px;
+    margin-right: 12px;
 }
 
-.phone-input-wrapper input {
-    border: none !important;
-    padding: 14px 0 !important;
-    box-shadow: none !important;
-    background: transparent !important;
-}
-
-/* Tlačidlo - Profesionálna veľkosť (Wealth Management Style) */
+/* --- TLAČIDLO (ELEGANTNÉ ALE SILNÉ) --- */
 .btn-gold-action {
+    width: 100%;
     background: #B38E44;
-    color: #fff;
-    padding: 16px 24px; /* Zmenšené na elegantnú úroveň */
-    border-radius: 10px;
+    color: #ffffff;
+    padding: 18px 30px;
+    border-radius: 12px;
     font-size: 1.1rem;
-    font-weight: 700;
+    font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
     border: none;
     cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 10px;
-    box-shadow: 0 4px 10px rgba(179, 142, 68, 0.2);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    margin-top: 15px;
+    box-shadow: 0 10px 20px rgba(179, 142, 68, 0.2);
 }
 
 .btn-gold-action:hover {
-    background: #0f172a; /* Zmena na korporátnu tmavomodrú pri hoveri */
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(15, 23, 42, 0.2);
+    background: #0f172a;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(15, 23, 42, 0.2);
 }
 
-/* Deliaca čiara a reset pre Box kartu */
-hr { 
-    border: 0; 
-    border-top: 1px solid #e2e8f0; 
-    margin: 30px 0; 
-    width: 100%; 
-}
-        
+.gdpr-text {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    text-align: center;
+    margin-top: 15px;
+    line-height: 1.4;
+}        
 /* --- BOX KARTA --- */
 .card {
     background: white;

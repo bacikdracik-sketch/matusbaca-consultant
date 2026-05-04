@@ -793,49 +793,74 @@ hr { border: 0; border-top: 1px solid var(--border-color); margin: 35px 0; }
 }
 
 
-/* RESPONSÍVNE PRE MOBIL */
-@media (max-width: 1100px) {
-    .hero-tag {
-        font-size: 0.8rem;          
-    }
-    .hero h1 {
-        font-size: 1.6rem;          
-    }
-    .hero p {
-        font-size: 0.9rem;          
-    }
-}
-
-   /* --- Nastavenie pre postupné vynáranie --- */
+/* 1. ZÁKLADNÁ ANIMÁCIA PRE VŠETKY ZARIADENIA */
 .reveal {
     opacity: 0;
-    transform: translateY(50px); /* Sekcia je o 50px nižšie */
-    transition: all 1.0s ease-out; /* Animácia trvá 1 sekundu */
+    transform: translateY(50px);
+    transition: all 1.0s ease-out;
 }
 
-/* --- Stav, keď sa sekcia aktivuje --- */
 .reveal.active {
     opacity: 1;
-    transform: translateY(0); /* Vráti sa na pôvodné miesto */
+    transform: translateY(0);
 }
-        /* --- FINÁLNA OPRAVA PRE MOBILY (Hlava v Hero a Bio) --- */
-    @media (max-width: 768px) {
-        /* Oprava Hero sekcie */
-        .hero {
-            background-size: cover !important;
-            background-position: center top !important; 
-            min-height: 75vh !important;
-            display: flex !important;
-            flex-direction: column !important;
-            justify-content: flex-end !important;
-            padding-bottom: 50px !important;
-        }
-        
-        .hero-container {
-            margin-top: 0 !important;
-            text-align: center !important;
-            max-width: 100% !important;
-        }
+
+/* 2. RESPONZIVITA PRE TABLETY (POD 1100px) */
+@media (max-width: 1100px) {
+    .hero-tag { font-size: 0.8rem; }
+    .hero h1 { font-size: 1.6rem; }
+    .hero p { font-size: 0.9rem; }
+}
+
+/* 3. FINÁLNA OPRAVA PRE MOBILY (POD 768px) */
+@media (max-width: 768px) {
+    /* Oprava Hero sekcie */
+    .hero {
+        background-size: cover !important;
+        background-position: center top !important; 
+        min-height: 75vh !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-end !important;
+        padding-bottom: 50px !important;
+    }
+    
+    .hero-container {
+        margin-top: 0 !important;
+        text-align: center !important;
+        max-width: 100% !important;
+    }
+
+    /* OPRAVA ROZŤAHANÝCH KARIET A KALKULAČIEK */
+    .card {
+        padding: 15px !important;
+        margin-bottom: 15px !important;
+    }
+
+    .card h3 {
+        font-size: 1.1rem !important;
+    }
+
+    .card-description {
+        font-size: 0.85rem !important;
+        line-height: 1.4 !important;
+    }
+
+    .inline-calculator {
+        padding: 15px 5px !important;
+    }
+
+    .input-group label {
+        font-size: 0.8rem !important;
+    }
+
+    /* Aby tlačidlá na mobile nevyzerali ako obrovské bloky */
+    .btn-gold-action {
+        width: 100% !important;
+        padding: 12px !important;
+        font-size: 0.9rem !important;
+    }
+}
 
         /* Oprava Bio sekcie (image_0.png) */
         .bio {

@@ -1237,7 +1237,6 @@ hr { border: 0; border-top: 1px solid var(--border-color); margin: 30px 0; width
         <!-- KARTA 3: ADMINISTRATÍVNY SERVIS -->
 <div class="card reveal" id="card-admin" onclick="openAdminModal()" style="cursor: pointer;">
     <div class="card-icon">
-        <!-- Odstránená class icon-small pre jednotnú veľkosť -->
         <img src="Service.png" alt="Administratívny servis">
     </div>
     <h3>Administratívny servis</h3>
@@ -1247,38 +1246,62 @@ hr { border: 0; border-top: 1px solid var(--border-color); margin: 30px 0; width
     <span class="click-info">Zistite, čo všetko vybavím za vás ↓</span>
 
     <div id="admin-inline-calc" class="inline-calculator" style="display: none;" onclick="event.stopPropagation()">
-        <h4>ČO VŠETKO ZA VÁS VYBAVÍM:</h4>
+        <h4>ROZSAH NAŠICH SLUŽIEB</h4>
+        <p class="calc-sub">Vašou jedinou úlohou bude podpis zmlúv. O zvyšok sa postaráme my.</p>
         
-        <ul class="admin-list" style="text-align: left; list-style: none; padding: 0; margin: 0 auto 20px auto; max-width: 320px; font-size: 0.9rem; color: var(--text-light);">
-            <li style="margin-bottom: 8px;">✅ <strong>Katastrálny servis:</strong> Podanie návrhov na vklad.</li>
-            <li style="margin-bottom: 8px;">✅ <strong>Potvrdenia z banky:</strong> Žiadosti o súhlasy a vyčíslenia.</li>
-            <li style="margin-bottom: 8px;">✅ <strong>Stráženie fixácie:</strong> Upozornenie na nové úroky včas.</li>
-            <li style="margin-bottom: 8px;">✅ <strong>Poistenie:</strong> Vybavenie zmlúv a vinkulácií.</li>
-        </ul>
+        <!-- PODROBNÝ ROZPIS SLUŽIEB -->
+        <div class="admin-feature-grid" style="display: grid; grid-template-columns: 1fr; gap: 15px; text-align: left; max-width: 500px; margin: 0 auto 30px auto; color: var(--text-light);">
+            <div style="display: flex; gap: 15px; align-items: flex-start;">
+                <span style="font-size: 1.2rem;">🏛️</span>
+                <div>
+                    <strong>Katastrálny servis:</strong>
+                    <p style="margin: 2px 0 0 0; font-size: 0.85rem;">Príprava a podanie návrhov na vklad, sledovanie priebehu konania a kontrola listov vlastníctva po zápise.</p>
+                </div>
+            </div>
+            <div style="display: flex; gap: 15px; align-items: flex-start;">
+                <span style="font-size: 1.2rem;">📑</span>
+                <div>
+                    <strong>Banková administratíva:</strong>
+                    <p style="margin: 2px 0 0 0; font-size: 0.85rem;">Vybavenie žiadostí o súhlas s predčasným splatením, vyčíslenie zostatkov a komunikácia s bankami za vás.</p>
+                </div>
+            </div>
+            <div style="display: flex; gap: 15px; align-items: flex-start;">
+                <span style="font-size: 1.2rem;">⏰</span>
+                <div>
+                    <strong>Stráženie dôležitých termínov:</strong>
+                    <p style="margin: 2px 0 0 0; font-size: 0.85rem;">Sledujeme za vás konce fixácií a včas navrhujeme kroky, aby ste sa vyhli nevýhodným úrokovým sadzbám.</p>
+                </div>
+            </div>
+            <div style="display: flex; gap: 15px; align-items: flex-start;">
+                <span style="font-size: 1.2rem;">🛡️</span>
+                <div>
+                    <strong>Poistenie a vinkulácia:</strong>
+                    <p style="margin: 2px 0 0 0; font-size: 0.85rem;">Zabezpečíme poistenie nehnuteľnosti, životné poistenie a potvrdíme vinkuláciu poistného plnenia v prospech banky.</p>
+                </div>
+            </div>
+        </div>
 
         <hr>
 
+        <!-- FORMULÁR -->
         <div class="calc-contact">
-            <!-- E-mail -->
             <div class="form-field">
-                <label>E-mail *</label>
+                <label>Váš E-mail *</label>
                 <input type="email" id="adminEmail" placeholder="vas@email.sk" required>
             </div>
 
-            <!-- Telefón -->
             <div class="form-field">
-                <label>Telefón *</label>
+                <label>Telefónne číslo *</label>
                 <div class="phone-input-wrapper">
                     <img src="https://flagcdn.com/w20/sk.png" alt="SK">
                     <input type="tel" id="adminPhone" placeholder="09xx xxx xxx" required>
                 </div>
             </div>
 
-            <!-- GDPR Súhlas (Jednotný štýl) -->
             <div class="gdpr-wrapper">
                 <input type="checkbox" id="adminConsent" required>
                 <label for="adminConsent">
-                    Mám záujem o administratívny servis a súhlasím so <a href="ochrana-udajov.pdf" target="_blank">spracovaním údajov</a>. *
+                    Mám záujem o servis a súhlasím so <a href="ochrana-udajov.pdf" target="_blank">spracovaním údajov</a>. *
                 </label>
             </div>
 

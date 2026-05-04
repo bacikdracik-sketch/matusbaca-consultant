@@ -243,154 +243,107 @@
             font-weight: 700;
         }
         
-        /* --- ZÁKLADNÁ MRIEŽKA PRE BOXY --- */
-.cards-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 25px;
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    align-items: start;
-}
-
-/* --- OPRAVA KARTY --- */
-.card {
-    background: #fff;
-    border: 1px solid #e2e8f0;
-    border-radius: 20px;
-    padding: 30px;
-    transition: all 0.4s ease;
-    height: auto; /* Dôležité: karta rastie podľa obsahu */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-}
-
-/* Keď je kalkulačka otvorená, karta môže byť širšia */
-.card.active {
-    grid-column: 1 / -1; /* Roztiahne kartu na celý riadok pri otvorení */
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-/* --- VEĽKÁ KALKULAČKA --- */
-.inline-calculator {
-    width: 100%;
-    margin-top: 30px;
-    padding-top: 30px;
-    border-top: 2px solid #f0f4f8;
-}
-
-.inline-calculator h4 {
-    font-size: 1.6rem;
-    color: #0f172a;
-    margin-bottom: 25px;
-    text-align: center;
-}
-
-/* Riadky v kalkulačke - veľké a prehľadné */
-.calc-row {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin-bottom: 30px;
-    gap: 15px;
-}
-
-@media (min-width: 768px) {
-    .calc-row {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
-}
-
-/* Vizuálna hodnota (to v tom zlatom rámiku) */
-.input-mimic {
-    border: 2px solid #B38E44;
-    border-radius: 12px;
-    padding: 15px 25px;
-    font-size: 1.5rem; /* Poriadne veľké čísla */
-    font-weight: 800;
-    color: #0f172a;
-    background: #fffcf5;
-    min-width: 180px;
-    text-align: center;
-}
-
-/* Posuvník (Range) */
-input[type=range] {
-    width: 100%;
-    height: 10px;
-    accent-color: #B38E44;
-}
-
-/* --- KONTAKTNÁ ČASŤ (VŽDY NA STRED) --- */
+        /* --- KONTAKTNÁ ČASŤ (VŽDY NA STRED) --- */
 .calc-contact {
-    max-width: 450px; /* Zväčšené z 300px na 450px */
+    max-width: 550px; /* Zväčšené pre ešte lepší vizuálny dopad */
     width: 100%;
-    margin: 40px auto 0 auto;
+    margin: 50px auto 0 auto; /* Viac priestoru od kalkulačky */
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 25px; /* Väčšie rozostupy medzi poliami */
+    padding: 30px;
+    background: #f8fafc; /* Jemné podfarbenie kontaktnej zóny */
+    border-radius: 20px;
 }
 
 .form-field {
     text-align: left;
+    display: flex;
+    flex-direction: column;
 }
 
 .form-field label {
     font-weight: 700;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
     display: block;
-    color: #334155;
+    color: #0f172a;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-.form-field input {
+/* Štýl pre Email a Telefón inputy */
+.form-field input, 
+.phone-input-wrapper {
     width: 100%;
-    padding: 16px;
-    border: 1px solid #cbd5e1;
-    border-radius: 10px;
-    font-size: 1.1rem;
+    padding: 18px 20px;
+    border: 2px solid #e2e8f0; /* Hrubší border */
+    border-radius: 12px;
+    font-size: 1.2rem; /* Väčšie písmo pre čitateľnosť */
+    font-weight: 500;
+    transition: all 0.3s ease;
+    background: #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
 }
 
-/* Telefón s vlajkou */
+/* Efekt pri kliknutí (Focus) */
+.form-field input:focus, 
+.phone-input-wrapper:focus-within {
+    border-color: #B38E44; /* Zlatá pri aktívnom poli */
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(179, 142, 68, 0.1);
+    background: #fff;
+}
+
+/* Telefón s vlajkou - Špeciálna úprava */
 .phone-input-wrapper {
     display: flex;
     align-items: center;
-    gap: 12px;
-    border: 1px solid #cbd5e1;
-    border-radius: 10px;
-    padding: 0 16px;
-    background: #fff;
+    gap: 15px;
+    padding: 0 20px; /* Reset paddingu aby input vo vnútri sedel */
+}
+
+.phone-input-wrapper .flag {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.phone-input-wrapper .prefix {
+    font-weight: 700;
+    color: #64748b;
+    border-right: 1px solid #cbd5e1;
+    padding-right: 15px;
 }
 
 .phone-input-wrapper input {
     border: none !important;
-    padding: 16px 0 !important;
+    padding: 18px 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
 }
 
-/* Tlačidlo - Masívne a "Top" */
+/* Tlačidlo - Extrémne výrazné */
 .btn-gold-action {
-    background: #B38E44;
+    background: linear-gradient(135deg, #B38E44 0%, #967535 100%);
     color: #fff;
-    padding: 20px;
-    border-radius: 12px;
-    font-size: 1.2rem;
+    padding: 22px;
+    border-radius: 15px;
+    font-size: 1.3rem;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
     border: none;
     cursor: pointer;
-    transition: 0.3s;
-    margin-top: 20px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    margin-top: 15px;
+    box-shadow: 0 10px 20px rgba(179, 142, 68, 0.3);
 }
 
 .btn-gold-action:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(179, 142, 68, 0.4);
     background: #0f172a;
-    transform: translateY(-3px);
 }
 
 hr { border: 0; border-top: 1px solid var(--border-color); margin: 30px 0; width: 100%; }

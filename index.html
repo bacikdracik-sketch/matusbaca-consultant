@@ -1125,6 +1125,7 @@ hr { border: 0; border-top: 1px solid var(--border-color); margin: 35px 0; }
         <h2>Cesta k <span>Vlastnému Bývaniu</span></h2>
     </div>
     <div class="grid-3">
+        
         <!-- KARTA 1: HYPOTEKÁRNY AUDIT -->
 <!-- Pridané uzavretie divu pred kalkulačkou -->
 <div class="card" onclick="openModal()" style="cursor: pointer;">
@@ -1195,7 +1196,7 @@ hr { border: 0; border-top: 1px solid var(--border-color); margin: 35px 0; }
         <!-- KARTA 2: REFINANCOVANIE -->
 <div class="card" id="card-refinance" onclick="openRefModal()" style="cursor: pointer;">
     <div class="card-icon">
-        <img src="Refinance.png" alt="Refinancovanie" class="icon-small">
+        <img src="Refinance.png" alt="Refinancovanie">
     </div>
     <h3>Refinancovať hypotéku</h3>
     <p class="card-description">
@@ -1203,7 +1204,7 @@ hr { border: 0; border-top: 1px solid var(--border-color); margin: 35px 0; }
     </p>
     <span class="click-info">Kliknite pre kalkulačku ↓</span>
 
-    <div id="ref-inline-calc" class="inline-calculator" style="display: none; background: none; padding: 0; box-shadow: none;" onclick="event.stopPropagation()">
+    <div id="ref-inline-calc" class="inline-calculator" onclick="event.stopPropagation()">
         <h4>KALKULAČKA ÚSPORY PRI REFINANCII</h4>
         
         <div class="calc-row">
@@ -1237,16 +1238,16 @@ hr { border: 0; border-top: 1px solid var(--border-color); margin: 35px 0; }
                 </div>
             </div>
             
-            <div class="checkbox-wrapper" style="display: flex; align-items: flex-start; gap: 10px; margin: 15px 0; text-align: left;">
-                <input type="checkbox" id="refConsent" required style="width: auto; margin-top: 5px; cursor: pointer;">
-                <label for="refConsent" style="font-size: 0.85rem; color: var(--text-light); line-height: 1.4; cursor: pointer;">
-                    Chcem nezáväznú ponuku refinancovania a súhlasím so spracovaním osobných údajov. *
+            <div class="checkbox-wrapper">
+                <input type="checkbox" id="refConsent" required>
+                <label for="refConsent">
+                    Súhlasím so <a href="ochrana-udajov.pdf" target="_blank">spracovaním osobných údajov</a> pre účely vypracovania ponuky. *
                 </label>
             </div>
 
             <button class="btn-gold-action" onclick="handleRefClick(event)">SPOČÍTAŤ ÚSPORU</button>
         </div>
-    </div> <
+    </div>
 </div>
        
         <!-- KARTA 3: ADMINISTRATÍVNY SERVIS -->

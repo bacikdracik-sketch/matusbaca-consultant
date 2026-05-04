@@ -243,105 +243,95 @@
             font-weight: 700;
         }
         
-        /* --- KONTAKTNÁ ČASŤ (TOP DOLADENIE) --- */
-.calc-contact {
-    max-width: 500px;
-    margin: 50px auto 0;
-    padding: 35px;
-    background: #f8fafc;
-    border-radius: 20px;
-    border: 1px solid #e2e8f0;
+       /* --- OPRAVA VÝBERU SLUŽBY (HORNÁ ČASŤ) --- */
+.service-selection {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 30px;
 }
 
+.service-selection label {
+    font-weight: 600;
+    color: #334155;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Zachovanie oranžovej/zlatej identity pre rádio buttony */
+.service-selection input[type="radio"] {
+    accent-color: #B38E44; 
+    width: 18px;
+    height: 18px;
+}
+
+/* --- OPRAVA LEN MAIL A TEL (DOLNÁ ČASŤ) --- */
+/* Podľa požiadavky na doladenie k obrázku Snímka obrazovky 2026-05-04 204439.png */
+
 .form-field {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .form-field label {
     font-weight: 700;
-    font-size: 0.85rem;
     color: #475569;
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    margin-bottom: 5px;
     display: block;
 }
 
-/* Oprava polí podľa Snímka obrazovky 2026-05-04 204439.png */
 .form-field input, 
 .phone-input-wrapper {
     width: 100%;
-    height: 60px; /* Masívnejšia, prémiová výška */
-    background: #ffffff;
-    border: 2px solid #e2e8f0; /* Hrubší border pre lepší kontrast */
-    border-radius: 12px; /* Identické zaoblenie ako horné zlaté boxy */
-    padding: 0 20px;
+    height: 50px; /* Masívnejšie boxy podľa vašej požiadavky */
+    padding: 0 15px;
+    border: 1.5px solid #cbd5e1; /* Profesionálny border */
+    border-radius: 10px; /* Zladenie so zaoblením kalkulačky */
     font-size: 1.1rem;
-    font-weight: 500;
-    color: #0f172a;
-    transition: all 0.3s ease;
+    background: #ffffff;
     box-sizing: border-box;
     display: flex;
     align-items: center;
+    transition: border-color 0.3s;
 }
 
-/* Focus efekt - prepojenie so zlatou z horných prvkov */
+/* Aby to pri písaní "svietilo" na zlato ako vrch */
 .form-field input:focus, 
 .phone-input-wrapper:focus-within {
     border-color: #B38E44;
-    background: #fffcf5; /* Jemný zlatý podmaz */
-    box-shadow: 0 0 0 4px rgba(179, 142, 68, 0.15);
     outline: none;
+    box-shadow: 0 0 0 3px rgba(179, 142, 68, 0.1);
 }
 
-/* Fix pre telefónny box (vlajka a input) */
-.phone-input-wrapper {
-    display: flex;
-    gap: 0;
-}
-
-.phone-input-wrapper .prefix {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 700;
-    color: #0f172a;
-    padding-right: 15px;
-    margin-right: 15px;
-    border-right: 1px solid #e2e8f0;
-    height: 30px; /* Čiara na výšku písma */
-}
-
+/* Telefón - odstránenie vnútorných rámikov z Snímka obrazovky 2026-05-04 204439.png */
 .phone-input-wrapper input {
     border: none !important;
-    padding: 0 !important;
+    padding: 0 0 0 10px !important;
     height: 100% !important;
-    background: transparent !important;
     box-shadow: none !important;
 }
 
-/* Tlačidlo ostáva silné a elegantné */
+.phone-input-wrapper .prefix {
+    border-right: 1px solid #cbd5e1;
+    padding-right: 10px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+/* Tlačidlo - nechávame pôvodnú logiku, len upravíme výšku */
 .btn-gold-action {
     width: 100%;
     background: #B38E44;
-    color: #ffffff;
-    padding: 18px 30px;
-    border-radius: 12px;
+    color: #fff;
+    padding: 16px;
+    border-radius: 10px;
     font-size: 1.1rem;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
     border: none;
     cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    margin-top: 10px;
-    box-shadow: 0 10px 20px rgba(179, 142, 68, 0.2);
-}
-
-.btn-gold-action:hover {
-    background: #0f172a;
-    transform: translateY(-3px);
-    box-shadow: 0 12px 25px rgba(15, 23, 42, 0.2);
+    margin-top: 20px;
 }
         
 /* --- BOX KARTA --- */

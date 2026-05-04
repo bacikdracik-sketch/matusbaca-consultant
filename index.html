@@ -447,10 +447,6 @@ hr { border: 0; border-top: 1px solid var(--border-color); margin: 35px 0; }
     display: block;
 }
 
-/* ODSTRÁŇ/ZMAŽ túto časť: .card-icon img.icon-small { ... } 
-   Táto časť ti tie fotky zmenšovala na 80px. Ak tam tie fotky chceš mať veľké, 
-   tento kód tam nesmie byť. */
-
 /* --- TEXT POD FOTKOU --- */
 .card h3 {
     padding: 20px 20px 10px 20px;
@@ -468,12 +464,27 @@ hr { border: 0; border-top: 1px solid var(--border-color); margin: 35px 0; }
     text-align: left;
     margin-bottom: 0;
 }
+/* --- 3 BOXY VEDĽA SEBA --- */
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    padding: 0 20px;
+    max-width: 1200px;
+    margin: 50px auto;
+    align-items: start;
+    width: 100%; /* Pridaj tento riadok */
+    box-sizing: border-box; /* Zabezpečí správne počítanie šírky s paddingom */
+}
+
 /* Na mobiloch pod sebou */
 @media (max-width: 992px) {
     .grid-3 { 
-        grid-template-columns: 1fr; 
+        grid-template-columns: 1fr; /* Prepne na jeden stĺpec */
+        max-width: 500px; /* Na mobile nechceme, aby boli karty príliš široké */
     }
 }
+      
         /* --- O MNE (BIO) --- */
         .bio {
     display: flex;

@@ -243,73 +243,88 @@
             font-weight: 700;
         }
         
-       /* --- ČÍSLA V KALKULAČKE (ČISTÉ ZLATO, ZMENŠENÉ) --- */
+       /* --- 1. ZLATÉ ČÍSLA (VRCH) --- */
 .input-mimic {
     border: none !important;
-    background: none !important;
-    box-shadow: none !important;
-    color: #B38E44 !important; /* Vaša zlatá */
-    font-size: 1.6rem !important; /* Zmenšené z 2.2rem na elegantnejšiu veľkosť */
+    background: transparent !important;
+    color: #B38E44 !important; /* Tvoja zlatá */
+    font-size: 1.8rem !important;
     font-weight: 800;
     text-align: right;
     padding: 0;
+    min-width: 140px;
     display: inline-block;
 }
 
-/* --- KONTAKTNÁ ČASŤ (SVETLÁ A ELEGANTNÁ) --- */
-.calc-contact {
-    max-width: 500px; /* Mierne zúžené pre lepší business look */
-    margin: 40px auto 0;
-    padding: 0; /* Odstránený tmavý box a extra padding */
-    background: transparent; /* Odstránené tmavé pozadie */
-    box-shadow: none; /* Odstránený tieň boxu */
+/* --- 2. NÁVRAT ZLATÝCH POSUVNÍKOV --- */
+input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 10px;
 }
 
-.calc-contact h5 {
-    color: #0f172a; /* Návrat k tmavej farbe písma */
-    text-align: center;
-    font-size: 1.3rem;
-    margin-bottom: 25px;
-    font-weight: 800;
-    text-transform: uppercase;
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    background: #B38E44 !important; /* Zlatý bežec späť */
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(179, 142, 68, 0.3);
+}
+
+/* --- 3. PEKNÉ RÁMČEKY PRE MAIL A TELEFÓN --- */
+.calc-contact {
+    max-width: 550px;
+    margin: 40px auto 0;
+    padding: 0;
+    background: transparent;
 }
 
 .form-field label {
-    color: #475569;
-    font-size: 0.85rem;
     font-weight: 700;
-    text-transform: uppercase;
+    font-size: 0.85rem;
+    color: #475569;
     margin-bottom: 8px;
     display: block;
+    text-transform: uppercase;
 }
 
-/* Úprava polí pre Mail a Tel - čistý biely dizajn */
-.form-field input, .phone-input-wrapper {
+/* Rámčeky, ktoré ladia so zlatými prvkami */
+.form-field input, 
+.phone-input-wrapper {
+    width: 100%;
+    height: 55px;
     background: #ffffff !important;
-    border: 2px solid #e2e8f0 !important; /* Návrat k svetlému orámovaniu */
-    color: #0f172a !important;
-    height: 55px !important;
+    /* Jemný rámik s nádychom zlatej */
+    border: 2px solid rgba(179, 142, 68, 0.2) !important; 
     border-radius: 12px !important;
-    padding: 0 20px !important;
+    padding: 0 18px !important;
     font-size: 1.1rem !important;
+    color: #0f172a !important;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.02) !important;
+    box-sizing: border-box;
 }
 
-.form-field input:focus, .phone-input-wrapper:focus-within {
+/* Efekt pri kliknutí - rámček sa zvýrazní na tvoju zlatú */
+.form-field input:focus, 
+.phone-input-wrapper:focus-within {
     border-color: #B38E44 !important;
-    background: #fffcf5 !important;
+    background: #fffcf5 !important; /* Veľmi jemný zlatý nádych vnútri */
     outline: none;
     box-shadow: 0 0 0 4px rgba(179, 142, 68, 0.1) !important;
 }
 
-/* Telefónny prefix - doladenie k svetlému štýlu */
+/* Úprava pre telefónnu predvoľbu */
 .phone-input-wrapper .prefix {
-    border-right: 1px solid #e2e8f0 !important;
+    border-right: 2px solid rgba(179, 142, 68, 0.2) !important;
     padding-right: 12px;
     margin-right: 12px;
-    color: #0f172a !important;
     font-weight: 700;
+    color: #B38E44 !important; /* Zlatá predvoľba ladí s číslami hore */
 }
 
 .phone-input-wrapper input {
@@ -318,11 +333,11 @@
     padding-left: 0 !important;
 }
 
-/* --- TLAČIDLO (ZACHOVANÉ, ALE ELEGANTNEJŠIE) --- */
+/* --- 4. TLAČIDLO (ABY TO CELÉ "ZABALILO") --- */
 .btn-gold-action {
     width: 100%;
-    background: #B38E44; /* Čistá zlatá bez prílišného gradientu */
-    color: #fff;
+    background: #B38E44 !important;
+    color: #fff !important;
     padding: 18px;
     border-radius: 12px;
     font-size: 1.1rem;
@@ -330,15 +345,8 @@
     text-transform: uppercase;
     border: none;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(179, 142, 68, 0.2);
-    transition: all 0.3s ease;
-    margin-top: 10px;
-}
-
-.btn-gold-action:hover {
-    background: #0f172a; /* Profesionálna tmavomodrá pri hoveri */
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(15, 23, 42, 0.2);
+    margin-top: 15px;
+    box-shadow: 0 8px 16px rgba(179, 142, 68, 0.2);
 }
         
 /* --- BOX KARTA --- */

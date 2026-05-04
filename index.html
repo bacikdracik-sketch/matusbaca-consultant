@@ -1171,19 +1171,22 @@ hr { border: 0; border-top: 1px solid var(--border-color); margin: 30px 0; width
 </div>
 
         <!-- KARTA 2: REFINANCOVANIE -->
-<div class="card" id="card-refinance" onclick="openRefModal()" style="cursor: pointer;">
+<div class="card" onclick="openModal()" style="cursor: pointer;">
     <div class="card-icon">
         <img src="Refinance.png" alt="Refinancovanie">
     </div>
-    <h3>Refinancovať hypotéku</h3>
+    <h3>Refinancovanie hypotéky</h3>
+        
     <p class="card-description">
-        Optimalizácia existujúcich záväzkov. Zníženie mesačnej splátky a celkového preplatenia úveru prostredníctvom správne načasovaného refinancovania.
+        Optimalizácia existujúcich záväzkov. Zistíme, či vieme znížiť vašu mesačnú splátku a celkové preplatenie úveru.
     </p>
+        
     <span class="click-info">Kliknite pre kalkulačku ↓</span>
 
     <div id="ref-inline-calc" class="inline-calculator" onclick="event.stopPropagation()">
         <h4>KALKULAČKA ÚSPORY PRI REFINANCII</h4>
-        
+        <p class="calc-sub">Zistite, koľko môžete ušetriť mesačne po prenose hypotéky do inej banky.</p>
+
         <div class="calc-row">
             <span>Zostatok úveru</span>
             <div class="range-wrapper">
@@ -1203,10 +1206,15 @@ hr { border: 0; border-top: 1px solid var(--border-color); margin: 30px 0; width
         <hr>
 
         <div class="calc-contact">
+            <label class="checkbox-label">
+                <input type="checkbox" checked> Chcem prepočítať úsporu na mojej hypotéke
+            </label>
+            
             <div class="input-group">
                 <label>E-mail *</label>
                 <input type="email" id="refEmail" placeholder="vas@email.sk" required>
             </div>
+
             <div class="input-group">
                 <label>Telefón *</label>
                 <div class="phone-input">
@@ -1214,23 +1222,21 @@ hr { border: 0; border-top: 1px solid var(--border-color); margin: 30px 0; width
                     <input type="tel" id="refPhone" placeholder="09xx xxx xxx" required>
                 </div>
             </div>
-            
-            <div class="checkbox-wrapper">
-                <input type="checkbox" id="refConsent" required>
-                <label for="refConsent">
-                    Súhlasím so <a href="ochrana-udajov.pdf" target="_blank">spracovaním osobných údajov</a> pre účely vypracovania ponuky. *
-                </label>
-            </div>
-
-            <button class="btn-gold-action" onclick="handleRefClick(event)">SPOČÍTAŤ ÚSPORU</button>
         </div>
-    </div>
-</div>
-       
+
+        <p class="calc-legal">Súhlasím so spracovaním osobných údajov pre účely vypracovania ponuky.</p>
+        
+        <button class="btn-gold-action" onclick="handleRefClick(event)">
+            SPOČÍTAŤ ÚSPORU
+        </button>
+          </div>
+      </div>
+  </div>
         <!-- KARTA 3: ADMINISTRATÍVNY SERVIS -->
 <div class="card reveal" id="card-admin" onclick="openAdminModal()" style="cursor: pointer;">
     <div class="card-icon">
-        <img src="Service.png" alt="Administratívny servis" class="icon-small">
+        <!-- Odstránená class icon-small pre jednotnú veľkosť -->
+        <img src="Service.png" alt="Administratívny servis">
     </div>
     <h3>Administratívny servis</h3>
     <p class="card-description">
@@ -1238,35 +1244,39 @@ hr { border: 0; border-top: 1px solid var(--border-color); margin: 30px 0; width
     </p>
     <span class="click-info">Zistite, čo všetko vybavím za vás ↓</span>
 
-    <div id="admin-inline-calc" class="inline-calculator" style="display: none; background: none; padding: 0; box-shadow: none;" onclick="event.stopPropagation()">
-        <h4 style="margin-bottom: 15px;">ČO VŠETKO ZA VÁS VYBAVÍM:</h4>
+    <div id="admin-inline-calc" class="inline-calculator" style="display: none;" onclick="event.stopPropagation()">
+        <h4>ČO VŠETKO ZA VÁS VYBAVÍM:</h4>
         
-        <ul class="admin-list" style="text-align: left; list-style: none; padding: 0; margin-bottom: 20px; font-size: 0.9rem; color: var(--text-light);">
-            <li style="margin-bottom: 8px;">✅ <strong>Katastrálny servis:</strong> Podanie návrhov na vklad a kontrola listov vlastníctva.</li>
-            <li style="margin-bottom: 8px;">✅ <strong>Potvrdenia z banky:</strong> Žiadosti o súhlasy s predčasným splatením či vyčíslenia.</li>
-            <li style="margin-bottom: 8px;">✅ <strong>Stráženie fixácie:</strong> Včasné upozornenie na koniec fixácie a nové úrokové sadzby.</li>
-            <li style="margin-bottom: 8px;">✅ <strong>Poistenie:</strong> Vybavenie poistných zmlúv a vinkulácií potrebných k hypotéke.</li>
+        <ul class="admin-list" style="text-align: left; list-style: none; padding: 0; margin: 0 auto 20px auto; max-width: 320px; font-size: 0.9rem; color: var(--text-light);">
+            <li style="margin-bottom: 8px;">✅ <strong>Katastrálny servis:</strong> Podanie návrhov na vklad.</li>
+            <li style="margin-bottom: 8px;">✅ <strong>Potvrdenia z banky:</strong> Žiadosti o súhlasy a vyčíslenia.</li>
+            <li style="margin-bottom: 8px;">✅ <strong>Stráženie fixácie:</strong> Upozornenie na nové úroky včas.</li>
+            <li style="margin-bottom: 8px;">✅ <strong>Poistenie:</strong> Vybavenie zmlúv a vinkulácií.</li>
         </ul>
 
-        <hr style="border: 0; border-top: 1px solid #ddd; margin: 20px 0;">
+        <hr>
 
         <div class="calc-contact">
-            <div class="input-group">
+            <!-- E-mail -->
+            <div class="form-field">
                 <label>E-mail *</label>
                 <input type="email" id="adminEmail" placeholder="vas@email.sk" required>
             </div>
-            <div class="input-group">
+
+            <!-- Telefón -->
+            <div class="form-field">
                 <label>Telefón *</label>
-                <div class="phone-input">
+                <div class="phone-input-wrapper">
                     <img src="https://flagcdn.com/w20/sk.png" alt="SK">
                     <input type="tel" id="adminPhone" placeholder="09xx xxx xxx" required>
                 </div>
             </div>
 
-            <div class="checkbox-wrapper" style="display: flex; align-items: flex-start; gap: 10px; margin: 15px 0; text-align: left;">
-                <input type="checkbox" id="adminConsent" required style="width: auto; margin-top: 5px; cursor: pointer;">
-                <label for="adminConsent" style="font-size: 0.85rem; color: var(--text-light); line-height: 1.4; cursor: pointer;">
-                    Mám záujem o administratívny servis a súhlasím so spracovaním údajov. *
+            <!-- GDPR Súhlas (Jednotný štýl) -->
+            <div class="gdpr-wrapper">
+                <input type="checkbox" id="adminConsent" required>
+                <label for="adminConsent">
+                    Mám záujem o administratívny servis a súhlasím so <a href="ochrana-udajov.pdf" target="_blank">spracovaním údajov</a>. *
                 </label>
             </div>
 

@@ -1102,13 +1102,14 @@ input[type=range]::-webkit-slider-thumb:hover {
     <!-- KARTA 1: HYPOTEKÁRNY AUDIT (UPGRADE VERZIA) -->
 <div class="card" id="card-audit">
 
-    <div class="card-icon" onclick="openModal()" style="cursor: pointer;">
+    <div class="card-icon"
+         onclick="toggleCalculator('calc-audit','card-audit')"
+         style="cursor: pointer;">
         <img src="House.png" alt="Hypotekárny audit">
     </div>
 
     <div class="card-content" style="padding: 20px;">
 
-        <!-- 🔥 SILNEJŠÍ HOOK -->
         <h3 style="line-height: 1.3; margin-bottom: 12px; font-size: 1.25rem;">
             🏠 Možno zbytočne preplácate desiatky tisíc € na hypotéke
         </h3>
@@ -1117,13 +1118,12 @@ input[type=range]::-webkit-slider-thumb:hover {
             Banky vám neukážu lacnejšie riešenia. Zistite za 10 sekúnd, koľko môžete ušetriť.
         </p>
 
-        <div id="inline-calc" class="inline-calculator" style="display: block;">
+        <div id="calc-audit" class="inline-calculator" style="display: none;">
 
             <h4 style="text-align:center; font-size:0.75rem; color:#94a3b8; margin-bottom:15px; text-transform:uppercase; font-weight:700;">
                 Modelácia nákladov
             </h4>
 
-            <!-- INPUT 1 -->
             <div class="calc-row">
                 <span style="font-size:0.85rem;">Výška hypotéky</span>
                 <div class="range-wrapper">
@@ -1132,7 +1132,6 @@ input[type=range]::-webkit-slider-thumb:hover {
                 </div>
             </div>
 
-            <!-- INPUT 2 -->
             <div class="calc-row">
                 <span style="font-size:0.85rem;">Doba splácania</span>
                 <div class="range-wrapper">
@@ -1141,7 +1140,6 @@ input[type=range]::-webkit-slider-thumb:hover {
                 </div>
             </div>
 
-            <!-- INPUT 3 -->
             <div class="calc-row">
                 <span style="font-size:0.85rem;">Úroková sadzba (%)</span>
                 <div class="range-wrapper">
@@ -1150,7 +1148,6 @@ input[type=range]::-webkit-slider-thumb:hover {
                 </div>
             </div>
 
-            <!-- 💣 VÝSLEDOK BOX -->
             <div class="calc-result-box" style="text-align:center; margin:15px 0; background:#fff5f5; padding:15px; border-radius:10px; border:1px solid #feb2b2;">
 
                 <p style="text-transform:uppercase; font-size:0.65rem; font-weight:700; color:#c53030;">
@@ -1165,7 +1162,6 @@ input[type=range]::-webkit-slider-thumb:hover {
                     Mesačná splátka: <span id="auditMonthlyPayment">0</span> €
                 </p>
 
-                <!-- 🔥 WOW POROVNANIE -->
                 <div style="font-size:0.85rem; color:#742a2a; font-weight:600; margin-top:8px;">
                     Ak by ste mali o 1% nižší úrok:
                 </div>
@@ -1176,12 +1172,10 @@ input[type=range]::-webkit-slider-thumb:hover {
 
             </div>
 
-            <!-- 💡 EMÓCIA -->
             <p style="font-size:0.8rem; color:#64748b; margin-bottom:10px;">
                 💡 Aj malý rozdiel v úroku môže znamenať tisíce eur rozdiel.
             </p>
 
-            <!-- CTA FORM -->
             <div class="calc-contact">
 
                 <label style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
@@ -1198,91 +1192,105 @@ input[type=range]::-webkit-slider-thumb:hover {
                 <input type="email" id="calcEmail" placeholder="Váš E-mail" style="width:100%; padding:10px; margin-bottom:8px; border-radius:6px; border:1px solid #ddd;">
                 <input type="tel" id="calcPhone" placeholder="Váš Telefón" style="width:100%; padding:10px; margin-bottom:12px; border-radius:6px; border:1px solid #ddd;">
 
-                <!-- 🔥 CTA BUTTON -->
                 <button class="btn-gold-action" onclick="handleLeadSubmit(event, 'Audit')" style="width:100%; font-weight:700; padding:12px; font-size:1rem;">
-    Skontrolujte moju hypotéku
-</button>
-           </div>
+                    Skontrolujte moju hypotéku
+                </button>
+
+            </div>
+
         </div>
-     </div>
- </div>
+    </div>
+</div>
     
         <!-- KARTA 2: REFINANCOVANIE -->
 <div class="card" id="card-refinance">
-    <!-- Opravený názov obrázka na Refinance.png -->
-    <div class="card-icon" onclick="toggleCalculator('ref-inline-calc', 'card-refinance')" style="cursor:pointer;">
+
+    <div class="card-icon"
+         onclick="toggleCalculator('ref-inline-calc','card-refinance')"
+         style="cursor:pointer;">
         <img src="Refinance.png" alt="Refinancovanie">
     </div>
 
     <div class="card-content" style="padding:20px;">
 
-        <!-- HOOK -->
-        <h3 style="line-height:1.3; margin-bottom:12px; font-size:1.25rem; color: #0F172A;">
+        <h3 style="line-height:1.3; margin-bottom:12px; font-size:1.25rem; color:#0F172A;">
             📉 Mesačne možno zbytočne preplácate desiatky €
         </h3>
 
-        <p style="font-size:0.9rem; color:#64748b; margin-bottom: 15px;">
+        <p style="font-size:0.9rem; color:#64748b; margin-bottom:15px;">
             Väčšina klientov má nevýhodný starý úrok. Zistite, o koľko nižšiu splátku môžete mať.
         </p>
 
-        <!-- KALKULAČKA (Skrytá na začiatku, otvára sa cez toggle) -->
-        <div id="ref-inline-calc" class="inline-calculator" style="display:none; border-top: 1px solid #e2e8f0; pt-4;">
+        <!-- KALKULAČKA -->
+        <div id="ref-inline-calc" class="inline-calculator" style="display:none; border-top:1px solid #e2e8f0;">
 
-            <h4 style="text-align:center; font-size:0.75rem; color:#94a3b8; margin: 15px 0; text-transform:uppercase; font-weight:700;">
+            <h4 style="text-align:center; font-size:0.75rem; color:#94a3b8; margin:15px 0; text-transform:uppercase; font-weight:700;">
                 Modelácia refinancovania
             </h4>
 
-            <!-- INPUT 1: Súčasná splátka -->
-            <div class="calc-group" style="margin-bottom: 20px;">
-                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                    <span style="font-size:0.85rem; font-weight: 600;">Súčasná splátka</span>
+            <!-- SPLÁTKY -->
+            <div class="calc-group" style="margin-bottom:20px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                    <span style="font-size:0.85rem; font-weight:600;">Súčasná splátka</span>
                     <div class="input-mimic"><span id="valCurrentPayment" style="font-weight:700;">600</span> €</div>
                 </div>
-                <input type="range" id="rangeCurrentPayment" min="200" max="1500" step="10" value="600" style="width: 100%;" oninput="updateRef()">
+                <input type="range" id="rangeCurrentPayment" min="200" max="1500" step="10" value="600" oninput="updateRef()" style="width:100%;">
             </div>
 
-            <!-- INPUT 2: Úroková sadzba -->
-            <div class="calc-group" style="margin-bottom: 20px;">
-                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                    <span style="font-size:0.85rem; font-weight: 600;">Váš úrok (%)</span>
+            <!-- ÚROK -->
+            <div class="calc-group" style="margin-bottom:20px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                    <span style="font-size:0.85rem; font-weight:600;">Váš úrok (%)</span>
                     <div class="input-mimic"><span id="valRate" style="font-weight:700;">4.5</span> %</div>
                 </div>
-                <input type="range" id="rangeRate" min="1" max="8" step="0.1" value="4.5" style="width: 100%;" oninput="updateRef()">
+                <input type="range" id="rangeRate" min="1" max="8" step="0.1" value="4.5" oninput="updateRef()" style="width:100%;">
             </div>
 
-            <!-- INPUT 3: Zostatok -->
-            <div class="calc-group" style="margin-bottom: 20px;">
-                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                    <span style="font-size:0.85rem; font-weight: 600;">Zostatok hypotéky</span>
+            <!-- DLH -->
+            <div class="calc-group" style="margin-bottom:20px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                    <span style="font-size:0.85rem; font-weight:600;">Zostatok hypotéky</span>
                     <div class="input-mimic"><span id="valDebt" style="font-weight:700;">120 000</span> €</div>
                 </div>
-                <input type="range" id="rangeDebt" min="20000" max="300000" step="5000" value="120000" style="width: 100%;" oninput="updateRef()">
+                <input type="range" id="rangeDebt" min="20000" max="300000" step="5000" value="120000" oninput="updateRef()" style="width:100%;">
             </div>
 
-            <!-- VÝSLEDOK (Zelený box úspory) -->
-            <div class="calc-result-box" style="background:#f0fff4; padding:20px; border-radius:12px; border: 1px solid #c6f6d5; text-align:center; margin: 20px 0;">
-                <p style="font-size:0.7rem; text-transform:uppercase; color:#2f855a; font-weight: 800; margin-bottom: 5px;">
+            <!-- VÝSLEDOK -->
+            <div class="calc-result-box" style="background:#f0fff4; padding:20px; border-radius:12px; border:1px solid #c6f6d5; text-align:center; margin:20px 0;">
+
+                <p style="font-size:0.7rem; text-transform:uppercase; color:#2f855a; font-weight:800;">
                     Môžete ušetriť každý mesiac
                 </p>
-                <div style="font-size:2rem; font-weight:800; color:#2f855a; margin-bottom: 5px;">
+
+                <div style="font-size:2rem; font-weight:800; color:#2f855a;">
                     <span id="estimatedSavings">0</span> €
                 </div>
-                <p style="font-size:0.85rem; color:#276749; font-weight: 600;">
+
+                <p style="font-size:0.85rem; color:#276749; font-weight:600;">
                     Nová splátka: <span id="newPaymentVal">0</span> €
                 </p>
-                <p style="font-size:0.7rem; color:#c53030; margin-top:10px; font-weight:700; background: rgba(197, 48, 48, 0.1); display: inline-block; padding: 2px 8px; border-radius: 4px;">
+
+                <p style="font-size:0.7rem; color:#c53030; margin-top:10px; font-weight:700;">
                     ⚠️ Peniaze, ktoré vám zbytočne unikajú
                 </p>
+
             </div>
 
             <!-- KONTAKT -->
-            <div class="calc-contact" style="background: #f8fafc; padding: 15px; border-radius: 10px;">
-                <input type="email" id="refEmail" placeholder="Váš E-mail" style="width:100%; padding:12px; margin-bottom:10px; border: 1px solid #cbd5e1; border-radius: 6px;">
-                <input type="tel" id="refPhone" placeholder="Váš Telefón" style="width:100%; padding:12px; margin-bottom:15px; border: 1px solid #cbd5e1; border-radius: 6px;">
+            <div class="calc-contact" style="background:#f8fafc; padding:15px; border-radius:10px;">
 
-                <button class="btn-gold-action" onclick="handleLeadSubmit(event, 'Refinancovanie')" style="width:100%; padding:14px; font-weight:700; text-transform: uppercase; letter-spacing: 0.5px;">
+                <input type="email" id="refEmail" placeholder="Váš E-mail"
+                       style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #cbd5e1; border-radius:6px;">
+
+                <input type="tel" id="refPhone" placeholder="Váš Telefón"
+                       style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #cbd5e1; border-radius:6px;">
+
+                <button class="btn-gold-action"
+                        onclick="handleLeadSubmit(event, 'Refinancovanie')"
+                        style="width:100%; padding:14px; font-weight:700;">
                     Získať lepšiu splátku
                 </button>
+
             </div>
 
         </div>
@@ -1366,186 +1374,289 @@ input[type=range]::-webkit-slider-thumb:hover {
 </section>
     
     <!-- SEKCIA 4: INVESTOVANIE -->
-<section id="investovanie" class="reveal" style="opacity: 1; transform: none;"> 
+<section id="investovanie" class="reveal" style="opacity:1; transform:none;"> 
+
     <div class="card" id="card-invest">
 
         <!-- 🖼️ IKONA -->
-        <div class="card-icon" onclick="toggleCalculator('invest-inline-calc', 'card-invest')" style="cursor: pointer;">
+        <div class="card-icon"
+             onclick="toggleCalculator('invest-inline-calc','card-invest')"
+             style="cursor:pointer;">
             <img src="Chart.png" alt="Investovanie">
         </div>
 
         <div class="card-content" style="padding:20px;">
+
             <h3 style="line-height:1.3; margin-bottom:12px; font-size:1.25rem;">
                 📈 4. Investovanie: Koľko vás stojí to, že dnes neinvestujete?
             </h3>
 
-            <p style="font-size:0.9rem; color:#64748b; line-height:1.5; margin-bottom: 15px;">
+            <p style="font-size:0.9rem; color:#64748b; line-height:1.5; margin-bottom:15px;">
                 Peniaze na účte strácajú hodnotu každý rok. Zistite, koľko by mohli zarábať v ETF fondoch.
             </p>
 
-            <button class="btn-open-calc" onclick="toggleCalculator('invest-inline-calc', 'card-invest')" style="background: #e2e8f0; color: #475569; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 600; margin-bottom: 10px;">
+            <!-- BUTTON (ponechaný, ale už neotvára duplicitu problému) -->
+            <button class="btn-open-calc"
+                    onclick="toggleCalculator('invest-inline-calc','card-invest')"
+                    style="background:#e2e8f0; color:#475569; border:none; padding:8px 15px; border-radius:6px; cursor:pointer; font-size:0.85rem; font-weight:600; margin-bottom:10px;">
                 Otvoriť kalkulačku rastu
             </button>
 
             <!-- KALKULAČKA -->
-            <div id="invest-inline-calc" class="inline-calculator" style="display:none; border-top: 1px solid #e2e8f0; padding-top: 15px;">
+            <div id="invest-inline-calc"
+                 class="inline-calculator"
+                 style="display:none; border-top:1px solid #e2e8f0; padding-top:15px;">
 
                 <h4 style="text-align:center; font-size:0.75rem; color:#94a3b8; margin-bottom:15px; text-transform:uppercase; font-weight:700;">
                     Potenciál rastu majetku (ETF 8% p.a.)
                 </h4>
 
-                <!-- INPUT 1: Mesačná investícia -->
-                <div class="calc-row" style="margin-bottom: 15px;">
-                    <span style="font-size:0.85rem; display: block; margin-bottom: 5px;">Mesačná investícia</span>
-                    <!-- PRIDANÝ oninput -->
-                    <input type="range" id="rangeInvest" min="20" max="1000" step="10" value="100" style="width: 100%;" oninput="window.updateInvest()">
-                    <div style="margin-top: 5px; font-weight:700;"><span id="valInvest">100</span> €</div>
+                <!-- INPUT 1 -->
+                <div class="calc-row" style="margin-bottom:15px;">
+                    <span style="font-size:0.85rem; display:block; margin-bottom:5px;">Mesačná investícia</span>
+
+                    <input type="range"
+                           id="rangeInvest"
+                           min="20" max="1000"
+                           step="10"
+                           value="100"
+                           style="width:100%;"
+                           oninput="updateInvest()">
+
+                    <div style="margin-top:5px; font-weight:700;">
+                        <span id="valInvest">100</span> €
+                    </div>
                 </div>
 
-                <!-- INPUT 2: Doba investovania -->
-                <div class="calc-row" style="margin-bottom: 15px;">
-                    <span style="font-size:0.85rem; display: block; margin-bottom: 5px;">Doba investovania</span>
-                    <!-- PRIDANÝ oninput -->
-                    <input type="range" id="rangeYearsInvest" min="5" max="40" value="20" style="width: 100%;" oninput="window.updateInvest()">
-                    <div style="margin-top: 5px; font-weight:700;"><span id="valYearsInvest">20</span> rokov</div>
+                <!-- INPUT 2 -->
+                <div class="calc-row" style="margin-bottom:15px;">
+                    <span style="font-size:0.85rem; display:block; margin-bottom:5px;">Doba investovania</span>
+
+                    <input type="range"
+                           id="rangeYearsInvest"
+                           min="5" max="40"
+                           value="20"
+                           style="width:100%;"
+                           oninput="updateInvest()">
+
+                    <div style="margin-top:5px; font-weight:700;">
+                        <span id="valYearsInvest">20</span> rokov
+                    </div>
                 </div>
 
-                <!-- 💣 VÝSLEDOK -->
-                <div class="calc-result-box" style="background:#f0f9ff; padding:15px; border-radius:10px; margin-top:15px; border:1px solid #90cdf4;">
-                    <p style="text-transform:uppercase; font-size:0.65rem; font-weight:700; color:#2b6cb0; margin-bottom: 5px;">Budúca hodnota investície</p>
+                <!-- RESULT -->
+                <div class="calc-result-box"
+                     style="background:#f0f9ff; padding:15px; border-radius:10px; margin-top:15px; border:1px solid #90cdf4;">
+
+                    <p style="text-transform:uppercase; font-size:0.65rem; font-weight:700; color:#2b6cb0; margin-bottom:5px;">
+                        Budúca hodnota investície
+                    </p>
+
                     <div style="font-size:1.8rem; font-weight:800; color:#2b6cb0;">
                         <span id="investFuture">0</span> €
                     </div>
-                    <p style="font-size:0.75rem; color:#2c5282; font-weight:600; margin-top: 5px;">
+
+                    <p style="font-size:0.75rem; color:#2c5282; font-weight:600; margin-top:5px;">
                         Vložené: <span id="investTotal">0</span> €
                     </p>
+
                 </div>
 
-                <!-- CTA FORMULÁR -->
+                <!-- CTA -->
                 <div class="calc-contact" style="margin-top:15px;">
-                    <input type="email" id="investEmail" placeholder="Váš E-mail" required style="width:100%; padding:10px; margin-bottom:8px; border-radius:6px; border:1px solid #ddd; box-sizing: border-box;">
-                    <input type="tel" id="investPhone" placeholder="Váš Telefón" required style="width:100%; padding:10px; margin-bottom:12px; border-radius:6px; border:1px solid #ddd; box-sizing: border-box;">
-                    <button onclick="handleLeadSubmit(event, 'Investovanie')" style="width:100%; padding:12px; font-weight:700; background: #2b6cb0; color: white; border: none; border-radius: 6px; cursor: pointer;">
+
+                    <input type="email" id="investEmail"
+                           placeholder="Váš E-mail"
+                           style="width:100%; padding:10px; margin-bottom:8px; border-radius:6px; border:1px solid #ddd;">
+
+                    <input type="tel" id="investPhone"
+                           placeholder="Váš Telefón"
+                           style="width:100%; padding:10px; margin-bottom:12px; border-radius:6px; border:1px solid #ddd;">
+
+                    <button onclick="handleLeadSubmit(event,'Investovanie')"
+                            style="width:100%; padding:12px; font-weight:700; background:#2b6cb0; color:white; border:none; border-radius:6px;">
                         Chcem začať investovať
                     </button>
+
                 </div>
+
             </div>
         </div>
     </div>
+</section>
 
             <!-- KARTA 5: INFLÁCIA -->
 <div class="card" id="card-5-inflation">
 
-    <!-- IKONA (Kliknutím sa otvorí/zatvorí kalkulačka) -->
-    <div class="card-icon" onclick="toggleCalculator('calc-5-inflation', 'card-5-inflation')" style="cursor:pointer;">
+    <div class="card-icon"
+         onclick="toggleCalculator('calc-5-inflation','card-5-inflation')"
+         style="cursor:pointer;">
         <img src="Inflation.png" alt="Inflácia">
     </div>
 
     <div class="card-content" style="padding:20px;">
 
-        <!-- HLAVNÝ NADPIS -->
         <h3 style="line-height:1.3; margin-bottom:12px; font-size:1.25rem;">
-             5. Inflácia: Strata hodnoty
+            5. Inflácia: Strata hodnoty
         </h3>
 
         <p style="font-size:0.9rem; color:#64748b; line-height:1.5;">
             Zistite, o koľko peňazí vás inflácia "potichu" oberá každý rok.
         </p>
 
-        <!-- KALKULAČKA (ID zmenené na calc-5-inflation) -->
-        <div id="calc-5-inflation" class="inline-calculator" style="margin-top:15px; border-top: 1px solid #eee; padding-top:15px;">
-            
-            <div class="calc-row" style="margin-bottom: 15px;">
-                <span style="font-size:0.85rem; display:block; margin-bottom:5px;">Peniaze na účte: <b id="val5InfAmount">10 000</b> €</span>
-                <input type="range" id="range5InfAmount" min="1000" max="100000" step="1000" value="10000" style="width:100%;" oninput="update5Inflation()">
+        <!-- KALKULAČKA -->
+        <div id="calc-5-inflation"
+             class="inline-calculator"
+             style="display:none; margin-top:15px; border-top:1px solid #eee; padding-top:15px;">
+
+            <div class="calc-row" style="margin-bottom:15px;">
+                <span style="font-size:0.85rem; display:block; margin-bottom:5px;">
+                    Peniaze na účte: <b id="val5InfAmount">10 000</b> €
+                </span>
+
+                <input type="range"
+                       id="range5InfAmount"
+                       min="1000" max="100000"
+                       step="1000"
+                       value="10000"
+                       style="width:100%;"
+                       oninput="update5Inflation()">
             </div>
 
-            <div class="calc-row" style="margin-bottom: 15px;">
-                <span style="font-size:0.85rem; display:block; margin-bottom:5px;">Ročná inflácia: <b id="val5InfRate">3</b> %</span>
-                <input type="range" id="range5InfRate" min="1" max="15" step="0.5" value="3" style="width:100%;" oninput="update5Inflation()">
+            <div class="calc-row" style="margin-bottom:15px;">
+                <span style="font-size:0.85rem; display:block; margin-bottom:5px;">
+                    Ročná inflácia: <b id="val5InfRate">3</b> %
+                </span>
+
+                <input type="range"
+                       id="range5InfRate"
+                       min="1" max="15"
+                       step="0.5"
+                       value="3"
+                       style="width:100%;"
+                       oninput="update5Inflation()">
             </div>
 
-            <!-- VÝSLEDOK STRATY -->
-            <div class="calc-result-box" style="background:#fff5f5; padding:15px; border-radius:10px; border:1px solid #feb2b2; text-align:center; margin-bottom:15px;">
-                <small style="text-transform:uppercase; font-size:0.65rem; font-weight:700; color:#c53030;">Vaša ročná strata kúpnej sily</small>
+            <!-- RESULT -->
+            <div class="calc-result-box"
+                 style="background:#fff5f5; padding:15px; border-radius:10px; border:1px solid #feb2b2; text-align:center; margin-bottom:15px;">
+
+                <small style="text-transform:uppercase; font-size:0.65rem; font-weight:700; color:#c53030;">
+                    Vaša ročná strata kúpnej sily
+                </small>
+
                 <div style="font-size:1.8rem; font-weight:800; color:#c53030;">
                     - <span id="inf5LossValue">300</span> €
                 </div>
+
             </div>
 
-            <!-- KONTAKTNÝ FORMULÁR -->
+            <!-- CONTACT -->
             <div class="calc-contact">
-                <input type="email" id="inf5Email" placeholder="Váš E-mail" 
-                    style="width:100%; padding:10px; margin-bottom:8px; border-radius:6px; border:1px solid #ddd; box-sizing: border-box;">
 
-                <input type="tel" id="inf5Phone" placeholder="Váš Telefón" 
-                    style="width:100%; padding:10px; margin-bottom:12px; border-radius:6px; border:1px solid #ddd; box-sizing: border-box;">
+                <input type="email" id="inf5Email" placeholder="Váš E-mail"
+                       style="width:100%; padding:10px; margin-bottom:8px; border-radius:6px; border:1px solid #ddd;">
 
-                <button class="btn-gold-action" onclick="handle5InflationClick(event)"
-                    style="width:100%; padding:12px; font-weight:700; text-transform:uppercase; cursor:pointer;">
+                <input type="tel" id="inf5Phone" placeholder="Váš Telefón"
+                       style="width:100%; padding:10px; margin-bottom:12px; border-radius:6px; border:1px solid #ddd;">
+
+                <button class="btn-gold-action"
+                        onclick="handle5InflationClick(event)"
+                        style="width:100%; padding:12px; font-weight:700; text-transform:uppercase; cursor:pointer;">
                     Ochrániť moje úspory
                 </button>
+
             </div>
         </div>
     </div>
 </div>
-
             <!-- KARTA 6: MAJETOK (DEDIČSTVO) -->
 <div class="card" id="card-6-wealth">
 
-    <!-- IKONA -->
-    <div class="card-icon" onclick="toggleCalculator('calc-6-wealth', 'card-6-wealth')" style="cursor:pointer;">
+    <div class="card-icon"
+         onclick="toggleCalculator('calc-6-wealth','card-6-wealth')"
+         style="cursor:pointer;">
         <img src="Wealth.png" alt="Majetok pre deti">
     </div>
 
     <div class="card-content" style="padding:20px;">
 
         <h3 style="line-height:1.3; margin-bottom:12px; font-size:1.25rem;">
-             6. Majetok: Budúcnosť vašich detí
+            6. Majetok: Budúcnosť vašich detí
         </h3>
 
         <p style="font-size:0.9rem; color:#64748b; line-height:1.5;">
             Zanecháte svojim deťom majetok alebo problémy? Zistite, ako bude vyzerať vaše rodinné bohatstvo o 20 rokov.
         </p>
 
-        <!-- KALKULAČKA (ID: calc-6-wealth) -->
-        <div id="calc-6-wealth" class="inline-calculator" style="margin-top:15px; border-top: 1px solid #eee; padding-top:15px;">
-            
-            <div class="calc-row" style="margin-bottom: 15px;">
-                <span style="font-size:0.85rem; display:block; margin-bottom:5px;">Počiatočný majetok: <b id="val6WealthBase">5 000</b> €</span>
-                <input type="range" id="range6WealthBase" min="0" max="100000" step="1000" value="5000" style="width:100%;" oninput="update6Wealth()">
+        <!-- KALKULAČKA -->
+        <div id="calc-6-wealth"
+             class="inline-calculator"
+             style="display:none; margin-top:15px; border-top:1px solid #eee; padding-top:15px;">
+
+            <div class="calc-row" style="margin-bottom:15px;">
+                <span style="font-size:0.85rem; display:block; margin-bottom:5px;">
+                    Počiatočný majetok: <b id="val6WealthBase">5 000</b> €
+                </span>
+
+                <input type="range"
+                       id="range6WealthBase"
+                       min="0" max="100000"
+                       step="1000"
+                       value="5000"
+                       style="width:100%;"
+                       oninput="update6Wealth()">
             </div>
 
-            <div class="calc-row" style="margin-bottom: 15px;">
-                <span style="font-size:0.85rem; display:block; margin-bottom:5px;">Mesačný príspevok: <b id="val6WealthMonthly">150</b> €</span>
-                <input type="range" id="range6WealthMonthly" min="20" max="2000" step="10" value="150" style="width:100%;" oninput="update6Wealth()">
+            <div class="calc-row" style="margin-bottom:15px;">
+                <span style="font-size:0.85rem; display:block; margin-bottom:5px;">
+                    Mesačný príspevok: <b id="val6WealthMonthly">150</b> €
+                </span>
+
+                <input type="range"
+                       id="range6WealthMonthly"
+                       min="20" max="2000"
+                       step="10"
+                       value="150"
+                       style="width:100%;"
+                       oninput="update6Wealth()">
             </div>
 
-            <!-- BOX S VÝSLEDKOM -->
-            <div class="calc-result-box" style="background:#f0fff4; padding:15px; border-radius:10px; border:1px solid #c6f6d5; text-align:center; margin-bottom:15px;">
-                <small style="text-transform:uppercase; font-size:0.65rem; font-weight:700; color:#2f855a;">Odhadovaný majetok o 20 rokov</small>
+            <!-- RESULT -->
+            <div class="calc-result-box"
+                 style="background:#f0fff4; padding:15px; border-radius:10px; border:1px solid #c6f6d5; text-align:center; margin-bottom:15px;">
+
+                <small style="text-transform:uppercase; font-size:0.65rem; font-weight:700; color:#2f855a;">
+                    Odhadovaný majetok o 20 rokov
+                </small>
+
                 <div style="font-size:1.8rem; font-weight:800; color:#2f855a;">
                     <span id="wealth6ResultValue">0</span> €
                 </div>
+
             </div>
 
-            <!-- FORMULÁR -->
+            <!-- CONTACT -->
             <div class="calc-contact">
-                <input type="email" id="wealth6Email" placeholder="Váš E-mail" 
-                    style="width:100%; padding:10px; margin-bottom:8px; border-radius:6px; border:1px solid #ddd; box-sizing: border-box;">
 
-                <input type="tel" id="wealth6Phone" placeholder="Váš Telefón" 
-                    style="width:100%; padding:10px; margin-bottom:12px; border-radius:6px; border:1px solid #ddd; box-sizing: border-box;">
+                <input type="email" id="wealth6Email" placeholder="Váš E-mail"
+                       style="width:100%; padding:10px; margin-bottom:8px; border-radius:6px; border:1px solid #ddd;">
 
-                <button class="btn-gold-action" onclick="handle6WealthClick(event)"
-                    style="width:100%; padding:12px; font-weight:700; text-transform:uppercase; cursor:pointer;">
+                <input type="tel" id="wealth6Phone" placeholder="Váš Telefón"
+                       style="width:100%; padding:10px; margin-bottom:12px; border-radius:6px; border:1px solid #ddd;">
+
+                <button class="btn-gold-action"
+                        onclick="handle6WealthClick(event)"
+                        style="width:100%; padding:12px; font-weight:700; text-transform:uppercase; cursor:pointer;">
                     Zabezpečiť rodinu
                 </button>
+
             </div>
+
         </div>
     </div>
 </div>
-    </section>
+</section>
 
     <section class="bg-light">
         <div class="section-header">
@@ -1800,282 +1911,162 @@ input[type=range]::-webkit-slider-thumb:hover {
     <p class="copyright">Všetky práva vyhradené &copy; 2026 | Matúš Bača</p>
 </footer>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 
-    // ============================================================
-    // 0. GLOBÁLNE POMOCNÉ FUNKCIE (ZJEDNOTENÉ)
-    // ============================================================
-    
-    // Funkcia na bezpečný zápis textu do HTML
+    // ==============================
+    // SAFE TEXT
+    // ==============================
     const setTxt = (id, val) => {
         const el = document.getElementById(id);
-        if (el) {
-            el.innerText = val;
-        } else {
-            console.warn("Element s ID " + id + " nebol nájdený.");
-        }
+        if (el) el.innerText = val;
     };
 
-    // UNIVERZÁLNA FUNKCIA NA OTVÁRANIE BOXOV
+    // ==============================
+    // TOGGLE SYSTEM
+    // ==============================
     window.toggleCalculator = function(calcId, cardId) {
         const calc = document.getElementById(calcId);
         const card = document.getElementById(cardId);
-        
-        if (!calc) {
-            console.error("Nenašiel som kalkulačku s ID: " + calcId);
-            return;
-        }
-        
-        // Stabilnejšia kontrola viditeľnosti cez getComputedStyle
-        const isHidden = window.getComputedStyle(calc).display === 'none';
-        
-        // Prepnutie zobrazenia
-        calc.style.display = isHidden ? 'block' : 'none';
-        
-        // Pridanie aktívnej triedy karte (ak existuje)
+
+        if (!calc) return;
+
+        const isHidden = getComputedStyle(calc).display === "none";
+        calc.style.display = isHidden ? "block" : "none";
+
         if (card) {
-            isHidden ? card.classList.add('active') : card.classList.remove('active');
+            isHidden ? card.classList.add("active") : card.classList.remove("active");
         }
 
-        // Ak sa box otvoril, spustíme prepočet konkrétnej sekcie
         if (isHidden) {
-            if (calcId === 'calc-audit') window.updateAudit();
-            // Sem môžeš doplniť ďalšie: if (calcId === 'calc-ref') window.updateRef();
+            if (calcId === "calc-audit") updateAudit();
+            if (calcId === "ref-inline-calc") updateRef();
+            if (calcId === "invest-inline-calc") updateInvest();
+            if (calcId === "calc-5-inflation") update5Inflation();
+            if (calcId === "calc-6-wealth") update6Wealth();
         }
     };
 
-    // ============================================================
-    // 1. SEKTOR: HYPOTEKÁRNY AUDIT
-    // ============================================================
-    window.updateAudit = function() {
-        const rAmount = document.getElementById('rangeAmount');
-        const rYears = document.getElementById('rangeYears');
-        const rRateA = document.getElementById('rangeAuditRate');
-        
-        if (!rAmount || !rYears || !rRateA) return;
+    // ==============================
+    // AUDIT
+    // ==============================
+    window.updateAudit = function () {
+        const a = document.getElementById("rangeAmount");
+        const y = document.getElementById("rangeYears");
+        const r = document.getElementById("rangeAuditRate");
+        if (!a || !y || !r) return;
 
-        const a = parseFloat(rAmount.value);
-        const y = parseFloat(rYears.value);
-        const r = parseFloat(rRateA.value);
+        const amount = +a.value;
+        const years = +y.value;
+        const rate = +r.value;
 
-        // Aktualizácia popisov pod slidermi
-        setTxt('valAmount', a.toLocaleString('sk-SK'));
-        setTxt('valYears', y);
-        setTxt('valAuditRate', r.toFixed(2));
+        setTxt("valAmount", amount.toLocaleString("sk-SK"));
+        setTxt("valYears", years);
+        setTxt("valAuditRate", rate.toFixed(2));
+
+        const months = years * 12;
+        const mRate = rate / 100 / 12;
+
+        const monthly = (amount * mRate) / (1 - Math.pow(1 + mRate, -months));
+
+        setTxt("auditMonthlyPayment", Math.round(monthly).toLocaleString("sk-SK"));
+        setTxt("auditTotalOverpayment", Math.round(monthly * months - amount).toLocaleString("sk-SK"));
+    };
+
+    // ==============================
+    // REFINANCE
+    // ==============================
+    window.updateRef = function () {
+        const p = +document.getElementById("rangeCurrentPayment")?.value || 0;
+        const r = +document.getElementById("rangeRate")?.value || 0;
+        const d = +document.getElementById("rangeDebt")?.value || 0;
+
+        setTxt("valCurrentPayment", p.toLocaleString("sk-SK"));
+        setTxt("valRate", r.toFixed(1));
+        setTxt("valDebt", d.toLocaleString("sk-SK"));
+
+        const months = 240;
+        const nr = Math.max(r - 1.2, 1) / 100 / 12;
+
+        const newP = (d * nr) / (1 - Math.pow(1 + nr, -months));
+
+        setTxt("newPaymentVal", Math.round(newP).toLocaleString("sk-SK"));
+        setTxt("estimatedSavings", Math.round(p - newP).toLocaleString("sk-SK"));
+    };
+    // ==============================
+    // INVEST
+    // ==============================
+    window.updateInvest = function () {
+        const m = +document.getElementById("rangeInvest")?.value || 0;
+        const y = +document.getElementById("rangeYearsInvest")?.value || 0;
+
+        setTxt("valInvest", m);
+        setTxt("valYearsInvest", y);
 
         const months = y * 12;
-        const mRate = (r / 100) / 12;
+        const r = 0.08 / 12;
 
-        // Výpočet anuitnej splátky
-        let monthly = mRate > 0 ? (a * mRate) / (1 - Math.pow(1 + mRate, -months)) : a / months;
-        
-        // Modelová úspora (o 1% nižší úrok, min. 0.1%)
-        const bRateVal = Math.max(0.1, r - 1); 
-        const mBetterRate = (bRateVal / 100) / 12;
-        const betterMonthly = mBetterRate > 0 ? (a * mBetterRate) / (1 - Math.pow(1 + mBetterRate, -months)) : a / months;
+        let total = 0;
+        for (let i = 0; i < months; i++) {
+            total = (total + m) * (1 + r);
+        }
 
-        // Zápis výsledkov
-        setTxt('auditMonthlyPayment', Math.round(monthly).toLocaleString('sk-SK'));
-        setTxt('auditTotalOverpayment', Math.round((monthly * months) - a).toLocaleString('sk-SK'));
-        setTxt('auditSave', Math.round((monthly - betterMonthly) * months).toLocaleString('sk-SK'));
+        setTxt("investFuture", Math.round(total).toLocaleString("sk-SK"));
+        setTxt("investTotal", (m * months).toLocaleString("sk-SK"));
     };
 
-    // ============================================================
-    // INICIALIZÁCIA PRI NAČÍTANÍ
-    // ============================================================
-    
-    // Spustíme prvotný výpočet
+    // ==============================
+    // INFLATION
+    // ==============================
+    window.update5Inflation = function () {
+        const a = +document.getElementById("range5InfAmount")?.value || 0;
+        const r = +document.getElementById("range5InfRate")?.value || 0;
+
+        setTxt("val5InfAmount", a.toLocaleString("sk-SK"));
+        setTxt("val5InfRate", r);
+
+        setTxt("inf5LossValue", Math.round(a * r / 100).toLocaleString("sk-SK"));
+    };
+
+    // ==============================
+    // WEALTH
+    // ==============================
+    window.update6Wealth = function () {
+        const b = +document.getElementById("range6WealthBase")?.value || 0;
+        const m = +document.getElementById("range6WealthMonthly")?.value || 0;
+
+        setTxt("val6WealthBase", b.toLocaleString("sk-SK"));
+        setTxt("val6WealthMonthly", m);
+
+        const n = 20 * 12;
+        const r = 0.07 / 12;
+
+        let total = b;
+        for (let i = 0; i < n; i++) {
+            total = (total + m) * (1 + r);
+        }
+
+        setTxt("wealth6ResultValue", Math.round(total).toLocaleString("sk-SK"));
+    };
+
+    // ==============================
+    // INIT
+    // ==============================
     window.updateAudit();
+    window.updateRef();
+    window.updateInvest();
+    window.update5Inflation();
+    window.update6Wealth();
 
-    // Naviažeme update na pohyb sliderov (voliteľné, ale odporúčané)
-    document.querySelectorAll('input[type=range]').forEach(input => {
-        input.addEventListener('input', window.updateAudit);
-    });
-});
-    // ============================================================
-    // 2. SEKTOR: REFINANCOVANIE (KONTROLA A ÚPRAVA)
-    // ============================================================
-    window.updateRef = function() {
-        const rCP = document.getElementById('rangeCurrentPayment');
-        const rRR = document.getElementById('rangeRate'); 
-        const rDebt = document.getElementById('rangeDebt');
-        if (!rCP || !rRR || !rDebt) return;
-
-        const cp = parseFloat(rCP.value);   // Súčasná splátka
-        const rr = parseFloat(rRR.value);   // Súčasný úrok
-        const d = parseFloat(rDebt.value);  // Zostatok dlhu
-
-        setTxt('valCurrentPayment', cp.toLocaleString('sk-SK'));
-        setTxt('valRate', rr.toFixed(1));
-        setTxt('valDebt', d.toLocaleString('sk-SK'));
-        
-        // Modelujeme novú sadzbu: Súčasná mínus 1.2%, ale minimálne 3.5% (aktuálny trh 2024/25)
-        // Prípadne ponechaj svoju logiku, ak chceš byť agresívnejší v marketingu.
-        const targetRate = Math.max(1.0, rr - 1.2); 
-        const mRate = (targetRate / 100) / 12;
-        
-        // Počet mesiacov (240 je 20 rokov). 
-        // Ak chceš presnosť, skús použiť ID zo sekcie Audit, ak sú prepojené.
-        const periods = 240; 
-
-        const newP = (d * mRate) / (1 - Math.pow(1 + mRate, -periods)); 
-
-        // Výpočet úspory
-        const savings = cp - newP;
-
-        setTxt('newPaymentVal', Math.round(newP).toLocaleString('sk-SK'));
-        
-        // Zobraziť úsporu iba ak je kladná
-        const finalSavings = savings > 0 ? Math.round(savings) : 0;
-        setTxt('estimatedSavings', finalSavings.toLocaleString('sk-SK'));
-    };
-
-    // ============================================================
-    // 3. SEKTOR: ADMINISTRATÍVNY SERVIS
-    // ============================================================
-    // Statická karta - nevyžaduje JS výpočty.
-
-    // ============================================================
-    // 4. SEKTOR: INVESTOVANIE (ETF)
-    // ============================================================
-    window.updateInvest = function() {
-        const rInv = document.getElementById('rangeInvest');
-        const rYI = document.getElementById('rangeYearsInvest');
-        if (!rInv || !rYI) return;
-
-        const monthly = parseFloat(rInv.value);
-        const years = parseFloat(rYI.value);
-        setTxt('valInvest', monthly.toLocaleString('sk-SK'));
-        setTxt('valYearsInvest', years);
-
-        const rate = 0.08 / 12; 
-        const months = years * 12;
-        const futureValue = monthly * ((Math.pow(1 + rate, months) - 1) / rate) * (1 + rate);
-
-        setTxt('investFuture', Math.round(futureValue).toLocaleString('sk-SK'));
-        setTxt('investTotal', Math.round(monthly * months).toLocaleString('sk-SK'));
-    };
-
-    // ============================================================
-    // 5. SEKTOR: INFLÁCIA
-    // ============================================================
-    window.update5Inflation = function() {
-        const rAmt = document.getElementById('range5InfAmount');
-        const rRate = document.getElementById('range5InfRate');
-        if (!rAmt || !rRate) return;
-
-        const amt = parseFloat(rAmt.value);
-        const rate = parseFloat(rRate.value);
-        const loss = amt * (rate / 100);
-
-        setTxt('val5InfAmount', amt.toLocaleString('sk-SK'));
-        setTxt('val5InfRate', rate.toFixed(1));
-        setTxt('inf5LossValue', Math.round(loss).toLocaleString('sk-SK'));
-    };
-
-    // ============================================================
-    // 6. SEKTOR: MAJETOK (BOHATSTVO RODINY)
-    // ============================================================
-    window.update6Wealth = function() {
-        const rBase = document.getElementById('range6WealthBase');
-        const rMonthly = document.getElementById('range6WealthMonthly');
-        if (!rBase || !rMonthly) return;
-
-        const p = parseFloat(rBase.value);
-        const p_m = parseFloat(rMonthly.value);
-        const r = 0.07 / 12; // Modelovaný výnos 7% p.a.
-        const n = 20 * 12;   // Horizont 20 rokov
-
-        const futureValue = p * Math.pow(1 + r, n) + p_m * ((Math.pow(1 + r, n) - 1) / r);
-
-        setTxt('val6WealthBase', p.toLocaleString('sk-SK'));
-        setTxt('val6WealthMonthly', p_m.toLocaleString('sk-SK'));
-        setTxt('wealth6ResultValue', Math.round(futureValue).toLocaleString('sk-SK'));
-    };
-
-    // ============================================================
-    // ODOSIELANIE FORMULÁROV (SPOOLOČNÉ PRE VŠETKY SEKTORY)
-    // ============================================================
-    window.handleLeadSubmit = async function(e, type) {
-        if (e) e.preventDefault();
-        const btn = e.target;
-        const originalText = btn.innerText;
-        
-        let emailId, phoneId;
-        
-        // Rozpoznanie ID polí podľa názvu sektora
-        switch(type) {
-            case 'Audit': emailId = 'calcEmail'; phoneId = 'calcPhone'; break;
-            case 'Refinancovanie': emailId = 'refEmail'; phoneId = 'refPhone'; break;
-            case 'Investovanie': emailId = 'investEmail'; phoneId = 'investPhone'; break;
-            case 'Inflacia': emailId = 'inf5Email'; phoneId = 'inf5Phone'; break;
-            case 'Majetok': emailId = 'wealth6Email'; phoneId = 'wealth6Phone'; break;
-            default: return;
-        }
-        
-        const email = document.getElementById(emailId)?.value;
-        const phone = document.getElementById(phoneId)?.value;
-
-        if (!email || !phone) return alert("Prosím vyplňte e-mail aj telefón.");
-
-        try {
-            btn.innerText = "ODOSIELAM...";
-            btn.disabled = true;
-
-            const payload = {
-                sluzba: type,
-                email: email,
-                telefon: phone,
-                timestamp: new Date().toLocaleString('sk-SK')
-            };
-
-            const response = await fetch("https://formspree.io/f/xeepvqqy", {
-                method: "POST",
-                body: JSON.stringify(payload),
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
-            });
-
-            if (response.ok) {
-                alert("Ďakujeme! Vaše údaje boli úspešne odoslané.");
-                btn.innerText = "ODOSLANÉ ✓";
-                if(document.getElementById(emailId)) document.getElementById(emailId).value = "";
-                if(document.getElementById(phoneId)) document.getElementById(phoneId).value = "";
-            } else { throw new Error(); }
-        } catch (err) {
-            alert("Chyba pri odosielaní. Skúste to neskôr.");
-            btn.innerText = originalText;
-            btn.disabled = false;
-        }
-    };
-
-    // Mostíky pre špecifické tlačidlá v HTML
-    window.handle5InflationClick = (e) => window.handleLeadSubmit(e, 'Inflacia');
-    window.handle6WealthClick = (e) => window.handleLeadSubmit(e, 'Majetok');
-
-    // ============================================================
-    // INICIALIZÁCIA PRI NAČÍTANÍ STRÁNKY
-    // ============================================================
-    function initAll() {
-        // Naviazanie sledovania na všetky slidery (range inputy)
-        document.querySelectorAll('input[type=range]').forEach(input => {
-            input.addEventListener('input', () => {
-                window.updateAudit(); 
-                window.updateRef(); 
-                window.updateInvest();
-                window.update5Inflation();
-                window.update6Wealth();
-            });
+    document.querySelectorAll('input[type=range]').forEach(i => {
+        i.addEventListener('input', () => {
+            updateAudit();
+            updateRef();
+            updateInvest();
+            update5Inflation();
+            update6Wealth();
         });
+    });
 
-        // Prvotné spustenie výpočtov
-        window.updateAudit(); 
-        window.updateRef(); 
-        window.updateInvest();
-        window.update5Inflation();
-        window.update6Wealth();
-    }
-
-    initAll();
 });
 </script>
     

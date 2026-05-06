@@ -1489,14 +1489,61 @@ input[type=range]::-webkit-slider-thumb:hover {
     </div>
 </div>
 
-            <div class="card">
-                <div class="card-icon">
-                    <img src="Wealth.png" alt="Generačné Bohatstvo">
+            <!-- KARTA 6: MAJETOK (DEDIČSTVO) -->
+<div class="card" id="card-6-wealth">
+
+    <!-- IKONA -->
+    <div class="card-icon" onclick="toggleCalculator('calc-6-wealth')" style="cursor:pointer;">
+        <img src="Wealth.png" alt="Majetok pre deti">
+    </div>
+
+    <div class="card-content" style="padding:20px;">
+
+        <h3 style="line-height:1.3; margin-bottom:12px; font-size:1.25rem;">
+             6. Majetok: Budúcnosť vašich detí
+        </h3>
+
+        <p style="font-size:0.9rem; color:#64748b; line-height:1.5;">
+            Zanecháte svojim deťom majetok alebo problémy? Zistite, ako bude vyzerať vaše rodinné bohatstvo o 20 rokov.
+        </p>
+
+        <!-- KALKULAČKA (ID: calc-6-wealth) -->
+        <div id="calc-6-wealth" class="inline-calculator" style="margin-top:15px; border-top: 1px solid #eee; padding-top:15px;">
+            
+            <div class="calc-row" style="margin-bottom: 15px;">
+                <span style="font-size:0.85rem; display:block; margin-bottom:5px;">Počiatočný majetok: <b id="val6WealthBase">5 000</b> €</span>
+                <input type="range" id="range6WealthBase" min="0" max="100000" step="1000" value="5000" style="width:100%;" oninput="update6Wealth()">
+            </div>
+
+            <div class="calc-row" style="margin-bottom: 15px;">
+                <span style="font-size:0.85rem; display:block; margin-bottom:5px;">Mesačný príspevok: <b id="val6WealthMonthly">150</b> €</span>
+                <input type="range" id="range6WealthMonthly" min="20" max="2000" step="10" value="150" style="width:100%;" oninput="update6Wealth()">
+            </div>
+
+            <!-- BOX S VÝSLEDKOM -->
+            <div class="calc-result-box" style="background:#f0fff4; padding:15px; border-radius:10px; border:1px solid #c6f6d5; text-align:center; margin-bottom:15px;">
+                <small style="text-transform:uppercase; font-size:0.65rem; font-weight:700; color:#2f855a;">Odhadovaný majetok o 20 rokov</small>
+                <div style="font-size:1.8rem; font-weight:800; color:#2f855a;">
+                    <span id="wealth6ResultValue">0</span> €
                 </div>
-                <h3>Generačné Bohatstvo</h3>
-                <p>Dlhodobé plánovanie pre vaše deti a ďalšie generácie. Nastavenie procesov tak, aby majetok rástol a bol bezpečne odovzdaný vašim nasledovníkom.</p>
+            </div>
+
+            <!-- FORMULÁR -->
+            <div class="calc-contact">
+                <input type="email" id="wealth6Email" placeholder="Váš E-mail" 
+                    style="width:100%; padding:10px; margin-bottom:8px; border-radius:6px; border:1px solid #ddd; box-sizing: border-box;">
+
+                <input type="tel" id="wealth6Phone" placeholder="Váš Telefón" 
+                    style="width:100%; padding:10px; margin-bottom:12px; border-radius:6px; border:1px solid #ddd; box-sizing: border-box;">
+
+                <button class="btn-gold-action" onclick="handle6WealthClick(event)"
+                    style="width:100%; padding:12px; font-weight:700; text-transform:uppercase; cursor:pointer;">
+                    Zabezpečiť rodinu
+                </button>
             </div>
         </div>
+    </div>
+</div>
     </section>
 
     <section class="bg-light">
@@ -1755,16 +1802,16 @@ input[type=range]::-webkit-slider-thumb:hover {
 document.addEventListener('DOMContentLoaded', function() {
 
     // ============================================================
-    // 0. GLOBÁLNE FUNKCIE A NASTAVENIA
+    // 0. GLOBÁLNE FUNKCIE (SPOLOČNÉ PRE VŠETKY SEKTORY)
     // ============================================================
     
-    // Pomocná funkcia na vkladanie textu do HTML
+    // Pomocná funkcia na vkladanie textu do HTML elementov
     const setTxt = (id, txt) => { 
         const el = document.getElementById(id); 
         if(el) el.innerText = txt; 
     };
 
-    // Univerzálne otváranie a zatváranie kalkulačiek
+    // Univerzálne prepínanie viditeľnosti kalkulačiek (Show/Hide)
     window.toggleCalculator = function(calcId, cardId) {
         const calc = typeof calcId === 'string' ? document.getElementById(calcId) : calcId;
         const card = typeof cardId === 'string' ? document.getElementById(cardId) : cardId;
@@ -1806,7 +1853,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const mRate = (r / 100) / 12;
         let monthly = mRate > 0 ? (a * mRate) / (1 - Math.pow(1 + mRate, -months)) : a / months;
         
-        const bRateVal = Math.max(0.1, r - 1); // Modelová úspora o 1% menej
+        const bRateVal = Math.max(0.1, r - 1); 
         const mBetterRate = (bRateVal / 100) / 12;
         const betterMonthly = mBetterRate > 0 ? (a * mBetterRate) / (1 - Math.pow(1 + mBetterRate, -months)) : a / months;
 
@@ -1837,9 +1884,9 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     // ============================================================
-    // 3. SEKTOR: ADMINISTRATÍVNY SERVIS (Bez kalkulačky)
+    // 3. SEKTOR: ADMINISTRATÍVNY SERVIS
     // ============================================================
-    // Tu môžeš v budúcnosti pridať špeciálnu logiku pre servisné úkony.
+    // Statická karta - nevyžaduje JS výpočty.
 
     // ============================================================
     // 4. SEKTOR: INVESTOVANIE (ETF)
@@ -1854,7 +1901,7 @@ document.addEventListener('DOMContentLoaded', function() {
         setTxt('valInvest', monthly.toLocaleString('sk-SK'));
         setTxt('valYearsInvest', years);
 
-        const rate = 0.08 / 12; // Modelovaný výnos 8% p.a.
+        const rate = 0.08 / 12; 
         const months = years * 12;
         const futureValue = monthly * ((Math.pow(1 + rate, months) - 1) / rate) * (1 + rate);
 
@@ -1863,7 +1910,7 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     // ============================================================
-    // 5. SEKTOR: INFLÁCIA (STRATA HODNOTY)
+    // 5. SEKTOR: INFLÁCIA
     // ============================================================
     window.update5Inflation = function() {
         const rAmt = document.getElementById('range5InfAmount');
@@ -1880,9 +1927,24 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     // ============================================================
-    // 6. SEKTOR: POISTENIE (MAJETOK / ŽIVOT)
+    // 6. SEKTOR: MAJETOK (BOHATSTVO RODINY)
     // ============================================================
-    // Tu môžeš pridať logiku pre kalkulačku poistenia.
+    window.update6Wealth = function() {
+        const rBase = document.getElementById('range6WealthBase');
+        const rMonthly = document.getElementById('range6WealthMonthly');
+        if (!rBase || !rMonthly) return;
+
+        const p = parseFloat(rBase.value);
+        const p_m = parseFloat(rMonthly.value);
+        const r = 0.07 / 12; // Modelovaný výnos 7% p.a.
+        const n = 20 * 12;   // Horizont 20 rokov
+
+        const futureValue = p * Math.pow(1 + r, n) + p_m * ((Math.pow(1 + r, n) - 1) / r);
+
+        setTxt('val6WealthBase', p.toLocaleString('sk-SK'));
+        setTxt('val6WealthMonthly', p_m.toLocaleString('sk-SK'));
+        setTxt('wealth6ResultValue', Math.round(futureValue).toLocaleString('sk-SK'));
+    };
 
     // ============================================================
     // ODOSIELANIE FORMULÁROV (SPOOLOČNÉ PRE VŠETKY SEKTORY)
@@ -1894,19 +1956,20 @@ document.addEventListener('DOMContentLoaded', function() {
         
         let emailId, phoneId;
         
-        // Rozpoznanie ID podľa sektora
+        // Rozpoznanie ID polí podľa názvu sektora
         switch(type) {
             case 'Audit': emailId = 'calcEmail'; phoneId = 'calcPhone'; break;
             case 'Refinancovanie': emailId = 'refEmail'; phoneId = 'refPhone'; break;
             case 'Investovanie': emailId = 'investEmail'; phoneId = 'investPhone'; break;
             case 'Inflacia': emailId = 'inf5Email'; phoneId = 'inf5Phone'; break;
+            case 'Majetok': emailId = 'wealth6Email'; phoneId = 'wealth6Phone'; break;
             default: return;
         }
         
         const email = document.getElementById(emailId)?.value;
         const phone = document.getElementById(phoneId)?.value;
 
-        if (!email || !phone) return alert("Prosím vyplňte e-mail aj telefónne číslo.");
+        if (!email || !phone) return alert("Prosím vyplňte e-mail aj telefón.");
 
         try {
             btn.innerText = "ODOSIELAM...";
@@ -1916,8 +1979,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 sluzba: type,
                 email: email,
                 telefon: phone,
-                // Dynamické dáta podľa toho, čo klient menil
-                posledna_suma: (type === 'Inflacia' ? document.getElementById('range5InfAmount')?.value : (type === 'Investovanie' ? document.getElementById('rangeInvest')?.value : "N/A"))
+                timestamp: new Date().toLocaleString('sk-SK')
             };
 
             const response = await fetch("https://formspree.io/f/xeepvqqy", {
@@ -1927,40 +1989,43 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             if (response.ok) {
-                alert("Ďakujeme! Údaje boli úspešne odoslané.");
+                alert("Ďakujeme! Vaše údaje boli úspešne odoslané.");
                 btn.innerText = "ODOSLANÉ ✓";
                 if(document.getElementById(emailId)) document.getElementById(emailId).value = "";
                 if(document.getElementById(phoneId)) document.getElementById(phoneId).value = "";
             } else { throw new Error(); }
         } catch (err) {
-            alert("Vyskytla sa chyba. Skúste to prosím znova.");
+            alert("Chyba pri odosielaní. Skúste to neskôr.");
             btn.innerText = originalText;
             btn.disabled = false;
         }
     };
 
-    // Mostík pre špeciálny názov funkcie v sektore 5
+    // Mostíky pre špecifické tlačidlá v HTML
     window.handle5InflationClick = (e) => window.handleLeadSubmit(e, 'Inflacia');
+    window.handle6WealthClick = (e) => window.handleLeadSubmit(e, 'Majetok');
 
     // ============================================================
     // INICIALIZÁCIA PRI NAČÍTANÍ STRÁNKY
     // ============================================================
     function initAll() {
-        // Naviazanie sledovania zmien na všetky slidery
+        // Naviazanie sledovania na všetky slidery (range inputy)
         document.querySelectorAll('input[type=range]').forEach(input => {
             input.addEventListener('input', () => {
                 window.updateAudit(); 
                 window.updateRef(); 
                 window.updateInvest();
                 window.update5Inflation();
+                window.update6Wealth();
             });
         });
 
-        // Prvotný výpočet základných hodnôt
+        // Prvotné spustenie výpočtov
         window.updateAudit(); 
         window.updateRef(); 
         window.updateInvest();
         window.update5Inflation();
+        window.update6Wealth();
     }
 
     initAll();

@@ -1738,8 +1738,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- 4. LOGIKA VÝPOČTOV (SLIDERY) ---
     window.setupSliders = function() {
         
-        // --- A: Hypotekárny Audit ---
-        const updateAudit = () => {
+        // --- 4. LOGIKA VÝPOČTOV (SLIDERY) ---
+    window.setupSliders = function() {
+        
+        // Pomocná funkcia pre texty (definovaná lokálne pre istotu)
+        const setTxt = (id, txt) => { 
+            const el = document.getElementById(id); 
+            if(el) el.innerText = txt; 
+        };
+
+        // A: HYPOTEKÁRNY AUDIT
+        window.updateAudit = function() {
             const rAmount = document.getElementById('rangeAmount');
             const rYears = document.getElementById('rangeYears');
             const rRateA = document.getElementById('rangeAuditRate');
@@ -1750,7 +1759,9 @@ document.addEventListener('DOMContentLoaded', function() {
             setTxt('valYears', y);
             setTxt('valAuditRate', r.toFixed(1));
 
-            const mRate = (r / 100) / 12, months = y * 12;
+            const months = y * 12;
+            const mRate = (r / 100) / 12;
+            
             let monthly = mRate > 0 ? (a * mRate) / (1 - Math.pow(1 + mRate, -months)) : a / months;
             
             const betterRate = (Math.max(0.1, r - 1) / 100) / 12;
@@ -1761,9 +1772,11 @@ document.addEventListener('DOMContentLoaded', function() {
             setTxt('auditSave', Math.round((monthly - betterMonthly) * months).toLocaleString('sk-SK'));
         };
 
-        // --- B: Refinancovanie ---
-        const updateRef = () => {
-            const rCP = document.getElementById('rangeCurrentPayment'), rRR = document.getElementById('rangeRate'), rDebt = document.getElementById('rangeDebt');
+        // B: REFINANCOVANIE
+        window.updateRef = function() {
+            const rCP = document.getElementById('rangeCurrentPayment');
+            const rRR = document.getElementById('rangeRate'); 
+            const rDebt = document.getElementById('rangeDebt');
             if (!rCP || !rRR || !rDebt) return;
 
             const cp = parseFloat(rCP.value), rr = parseFloat(rRR.value), d = parseFloat(rDebt.value);
@@ -1778,8 +1791,8 @@ document.addEventListener('DOMContentLoaded', function() {
             setTxt('estimatedSavings', Math.round(cp - newP).toLocaleString('sk-SK'));
         };
 
-        // --- C: Investovanie (Tvoj nový kód integrovaný sem) ---
-        const updateInvest = () => {
+        // C: INVESTOVANIE
+        window.updateInvest = function() {
             const rInv = document.getElementById('rangeInvest');
             const rYI = document.getElementById('rangeYearsInvest');
             if (!rInv || !rYI) return;
@@ -1792,7 +1805,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const rate = 0.08 / 12; // 8% p.a.
             const months = years * 12;
             
-            // Matematický vzorec pre tvoj výpočet (rovnaký výsledok ako tvoj for-cyklus)
             const futureValue = monthly * ((Math.pow(1 + rate, months) - 1) / rate) * (1 + rate);
             const totalInvested = monthly * months;
 
@@ -1800,16 +1812,20 @@ document.addEventListener('DOMContentLoaded', function() {
             setTxt('investTotal', Math.round(totalInvested).toLocaleString('sk-SK'));
         };
 
-        // Eventy
+        // Automatické prepojenie všetkých range inputov
         document.querySelectorAll('input[type=range]').forEach(input => {
             input.addEventListener('input', () => {
-                updateAudit(); updateRef(); updateInvest();
+                window.updateAudit(); 
+                window.updateRef(); 
+                window.updateInvest();
             });
         });
 
-        updateAudit(); updateRef(); updateInvest();
+        // Prvé spustenie pri načítaní
+        window.updateAudit(); 
+        window.updateRef(); 
+        window.updateInvest();
     };
-
     // --- 5. ODOSIELANIE FORMULÁROV ---
     window.handleLeadSubmit = async function(e, type) {
         e.preventDefault();

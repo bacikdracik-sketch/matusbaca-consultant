@@ -1106,41 +1106,41 @@ input[type=range]::-webkit-slider-thumb:hover {
     </div>
     <div class="grid-3">
         
-        <!-- KARTA 1: HYPOTEKÁRNY AUDIT (Zladená verzia) -->
+        <!-- KARTA 1: HYPOTEKÁRNY AUDIT (Zjednotená verzia) -->
 <div class="card" id="card-audit">
-    <!-- IKONA: Prepínač (Toggle) -->
+    <!-- IKONA -->
     <div class="card-icon" onclick="openModal()" style="cursor: pointer;" title="Kliknite pre kalkulačku">
         <img src="House.png" alt="Hypotekárny audit">
     </div>
     
     <h3>Hypotekárny Audit</h3>
         
-    <!-- Popis, ktorý sa skryje po otvorení -->
+    <!-- Popis -->
     <p id="audit-desc" class="card-description">
         Detailná analýza trhu a preverenie vašich možností. Zistíme, v ktorej banke získate najnižší úrok a najlepšie podmienky pre váš nový domov.
     </p>
 
-    <!-- Kalkulačka (štýlovo zladená) -->
+    <!-- Kalkulačka -->
     <div id="inline-calc" class="inline-calculator" style="display: none;">
-        <h4 style="text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; color: #64748b; margin-bottom: 20px; text-align: center;">Kalkulačka novej hypotéky</h4>
+        <h4>POROVNANIE HYPOTÉK</h4>
         
         <div class="calc-row">
-            <span style="font-size: 0.85rem; font-weight: 600;">Výška hypotéky</span>
+            <span>Výška hypotéky</span>
             <div class="range-wrapper">
-                <input type="range" id="rangeAmount" min="10000" max="500000" step="5000" value="120000" oninput="updateAuditValues()" style="cursor: pointer;">
+                <input type="range" id="rangeAmount" min="10000" max="500000" step="5000" value="120000" oninput="updateAuditValues()">
                 <div class="input-mimic"><span id="valAmount">120 000</span> €</div>
             </div>
         </div>
 
         <div class="calc-row">
-            <span style="font-size: 0.85rem; font-weight: 600;">Doba splácania</span>
+            <span>Doba splácania</span>
             <div class="range-wrapper">
-                <input type="range" id="rangeYears" min="5" max="40" step="1" value="30" oninput="updateAuditValues()" style="cursor: pointer;">
+                <input type="range" id="rangeYears" min="5" max="40" step="1" value="30" oninput="updateAuditValues()">
                 <div class="input-mimic"><span id="valYears">30</span> r.</div>
             </div>
         </div>
 
-        <!-- ZLADENÝ BOX S VÝSLEDKAMI (Magnet) -->
+        <!-- BOX S VÝSLEDKAMI (Teraz identický s Kartou 2) -->
         <div class="calc-result-box" style="text-align: center; margin: 15px 0; background: rgba(179, 142, 68, 0.05); padding: 15px; border-radius: 10px; border: 1px solid rgba(179, 142, 68, 0.1);">
             
             <p style="text-transform: uppercase; font-size: 0.65rem; font-weight: 700; color: #64748b; margin-bottom: 2px;">Odhadovaná mesačná splátka</p>
@@ -1165,13 +1165,13 @@ input[type=range]::-webkit-slider-thumb:hover {
             <input type="email" id="calcEmail" placeholder="Váš E-mail" style="width: 100%; padding: 10px; margin-bottom: 8px; border-radius: 6px; border: 1px solid #ddd;">
             <input type="tel" id="calcPhone" placeholder="Váš Telefón" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 6px; border: 1px solid #ddd;">
 
-            <button class="btn-gold-action" onclick="handleCalcClick(event)" style="width: 100%; text-transform: uppercase; font-weight: 700;">
-                Získať najlepšiu ponuku
+            <button class="btn-gold-action" onclick="handleCalcClick(event)" style="width: 100%; text-transform: uppercase;">
+                ZÍSKAŤ POROVNANIE
             </button>
         </div>
     </div>
 </div>
-
+        
         <!-- KARTA 2: REFINANCOVANIE -->
 <div class="card" id="card-refinance">
     <!-- IKONA: Funguje ako vypínač (Toggle) -->

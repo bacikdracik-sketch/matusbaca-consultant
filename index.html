@@ -1202,9 +1202,10 @@ input[type=range]::-webkit-slider-thumb:hover {
                 <button class="btn-gold-action" onclick="handleCalcClick(event)" style="width:100%; font-weight:700; padding:12px; font-size:1rem;">
                     Skontrolujte moju hypotéku
                 </button>
+           </div>
         </div>
-    </div>
-</div>
+     </div>
+ </div>
     
         <!-- KARTA 2: REFINANCOVANIE -->
 <div class="card" id="card-refinance">
@@ -1362,7 +1363,8 @@ input[type=range]::-webkit-slider-thumb:hover {
         </div>
     </div>
 </div>
-<!-- SEKCIA 4: INVESTOVANIE -->
+
+    <!-- SEKCIA 4: INVESTOVANIE -->
 <section id="investovanie" class="reveal">
     <div class="card" id="card-invest">
 
@@ -1396,27 +1398,31 @@ input[type=range]::-webkit-slider-thumb:hover {
                     Potenciál rastu majetku (ETF 8% p.a.)
                 </h4>
 
-                <!-- INPUT 1 -->
-                <div class="calc-row" style="margin-bottom: 15px;">
-                    <span style="font-size:0.85rem; display: block; margin-bottom: 5px;">Mesačná investícia</span>
-                    <div class="range-wrapper">
-                        <input type="range" id="rangeInvest" min="20" max="1000" step="10" value="100" style="width: 100%;">
-                        <div class="input-mimic" style="margin-top: 5px;">
-                            <span id="valInvest" style="font-weight:700;">100</span> €
-                        </div>
-                    </div>
-                </div>
+                <!-- INPUT 1: Mesačná investícia -->
+    <div class="calc-row" style="margin-bottom: 15px;">
+        <span style="font-size:0.85rem; display: block; margin-bottom: 5px;">Mesačná investícia</span>
+        <div class="range-wrapper">
+            <!-- PRIDANÝ oninput="updateInvestCalc()" -->
+            <input type="range" id="rangeInvest" min="20" max="1000" step="10" value="100" style="width: 100%;" oninput="updateInvestCalc()">
+        
+            <div class="input-mimic" style="margin-top: 5px;">
+                <span id="valInvest" style="font-weight:700;">100</span> €
+            </div>
+        </div>
+    </div
 
-                <!-- INPUT 2 -->
-                <div class="calc-row" style="margin-bottom: 15px;">
-                    <span style="font-size:0.85rem; display: block; margin-bottom: 5px;">Doba investovania</span>
-                    <div class="range-wrapper">
-                        <input type="range" id="rangeYearsInvest" min="5" max="40" value="20" style="width: 100%;">
-                        <div class="input-mimic" style="margin-top: 5px;">
-                            <span id="valYearsInvest" style="font-weight:700;">20</span> rokov
-                        </div>
-                    </div>
-                </div>
+                <!-- INPUT 2: Doba investovania -->
+    <div class="calc-row" style="margin-bottom: 15px;">
+        <span style="font-size:0.85rem; display: block; margin-bottom: 5px;">Doba investovania</span>
+        <div class="range-wrapper">
+            <!-- PRIDANÝ oninput="updateInvestCalc()" -->
+            <input type="range" id="rangeYearsInvest" min="5" max="40" value="20" style="width: 100%;" oninput="updateInvestCalc()">
+        
+            <div class="input-mimic" style="margin-top: 5px;">
+                <span id="valYearsInvest" style="font-weight:700;">20</span> rokov
+            </div>
+        </div>
+    </div>
 
                 <!-- 💣 VÝSLEDOK -->
                 <div class="calc-result-box" style="background:#f0f9ff; padding:15px; border-radius:10px; margin-top:15px; border:1px solid #90cdf4;">
@@ -1731,14 +1737,18 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     }
 
-    // --- 2. UNIVERZÁLNE OTVÁRANIE KALKULAČIEK ---
+    // --- 2. POMOCNÁ FUNKCIA PRE TEXTY ---
+    const setTxt = (id, txt) => { 
+        const el = document.getElementById(id); 
+        if(el) el.innerText = txt; 
+    };
+
+    // --- 3. UNIVERZÁLNE OTVÁRANIE KALKULAČIEK ---
     window.toggleCalculator = function(calcId, cardId) {
         const calc = document.getElementById(calcId);
         const card = document.getElementById(cardId);
-        if (!calc) {
-            console.error("Kalkulačka s ID '" + calcId + "' nebola nájdená!");
-            return;
-        }
+        
+        if (!calc) return;
 
         const isVisible = calc.style.display === "block";
         calc.style.display = isVisible ? "none" : "block";
@@ -1754,16 +1764,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
-    // --- 3. LOGIKA VÝPOČTOV ---
+    // --- 4. LOGIKA VÝPOČTOV (SLIDERY) ---
     window.setupSliders = function() {
         
-        // Funkcia na bezpečné nastavenie textu
-        const setTxt = (id, txt) => { 
-            const el = document.getElementById(id); 
-            if(el) el.innerText = txt; 
-        };
-
-        // --- Audit (Karta 1) ---
+        // --- A: Hypotekárny Audit (Karta 1) ---
         const rAmount = document.getElementById('rangeAmount');
         const rYears = document.getElementById('rangeYears');
         const rRateA = document.getElementById('rangeAuditRate');
@@ -1776,19 +1780,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
             setTxt('valAmount', a.toLocaleString('sk-SK'));
             setTxt('valYears', y);
-            setTxt('valAuditRate', r.toFixed(2));
+            setTxt('valAuditRate', r.toFixed(1));
 
             const months = y * 12;
             const mRate = (r / 100) / 12;
+            
+            // Anuita
             let monthly = mRate > 0 ? (a * mRate) / (1 - Math.pow(1 + mRate, -months)) : a / months;
-            const betterMonthly = (a * ((Math.max(0.1, r - 1) / 100) / 12)) / (1 - Math.pow(1 + ((Math.max(0.1, r - 1) / 100) / 12), -months));
+            
+            // Úspora pri -1%
+            const betterRate = (Math.max(0.1, r - 1) / 100) / 12;
+            const betterMonthly = (a * betterRate) / (1 - Math.pow(1 + betterRate, -months));
 
             setTxt('auditMonthlyPayment', Math.round(monthly).toLocaleString('sk-SK'));
             setTxt('auditTotalOverpayment', Math.round((monthly * months) - a).toLocaleString('sk-SK'));
             setTxt('auditSave', Math.round((monthly - betterMonthly) * months).toLocaleString('sk-SK'));
         };
 
-        // --- Refinanc (Karta 2) ---
+        // --- B: Refinancovanie (Karta 2) ---
         const rCP = document.getElementById('rangeCurrentPayment');
         const rRR = document.getElementById('rangeRate'); 
         const rDebt = document.getElementById('rangeDebt');
@@ -1803,14 +1812,15 @@ document.addEventListener('DOMContentLoaded', function() {
             setTxt('valRate', currentR.toFixed(1));
             setTxt('valDebt', debt.toLocaleString('sk-SK'));
             
-            const mRate = ((Math.max(1.0, currentR - 1.5)) / 100) / 12;
-            const newPayment = (debt * mRate) / (1 - Math.pow(1 + mRate, -300));
+            // Odhadovaná nová sadzba (o 1.2% lepšia, min 1.0%)
+            const mRate = ((Math.max(1.0, currentR - 1.2)) / 100) / 12;
+            const newPayment = (debt * mRate) / (1 - Math.pow(1 + mRate, -300)); // rátame na 25r (300m)
 
             setTxt('newPaymentVal', Math.round(newPayment).toLocaleString('sk-SK'));
             setTxt('estimatedSavings', Math.round(currentPay - newPayment).toLocaleString('sk-SK'));
         };
 
-        // --- Investovanie (Karta 4) ---
+        // --- C: Investovanie (Karta 4) ---
         const rInv = document.getElementById('rangeInvest');
         const rYI = document.getElementById('rangeYearsInvest');
 
@@ -1818,7 +1828,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!rInv || !rYI) return;
             const monthly = parseFloat(rInv.value);
             const years = parseInt(rYI.value);
-            const r = 0.08; 
+            const r = 0.08; // Predpokladaný výnos 8% (ETF)
             const n = 12;
 
             setTxt('valInvest', monthly.toLocaleString('sk-SK'));
@@ -1834,36 +1844,41 @@ document.addEventListener('DOMContentLoaded', function() {
         if (rCP) [rCP, rRR, rDebt].forEach(el => el.oninput = updateRef);
         if (rInv) [rInv, rYI].forEach(el => el.oninput = updateInvest);
 
-        // Prvotné spustenie
+        // Prvotné spustenie výpočtov
         updateAudit(); updateRef(); updateInvest();
     };
 
-    // --- 4. ODOSIELANIE CEZ FORMSPREE ---
+    // --- 5. ODOSIELANIE FORMULÁROV (FORMSPREE) ---
     window.handleLeadSubmit = async function(e, type) {
         e.preventDefault();
         const btn = e.target;
         const originalText = btn.innerText;
         
         let data = { sluzba: type, odoslane_z: window.location.href };
-        let email, phone;
+        let email = "";
+        let phone = "";
+
+        // Zber dát podľa typu karty
+        if (type === 'Audit') {
+            email = document.getElementById('auditEmail')?.value;
+            phone = document.getElementById('auditPhone')?.value;
+        } else if (type === 'Refinancovanie') {
+            email = document.getElementById('refEmail')?.value;
+            phone = document.getElementById('refPhone')?.value;
+        } else if (type === 'Investovanie') {
+            email = document.getElementById('investEmail')?.value;
+            phone = document.getElementById('investPhone')?.value;
+        } else if (type === 'Servis') {
+            email = document.getElementById('serviceEmail')?.value;
+            phone = document.getElementById('servicePhone')?.value;
+        }
+
+        if (!email || email.length < 5) {
+            alert("Prosím, zadajte platný e-mail.");
+            return;
+        }
 
         try {
-            if (type === "Hypotekárny Audit") {
-                email = document.getElementById('calcEmail')?.value;
-                phone = document.getElementById('calcPhone')?.value;
-            } else if (type === "Refinancovanie") {
-                email = document.getElementById('refEmail')?.value;
-                phone = document.getElementById('refPhone')?.value;
-            } else if (type === "Investovanie") {
-                email = document.getElementById('investEmail')?.value;
-                phone = document.getElementById('investPhone')?.value;
-            }
-
-            if (!email || !phone) {
-                alert("Prosím, vyplňte e-mail aj telefón.");
-                return;
-            }
-
             btn.innerText = "ODOSIELAM...";
             btn.disabled = true;
 
@@ -1874,20 +1889,23 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             if (response.ok) {
-                alert("Ďakujeme! Čoskoro vás budeme kontaktovať.");
-                const parentBox = btn.closest('.inline-calculator');
-                if (parentBox) parentBox.style.display = "none";
+                alert("Ďakujeme! Vaša požiadavka bola odoslaná. Čoskoro sa vám ozveme.");
+                // Vyčistenie polí
+                if(document.getElementById('auditEmail')) document.getElementById('auditEmail').value = "";
+                btn.innerText = "ODOSLANÉ ✓";
             } else {
-                alert("Chyba pri odosielaní.");
+                alert("Chyba pri odosielaní. Skúste to prosím neskôr.");
+                btn.innerText = originalText;
+                btn.disabled = false;
             }
         } catch (err) {
-            alert("Chyba spojenia so serverom.");
-        } finally {
+            alert("Chyba spojenia. Skontrolujte internet.");
             btn.innerText = originalText;
             btn.disabled = false;
         }
     };
 
+    // Spustenie sliderov po načítaní
     setupSliders();
 });
 </script>

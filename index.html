@@ -1829,6 +1829,30 @@ document.addEventListener('DOMContentLoaded', function() {
     // ============================================================
     // 1. SEKTOR: HYPOTEKÁRNY AUDIT (S OPRAVOU PRESNOSTI)
     // ============================================================
+    window.toggleCalculator = function(calcId, cardId) {
+    const calc = document.getElementById(calcId);
+    if (!calc) {
+        console.error("Nenašiel som element s ID: " + calcId);
+        return;
+    }
+
+    // Prepnutie viditeľnosti (ak je skrytý, ukáže ho, ak je ukázaný, skryje ho)
+    const isHidden = calc.style.display === 'none' || calc.style.display === '';
+    calc.style.display = isHidden ? 'block' : 'none';
+
+    // Ak sa box otvorí, rovno prepočítame hodnoty
+    if (isHidden && typeof window.updateAudit === 'function' && calcId === 'calc-audit') {
+        window.updateAudit();
+    }
+};
+    function setTxt(id, val) {
+    const el = document.getElementById(id);
+    if (el) {
+        el.innerText = val;
+    } else {
+        console.warn("Element s ID " + id + " nebol nájdený.");
+    }
+}
     window.updateAudit = function() {
         const rAmount = document.getElementById('rangeAmount');
         const rYears = document.getElementById('rangeYears');
@@ -1860,7 +1884,12 @@ document.addEventListener('DOMContentLoaded', function() {
         setTxt('auditTotalOverpayment', Math.round((monthly * months) - a).toLocaleString('sk-SK'));
         setTxt('auditSave', Math.round((monthly - betterMonthly) * months).toLocaleString('sk-SK'));
     };
-
+// Spustenie prvotného výpočtu po načítaní stránky
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof window.updateAudit === 'function') {
+        window.updateAudit();
+    }
+});
     // ============================================================
     // 2. SEKTOR: REFINANCOVANIE (KONTROLA A ÚPRAVA)
     // ============================================================

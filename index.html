@@ -1397,7 +1397,8 @@ input[type=range]::-webkit-slider-thumb:hover {
                 <!-- INPUT 1: Mesačná investícia -->
                 <div class="calc-row" style="margin-bottom: 15px;">
                     <span style="font-size:0.85rem; display: block; margin-bottom: 5px;">Mesačná investícia</span>
-                    <input type="range" id="rangeInvest" min="20" max="1000" step="10" value="100" style="width: 100%;">
+                    <!-- PRIDANÝ oninput -->
+                    <input type="range" id="rangeInvest" min="20" max="1000" step="10" value="100" style="width: 100%;" oninput="window.updateInvest()">
                     <div style="margin-top: 5px; font-weight:700;"><span id="valInvest">100</span> €</div>
                 </div>
 

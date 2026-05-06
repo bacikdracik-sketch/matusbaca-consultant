@@ -1735,8 +1735,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- 2. OTVÁRANIE A ZATVÁRANIE KALKULAČIEK ---
-    // Táto funkcia zabezpečí, že po kliknutí sa kalkulačka ukáže/skryje
+    // --- 1. OTVÁRANIE A ZATVÁRANIE ---
     window.toggleCalculator = function(calcId, cardId) {
         const calc = document.getElementById(calcId);
         const card = document.getElementById(cardId);
@@ -1755,16 +1754,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
-    // --- 3. LOGIKA VÝPOČTOV ---
+    // --- 2. LOGIKA VÝPOČTOV ---
     window.setupSliders = function() {
+        
         // --- Audit (Karta 1) ---
         const rangeAmount = document.getElementById('rangeAmount');
         const rangeYears = document.getElementById('rangeYears');
-        const rangeRateAudit = document.getElementById('rangeAuditRate'); // Pridané pre Audit úrok
+        const rangeRateAudit = document.getElementById('rangeAuditRate');
 
         const updateAudit = () => {
             if (!rangeAmount || !rangeYears || !rangeRateAudit) return;
-            
             const a = parseFloat(rangeAmount.value);
             const y = parseFloat(rangeYears.value);
             const r = parseFloat(rangeRateAudit.value);
@@ -1775,11 +1774,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const months = y * 12;
             const mRate = (r / 100) / 12;
-
             let monthly = mRate > 0 ? (a * mRate) / (1 - Math.pow(1 + mRate, -months)) : a / months;
             const overpayment = (monthly * months) - a;
 
-            // Úspora pri -1%
             const betterRate = Math.max(0.1, r - 1);
             const mBetterRate = (betterRate / 100) / 12;
             const betterMonthly = (a * mBetterRate) / (1 - Math.pow(1 + mBetterRate, -months));
@@ -1797,7 +1794,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const updateRef = () => {
             if (!rangeCurrentPayment || !rangeRateRef || !rangeDebt) return;
-
             const currentPay = parseFloat(rangeCurrentPayment.value);
             const currentR = parseFloat(rangeRateRef.value);
             const debt = parseFloat(rangeDebt.value);
@@ -1806,10 +1802,9 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('valRate').innerText = currentR.toFixed(1);
             document.getElementById('valDebt').innerText = debt.toLocaleString('sk-SK');
             
-            // Nový úrok (simulácia -1.5%)
             const potentialRate = Math.max(1.0, currentR - 1.5);
             const mRate = (potentialRate / 100) / 12;
-            const months = 300; // Fixný odhad na 25 rokov
+            const months = 300; 
 
             const newPayment = (debt * mRate) / (1 - Math.pow(1 + mRate, -months));
             const monthlySaving = currentPay - newPayment;
@@ -1818,15 +1813,39 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('estimatedSavings').innerText = Math.round(monthlySaving).toLocaleString('sk-SK');
         };
 
-        // Event Listenery
+        // --- Investovanie (Karta 3) ---
+        const rangeInv = document.getElementById('rangeInvest');
+        const rangeYI = document.getElementById('rangeYearsInvest');
+
+        const updateInvest = () => {
+            if (!rangeInv || !rangeYI) return;
+            const monthly = parseFloat(rangeInv.value);
+            const years = parseInt(rangeYI.value);
+            const r = 0.08; 
+            const n = 12;
+
+            document.getElementById('valInvest').innerText = monthly.toLocaleString('sk-SK');
+            document.getElementById('valYearsInvest').innerText = years;
+
+            const futureValue = monthly * ((Math.pow(1 + r/n, n * years) - 1) / (r/n));
+            const totalDeposits = monthly * 12 * years;
+
+            document.getElementById('investFuture').innerText = Math.round(futureValue).toLocaleString('sk-SK');
+            document.getElementById('investTotal').innerText = Math.round(totalDeposits).toLocaleString('sk-SK');
+        };
+
+        // Pridanie Event Listenerov
         if (rangeAmount) [rangeAmount, rangeYears, rangeRateAudit].forEach(el => el?.addEventListener('input', updateAudit));
         if (rangeCurrentPayment) [rangeCurrentPayment, rangeRateRef, rangeDebt].forEach(el => el?.addEventListener('input', updateRef));
+        if (rangeInv) [rangeInv, rangeYI].forEach(el => el?.addEventListener('input', updateInvest));
 
+        // Inicializácia
         updateAudit();
         updateRef();
+        updateInvest();
     };
 
-    // --- 4. ODOSIELANIE DÁT (FORMSPREE) ---
+    // --- 3. FORMSPREE ODOSIELANIE ---
     window.handleLeadSubmit = async function(e, type) {
         e.preventDefault();
         const btn = e.target;
@@ -1835,14 +1854,19 @@ document.addEventListener('DOMContentLoaded', function() {
         let data = { sluzba: type };
         let email, phone;
 
+        // Rozlíšenie podľa typu karty
         if (type === "Hypotekárny Audit") {
             email = document.getElementById('calcEmail').value;
             phone = document.getElementById('calcPhone').value;
-            data = { ...data, email, phone, suma: document.getElementById('valAmount').innerText, urok: document.getElementById('valAuditRate').innerText };
-        } else {
+            data = { ...data, email, phone, suma: document.getElementById('valAmount').innerText };
+        } else if (type === "Refinancovanie") {
             email = document.getElementById('refEmail').value;
             phone = document.getElementById('refPhone').value;
             data = { ...data, email, phone, dlh: document.getElementById('valDebt').innerText, uspora: document.getElementById('estimatedSavings').innerText };
+        } else if (type === "Investovanie") {
+            email = document.getElementById('investEmail').value;
+            phone = document.getElementById('investPhone').value;
+            data = { ...data, email, phone, mesacne: document.getElementById('valInvest').innerText, horizont: document.getElementById('valYearsInvest').innerText };
         }
 
         if (!email || !phone) return alert("Prosím, vyplňte kontaktné údaje.");
@@ -1859,7 +1883,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (response.ok) {
                 alert("Ďakujeme! Čoskoro vás budeme kontaktovať.");
-                btn.closest('div').parentElement.style.display = "none"; // Zavrieť kalkulačku
+                btn.closest('.inline-calculator, [id*="inline-calc"]').style.display = "none";
             } else {
                 alert("Chyba pri odosielaní.");
             }
@@ -1871,16 +1895,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
-    // --- 5. ANIMÁCIE A ŠTART ---
-    function reveal() {
-        document.querySelectorAll(".reveal").forEach(el => {
-            if (el.getBoundingClientRect().top < window.innerHeight - 150) el.classList.add("active");
-        });
-    }
-
-    window.addEventListener("scroll", reveal);
     setupSliders();
-    reveal();
 });
 </script>
     

@@ -1206,76 +1206,84 @@ input[type=range]::-webkit-slider-thumb:hover {
     </div>
 </div>
     
-        <!-- KARTA 2: REFINANCOVANIE -->
+        <!-- KARTA 2: REFINANCOVANIE (UPGRADE) -->
 <div class="card" id="card-refinance">
-    <!-- IKONA: Funguje ako vypínač (Toggle) -->
-    <div class="card-icon" onclick="openRefModal()" style="cursor: pointer;" title="Kliknite pre kalkulačku">
-        <img src="Refinance.png" alt="Refinancovanie">
+
+    <div class="card-icon" onclick="toggleCalculator('ref-inline-calc', 'card-refinance')" style="cursor:pointer;">
+        <img src="Money.png" alt="Refinancovanie">
     </div>
-    
-    <h3>Refinancovanie hypotéky</h3>
-        
-    <!-- Tento text sa skryje, keď bude kalkulačka aktívna -->
-    <p id="ref-desc" class="card-description">
-        Optimalizácia existujúcich záväzkov. Zistíme, o koľko vieme znížiť vašu mesačnú splátku a koľko tisíc ušetríte na preplatení.
-    </p>
 
-    <!-- Kalkulačka je v základe skrytá (display: none) -->
-    <div id="ref-inline-calc" class="inline-calculator" style="display: none;">
-        <h4>KALKULAČKA ÚSPORY</h4>
-        
-        <div class="calc-row">
-            <span>Súčasná splátka</span>
-            <div class="range-wrapper">
-                <input type="range" id="rangeCurrentPayment" min="50" max="2500" step="10" value="500" oninput="updateRefinanceValues()">
-                <div class="input-mimic"><span id="valCurrentPayment">500</span> €</div>
-            </div>
-        </div>
-              
-                   <!-- Súčasný úrok -->
-        <div class="calc-row">
-            <span>Súčasný úrok (%)</span>
-            <div class="range-wrapper">
-                <input type="range" id="rangeRate" min="0.5" max="8.0" step="0.1" value="4.5" oninput="updateRefinanceValues()">
-                <div class="input-mimic"><span id="valRate">4.5</span> %</div>
-            </div>
-        </div>
-        <div class="calc-row">
-            <span>Zostatok úveru</span>
-            <div class="range-wrapper">
-                <input type="range" id="rangeDebt" min="10000" max="500000" step="5000" value="120000" oninput="updateRefinanceValues()">
-                <div class="input-mimic"><span id="valDebt">120 000</span> €</div>
-            </div>
-        </div>
+    <div class="card-content" style="padding:20px;">
 
-        <!-- BOX S VÝSLEDKAMI (Nová splátka a Rozdiel) -->
-        <div class="calc-result-box" style="text-align: center; margin: 15px 0; background: rgba(179, 142, 68, 0.05); padding: 15px; border-radius: 10px; border: 1px solid rgba(179, 142, 68, 0.1);">
-            
-            <p style="text-transform: uppercase; font-size: 0.65rem; font-weight: 700; color: #64748b; margin-bottom: 2px;">Možná nová splátka</p>
-            <div style="font-size: 1.6rem; font-weight: 800; color: #0F172A; margin-bottom: 8px;">
-                <span id="newPaymentVal">455</span> €
+        <!-- HOOK -->
+        <h3 style="line-height:1.3; margin-bottom:12px; font-size:1.25rem; color: #0F172A;">
+            📉 Mesačne možno zbytočne preplácate desiatky €
+        </h3>
+
+        <p style="font-size:0.9rem; color:#64748b; margin-bottom: 15px;">
+            Väčšina klientov má nevýhodný starý úrok. Zistite, o koľko nižšiu splátku môžete mať.
+        </p>
+
+        <!-- KALKULAČKA (Skrytá na začiatku, otvára sa cez toggle) -->
+        <div id="ref-inline-calc" class="inline-calculator" style="display:none; border-top: 1px solid #e2e8f0; pt-4;">
+
+            <h4 style="text-align:center; font-size:0.75rem; color:#94a3b8; margin: 15px 0; text-transform:uppercase; font-weight:700;">
+                Modelácia refinancovania
+            </h4>
+
+            <!-- INPUT 1: Súčasná splátka -->
+            <div class="calc-group" style="margin-bottom: 20px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                    <span style="font-size:0.85rem; font-weight: 600;">Súčasná splátka</span>
+                    <div class="input-mimic"><span id="valCurrentPayment" style="font-weight:700;">600</span> €</div>
+                </div>
+                <input type="range" id="rangeCurrentPayment" min="200" max="1500" step="10" value="600" style="width: 100%;">
             </div>
 
-            <div style="height: 1px; background: #B38E44; opacity: 0.2; width: 50%; margin: 0 auto 8px auto;"></div>
-
-            <p style="text-transform: uppercase; font-size: 0.7rem; font-weight: 700; color: #B38E44; margin-bottom: 2px;">Mesačne ušetríte</p>
-            <div style="font-size: 2.1rem; font-weight: 800; color: #B38E44;">
-                <span id="estimatedSavings">85</span> €
+            <!-- INPUT 2: Úroková sadzba -->
+            <div class="calc-group" style="margin-bottom: 20px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                    <span style="font-size:0.85rem; font-weight: 600;">Váš úrok (%)</span>
+                    <div class="input-mimic"><span id="valRate" style="font-weight:700;">4.5</span> %</div>
+                </div>
+                <input type="range" id="rangeRate" min="1" max="8" step="0.1" value="4.5" style="width: 100%;">
             </div>
-        </div>
 
-        <div class="calc-contact">
-            <label class="checkbox-label" style="display: flex; align-items: center; gap: 10px; cursor: pointer; margin-bottom: 12px; text-align: left;">
-                <input type="checkbox" id="refAgree" checked style="width: 18px; height: 18px; accent-color: #B38E44;"> 
-                <span style="font-size: 0.85rem; font-weight: 600; color: #0F172A;">Chcem nezáväznú ponuku refinanc</span>
-            </label>
-            
-            <input type="email" id="refEmail" placeholder="Váš E-mail" style="width: 100%; padding: 10px; margin-bottom: 8px; border-radius: 6px; border: 1px solid #ddd;">
-            <input type="tel" id="refPhone" placeholder="Váš Telefón" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 6px; border: 1px solid #ddd;">
+            <!-- INPUT 3: Zostatok -->
+            <div class="calc-group" style="margin-bottom: 20px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                    <span style="font-size:0.85rem; font-weight: 600;">Zostatok hypotéky</span>
+                    <div class="input-mimic"><span id="valDebt" style="font-weight:700;">120 000</span> €</div>
+                </div>
+                <input type="range" id="rangeDebt" min="20000" max="300000" step="5000" value="120000" style="width: 100%;">
+            </div>
 
-            <button class="btn-gold-action" onclick="handleRefinanceClick(event)" style="width: 100%; text-transform: uppercase;">
-    Zistiť, či nepreplácam
-</button>
+            <!-- VÝSLEDOK (Zelený box úspory) -->
+            <div class="calc-result-box" style="background:#f0fff4; padding:20px; border-radius:12px; border: 1px solid #c6f6d5; text-align:center; margin: 20px 0;">
+                <p style="font-size:0.7rem; text-transform:uppercase; color:#2f855a; font-weight: 800; margin-bottom: 5px;">
+                    Môžete ušetriť každý mesiac
+                </p>
+                <div style="font-size:2rem; font-weight:800; color:#2f855a; margin-bottom: 5px;">
+                    <span id="estimatedSavings">0</span> €
+                </div>
+                <p style="font-size:0.85rem; color:#276749; font-weight: 600;">
+                    Nová splátka: <span id="newPaymentVal">0</span> €
+                </p>
+                <p style="font-size:0.7rem; color:#c53030; margin-top:10px; font-weight:700; background: rgba(197, 48, 48, 0.1); display: inline-block; padding: 2px 8px; border-radius: 4px;">
+                    ⚠️ Peniaze, ktoré vám zbytočne unikajú
+                </p>
+            </div>
+
+            <!-- KONTAKT -->
+            <div class="calc-contact" style="background: #f8fafc; padding: 15px; border-radius: 10px;">
+                <input type="email" id="refEmail" placeholder="Váš E-mail" style="width:100%; padding:12px; margin-bottom:10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                <input type="tel" id="refPhone" placeholder="Váš Telefón" style="width:100%; padding:12px; margin-bottom:15px; border: 1px solid #cbd5e1; border-radius: 6px;">
+
+                <button class="btn-gold-action" onclick="handleLeadSubmit(event, 'Refinancovanie')" style="width:100%; padding:14px; font-weight:700; text-transform: uppercase; letter-spacing: 0.5px;">
+                    Získať lepšiu splátku
+                </button>
+            </div>
+
         </div>
     </div>
 </div>

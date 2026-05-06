@@ -1803,70 +1803,65 @@ input[type=range]::-webkit-slider-thumb:hover {
 document.addEventListener('DOMContentLoaded', function() {
 
     // ============================================================
-    // 0. GLOBÁLNE FUNKCIE (VYLEPŠENÉ)
+    // 0. GLOBÁLNE POMOCNÉ FUNKCIE (ZJEDNOTENÉ)
     // ============================================================
     
-    const setTxt = (id, txt) => { 
-        const el = document.getElementById(id); 
-        if(el) el.innerText = txt; 
+    // Funkcia na bezpečný zápis textu do HTML
+    const setTxt = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.innerText = val;
+        } else {
+            console.warn("Element s ID " + id + " nebol nájdený.");
+        }
     };
 
+    // UNIVERZÁLNA FUNKCIA NA OTVÁRANIE BOXOV
     window.toggleCalculator = function(calcId, cardId) {
-        const calc = typeof calcId === 'string' ? document.getElementById(calcId) : calcId;
-        const card = typeof cardId === 'string' ? document.getElementById(cardId) : cardId;
+        const calc = document.getElementById(calcId);
+        const card = document.getElementById(cardId);
         
-        if (!calc) return;
+        if (!calc) {
+            console.error("Nenašiel som kalkulačku s ID: " + calcId);
+            return;
+        }
         
-        // Stabilnejšia kontrola viditeľnosti
-        const isHidden = getComputedStyle(calc).display === "none";
-        calc.style.display = isHidden ? "block" : "none";
+        // Stabilnejšia kontrola viditeľnosti cez getComputedStyle
+        const isHidden = window.getComputedStyle(calc).display === 'none';
         
+        // Prepnutie zobrazenia
+        calc.style.display = isHidden ? 'block' : 'none';
+        
+        // Pridanie aktívnej triedy karte (ak existuje)
         if (card) {
             isHidden ? card.classList.add('active') : card.classList.remove('active');
+        }
+
+        // Ak sa box otvoril, spustíme prepočet konkrétnej sekcie
+        if (isHidden) {
+            if (calcId === 'calc-audit') window.updateAudit();
+            // Sem môžeš doplniť ďalšie: if (calcId === 'calc-ref') window.updateRef();
         }
     };
 
     // ============================================================
-    // 1. SEKTOR: HYPOTEKÁRNY AUDIT (S OPRAVOU PRESNOSTI)
+    // 1. SEKTOR: HYPOTEKÁRNY AUDIT
     // ============================================================
-    window.toggleCalculator = function(calcId, cardId) {
-    const calc = document.getElementById(calcId);
-    if (!calc) {
-        console.error("Nenašiel som element s ID: " + calcId);
-        return;
-    }
-
-    // Prepnutie viditeľnosti (ak je skrytý, ukáže ho, ak je ukázaný, skryje ho)
-    const isHidden = calc.style.display === 'none' || calc.style.display === '';
-    calc.style.display = isHidden ? 'block' : 'none';
-
-    // Ak sa box otvorí, rovno prepočítame hodnoty
-    if (isHidden && typeof window.updateAudit === 'function' && calcId === 'calc-audit') {
-        window.updateAudit();
-    }
-};
-    function setTxt(id, val) {
-    const el = document.getElementById(id);
-    if (el) {
-        el.innerText = val;
-    } else {
-        console.warn("Element s ID " + id + " nebol nájdený.");
-    }
-}
     window.updateAudit = function() {
         const rAmount = document.getElementById('rangeAmount');
         const rYears = document.getElementById('rangeYears');
         const rRateA = document.getElementById('rangeAuditRate');
+        
         if (!rAmount || !rYears || !rRateA) return;
 
-        const a = parseFloat(rAmount.value), 
-              y = parseFloat(rYears.value), 
-              r = parseFloat(rRateA.value);
+        const a = parseFloat(rAmount.value);
+        const y = parseFloat(rYears.value);
+        const r = parseFloat(rRateA.value);
 
         // Aktualizácia popisov pod slidermi
         setTxt('valAmount', a.toLocaleString('sk-SK'));
         setTxt('valYears', y);
-        setTxt('valAuditRate', r.toFixed(2)); // Zmenené na 2 des. miesta kvôli presnosti bánk
+        setTxt('valAuditRate', r.toFixed(2));
 
         const months = y * 12;
         const mRate = (r / 100) / 12;
@@ -1874,7 +1869,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Výpočet anuitnej splátky
         let monthly = mRate > 0 ? (a * mRate) / (1 - Math.pow(1 + mRate, -months)) : a / months;
         
-        // Modelová úspora (ak by bol úrok o 1% nižší, min. 0.1%)
+        // Modelová úspora (o 1% nižší úrok, min. 0.1%)
         const bRateVal = Math.max(0.1, r - 1); 
         const mBetterRate = (bRateVal / 100) / 12;
         const betterMonthly = mBetterRate > 0 ? (a * mBetterRate) / (1 - Math.pow(1 + mBetterRate, -months)) : a / months;
@@ -1884,11 +1879,18 @@ document.addEventListener('DOMContentLoaded', function() {
         setTxt('auditTotalOverpayment', Math.round((monthly * months) - a).toLocaleString('sk-SK'));
         setTxt('auditSave', Math.round((monthly - betterMonthly) * months).toLocaleString('sk-SK'));
     };
-// Spustenie prvotného výpočtu po načítaní stránky
-document.addEventListener('DOMContentLoaded', function() {
-    if (typeof window.updateAudit === 'function') {
-        window.updateAudit();
-    }
+
+    // ============================================================
+    // INICIALIZÁCIA PRI NAČÍTANÍ
+    // ============================================================
+    
+    // Spustíme prvotný výpočet
+    window.updateAudit();
+
+    // Naviažeme update na pohyb sliderov (voliteľné, ale odporúčané)
+    document.querySelectorAll('input[type=range]').forEach(input => {
+        input.addEventListener('input', window.updateAudit);
+    });
 });
     // ============================================================
     // 2. SEKTOR: REFINANCOVANIE (KONTROLA A ÚPRAVA)

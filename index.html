@@ -409,54 +409,46 @@ input[type=range]::-webkit-slider-thumb:hover {
     position: relative;
 }
 
-/* --- OPRAVENÝ OBRAZOK V BOXE (Na celú šírku) --- */
+/* --- KONTROLA MRIEŽKY (Zabezpečí 3 boxy vedľa seba) --- */
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Na mobile 1 pod sebou, na PC 3 vedľa seba */
+    gap: 30px;
+    padding: 20px;
+    max-width: 1200px; /* Toto udrží boxy v strede a nie cez celý monitor */
+    margin: 40px auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* --- KARTA AKO BOX --- */
+.card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden; /* Dôležité: orezáva obrázok podľa zaoblenia rohov karty */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Jemný tieň, aby to vyzeralo ako box */
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- OBRÁZOK (Header štýl) --- */
 .card-icon {
     width: 100%;
-    height: 200px; /* Jednotná výška pre všetky tri boxy */
-    display: block; /* Zmenené z flex, aby fotka lepšie sedela */
+    height: 200px;
+    background: #f1f5f9;
     overflow: hidden;
-    background: #f9f9f9;
-    padding: 0 !important; /* ZRUŠENÝ PADDING - toto robilo tie biele fľaky */
-    border-radius: 8px 8px 0 0;
+    margin: 0;
+    padding: 0 !important;
 }
 
 .card-icon img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Toto roztiahne fotku na celý vyhradený priestor */
+    object-fit: cover; /* Vyplní box bez deformácie */
     display: block;
 }
-
-/* --- TEXT POD FOTKOU --- */
-.card h3 {
-    padding: 20px 20px 10px 20px;
-    font-size: 1.1rem; /* Mierne zmenšené, aby to lepšie sedelo na mobile */
-    color: var(--primary-navy);
-    text-transform: uppercase;
-    text-align: left;
-}
-
-.card p.card-description {
-    padding: 0 20px 20px 20px;
-    font-size: 0.9rem;
-    color: var(--text-light);
-    line-height: 1.5;
-    text-align: left;
-    margin-bottom: 0;
-}
-/* --- 3 BOXY VEDĽA SEBA --- */
-.grid-3 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-    padding: 0 20px;
-    max-width: 1200px;
-    margin: 50px auto;
-    align-items: start;
-    width: 100%; /* Pridaj tento riadok */
-    box-sizing: border-box; /* Zabezpečí správne počítanie šírky s paddingom */
-}
-
 /* Na mobiloch pod sebou */
 @media (max-width: 992px) {
     .grid-3 { 

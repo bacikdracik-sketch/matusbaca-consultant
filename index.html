@@ -1296,82 +1296,60 @@ input[type=range]::-webkit-slider-thumb:hover {
         </div>
     </div>
 </div>
-        <!-- KARTA 3: ADMINISTRATÍVNY SERVIS -->
-<div class="card reveal" id="card-admin" onclick="openAdminModal()" style="cursor: pointer;">
-    <div class="card-icon">
-        <img src="Service.png" alt="Administratívny servis">
-    </div>
-    <h3>Administratívny servis</h3>
-    <p class="card-description">
-        Kompletné zastrešenie papierovačky. Od katastra cez bankové potvrdenia až po stráženie termínov fixácie.
-    </p>
-    <span class="click-info">Zistite, čo všetko vybavím za vás ↓</span>
+        <!-- KARTA 3: LEAD MAGNET – HYPOTEKÁRNY SERVIS -->
+<div class="card reveal" id="card-admin">
 
-    <div id="admin-inline-calc" class="inline-calculator" style="display: none;" onclick="event.stopPropagation()">
-        <h4>ROZSAH NAŠICH SLUŽIEB</h4>
-        <p class="calc-sub">Vašou jedinou úlohou bude podpis zmlúv. O zvyšok sa postaráme my.</p>
-        
-        <!-- PODROBNÝ ROZPIS SLUŽIEB -->
-        <div class="admin-feature-grid" style="display: grid; grid-template-columns: 1fr; gap: 15px; text-align: left; max-width: 500px; margin: 0 auto 30px auto; color: var(--text-light);">
-            <div style="display: flex; gap: 15px; align-items: flex-start;">
-                <span style="font-size: 1.2rem;">🏛️</span>
-                <div>
-                    <strong>Katastrálny servis:</strong>
-                    <p style="margin: 2px 0 0 0; font-size: 0.85rem;">Príprava a podanie návrhov na vklad, sledovanie priebehu konania a kontrola listov vlastníctva po zápise.</p>
-                </div>
-            </div>
-            <div style="display: flex; gap: 15px; align-items: flex-start;">
-                <span style="font-size: 1.2rem;">📑</span>
-                <div>
-                    <strong>Banková administratíva:</strong>
-                    <p style="margin: 2px 0 0 0; font-size: 0.85rem;">Vybavenie žiadostí o súhlas s predčasným splatením, vyčíslenie zostatkov a komunikácia s bankami za vás.</p>
-                </div>
-            </div>
-            <div style="display: flex; gap: 15px; align-items: flex-start;">
-                <span style="font-size: 1.2rem;">⏰</span>
-                <div>
-                    <strong>Stráženie dôležitých termínov:</strong>
-                    <p style="margin: 2px 0 0 0; font-size: 0.85rem;">Sledujeme za vás konce fixácií a včas navrhujeme kroky, aby ste sa vyhli nevýhodným úrokovým sadzbám.</p>
-                </div>
-            </div>
-            <div style="display: flex; gap: 15px; align-items: flex-start;">
-                <span style="font-size: 1.2rem;">🛡️</span>
-                <div>
-                    <strong>Poistenie a vinkulácia:</strong>
-                    <p style="margin: 2px 0 0 0; font-size: 0.85rem;">Zabezpečíme poistenie nehnuteľnosti, životné poistenie a potvrdíme vinkuláciu poistného plnenia v prospech banky.</p>
-                </div>
-            </div>
+    <div class="card-icon" onclick="toggleCalculator('admin-inline-calc','card-admin')" style="cursor:pointer;">
+        <img src="Service.png" alt="Hypotekárny servis">
+    </div>
+
+    <h3>📋 Hypotekárny servis bez stresu</h3>
+
+    <p class="card-description">
+        Checklist + kompletné vybavenie všetkých dokumentov okolo hypotéky.
+        Postrážime termíny, papiere aj banky za vás.
+    </p>
+
+    <span class="click-info">Zistite, čo všetko vám vieme ušetriť ↓</span>
+
+    <!-- LEAD MAGNET BOX -->
+    <div id="admin-inline-calc" class="inline-calculator" style="display:none;" onclick="event.stopPropagation()">
+
+        <h4 style="text-align:center;">📦 CHECKLIST + SERVIS ZDARMA</h4>
+
+        <p style="text-align:center; font-size:0.85rem; color:#64748b; margin-bottom:15px;">
+            Získate prehľad všetkých krokov + kontrolu vašej hypotéky.
+        </p>
+
+        <!-- BENEFITS -->
+        <div style="text-align:left; max-width:500px; margin:0 auto 20px auto; font-size:0.9rem; line-height:1.6;">
+            ✅ Kontrola konca fixácie<br>
+            ✅ Overenie zostatku v banke<br>
+            ✅ Katastrálne dokumenty<br>
+            ✅ Poistenie + vinkulácia<br>
+            ✅ Upozornenia na termíny<br>
         </div>
 
         <hr>
 
-        <!-- FORMULÁR -->
+        <!-- FORM -->
         <div class="calc-contact">
-            <div class="form-field">
-                <label>Váš E-mail *</label>
-                <input type="email" id="adminEmail" placeholder="vas@email.sk" required>
-            </div>
 
-            <div class="form-field">
-                <label>Telefónne číslo *</label>
-                <div class="phone-input-wrapper">
-                    <img src="https://flagcdn.com/w20/sk.png" alt="SK">
-                    <input type="tel" id="adminPhone" placeholder="09xx xxx xxx" required>
-                </div>
-            </div>
+            <input type="email" id="adminEmail" placeholder="Váš E-mail" style="width:100%; padding:10px; margin-bottom:8px;">
+            <input type="tel" id="adminPhone" placeholder="Váš Telefón" style="width:100%; padding:10px; margin-bottom:12px;">
 
-            <div class="gdpr-wrapper">
-                <input type="checkbox" id="adminConsent" required>
-                <label for="adminConsent">
-                    Mám záujem o servis a súhlasím so <a href="ochrana-udajov.pdf" target="_blank">spracovaním údajov</a>. *
-                </label>
-            </div>
+            <label style="display:flex; gap:10px; font-size:0.75rem; margin-bottom:10px;">
+                <input type="checkbox" id="adminConsent" checked>
+                Súhlasím so spracovaním údajov
+            </label>
 
-            <button class="btn-gold-action" onclick="handleAdminClick(event)">MÁM ZÁUJEM O SERVIS</button>
+            <button class="btn-gold-action" onclick="handleAdminClick(event)" style="width:100%;">
+                Chcem checklist ZDARMA
+            </button>
+
         </div>
     </div>
 </div>
-</section>
     
     <!-- SEKCIA 4: INVESTOVANIE -->
 <section id="investovanie" class="reveal" style="opacity:1; transform:none;"> 
@@ -1914,7 +1892,7 @@ input[type=range]::-webkit-slider-thumb:hover {
 document.addEventListener('DOMContentLoaded', function () {
 
     // ============================================================
-    // 0. HELPERS
+    // 1. HELPERS
     // ============================================================
     const setTxt = (id, val) => {
         const el = document.getElementById(id);
@@ -1922,34 +1900,36 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     // ============================================================
-    // 1. TOGGLE KALKULAČIEK
+    // 2. TOGGLE BOXOV (VŠETKY KARTY)
     // ============================================================
     window.toggleCalculator = function (calcId, cardId) {
         const calc = document.getElementById(calcId);
         const card = document.getElementById(cardId);
+
         if (!calc) return;
 
-        const isHidden = window.getComputedStyle(calc).display === 'none';
+        const isHidden = getComputedStyle(calc).display === 'none';
 
         calc.style.display = isHidden ? 'block' : 'none';
-        if (card) card.classList.toggle('active', isHidden);
 
+        if (card) {
+            card.classList.toggle('active', isHidden);
+        }
+
+        // auto update po otvorení
         if (isHidden) {
-            if (calcId === 'calc-audit') window.updateAudit();
-            if (calcId === 'ref-inline-calc') window.updateRef();
-            if (calcId === 'invest-inline-calc') window.updateInvest();
-            if (calcId === 'calc-5-inflation') window.update5Inflation();
-            if (calcId === 'calc-6-wealth') window.update6Wealth();
+            updateAll();
         }
     };
 
     // ============================================================
-    // 2. HYPOTEKÁRNY AUDIT
+    // 3. HYPOTEKÁRNY AUDIT
     // ============================================================
     window.updateAudit = function () {
         const a = document.getElementById('rangeAmount');
         const y = document.getElementById('rangeYears');
         const r = document.getElementById('rangeAuditRate');
+
         if (!a || !y || !r) return;
 
         const amount = +a.value;
@@ -1961,86 +1941,83 @@ document.addEventListener('DOMContentLoaded', function () {
         setTxt('valAuditRate', rate.toFixed(2));
 
         const months = years * 12;
-        const mRate = rate / 100 / 12;
+        const m = rate / 100 / 12;
 
-        const monthly = mRate > 0
-            ? (amount * mRate) / (1 - Math.pow(1 + mRate, -months))
+        const monthly = m > 0
+            ? (amount * m) / (1 - Math.pow(1 + m, -months))
             : amount / months;
 
         const betterRate = Math.max(0.1, rate - 1);
-        const mBetter = betterRate / 100 / 12;
+        const m2 = betterRate / 100 / 12;
 
-        const betterMonthly = mBetter > 0
-            ? (amount * mBetter) / (1 - Math.pow(1 + mBetter, -months))
+        const better = m2 > 0
+            ? (amount * m2) / (1 - Math.pow(1 + m2, -months))
             : amount / months;
 
         setTxt('auditMonthlyPayment', Math.round(monthly).toLocaleString('sk-SK'));
         setTxt('auditTotalOverpayment', Math.round(monthly * months - amount).toLocaleString('sk-SK'));
-        setTxt('auditSave', Math.round((monthly - betterMonthly) * months).toLocaleString('sk-SK'));
+        setTxt('auditSave', Math.round((monthly - better) * months).toLocaleString('sk-SK'));
     };
 
     // ============================================================
-    // 3. REFINANC
+    // 4. REFINANCOVANIE
     // ============================================================
     window.updateRef = function () {
         const cp = document.getElementById('rangeCurrentPayment');
         const rr = document.getElementById('rangeRate');
         const d = document.getElementById('rangeDebt');
+
         if (!cp || !rr || !d) return;
 
-        const current = +cp.value;
+        const payment = +cp.value;
         const rate = +rr.value;
         const debt = +d.value;
 
-        setTxt('valCurrentPayment', current.toLocaleString('sk-SK'));
+        setTxt('valCurrentPayment', payment.toLocaleString('sk-SK'));
         setTxt('valRate', rate.toFixed(1));
         setTxt('valDebt', debt.toLocaleString('sk-SK'));
 
-        const targetRate = Math.max(1.0, rate - 1.2);
-        const mRate = targetRate / 100 / 12;
-
         const months = 240;
+        const newRate = Math.max(1, rate - 1.2) / 100 / 12;
 
-        const newPayment = mRate > 0
-            ? (debt * mRate) / (1 - Math.pow(1 + mRate, -months))
-            : debt / months;
+        const newPay = (debt * newRate) / (1 - Math.pow(1 + newRate, -months));
 
-        const savings = current - newPayment;
+        const save = payment - newPay;
 
-        setTxt('newPaymentVal', Math.round(newPayment).toLocaleString('sk-SK'));
-        setTxt('estimatedSavings', Math.max(0, Math.round(savings)).toLocaleString('sk-SK'));
+        setTxt('newPaymentVal', Math.round(newPay).toLocaleString('sk-SK'));
+        setTxt('estimatedSavings', Math.max(0, Math.round(save)).toLocaleString('sk-SK'));
     };
     // ============================================================
-    // 4. INVEST
+    // 5. INVESTOVANIE (FIX SLIDER BUG)
     // ============================================================
     window.updateInvest = function () {
-        const inv = document.getElementById('rangeInvest');
+        const m = document.getElementById('rangeInvest');
         const y = document.getElementById('rangeYearsInvest');
-        if (!inv || !y) return;
 
-        const monthly = +inv.value;
+        if (!m || !y) return;
+
+        const monthly = +m.value;
         const years = +y.value;
 
         setTxt('valInvest', monthly.toLocaleString('sk-SK'));
         setTxt('valYearsInvest', years);
 
-        const rate = 0.08 / 12;
+        const r = 0.08 / 12;
         const months = years * 12;
 
-        const future = monthly *
-            ((Math.pow(1 + rate, months) - 1) / rate) *
-            (1 + rate);
+        const fv = monthly * ((Math.pow(1 + r, months) - 1) / r) * (1 + r);
 
-        setTxt('investFuture', Math.round(future).toLocaleString('sk-SK'));
+        setTxt('investFuture', Math.round(fv).toLocaleString('sk-SK'));
         setTxt('investTotal', Math.round(monthly * months).toLocaleString('sk-SK'));
     };
 
     // ============================================================
-    // 5. INFLÁCIA
+    // 6. INFLÁCIA
     // ============================================================
     window.update5Inflation = function () {
         const a = document.getElementById('range5InfAmount');
         const r = document.getElementById('range5InfRate');
+
         if (!a || !r) return;
 
         const amt = +a.value;
@@ -2053,11 +2030,12 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     // ============================================================
-    // 6. MAJETOK
+    // 7. MAJETOK
     // ============================================================
     window.update6Wealth = function () {
         const b = document.getElementById('range6WealthBase');
         const m = document.getElementById('range6WealthMonthly');
+
         if (!b || !m) return;
 
         const base = +b.value;
@@ -2066,29 +2044,65 @@ document.addEventListener('DOMContentLoaded', function () {
         const r = 0.07 / 12;
         const n = 20 * 12;
 
-        const future =
+        const fv =
             base * Math.pow(1 + r, n) +
             monthly * ((Math.pow(1 + r, n) - 1) / r);
 
         setTxt('val6WealthBase', base.toLocaleString('sk-SK'));
         setTxt('val6WealthMonthly', monthly.toLocaleString('sk-SK'));
-        setTxt('wealth6ResultValue', Math.round(future).toLocaleString('sk-SK'));
+        setTxt('wealth6ResultValue', Math.round(fv).toLocaleString('sk-SK'));
     };
 
     // ============================================================
-    // INIT
+    // 8. LEAD SUBMIT (VŠETKY KARTY)
     // ============================================================
-    function init() {
-        document.querySelectorAll('input[type=range]').forEach(el => {
-            el.addEventListener('input', () => {
-                window.updateAudit();
-                window.updateRef();
-                window.updateInvest();
-                window.update5Inflation();
-                window.update6Wealth();
-            });
-        });
+    window.handleLeadSubmit = async function (e, type) {
+        e.preventDefault();
 
+        const btn = e.target;
+
+        const map = {
+            Audit: ['calcEmail', 'calcPhone'],
+            Refinancovanie: ['refEmail', 'refPhone'],
+            Investovanie: ['investEmail', 'investPhone'],
+            Inflacia: ['inf5Email', 'inf5Phone'],
+            Majetok: ['wealth6Email', 'wealth6Phone']
+        };
+
+        const ids = map[type];
+        if (!ids) return;
+
+        const email = document.getElementById(ids[0])?.value;
+        const phone = document.getElementById(ids[1])?.value;
+
+        if (!email || !phone) return alert("Vyplň údaje");
+
+        try {
+            btn.innerText = "ODOSIELAM...";
+            btn.disabled = true;
+
+            await fetch("https://formspree.io/f/xeepvqqy", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ type, email, phone })
+            });
+
+            alert("Odoslané!");
+            document.getElementById(ids[0]).value = "";
+            document.getElementById(ids[1]).value = "";
+
+        } catch (e) {
+            alert("Chyba");
+        } finally {
+            btn.innerText = "Odoslať";
+            btn.disabled = false;
+        }
+    };
+
+    // ============================================================
+    // 9. INIT
+    // ============================================================
+    function updateAll() {
         window.updateAudit();
         window.updateRef();
         window.updateInvest();
@@ -2096,7 +2110,12 @@ document.addEventListener('DOMContentLoaded', function () {
         window.update6Wealth();
     }
 
-    init();
+    document.querySelectorAll('input[type=range]').forEach(i => {
+        i.addEventListener('input', updateAll);
+    });
+
+    updateAll();
+
 });
 </script>
     

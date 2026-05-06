@@ -1101,22 +1101,23 @@ input[type=range]::-webkit-slider-thumb:hover {
         
     <!-- KARTA 1: HYPOTEKÁRNY AUDIT -->
 <div class="card" id="card-audit">
-    <!-- Horný obrázok -->
-    <div class="card-icon" onclick="openModal()" style="cursor: pointer;">
+    <!-- IKONA: Identická štruktúra ako K2 -->
+    <div class="card-icon" onclick="openModal()" style="cursor: pointer;" title="Kliknite pre kalkulačku">
         <img src="House.png" alt="Hypotekárny audit">
     </div>
     
-    <!-- Obsah pod obrázkom -->
     <h3>Hypotekárny Audit</h3>
         
+    <!-- Popis -->
     <p id="audit-desc" class="card-description">
         Detailná analýza trhu a preverenie vašich možností. Zistíme, v ktorej banke získate najnižší úrok a najlepšie podmienky pre váš nový domov.
     </p>
 
-    <!-- Kalkulačka (Zladená so vzorom C2) -->
-    <div id="inline-calc" class="inline-calculator" style="display: none; padding: 0 20px 20px 20px;">
-        <h4 style="text-align: center; font-size: 0.85rem; color: #64748b; margin-top: 10px;">POROVNANIE HYPOTÉK</h4>
+    <!-- Kalkulačka: Identická štruktúra ako K2 -->
+    <div id="inline-calc" class="inline-calculator" style="display: none;">
+        <h4>POROVNANIE HYPOTÉK</h4>
         
+        <!-- Riadok 1 -->
         <div class="calc-row">
             <span>Výška hypotéky</span>
             <div class="range-wrapper">
@@ -1125,6 +1126,7 @@ input[type=range]::-webkit-slider-thumb:hover {
             </div>
         </div>
 
+        <!-- Riadok 2 -->
         <div class="calc-row">
             <span>Doba splácania</span>
             <div class="range-wrapper">
@@ -1133,28 +1135,44 @@ input[type=range]::-webkit-slider-thumb:hover {
             </div>
         </div>
 
-        <!-- MAGNET BOX (Musí byť rovnaký ako v C2) -->
+        <!-- Riadok 3: Pridaný pre symetriu s Kartou 2 -->
+        <div class="calc-row">
+            <span>Očakávaný úrok (%)</span>
+            <div class="range-wrapper">
+                <input type="range" id="rangeAuditRate" min="0.5" max="8.0" step="0.1" value="4.09" oninput="updateAuditValues()">
+                <div class="input-mimic"><span id="valAuditRate">4.09</span> %</div>
+            </div>
+        </div>
+
+        <!-- BOX S VÝSLEDKAMI: Identické štýly s K2 -->
         <div class="calc-result-box" style="text-align: center; margin: 15px 0; background: rgba(179, 142, 68, 0.05); padding: 15px; border-radius: 10px; border: 1px solid rgba(179, 142, 68, 0.1);">
+            
             <p style="text-transform: uppercase; font-size: 0.65rem; font-weight: 700; color: #64748b; margin-bottom: 2px;">Odhadovaná mesačná splátka</p>
             <div style="font-size: 1.6rem; font-weight: 800; color: #0F172A; margin-bottom: 8px;">
                 <span id="auditMonthlyPayment">485</span> €
             </div>
+
             <div style="height: 1px; background: #B38E44; opacity: 0.2; width: 50%; margin: 0 auto 8px auto;"></div>
+
             <p style="text-transform: uppercase; font-size: 0.7rem; font-weight: 700; color: #B38E44; margin-bottom: 2px;">Aktuálna sadzba od</p>
             <div style="font-size: 2.1rem; font-weight: 800; color: #B38E44;">
                 4.09 <span style="font-size: 1.2rem;">%</span>
             </div>
         </div>
 
-        <!-- KONTAKT -->
+        <!-- KONTAKTNÉ POLIA -->
         <div class="calc-contact">
-            <label class="checkbox-label" style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+            <label class="checkbox-label" style="display: flex; align-items: center; gap: 10px; cursor: pointer; margin-bottom: 12px; text-align: left;">
                 <input type="checkbox" id="auditAgree" checked style="width: 18px; height: 18px; accent-color: #B38E44;"> 
                 <span style="font-size: 0.85rem; font-weight: 600; color: #0F172A;">Chcem nezáväzné porovnanie</span>
             </label>
+            
             <input type="email" id="calcEmail" placeholder="Váš E-mail" style="width: 100%; padding: 10px; margin-bottom: 8px; border-radius: 6px; border: 1px solid #ddd;">
-            <input type="tel" id="calcPhone" placeholder="09xx xxx xxx" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 6px; border: 1px solid #ddd;">
-            <button class="btn-gold-action" onclick="handleCalcClick(event)" style="width: 100%; text-transform: uppercase; font-weight: 700;">Získať porovnanie</button>
+            <input type="tel" id="calcPhone" placeholder="Váš Telefón" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 6px; border: 1px solid #ddd;">
+
+            <button class="btn-gold-action" onclick="handleCalcClick(event)" style="width: 100%; text-transform: uppercase;">
+                Získať najlepšiu ponuku
+            </button>
         </div>
     </div>
 </div>

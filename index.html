@@ -1198,7 +1198,15 @@ input[type=range]::-webkit-slider-thumb:hover {
                 <div class="input-mimic"><span id="valCurrentPayment">500</span> €</div>
             </div>
         </div>
-
+              
+                   <!-- Súčasný úrok -->
+        <div class="calc-row">
+            <span>Súčasný úrok (%)</span>
+            <div class="range-wrapper">
+                <input type="range" id="rangeRate" min="0.5" max="8.0" step="0.1" value="4.5" oninput="updateRefinanceValues()">
+                <div class="input-mimic"><span id="valRate">4.5</span> %</div>
+            </div>
+        </div>
         <div class="calc-row">
             <span>Zostatok úveru</span>
             <div class="range-wrapper">

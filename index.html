@@ -1913,160 +1913,190 @@ input[type=range]::-webkit-slider-thumb:hover {
 <script>
 document.addEventListener('DOMContentLoaded', function () {
 
-    // ==============================
-    // SAFE TEXT
-    // ==============================
+    // ============================================================
+    // 0. HELPERS
+    // ============================================================
     const setTxt = (id, val) => {
         const el = document.getElementById(id);
         if (el) el.innerText = val;
     };
 
-    // ==============================
-    // TOGGLE SYSTEM
-    // ==============================
-    window.toggleCalculator = function(calcId, cardId) {
+    // ============================================================
+    // 1. TOGGLE KALKULAČIEK
+    // ============================================================
+    window.toggleCalculator = function (calcId, cardId) {
         const calc = document.getElementById(calcId);
         const card = document.getElementById(cardId);
-
         if (!calc) return;
 
-        const isHidden = getComputedStyle(calc).display === "none";
-        calc.style.display = isHidden ? "block" : "none";
+        const isHidden = window.getComputedStyle(calc).display === 'none';
 
-        if (card) {
-            isHidden ? card.classList.add("active") : card.classList.remove("active");
-        }
+        calc.style.display = isHidden ? 'block' : 'none';
+        if (card) card.classList.toggle('active', isHidden);
 
         if (isHidden) {
-            if (calcId === "calc-audit") updateAudit();
-            if (calcId === "ref-inline-calc") updateRef();
-            if (calcId === "invest-inline-calc") updateInvest();
-            if (calcId === "calc-5-inflation") update5Inflation();
-            if (calcId === "calc-6-wealth") update6Wealth();
+            if (calcId === 'calc-audit') window.updateAudit();
+            if (calcId === 'ref-inline-calc') window.updateRef();
+            if (calcId === 'invest-inline-calc') window.updateInvest();
+            if (calcId === 'calc-5-inflation') window.update5Inflation();
+            if (calcId === 'calc-6-wealth') window.update6Wealth();
         }
     };
 
-    // ==============================
-    // AUDIT
-    // ==============================
+    // ============================================================
+    // 2. HYPOTEKÁRNY AUDIT
+    // ============================================================
     window.updateAudit = function () {
-        const a = document.getElementById("rangeAmount");
-        const y = document.getElementById("rangeYears");
-        const r = document.getElementById("rangeAuditRate");
+        const a = document.getElementById('rangeAmount');
+        const y = document.getElementById('rangeYears');
+        const r = document.getElementById('rangeAuditRate');
         if (!a || !y || !r) return;
 
         const amount = +a.value;
         const years = +y.value;
         const rate = +r.value;
 
-        setTxt("valAmount", amount.toLocaleString("sk-SK"));
-        setTxt("valYears", years);
-        setTxt("valAuditRate", rate.toFixed(2));
+        setTxt('valAmount', amount.toLocaleString('sk-SK'));
+        setTxt('valYears', years);
+        setTxt('valAuditRate', rate.toFixed(2));
 
         const months = years * 12;
         const mRate = rate / 100 / 12;
 
-        const monthly = (amount * mRate) / (1 - Math.pow(1 + mRate, -months));
+        const monthly = mRate > 0
+            ? (amount * mRate) / (1 - Math.pow(1 + mRate, -months))
+            : amount / months;
 
-        setTxt("auditMonthlyPayment", Math.round(monthly).toLocaleString("sk-SK"));
-        setTxt("auditTotalOverpayment", Math.round(monthly * months - amount).toLocaleString("sk-SK"));
+        const betterRate = Math.max(0.1, rate - 1);
+        const mBetter = betterRate / 100 / 12;
+
+        const betterMonthly = mBetter > 0
+            ? (amount * mBetter) / (1 - Math.pow(1 + mBetter, -months))
+            : amount / months;
+
+        setTxt('auditMonthlyPayment', Math.round(monthly).toLocaleString('sk-SK'));
+        setTxt('auditTotalOverpayment', Math.round(monthly * months - amount).toLocaleString('sk-SK'));
+        setTxt('auditSave', Math.round((monthly - betterMonthly) * months).toLocaleString('sk-SK'));
     };
 
-    // ==============================
-    // REFINANCE
-    // ==============================
+    // ============================================================
+    // 3. REFINANC
+    // ============================================================
     window.updateRef = function () {
-        const p = +document.getElementById("rangeCurrentPayment")?.value || 0;
-        const r = +document.getElementById("rangeRate")?.value || 0;
-        const d = +document.getElementById("rangeDebt")?.value || 0;
+        const cp = document.getElementById('rangeCurrentPayment');
+        const rr = document.getElementById('rangeRate');
+        const d = document.getElementById('rangeDebt');
+        if (!cp || !rr || !d) return;
 
-        setTxt("valCurrentPayment", p.toLocaleString("sk-SK"));
-        setTxt("valRate", r.toFixed(1));
-        setTxt("valDebt", d.toLocaleString("sk-SK"));
+        const current = +cp.value;
+        const rate = +rr.value;
+        const debt = +d.value;
+
+        setTxt('valCurrentPayment', current.toLocaleString('sk-SK'));
+        setTxt('valRate', rate.toFixed(1));
+        setTxt('valDebt', debt.toLocaleString('sk-SK'));
+
+        const targetRate = Math.max(1.0, rate - 1.2);
+        const mRate = targetRate / 100 / 12;
 
         const months = 240;
-        const nr = Math.max(r - 1.2, 1) / 100 / 12;
 
-        const newP = (d * nr) / (1 - Math.pow(1 + nr, -months));
+        const newPayment = mRate > 0
+            ? (debt * mRate) / (1 - Math.pow(1 + mRate, -months))
+            : debt / months;
 
-        setTxt("newPaymentVal", Math.round(newP).toLocaleString("sk-SK"));
-        setTxt("estimatedSavings", Math.round(p - newP).toLocaleString("sk-SK"));
+        const savings = current - newPayment;
+
+        setTxt('newPaymentVal', Math.round(newPayment).toLocaleString('sk-SK'));
+        setTxt('estimatedSavings', Math.max(0, Math.round(savings)).toLocaleString('sk-SK'));
     };
-    // ==============================
-    // INVEST
-    // ==============================
+    // ============================================================
+    // 4. INVEST
+    // ============================================================
     window.updateInvest = function () {
-        const m = +document.getElementById("rangeInvest")?.value || 0;
-        const y = +document.getElementById("rangeYearsInvest")?.value || 0;
+        const inv = document.getElementById('rangeInvest');
+        const y = document.getElementById('rangeYearsInvest');
+        if (!inv || !y) return;
 
-        setTxt("valInvest", m);
-        setTxt("valYearsInvest", y);
+        const monthly = +inv.value;
+        const years = +y.value;
 
-        const months = y * 12;
-        const r = 0.08 / 12;
+        setTxt('valInvest', monthly.toLocaleString('sk-SK'));
+        setTxt('valYearsInvest', years);
 
-        let total = 0;
-        for (let i = 0; i < months; i++) {
-            total = (total + m) * (1 + r);
-        }
+        const rate = 0.08 / 12;
+        const months = years * 12;
 
-        setTxt("investFuture", Math.round(total).toLocaleString("sk-SK"));
-        setTxt("investTotal", (m * months).toLocaleString("sk-SK"));
+        const future = monthly *
+            ((Math.pow(1 + rate, months) - 1) / rate) *
+            (1 + rate);
+
+        setTxt('investFuture', Math.round(future).toLocaleString('sk-SK'));
+        setTxt('investTotal', Math.round(monthly * months).toLocaleString('sk-SK'));
     };
 
-    // ==============================
-    // INFLATION
-    // ==============================
+    // ============================================================
+    // 5. INFLÁCIA
+    // ============================================================
     window.update5Inflation = function () {
-        const a = +document.getElementById("range5InfAmount")?.value || 0;
-        const r = +document.getElementById("range5InfRate")?.value || 0;
+        const a = document.getElementById('range5InfAmount');
+        const r = document.getElementById('range5InfRate');
+        if (!a || !r) return;
 
-        setTxt("val5InfAmount", a.toLocaleString("sk-SK"));
-        setTxt("val5InfRate", r);
+        const amt = +a.value;
+        const rate = +r.value;
 
-        setTxt("inf5LossValue", Math.round(a * r / 100).toLocaleString("sk-SK"));
+        setTxt('val5InfAmount', amt.toLocaleString('sk-SK'));
+        setTxt('val5InfRate', rate.toFixed(1));
+
+        setTxt('inf5LossValue', Math.round(amt * rate / 100).toLocaleString('sk-SK'));
     };
 
-    // ==============================
-    // WEALTH
-    // ==============================
+    // ============================================================
+    // 6. MAJETOK
+    // ============================================================
     window.update6Wealth = function () {
-        const b = +document.getElementById("range6WealthBase")?.value || 0;
-        const m = +document.getElementById("range6WealthMonthly")?.value || 0;
+        const b = document.getElementById('range6WealthBase');
+        const m = document.getElementById('range6WealthMonthly');
+        if (!b || !m) return;
 
-        setTxt("val6WealthBase", b.toLocaleString("sk-SK"));
-        setTxt("val6WealthMonthly", m);
+        const base = +b.value;
+        const monthly = +m.value;
 
-        const n = 20 * 12;
         const r = 0.07 / 12;
+        const n = 20 * 12;
 
-        let total = b;
-        for (let i = 0; i < n; i++) {
-            total = (total + m) * (1 + r);
-        }
+        const future =
+            base * Math.pow(1 + r, n) +
+            monthly * ((Math.pow(1 + r, n) - 1) / r);
 
-        setTxt("wealth6ResultValue", Math.round(total).toLocaleString("sk-SK"));
+        setTxt('val6WealthBase', base.toLocaleString('sk-SK'));
+        setTxt('val6WealthMonthly', monthly.toLocaleString('sk-SK'));
+        setTxt('wealth6ResultValue', Math.round(future).toLocaleString('sk-SK'));
     };
 
-    // ==============================
+    // ============================================================
     // INIT
-    // ==============================
-    window.updateAudit();
-    window.updateRef();
-    window.updateInvest();
-    window.update5Inflation();
-    window.update6Wealth();
-
-    document.querySelectorAll('input[type=range]').forEach(i => {
-        i.addEventListener('input', () => {
-            updateAudit();
-            updateRef();
-            updateInvest();
-            update5Inflation();
-            update6Wealth();
+    // ============================================================
+    function init() {
+        document.querySelectorAll('input[type=range]').forEach(el => {
+            el.addEventListener('input', () => {
+                window.updateAudit();
+                window.updateRef();
+                window.updateInvest();
+                window.update5Inflation();
+                window.update6Wealth();
+            });
         });
-    });
 
+        window.updateAudit();
+        window.updateRef();
+        window.updateInvest();
+        window.update5Inflation();
+        window.update6Wealth();
+    }
+
+    init();
 });
 </script>
     

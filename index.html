@@ -1640,10 +1640,9 @@ input[type=range]::-webkit-slider-thumb:hover {
     <p class="copyright">Všetky práva vyhradené &copy; 2026 | Matúš Bača</p>
 </footer>
 <script>
-// Spustíme skript až po úplnom načítaní DOM
 document.addEventListener('DOMContentLoaded', function() {
 
-    // --- 1. MOBILNÉ MENU (Hamburger) ---
+    // --- 1. MOBILNÉ MENU ---
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('nav-links');
 
@@ -1654,10 +1653,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- 1. OTVÁRANIE A ZATVÁRANIE BOXOV (TOGGLE LOGIKA) ---
-    function toggleCalculator(calc, card) {
+    // --- 2. OTVÁRANIE A ZATVÁRANIE KALKULAČIEK ---
+    // Táto funkcia zabezpečí, že po kliknutí sa kalkulačka ukáže/skryje
+    window.toggleCalculator = function(calcId, cardId) {
+        const calc = document.getElementById(calcId);
+        const card = document.getElementById(cardId);
         if (!calc) return;
-        
+
         if (calc.style.display === "block") {
             calc.style.display = "none";
             if (card) card.classList.remove('active');
@@ -1669,87 +1671,102 @@ document.addEventListener('DOMContentLoaded', function() {
                 calc.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }, 100);
         }
-    }
+    };
 
-    function openModal() {
-        toggleCalculator(document.getElementById('inline-calc'), document.getElementById('card-audit'));
-    }
-
-    function openRefModal() {
-        toggleCalculator(document.getElementById('ref-inline-calc'), document.getElementById('card-refinance'));
-    }
-
-    function openAdminModal() {
-        toggleCalculator(document.getElementById('admin-inline-calc'), document.getElementById('card-admin'));
-    }
-
-    // --- 2. LOGIKA SLIDEROV A VÝPOČTOV ---
-    function setupSliders() {
+    // --- 3. LOGIKA VÝPOČTOV ---
+    window.setupSliders = function() {
         // --- Audit (Karta 1) ---
         const rangeAmount = document.getElementById('rangeAmount');
         const rangeYears = document.getElementById('rangeYears');
-        const valAmount = document.getElementById('valAmount');
-        const valYears = document.getElementById('valYears');
+        const rangeRateAudit = document.getElementById('rangeAuditRate'); // Pridané pre Audit úrok
 
-        if (rangeAmount && valAmount) {
-            rangeAmount.addEventListener('input', () => {
-                valAmount.innerText = parseInt(rangeAmount.value).toLocaleString('sk-SK');
-            });
-        }
-        if (rangeYears && valYears) {
-            rangeYears.addEventListener('input', () => {
-                valYears.innerText = rangeYears.value;
-            });
-        }
+        const updateAudit = () => {
+            if (!rangeAmount || !rangeYears || !rangeRateAudit) return;
+            
+            const a = parseFloat(rangeAmount.value);
+            const y = parseFloat(rangeYears.value);
+            const r = parseFloat(rangeRateAudit.value);
 
-        // --- Refinanc (Karta 2) - DOPLNENÝ ÚROK ---
+            document.getElementById('valAmount').innerText = a.toLocaleString('sk-SK');
+            document.getElementById('valYears').innerText = y;
+            document.getElementById('valAuditRate').innerText = r.toFixed(2);
+
+            const months = y * 12;
+            const mRate = (r / 100) / 12;
+
+            let monthly = mRate > 0 ? (a * mRate) / (1 - Math.pow(1 + mRate, -months)) : a / months;
+            const overpayment = (monthly * months) - a;
+
+            // Úspora pri -1%
+            const betterRate = Math.max(0.1, r - 1);
+            const mBetterRate = (betterRate / 100) / 12;
+            const betterMonthly = (a * mBetterRate) / (1 - Math.pow(1 + mBetterRate, -months));
+            const savingPotential = (monthly - betterMonthly) * months;
+
+            document.getElementById('auditMonthlyPayment').innerText = Math.round(monthly).toLocaleString('sk-SK');
+            document.getElementById('auditTotalOverpayment').innerText = Math.round(overpayment).toLocaleString('sk-SK');
+            document.getElementById('auditSave').innerText = Math.round(savingPotential).toLocaleString('sk-SK');
+        };
+
+        // --- Refinanc (Karta 2) ---
         const rangeCurrentPayment = document.getElementById('rangeCurrentPayment');
-        const rangeRate = document.getElementById('rangeRate'); // Pridaný úrok
+        const rangeRateRef = document.getElementById('rangeRate'); 
         const rangeDebt = document.getElementById('rangeDebt');
+
+        const updateRef = () => {
+            if (!rangeCurrentPayment || !rangeRateRef || !rangeDebt) return;
+
+            const currentPay = parseFloat(rangeCurrentPayment.value);
+            const currentR = parseFloat(rangeRateRef.value);
+            const debt = parseFloat(rangeDebt.value);
+
+            document.getElementById('valCurrentPayment').innerText = currentPay.toLocaleString('sk-SK');
+            document.getElementById('valRate').innerText = currentR.toFixed(1);
+            document.getElementById('valDebt').innerText = debt.toLocaleString('sk-SK');
+            
+            // Nový úrok (simulácia -1.5%)
+            const potentialRate = Math.max(1.0, currentR - 1.5);
+            const mRate = (potentialRate / 100) / 12;
+            const months = 300; // Fixný odhad na 25 rokov
+
+            const newPayment = (debt * mRate) / (1 - Math.pow(1 + mRate, -months));
+            const monthlySaving = currentPay - newPayment;
+
+            document.getElementById('newPaymentVal').innerText = Math.round(newPayment).toLocaleString('sk-SK');
+            document.getElementById('estimatedSavings').innerText = Math.round(monthlySaving).toLocaleString('sk-SK');
+        };
+
+        // Event Listenery
+        if (rangeAmount) [rangeAmount, rangeYears, rangeRateAudit].forEach(el => el?.addEventListener('input', updateAudit));
+        if (rangeCurrentPayment) [rangeCurrentPayment, rangeRateRef, rangeDebt].forEach(el => el?.addEventListener('input', updateRef));
+
+        updateAudit();
+        updateRef();
+    };
+
+    // --- 4. ODOSIELANIE DÁT (FORMSPREE) ---
+    window.handleLeadSubmit = async function(e, type) {
+        e.preventDefault();
+        const btn = e.target;
+        const originalText = btn.innerText;
         
-        const valCurrentPayment = document.getElementById('valCurrentPayment');
-        const valRate = document.getElementById('valRate'); // Text pre úrok
-        const valDebt = document.getElementById('valDebt');
-        const estimatedSavings = document.getElementById('estimatedSavings');
-        const newPaymentVal = document.getElementById('newPaymentVal'); // Box s novou splátkou
+        let data = { sluzba: type };
+        let email, phone;
 
-        if (rangeCurrentPayment && rangeDebt && rangeRate) {
-            const updateRef = () => {
-                // Aktualizácia textov
-                valCurrentPayment.innerText = Number(rangeCurrentPayment.value).toLocaleString('sk-SK');
-                valRate.innerText = parseFloat(rangeRate.value).toFixed(1);
-                valDebt.innerText = Number(rangeDebt.value).toLocaleString('sk-SK');
-                
-                // VÝPOČET ÚSPORY (Logika: ak vieme znížiť úrok o 1.5% oproti súčasnému)
-                const currentPay = parseFloat(rangeCurrentPayment.value);
-                const debt = parseFloat(rangeDebt.value);
-                const currentR = parseFloat(rangeRate.value);
-                
-                // Simulujeme nový úrok (minimálne 1.0%)
-                const potentialRate = Math.max(1.0, currentR - 1.5);
-                const monthlyRate = (potentialRate / 100) / 12;
-                const months = 300; // Počítame s fixom na 25 rokov pre odhad
-
-                const calculatedNewPayment = (debt * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -months));
-                const saving = currentPay - calculatedNewPayment;
-
-                // Zobrazenie výsledkov
-                if (newPaymentVal) newPaymentVal.innerText = Math.round(calculatedNewPayment).toLocaleString('sk-SK');
-                if (estimatedSavings) estimatedSavings.innerText = Math.round(saving).toLocaleString('sk-SK');
-            };
-
-            rangeCurrentPayment.addEventListener('input', updateRef);
-            rangeRate.addEventListener('input', updateRef);
-            rangeDebt.addEventListener('input', updateRef);
-            updateRef(); // Inicializácia
+        if (type === "Hypotekárny Audit") {
+            email = document.getElementById('calcEmail').value;
+            phone = document.getElementById('calcPhone').value;
+            data = { ...data, email, phone, suma: document.getElementById('valAmount').innerText, urok: document.getElementById('valAuditRate').innerText };
+        } else {
+            email = document.getElementById('refEmail').value;
+            phone = document.getElementById('refPhone').value;
+            data = { ...data, email, phone, dlh: document.getElementById('valDebt').innerText, uspora: document.getElementById('estimatedSavings').innerText };
         }
-    }
 
-    // --- 3. SPOLOČNÁ FUNKCIA NA ODOSIELANIE ---
-    async function sendData(data, button, successCallback) {
-        const originalText = button.innerText;
-        button.innerText = "ODOSIELAM...";
-        button.disabled = true;
+        if (!email || !phone) return alert("Prosím, vyplňte kontaktné údaje.");
+
+        btn.innerText = "ODOSIELAM...";
+        btn.disabled = true;
 
         try {
             const response = await fetch("https://formspree.io/f/xeepvqqy", {
@@ -1759,77 +1776,30 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             if (response.ok) {
-                alert("Odoslané! Čoskoro sa vám ozveme.");
-                successCallback();
+                alert("Ďakujeme! Čoskoro vás budeme kontaktovať.");
+                btn.closest('div').parentElement.style.display = "none"; // Zavrieť kalkulačku
             } else {
-                alert("Chyba pri odosielaní. Skúste to neskôr.");
+                alert("Chyba pri odosielaní.");
             }
         } catch (err) {
             alert("Chyba spojenia.");
         } finally {
-            button.innerText = originalText;
-            button.disabled = false;
+            btn.innerText = originalText;
+            btn.disabled = false;
         }
-    }
+    };
 
-    // --- 4. HANDLERY ---
-    function handleCalcClick(e) {
-        e.preventDefault();
-        const email = document.getElementById('calcEmail').value;
-        const phone = document.getElementById('calcPhone').value;
-        if (!email || !phone) return alert("Vyplňte údaje.");
-
-        sendData({
-            email: email,
-            telefon: phone,
-            suma: document.getElementById('valAmount').innerText + " €",
-            doba: document.getElementById('valYears').innerText + " rokov",
-            sluzba: "Hypotekárny Audit"
-        }, e.target, () => {
-            document.getElementById('calcEmail').value = "";
-            document.getElementById('calcPhone').value = "";
-            openModal(); 
-        });
-    }
-
-    function handleRefinanceClick(e) {
-        e.preventDefault();
-        const consent = document.getElementById('refAgree');
-        if (consent && !consent.checked) return alert("Prosím, zaškrtnite súhlas.");
-
-        const email = document.getElementById('refEmail').value;
-        const phone = document.getElementById('refPhone').value;
-        if (!email || !phone) return alert("Vyplňte údaje.");
-
-        sendData({
-            email: email,
-            telefon: phone,
-            súčasný_úrok: document.getElementById('valRate').innerText + " %",
-            úspora: document.getElementById('estimatedSavings').innerText + " €/mesiac",
-            dlh: document.getElementById('valDebt').innerText + " €",
-            sluzba: "Refinancovanie"
-        }, e.target, () => {
-            document.getElementById('refEmail').value = "";
-            document.getElementById('refPhone').value = "";
-            openRefModal();
-        });
-    }
-
-    // --- 5. INICIALIZÁCIA ---
+    // --- 5. ANIMÁCIE A ŠTART ---
     function reveal() {
-        const reveals = document.querySelectorAll(".reveal");
-        reveals.forEach(el => {
-            let windowHeight = window.innerHeight;
-            let elementTop = el.getBoundingClientRect().top;
-            if (elementTop < windowHeight - 150) el.classList.add("active");
+        document.querySelectorAll(".reveal").forEach(el => {
+            if (el.getBoundingClientRect().top < window.innerHeight - 150) el.classList.add("active");
         });
     }
 
     window.addEventListener("scroll", reveal);
-    window.addEventListener("load", () => {
-        setupSliders();
-        reveal();
-    });
+    setupSliders();
+    reveal();
+});
 </script>
     
 <!-- WHATSAPP FLOAT (Fixná poloha na webe) -->

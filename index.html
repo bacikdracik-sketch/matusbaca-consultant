@@ -1127,7 +1127,7 @@ input[type=range]::-webkit-slider-thumb:hover {
             <div class="calc-row">
                 <span style="font-size:0.85rem;">Výška hypotéky</span>
                 <div class="range-wrapper">
-                    <input type="range" id="rangeAmount" min="10000" max="500000" step="5000" value="120000" oninput="updateAuditValues()">
+                    <input type="range" id="rangeAmount" min="10000" max="500000" step="5000" value="120000" oninput="updateAudit()">
                     <div class="input-mimic"><span id="valAmount" style="font-weight:700;">120 000</span> €</div>
                 </div>
             </div>
@@ -1136,7 +1136,7 @@ input[type=range]::-webkit-slider-thumb:hover {
             <div class="calc-row">
                 <span style="font-size:0.85rem;">Doba splácania</span>
                 <div class="range-wrapper">
-                    <input type="range" id="rangeYears" min="5" max="40" step="1" value="30" oninput="updateAuditValues()">
+                    <input type="range" id="rangeYears" min="5" max="40" step="1" value="30" oninput="updateAudit()">
                     <div class="input-mimic"><span id="valYears" style="font-weight:700;">30</span> r.</div>
                 </div>
             </div>
@@ -1145,7 +1145,7 @@ input[type=range]::-webkit-slider-thumb:hover {
             <div class="calc-row">
                 <span style="font-size:0.85rem;">Úroková sadzba (%)</span>
                 <div class="range-wrapper">
-                    <input type="range" id="rangeAuditRate" min="0.5" max="8.0" step="0.1" value="4.09" oninput="updateAuditValues()">
+                    <input type="range" id="rangeAuditRate" min="0.5" max="8.0" step="0.1" value="4.09" oninput="updateAudit()">
                     <div class="input-mimic"><span id="valAuditRate" style="font-weight:700;">4.09</span> %</div>
                 </div>
             </div>
@@ -1199,9 +1199,9 @@ input[type=range]::-webkit-slider-thumb:hover {
                 <input type="tel" id="calcPhone" placeholder="Váš Telefón" style="width:100%; padding:10px; margin-bottom:12px; border-radius:6px; border:1px solid #ddd;">
 
                 <!-- 🔥 CTA BUTTON -->
-                <button class="btn-gold-action" onclick="handleCalcClick(event)" style="width:100%; font-weight:700; padding:12px; font-size:1rem;">
-                    Skontrolujte moju hypotéku
-                </button>
+                <button class="btn-gold-action" onclick="handleLeadSubmit(event, 'Audit')" style="width:100%; font-weight:700; padding:12px; font-size:1rem;">
+    Skontrolujte moju hypotéku
+</button>
            </div>
         </div>
      </div>
@@ -1238,7 +1238,7 @@ input[type=range]::-webkit-slider-thumb:hover {
                     <span style="font-size:0.85rem; font-weight: 600;">Súčasná splátka</span>
                     <div class="input-mimic"><span id="valCurrentPayment" style="font-weight:700;">600</span> €</div>
                 </div>
-                <input type="range" id="rangeCurrentPayment" min="200" max="1500" step="10" value="600" style="width: 100%;">
+                <input type="range" id="rangeCurrentPayment" min="200" max="1500" step="10" value="600" style="width: 100%;" oninput="updateRef()">
             </div>
 
             <!-- INPUT 2: Úroková sadzba -->
@@ -1247,7 +1247,7 @@ input[type=range]::-webkit-slider-thumb:hover {
                     <span style="font-size:0.85rem; font-weight: 600;">Váš úrok (%)</span>
                     <div class="input-mimic"><span id="valRate" style="font-weight:700;">4.5</span> %</div>
                 </div>
-                <input type="range" id="rangeRate" min="1" max="8" step="0.1" value="4.5" style="width: 100%;">
+                <input type="range" id="rangeRate" min="1" max="8" step="0.1" value="4.5" style="width: 100%;" oninput="updateRef()">
             </div>
 
             <!-- INPUT 3: Zostatok -->
@@ -1256,7 +1256,7 @@ input[type=range]::-webkit-slider-thumb:hover {
                     <span style="font-size:0.85rem; font-weight: 600;">Zostatok hypotéky</span>
                     <div class="input-mimic"><span id="valDebt" style="font-weight:700;">120 000</span> €</div>
                 </div>
-                <input type="range" id="rangeDebt" min="20000" max="300000" step="5000" value="120000" style="width: 100%;">
+                <input type="range" id="rangeDebt" min="20000" max="300000" step="5000" value="120000" style="width: 100%;" oninput="updateRef()">
             </div>
 
             <!-- VÝSLEDOK (Zelený box úspory) -->
@@ -1437,7 +1437,7 @@ input[type=range]::-webkit-slider-thumb:hover {
 <div class="card" id="card-5-inflation">
 
     <!-- IKONA (Kliknutím sa otvorí/zatvorí kalkulačka) -->
-    <div class="card-icon" onclick="toggleCalculator('calc-5-inflation')" style="cursor:pointer;">
+    <div class="card-icon" onclick="toggleCalculator('calc-5-inflation', 'card-5-inflation')" style="cursor:pointer;">
         <img src="Inflation.png" alt="Inflácia">
     </div>
 
@@ -1494,7 +1494,7 @@ input[type=range]::-webkit-slider-thumb:hover {
 <div class="card" id="card-6-wealth">
 
     <!-- IKONA -->
-    <div class="card-icon" onclick="toggleCalculator('calc-6-wealth')" style="cursor:pointer;">
+    <div class="card-icon" onclick="toggleCalculator('calc-6-wealth', 'card-6-wealth')" style="cursor:pointer;">
         <img src="Wealth.png" alt="Majetok pre deti">
     </div>
 

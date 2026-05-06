@@ -1735,104 +1735,80 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
-    // --- 4. LOGIKA VÝPOČTOV (SLIDERY) ---
-    window.setupSliders = function() {
+    // --- 4. LOGIKA VÝPOČTOV ---
+    
+    // A: HYPOTEKÁRNY AUDIT
+    window.updateAudit = function() {
+        const rAmount = document.getElementById('rangeAmount');
+        const rYears = document.getElementById('rangeYears');
+        const rRateA = document.getElementById('rangeAuditRate');
+        if (!rAmount || !rYears || !rRateA) return;
+
+        const a = parseFloat(rAmount.value), y = parseFloat(rYears.value), r = parseFloat(rRateA.value);
+        setTxt('valAmount', a.toLocaleString('sk-SK'));
+        setTxt('valYears', y);
+        setTxt('valAuditRate', r.toFixed(1));
+
+        const months = y * 12;
+        const mRate = (r / 100) / 12;
         
-        // --- 4. LOGIKA VÝPOČTOV (SLIDERY) ---
-    window.setupSliders = function() {
+        let monthly = mRate > 0 ? (a * mRate) / (1 - Math.pow(1 + mRate, -months)) : a / months;
         
-        // Pomocná funkcia pre texty (definovaná lokálne pre istotu)
-        const setTxt = (id, txt) => { 
-            const el = document.getElementById(id); 
-            if(el) el.innerText = txt; 
-        };
+        const bRateVal = Math.max(0.1, r - 1);
+        const mBetterRate = (bRateVal / 100) / 12;
+        const betterMonthly = mBetterRate > 0 ? (a * mBetterRate) / (1 - Math.pow(1 + mBetterRate, -months)) : a / months;
 
-        // A: HYPOTEKÁRNY AUDIT
-        window.updateAudit = function() {
-            const rAmount = document.getElementById('rangeAmount');
-            const rYears = document.getElementById('rangeYears');
-            const rRateA = document.getElementById('rangeAuditRate');
-            if (!rAmount || !rYears || !rRateA) return;
-
-            const a = parseFloat(rAmount.value), y = parseFloat(rYears.value), r = parseFloat(rRateA.value);
-            setTxt('valAmount', a.toLocaleString('sk-SK'));
-            setTxt('valYears', y);
-            setTxt('valAuditRate', r.toFixed(1));
-
-            const months = y * 12;
-            const mRate = (r / 100) / 12;
-            
-            let monthly = mRate > 0 ? (a * mRate) / (1 - Math.pow(1 + mRate, -months)) : a / months;
-            
-            const betterRate = (Math.max(0.1, r - 1) / 100) / 12;
-            const betterMonthly = (a * betterRate) / (1 - Math.pow(1 + betterRate, -months));
-
-            setTxt('auditMonthlyPayment', Math.round(monthly).toLocaleString('sk-SK'));
-            setTxt('auditTotalOverpayment', Math.round((monthly * months) - a).toLocaleString('sk-SK'));
-            setTxt('auditSave', Math.round((monthly - betterMonthly) * months).toLocaleString('sk-SK'));
-        };
-
-        // B: REFINANCOVANIE
-        window.updateRef = function() {
-            const rCP = document.getElementById('rangeCurrentPayment');
-            const rRR = document.getElementById('rangeRate'); 
-            const rDebt = document.getElementById('rangeDebt');
-            if (!rCP || !rRR || !rDebt) return;
-
-            const cp = parseFloat(rCP.value), rr = parseFloat(rRR.value), d = parseFloat(rDebt.value);
-            setTxt('valCurrentPayment', cp.toLocaleString('sk-SK'));
-            setTxt('valRate', rr.toFixed(1));
-            setTxt('valDebt', d.toLocaleString('sk-SK'));
-            
-            const mRate = ((Math.max(1.0, rr - 1.2)) / 100) / 12;
-            const newP = (d * mRate) / (1 - Math.pow(1 + mRate, -240)); 
-
-            setTxt('newPaymentVal', Math.round(newP).toLocaleString('sk-SK'));
-            setTxt('estimatedSavings', Math.round(cp - newP).toLocaleString('sk-SK'));
-        };
-
-        // C: INVESTOVANIE
-        window.updateInvest = function() {
-            const rInv = document.getElementById('rangeInvest');
-            const rYI = document.getElementById('rangeYearsInvest');
-            if (!rInv || !rYI) return;
-
-            const monthly = parseFloat(rInv.value);
-            const years = parseFloat(rYI.value);
-            setTxt('valInvest', monthly.toLocaleString('sk-SK'));
-            setTxt('valYearsInvest', years);
-
-            const rate = 0.08 / 12; // 8% p.a.
-            const months = years * 12;
-            
-            const futureValue = monthly * ((Math.pow(1 + rate, months) - 1) / rate) * (1 + rate);
-            const totalInvested = monthly * months;
-
-            setTxt('investFuture', Math.round(futureValue).toLocaleString('sk-SK'));
-            setTxt('investTotal', Math.round(totalInvested).toLocaleString('sk-SK'));
-        };
-
-        // Automatické prepojenie všetkých range inputov
-        document.querySelectorAll('input[type=range]').forEach(input => {
-            input.addEventListener('input', () => {
-                window.updateAudit(); 
-                window.updateRef(); 
-                window.updateInvest();
-            });
-        });
-
-        // Prvé spustenie pri načítaní
-        window.updateAudit(); 
-        window.updateRef(); 
-        window.updateInvest();
+        setTxt('auditMonthlyPayment', Math.round(monthly).toLocaleString('sk-SK'));
+        setTxt('auditTotalOverpayment', Math.round((monthly * months) - a).toLocaleString('sk-SK'));
+        setTxt('auditSave', Math.round((monthly - betterMonthly) * months).toLocaleString('sk-SK'));
     };
+
+    // B: REFINANCOVANIE
+    window.updateRef = function() {
+        const rCP = document.getElementById('rangeCurrentPayment');
+        const rRR = document.getElementById('rangeRate'); 
+        const rDebt = document.getElementById('rangeDebt');
+        if (!rCP || !rRR || !rDebt) return;
+
+        const cp = parseFloat(rCP.value), rr = parseFloat(rRR.value), d = parseFloat(rDebt.value);
+        setTxt('valCurrentPayment', cp.toLocaleString('sk-SK'));
+        setTxt('valRate', rr.toFixed(1));
+        setTxt('valDebt', d.toLocaleString('sk-SK'));
+        
+        const mRate = (Math.max(1.0, rr - 1.2) / 100) / 12;
+        const newP = (d * mRate) / (1 - Math.pow(1 + mRate, -240)); 
+
+        setTxt('newPaymentVal', Math.round(newP).toLocaleString('sk-SK'));
+        setTxt('estimatedSavings', Math.round(cp - newP).toLocaleString('sk-SK'));
+    };
+
+    // C: INVESTOVANIE
+    window.updateInvest = function() {
+        const rInv = document.getElementById('rangeInvest');
+        const rYI = document.getElementById('rangeYearsInvest');
+        if (!rInv || !rYI) return;
+
+        const monthly = parseFloat(rInv.value);
+        const years = parseFloat(rYI.value);
+        setTxt('valInvest', monthly.toLocaleString('sk-SK'));
+        setTxt('valYearsInvest', years);
+
+        const rate = 0.08 / 12; // 8% p.a.
+        const months = years * 12;
+        
+        const futureValue = monthly * ((Math.pow(1 + rate, months) - 1) / rate) * (1 + rate);
+        const totalInvested = monthly * months;
+
+        setTxt('investFuture', Math.round(futureValue).toLocaleString('sk-SK'));
+        setTxt('investTotal', Math.round(totalInvested).toLocaleString('sk-SK'));
+    };
+
     // --- 5. ODOSIELANIE FORMULÁROV ---
     window.handleLeadSubmit = async function(e, type) {
         e.preventDefault();
         const btn = e.target;
         const originalText = btn.innerText;
         
-        // Zber dát podľa typu karty
         let emailId = type === 'Audit' ? 'calcEmail' : (type === 'Refinancovanie' ? 'refEmail' : 'investEmail');
         let phoneId = type === 'Audit' ? 'calcPhone' : (type === 'Refinancovanie' ? 'refPhone' : 'investPhone');
         
@@ -1849,9 +1825,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 sluzba: type,
                 email: email,
                 telefon: phone,
-                investicia_mesacne: document.getElementById('rangeInvest')?.value,
-                investicia_roky: document.getElementById('rangeYearsInvest')?.value,
-                buduca_hodnota: document.getElementById('investFuture')?.innerText
+                investicia_mesacne: document.getElementById('rangeInvest')?.value || "N/A",
+                investicia_roky: document.getElementById('rangeYearsInvest')?.value || "N/A",
+                buduca_hodnota: document.getElementById('investFuture')?.innerText || "N/A"
             };
 
             const response = await fetch("https://formspree.io/f/xeepvqqy", {
@@ -1873,7 +1849,24 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
-    setupSliders();
+    // --- 6. INICIALIZÁCIA ---
+    function init() {
+        // Naviaže eventy na slidery
+        document.querySelectorAll('input[type=range]').forEach(input => {
+            input.addEventListener('input', () => {
+                window.updateAudit(); 
+                window.updateRef(); 
+                window.updateInvest();
+            });
+        });
+
+        // Spustí prvé výpočty
+        window.updateAudit(); 
+        window.updateRef(); 
+        window.updateInvest();
+    }
+
+    init();
 });
 </script>
     

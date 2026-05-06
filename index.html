@@ -1174,67 +1174,69 @@ input[type=range]::-webkit-slider-thumb:hover {
 </div>
 
         <!-- KARTA 2: REFINANCOVANIE -->
-<div class="card" onclick="openModal()" style="cursor: pointer;">
+<div class="card">
     <div class="card-icon">
         <img src="Refinance.png" alt="Refinancovanie">
     </div>
     <h3>Refinancovanie hypotéky</h3>
         
     <p class="card-description">
-        Optimalizácia existujúcich záväzkov. Zistíme, či vieme znížiť vašu mesačnú splátku a celkové preplatenie úveru.
+        Optimalizácia existujúcich záväzkov. Zistíme, o koľko vieme znížiť vašu mesačnú splátku a koľko tisíc ušetríte na preplatení.
     </p>
-        
-    <span class="click-info">Kliknite pre kalkulačku ↓</span>
 
-    <div id="ref-inline-calc" class="inline-calculator" onclick="event.stopPropagation()">
-        <h4>KALKULAČKA ÚSPORY PRI REFINANCII</h4>
-        <p class="calc-sub">Zistite, koľko môžete ušetriť mesačne po prenose hypotéky do inej banky.</p>
+    <div class="inline-calculator">
+        <h4>KALKULAČKA ÚSPORY</h4>
+        <p class="calc-sub">Porovnajte si súčasnú splátku s novými možnosťami na trhu.</p>
 
+        <!-- Pôvodná splátka -->
         <div class="calc-row">
-            <span>Zostatok úveru</span>
+            <span>Súčasná splátka</span>
             <div class="range-wrapper">
-                <input type="range" id="rangeAmountRef" min="10000" max="500000" step="5000" value="80000">
-                <div class="input-mimic"><span id="valAmountRef">80 000</span> €</div>
+                <input type="range" id="rangeCurrentPayment" min="50" max="2500" step="10" value="500">
+                <div class="input-mimic"><span id="valCurrentPayment">500</span> €</div>
             </div>
         </div>
 
+        <!-- Zostávajúci dlh -->
         <div class="calc-row">
-            <span>Zostávajúca doba</span>
+            <span>Zostatok úveru</span>
             <div class="range-wrapper">
-                <input type="range" id="rangeYearsRef" min="1" max="40" value="20">
-                <div class="input-mimic"><span id="valYearsRef">20</span> rokov</div>
+                <input type="range" id="rangeDebt" min="10000" max="500000" step="5000" value="120000">
+                <div class="input-mimic"><span id="valDebt">120 000</span> €</div>
             </div>
         </div>
 
         <hr>
 
-        <div class="calc-contact">
-            <label class="checkbox-label">
-                <input type="checkbox" checked> Chcem prepočítať úsporu na mojej hypotéke
-            </label>
-            
-            <div class="input-group">
-                <label>E-mail *</label>
-                <input type="email" id="refEmail" placeholder="vas@email.sk" required>
-            </div>
-
-            <div class="input-group">
-                <label>Telefón *</label>
-                <div class="phone-input">
-                    <img src="https://flagcdn.com/w20/sk.png" alt="SK">
-                    <input type="tel" id="refPhone" placeholder="09xx xxx xxx" required>
-                </div>
+        <!-- SEKČIA VÝSLEDKU - PSYCHOLOGICKÝ ŤAH -->
+        <div class="calc-result-box" style="text-align: center; padding: 20px 0;">
+            <p style="text-transform: uppercase; font-size: 0.8rem; font-weight: 700; color: #64748b;">Vaša odhadovaná mesačná úspora</p>
+            <div style="font-size: 2.5rem; font-weight: 800; color: #B38E44;">
+                <span id="estimatedSavings">45</span> € / mesiac
             </div>
         </div>
 
-        <p class="calc-legal">Súhlasím so spracovaním osobných údajov pre účely vypracovania ponuky.</p>
-        
-        <button class="btn-gold-action" onclick="handleRefClick(event)">
-            SPOČÍTAŤ ÚSPORU
-        </button>
-          </div>
-      </div>
-  </div>
+        <div class="calc-contact">
+            <div class="form-field">
+                <label>Váš E-mail</label>
+                <input type="email" id="refEmail" placeholder="meno@email.sk" required>
+            </div>
+
+            <div class="form-field">
+                <label>Telefónne číslo</label>
+                <div class="phone-input-wrapper">
+                    <span class="prefix">+421</span>
+                    <input type="tel" id="refPhone" placeholder="9xx xxx xxx" required>
+                </div>
+            </div>
+
+            <button class="btn-gold-action" onclick="handleRefinanceClick(event)">
+                CHODTE DO ÚSPORY
+            </button>
+        </div>
+        <p class="gdpr-text">Vaše údaje sú u nás v bezpečí. Vypracujeme vám detailné porovnanie bánk.</p>
+    </div>
+</div>
         <!-- KARTA 3: ADMINISTRATÍVNY SERVIS -->
 <div class="card reveal" id="card-admin" onclick="openAdminModal()" style="cursor: pointer;">
     <div class="card-icon">
@@ -1823,6 +1825,43 @@ async function handleAdminClick(e) {
         setupSliders();
         reveal();
     });
+    // Logika pre Refinančnú kalkulačku
+const rangeCurrentPayment = document.getElementById('rangeCurrentPayment');
+const rangeDebt = document.getElementById('rangeDebt');
+const valCurrentPayment = document.getElementById('valCurrentPayment');
+const valDebt = document.getElementById('valDebt');
+const estimatedSavings = document.getElementById('estimatedSavings');
+
+function updateRefinance() {
+    // Formátovanie čísel (medzery)
+    valCurrentPayment.innerText = Number(rangeCurrentPayment.value).toLocaleString('sk-SK');
+    valDebt.innerText = Number(rangeDebt.value).toLocaleString('sk-SK');
+
+    // Jednoduchý model: Predpokladáme, že vieme znížiť splátku o cca 10-15% 
+    // V praxi tu môže byť zložitejší vzorec podľa aktuálnych úrokov
+    const current = parseFloat(rangeCurrentPayment.value);
+    const potentialSaving = Math.round(current * 0.12); // Odhad 12% úspora
+    
+    estimatedSavings.innerText = potentialSaving;
+}
+
+rangeCurrentPayment.addEventListener('input', updateRefinance);
+rangeDebt.addEventListener('input', updateRefinance);
+
+// Funkcia na odoslanie (Lead Generation)
+function handleRefinanceClick(event) {
+    const email = document.getElementById('refEmail').value;
+    const phone = document.getElementById('refPhone').value;
+    const saving = estimatedSavings.innerText;
+
+    if(!email || !phone) {
+        alert('Prosím, vyplňte kontakt, aby sme vám mohli zaslať presný výpočet.');
+        return;
+    }
+
+    console.log("LEAD: Refinancovanie", { email, phone, mesacnaUspora: saving });
+    alert('Ďakujeme! Čoskoro vám pošleme detailné porovnanie, ako ušetriť tých ' + saving + ' € mesačne.');
+}
 </script>
 
 <!-- WHATSAPP FLOAT (Fixná poloha na webe) -->

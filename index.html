@@ -1403,7 +1403,8 @@ input[type=range]::-webkit-slider-thumb:hover {
                 <!-- INPUT 2: Doba investovania -->
                 <div class="calc-row" style="margin-bottom: 15px;">
                     <span style="font-size:0.85rem; display: block; margin-bottom: 5px;">Doba investovania</span>
-                    <input type="range" id="rangeYearsInvest" min="5" max="40" value="20" style="width: 100%;">
+                    <!-- PRIDANÝ oninput -->
+                    <input type="range" id="rangeYearsInvest" min="5" max="40" value="20" style="width: 100%;" oninput="window.updateInvest()">
                     <div style="margin-top: 5px; font-weight:700;"><span id="valYearsInvest">20</span> rokov</div>
                 </div>
 

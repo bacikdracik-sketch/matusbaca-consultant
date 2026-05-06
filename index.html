@@ -1362,94 +1362,91 @@ input[type=range]::-webkit-slider-thumb:hover {
         </div>
     </div>
 </div>
-</section>
-
+<!-- SEKCIA 4: INVESTOVANIE -->
+<section id="investovanie" class="reveal">
     <div class="card" id="card-invest">
 
-    <!-- 🖼️ IKONA -->
-    <div class="card-icon" onclick="openInvestModal()" style="cursor: pointer;">
-        <img src="Chart.png" alt="Investovanie">
-    </div>
+        <!-- 🖼️ IKONA -->
+        <div class="card-icon" onclick="toggleCalculator('invest-inline-calc', 'card-invest')" style="cursor: pointer;">
+            <img src="Chart.png" alt="Investovanie">
+        </div>
 
-    <div class="card-content" style="padding:20px;">
+        <div class="card-content" style="padding:20px;">
 
-        <!-- 🔥 HEADLINE -->
-        <h3 style="line-height:1.3; margin-bottom:12px; font-size:1.25rem;">
-            📈 Koľko vás stojí to, že dnes neinvestujete?
-        </h3>
+            <!-- 🔥 HEADLINE -->
+            <h3 style="line-height:1.3; margin-bottom:12px; font-size:1.25rem;">
+                📈 4. Investovanie: Koľko vás stojí to, že dnes neinvestujete?
+            </h3>
 
-        <!-- 🧠 POPIS -->
-        <p id="invest-desc" class="card-description" style="font-size:0.9rem; color:#64748b; line-height:1.5;">
-            Peniaze na účte strácajú hodnotu každý rok. 
-            Zistite za pár sekúnd, koľko by mohli zarábať, keby ste ich investovali.
-        </p>
+            <!-- 🧠 POPIS -->
+            <p id="invest-desc" class="card-description" style="font-size:0.9rem; color:#64748b; line-height:1.5; margin-bottom: 15px;">
+                Peniaze na účte strácajú hodnotu každý rok. 
+                Zistite za pár sekúnd, koľko by mohli zarábať, keby ste ich investovali do široko diverzifikovaných indexových fondov.
+            </p>
 
-        <!-- KALKULAČKA -->
-        <div id="invest-inline-calc" class="inline-calculator" style="display:none;">
+            <!-- TLAČIDLO NA OTVORENIE -->
+            <button class="btn-open-calc" onclick="toggleCalculator('invest-inline-calc', 'card-invest')" style="background: #e2e8f0; color: #475569; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 600; margin-bottom: 10px;">
+                Otvoriť kalkulačku rastu
+            </button>
 
-            <h4 style="text-align:center; font-size:0.75rem; color:#94a3b8; margin-bottom:15px; text-transform:uppercase; font-weight:700;">
-                Potenciál rastu investície
-            </h4>
+            <!-- KALKULAČKA -->
+            <div id="invest-inline-calc" class="inline-calculator" style="display:none; border-top: 1px solid #e2e8f0; padding-top: 15px;">
 
-            <!-- INPUT 1 -->
-            <div class="calc-row">
-                <span style="font-size:0.85rem;">Mesačná investícia</span>
-                <div class="range-wrapper">
-                    <input type="range" id="rangeInvest" min="20" max="1000" step="10" value="100" oninput="updateInvest()">
-                    <div class="input-mimic">
-                        <span id="valInvest" style="font-weight:700;">100</span> €
+                <h4 style="text-align:center; font-size:0.75rem; color:#94a3b8; margin-bottom:15px; text-transform:uppercase; font-weight:700;">
+                    Potenciál rastu majetku (ETF 8% p.a.)
+                </h4>
+
+                <!-- INPUT 1 -->
+                <div class="calc-row" style="margin-bottom: 15px;">
+                    <span style="font-size:0.85rem; display: block; margin-bottom: 5px;">Mesačná investícia</span>
+                    <div class="range-wrapper">
+                        <input type="range" id="rangeInvest" min="20" max="1000" step="10" value="100" style="width: 100%;">
+                        <div class="input-mimic" style="margin-top: 5px;">
+                            <span id="valInvest" style="font-weight:700;">100</span> €
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- INPUT 2 -->
-            <div class="calc-row">
-                <span style="font-size:0.85rem;">Doba investovania</span>
-                <div class="range-wrapper">
-                    <input type="range" id="rangeYearsInvest" min="5" max="40" value="20" oninput="updateInvest()">
-                    <div class="input-mimic">
-                        <span id="valYearsInvest" style="font-weight:700;">20</span> rokov
+                <!-- INPUT 2 -->
+                <div class="calc-row" style="margin-bottom: 15px;">
+                    <span style="font-size:0.85rem; display: block; margin-bottom: 5px;">Doba investovania</span>
+                    <div class="range-wrapper">
+                        <input type="range" id="rangeYearsInvest" min="5" max="40" value="20" style="width: 100%;">
+                        <div class="input-mimic" style="margin-top: 5px;">
+                            <span id="valYearsInvest" style="font-weight:700;">20</span> rokov
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- 💣 VÝSLEDOK -->
-            <div class="calc-result-box" style="background:#f0f9ff; padding:15px; border-radius:10px; margin-top:15px; border:1px solid #90cdf4;">
-
-                <p style="text-transform:uppercase; font-size:0.65rem; font-weight:700; color:#2b6cb0;">
-                    Hodnota investície
-                </p>
-
-                <div style="font-size:1.8rem; font-weight:800; color:#2b6cb0;">
-                    <span id="investFuture">0</span> €
+                <!-- 💣 VÝSLEDOK -->
+                <div class="calc-result-box" style="background:#f0f9ff; padding:15px; border-radius:10px; margin-top:15px; border:1px solid #90cdf4;">
+                    <p style="text-transform:uppercase; font-size:0.65rem; font-weight:700; color:#2b6cb0; margin-bottom: 5px;">
+                        Budúca hodnota investície
+                    </p>
+                    <div style="font-size:1.8rem; font-weight:800; color:#2b6cb0;">
+                        <span id="investFuture">0</span> €
+                    </div>
+                    <p style="font-size:0.75rem; color:#2c5282; font-weight:600; margin-top: 5px;">
+                        Vložené: <span id="investTotal">0</span> €
+                    </p>
+                    <p style="font-size:0.75rem; color:#c53030; margin-top:8px; font-weight:600; border-top: 1px dashed #90cdf4; padding-top: 8px;">
+                        👉 Bez investovania prichádzate o tento potenciálny rast.
+                    </p>
                 </div>
 
-                <p style="font-size:0.75rem; color:#2c5282; font-weight:600;">
-                    Vložené: <span id="investTotal">0</span> €
-                </p>
+                <!-- CTA FORMULÁR -->
+                <div class="calc-contact" style="margin-top:15px;">
+                    <input type="email" id="investEmail" placeholder="Váš E-mail" required style="width:100%; padding:10px; margin-bottom:8px; border-radius:6px; border:1px solid #ddd; box-sizing: border-box;">
+                    <input type="tel" id="investPhone" placeholder="Váš Telefón" required style="width:100%; padding:10px; margin-bottom:12px; border-radius:6px; border:1px solid #ddd; box-sizing: border-box;">
 
-                <!-- 💣 STRATA -->
-                <p style="font-size:0.75rem; color:#c53030; margin-top:8px; font-weight:600;">
-                    👉 Bez investovania prichádzate o potenciálny rast peňazí.
-                </p>
-
+                    <button onclick="handleLeadSubmit(event, 'Investovanie')" style="width:100%; padding:12px; font-weight:700; background: #2b6cb0; color: white; border: none; border-radius: 6px; cursor: pointer;">
+                        Chcem začať investovať
+                    </button>
+                </div>
             </div>
-
-            <!-- CTA -->
-            <div class="calc-contact" style="margin-top:15px;">
-
-                <input type="email" id="investEmail" placeholder="Váš E-mail" style="width:100%; padding:10px; margin-bottom:8px; border-radius:6px; border:1px solid #ddd;">
-                <input type="tel" id="investPhone" placeholder="Váš Telefón" style="width:100%; padding:10px; margin-bottom:12px; border-radius:6px; border:1px solid #ddd;">
-
-                <button onclick="handleInvestClick(event)" style="width:100%; padding:12px; font-weight:700;">
-                    Chcem začať investovať
-                </button>
-
-            </div>
-
         </div>
     </div>
-</div>
+</section>
 
             <div class="card">
                 <div class="card-icon">

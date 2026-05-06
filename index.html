@@ -1106,21 +1106,21 @@ input[type=range]::-webkit-slider-thumb:hover {
     </div>
     <div class="grid-3">
         
-        <!-- KARTA 1: HYPOTEKÁRNY AUDIT (Zjednotená verzia) -->
+        <!-- KARTA 1: HYPOTEKÁRNY AUDIT (Prispôsobená podľa vzoru C2) -->
 <div class="card" id="card-audit">
-    <!-- IKONA -->
+    <!-- IKONA: Funguje ako vypínač (Toggle) -->
     <div class="card-icon" onclick="openModal()" style="cursor: pointer;" title="Kliknite pre kalkulačku">
         <img src="House.png" alt="Hypotekárny audit">
     </div>
     
     <h3>Hypotekárny Audit</h3>
         
-    <!-- Popis -->
+    <!-- Tento text sa skryje, keď bude kalkulačka aktívna -->
     <p id="audit-desc" class="card-description">
         Detailná analýza trhu a preverenie vašich možností. Zistíme, v ktorej banke získate najnižší úrok a najlepšie podmienky pre váš nový domov.
     </p>
 
-    <!-- Kalkulačka -->
+    <!-- Kalkulačka je v základe skrytá (display: none) -->
     <div id="inline-calc" class="inline-calculator" style="display: none;">
         <h4>POROVNANIE HYPOTÉK</h4>
         
@@ -1140,7 +1140,7 @@ input[type=range]::-webkit-slider-thumb:hover {
             </div>
         </div>
 
-        <!-- BOX S VÝSLEDKAMI (Teraz identický s Kartou 2) -->
+        <!-- BOX S VÝSLEDKAMI (Presne podľa vzoru C2) -->
         <div class="calc-result-box" style="text-align: center; margin: 15px 0; background: rgba(179, 142, 68, 0.05); padding: 15px; border-radius: 10px; border: 1px solid rgba(179, 142, 68, 0.1);">
             
             <p style="text-transform: uppercase; font-size: 0.65rem; font-weight: 700; color: #64748b; margin-bottom: 2px;">Odhadovaná mesačná splátka</p>
@@ -1166,7 +1166,7 @@ input[type=range]::-webkit-slider-thumb:hover {
             <input type="tel" id="calcPhone" placeholder="Váš Telefón" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 6px; border: 1px solid #ddd;">
 
             <button class="btn-gold-action" onclick="handleCalcClick(event)" style="width: 100%; text-transform: uppercase;">
-                ZÍSKAŤ POROVNANIE
+                Získať najlepšiu ponuku
             </button>
         </div>
     </div>

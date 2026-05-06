@@ -1622,16 +1622,13 @@ input[type=range]::-webkit-slider-thumb:hover {
     function toggleCalculator(calc, card) {
         if (!calc) return;
         
-        // Ak je už otvorený, zatvoríme ho (Toggle)
         if (calc.style.display === "block") {
             calc.style.display = "none";
             if (card) card.classList.remove('active');
         } else {
-            // Ak je zatvorený, otvoríme ho
             calc.style.display = "block";
             if (card) card.classList.add('active');
             
-            // Jemný scroll na kalkulačku
             setTimeout(() => {
                 calc.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }, 100);
@@ -1669,30 +1666,50 @@ input[type=range]::-webkit-slider-thumb:hover {
             });
         }
 
-        // --- Refinanc (Karta 2) - Kalkulačka úspory ---
+        // --- Refinanc (Karta 2) - DOPLNENÝ ÚROK ---
         const rangeCurrentPayment = document.getElementById('rangeCurrentPayment');
+        const rangeRate = document.getElementById('rangeRate'); // Pridaný úrok
         const rangeDebt = document.getElementById('rangeDebt');
+        
         const valCurrentPayment = document.getElementById('valCurrentPayment');
+        const valRate = document.getElementById('valRate'); // Text pre úrok
         const valDebt = document.getElementById('valDebt');
         const estimatedSavings = document.getElementById('estimatedSavings');
+        const newPaymentVal = document.getElementById('newPaymentVal'); // Box s novou splátkou
 
-        if (rangeCurrentPayment && rangeDebt) {
+        if (rangeCurrentPayment && rangeDebt && rangeRate) {
             const updateRef = () => {
+                // Aktualizácia textov
                 valCurrentPayment.innerText = Number(rangeCurrentPayment.value).toLocaleString('sk-SK');
+                valRate.innerText = parseFloat(rangeRate.value).toFixed(1);
                 valDebt.innerText = Number(rangeDebt.value).toLocaleString('sk-SK');
                 
-                // Odhad úspory 12%
-                const saving = Math.round(parseFloat(rangeCurrentPayment.value) * 0.12);
-                if (estimatedSavings) estimatedSavings.innerText = saving;
+                // VÝPOČET ÚSPORY (Logika: ak vieme znížiť úrok o 1.5% oproti súčasnému)
+                const currentPay = parseFloat(rangeCurrentPayment.value);
+                const debt = parseFloat(rangeDebt.value);
+                const currentR = parseFloat(rangeRate.value);
+                
+                // Simulujeme nový úrok (minimálne 1.0%)
+                const potentialRate = Math.max(1.0, currentR - 1.5);
+                const monthlyRate = (potentialRate / 100) / 12;
+                const months = 300; // Počítame s fixom na 25 rokov pre odhad
+
+                const calculatedNewPayment = (debt * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -months));
+                const saving = currentPay - calculatedNewPayment;
+
+                // Zobrazenie výsledkov
+                if (newPaymentVal) newPaymentVal.innerText = Math.round(calculatedNewPayment).toLocaleString('sk-SK');
+                if (estimatedSavings) estimatedSavings.innerText = Math.round(saving).toLocaleString('sk-SK');
             };
 
             rangeCurrentPayment.addEventListener('input', updateRef);
+            rangeRate.addEventListener('input', updateRef);
             rangeDebt.addEventListener('input', updateRef);
-            updateRef(); // Inicializácia pri načítaní
+            updateRef(); // Inicializácia
         }
     }
 
-    // --- 3. SPOLOČNÁ FUNKCIA NA ODOSIELANIE (FORMSPREE) ---
+    // --- 3. SPOLOČNÁ FUNKCIA NA ODOSIELANIE ---
     async function sendData(data, button, successCallback) {
         const originalText = button.innerText;
         button.innerText = "ODOSIELAM...";
@@ -1719,9 +1736,7 @@ input[type=range]::-webkit-slider-thumb:hover {
         }
     }
 
-    // --- 4. HANDLERY PRE JEDNOTLIVÉ TLAČIDLÁ ---
-
-    // Audit
+    // --- 4. HANDLERY ---
     function handleCalcClick(e) {
         e.preventDefault();
         const email = document.getElementById('calcEmail').value;
@@ -1737,11 +1752,10 @@ input[type=range]::-webkit-slider-thumb:hover {
         }, e.target, () => {
             document.getElementById('calcEmail').value = "";
             document.getElementById('calcPhone').value = "";
-            openModal(); // Zatvorí box
+            openModal(); 
         });
     }
 
-    // Refinancovanie
     function handleRefinanceClick(e) {
         e.preventDefault();
         const consent = document.getElementById('refAgree');
@@ -1754,34 +1768,14 @@ input[type=range]::-webkit-slider-thumb:hover {
         sendData({
             email: email,
             telefon: phone,
-            uspora: document.getElementById('estimatedSavings').innerText + " €/mesiac",
+            súčasný_úrok: document.getElementById('valRate').innerText + " %",
+            úspora: document.getElementById('estimatedSavings').innerText + " €/mesiac",
             dlh: document.getElementById('valDebt').innerText + " €",
             sluzba: "Refinancovanie"
         }, e.target, () => {
             document.getElementById('refEmail').value = "";
             document.getElementById('refPhone').value = "";
-            openRefModal(); // Zatvorí box
-        });
-    }
-
-    // Administratívny servis
-    function handleAdminClick(e) {
-        e.preventDefault();
-        const consent = document.getElementById('adminConsent');
-        if (consent && !consent.checked) return alert("Prosím, zaškrtnite súhlas.");
-
-        const email = document.getElementById('adminEmail').value;
-        const phone = document.getElementById('adminPhone').value;
-        if (!email || !phone) return alert("Vyplňte údaje.");
-
-        sendData({
-            email: email,
-            telefon: phone,
-            sluzba: "Administratívny servis"
-        }, e.target, () => {
-            document.getElementById('adminEmail').value = "";
-            document.getElementById('adminPhone').value = "";
-            openAdminModal(); // Zatvorí box
+            openRefModal();
         });
     }
 

@@ -1892,7 +1892,7 @@ input[type=range]::-webkit-slider-thumb:hover {
 document.addEventListener('DOMContentLoaded', function () {
 
     // ============================================================
-    // 1. HELPERS
+    // HELPERS
     // ============================================================
     const setTxt = (id, val) => {
         const el = document.getElementById(id);
@@ -1900,7 +1900,7 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     // ============================================================
-    // 2. TOGGLE BOXOV (VŠETKY KARTY)
+    // TOGGLE BOXOV
     // ============================================================
     window.toggleCalculator = function (calcId, cardId) {
         const calc = document.getElementById(calcId);
@@ -1908,28 +1908,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (!calc) return;
 
-        const isHidden = getComputedStyle(calc).display === 'none';
+        const show = getComputedStyle(calc).display === 'none';
 
-        calc.style.display = isHidden ? 'block' : 'none';
+        calc.style.display = show ? 'block' : 'none';
 
-        if (card) {
-            card.classList.toggle('active', isHidden);
-        }
+        if (card) card.classList.toggle('active', show);
 
-        // auto update po otvorení
-        if (isHidden) {
-            updateAll();
-        }
+        if (show) updateAll();
     };
 
     // ============================================================
-    // 3. HYPOTEKÁRNY AUDIT
+    // 1. AUDIT
     // ============================================================
     window.updateAudit = function () {
         const a = document.getElementById('rangeAmount');
         const y = document.getElementById('rangeYears');
         const r = document.getElementById('rangeAuditRate');
-
         if (!a || !y || !r) return;
 
         const amount = +a.value;
@@ -1947,33 +1941,31 @@ document.addEventListener('DOMContentLoaded', function () {
             ? (amount * m) / (1 - Math.pow(1 + m, -months))
             : amount / months;
 
-        const betterRate = Math.max(0.1, rate - 1);
-        const m2 = betterRate / 100 / 12;
+        const better = Math.max(0.1, rate - 1) / 100 / 12;
 
-        const better = m2 > 0
-            ? (amount * m2) / (1 - Math.pow(1 + m2, -months))
+        const betterPay = better > 0
+            ? (amount * better) / (1 - Math.pow(1 + better, -months))
             : amount / months;
 
         setTxt('auditMonthlyPayment', Math.round(monthly).toLocaleString('sk-SK'));
         setTxt('auditTotalOverpayment', Math.round(monthly * months - amount).toLocaleString('sk-SK'));
-        setTxt('auditSave', Math.round((monthly - better) * months).toLocaleString('sk-SK'));
+        setTxt('auditSave', Math.round((monthly - betterPay) * months).toLocaleString('sk-SK'));
     };
 
     // ============================================================
-    // 4. REFINANCOVANIE
+    // 2. REFINANC
     // ============================================================
     window.updateRef = function () {
-        const cp = document.getElementById('rangeCurrentPayment');
-        const rr = document.getElementById('rangeRate');
+        const p = document.getElementById('rangeCurrentPayment');
+        const r = document.getElementById('rangeRate');
         const d = document.getElementById('rangeDebt');
+        if (!p || !r || !d) return;
 
-        if (!cp || !rr || !d) return;
-
-        const payment = +cp.value;
-        const rate = +rr.value;
+        const pay = +p.value;
+        const rate = +r.value;
         const debt = +d.value;
 
-        setTxt('valCurrentPayment', payment.toLocaleString('sk-SK'));
+        setTxt('valCurrentPayment', pay.toLocaleString('sk-SK'));
         setTxt('valRate', rate.toFixed(1));
         setTxt('valDebt', debt.toLocaleString('sk-SK'));
 
@@ -1982,18 +1974,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const newPay = (debt * newRate) / (1 - Math.pow(1 + newRate, -months));
 
-        const save = payment - newPay;
+        const save = pay - newPay;
 
         setTxt('newPaymentVal', Math.round(newPay).toLocaleString('sk-SK'));
         setTxt('estimatedSavings', Math.max(0, Math.round(save)).toLocaleString('sk-SK'));
     };
+
     // ============================================================
-    // 5. INVESTOVANIE (FIX SLIDER BUG)
+    // 3. INVEST
     // ============================================================
     window.updateInvest = function () {
         const m = document.getElementById('rangeInvest');
         const y = document.getElementById('rangeYearsInvest');
-
         if (!m || !y) return;
 
         const monthly = +m.value;
@@ -2012,12 +2004,11 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     // ============================================================
-    // 6. INFLÁCIA
+    // 4. INFLÁCIA
     // ============================================================
     window.update5Inflation = function () {
         const a = document.getElementById('range5InfAmount');
         const r = document.getElementById('range5InfRate');
-
         if (!a || !r) return;
 
         const amt = +a.value;
@@ -2025,17 +2016,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
         setTxt('val5InfAmount', amt.toLocaleString('sk-SK'));
         setTxt('val5InfRate', rate.toFixed(1));
-
         setTxt('inf5LossValue', Math.round(amt * rate / 100).toLocaleString('sk-SK'));
     };
 
     // ============================================================
-    // 7. MAJETOK
+    // 5. MAJETOK
     // ============================================================
     window.update6Wealth = function () {
         const b = document.getElementById('range6WealthBase');
         const m = document.getElementById('range6WealthMonthly');
-
         if (!b || !m) return;
 
         const base = +b.value;
@@ -2054,7 +2043,7 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     // ============================================================
-    // 8. LEAD SUBMIT (VŠETKY KARTY)
+    // 6. LEAD SYSTEM (VRÁTANE KARTY 3 = ADMIN)
     // ============================================================
     window.handleLeadSubmit = async function (e, type) {
         e.preventDefault();
@@ -2066,7 +2055,8 @@ document.addEventListener('DOMContentLoaded', function () {
             Refinancovanie: ['refEmail', 'refPhone'],
             Investovanie: ['investEmail', 'investPhone'],
             Inflacia: ['inf5Email', 'inf5Phone'],
-            Majetok: ['wealth6Email', 'wealth6Phone']
+            Majetok: ['wealth6Email', 'wealth6Phone'],
+            Admin: ['adminEmail', 'adminPhone'] // 🔥 KARTA 3 OPRAVENÁ
         };
 
         const ids = map[type];
@@ -2088,6 +2078,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             alert("Odoslané!");
+
             document.getElementById(ids[0]).value = "";
             document.getElementById(ids[1]).value = "";
 
@@ -2100,7 +2091,7 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     // ============================================================
-    // 9. INIT
+    // INIT
     // ============================================================
     function updateAll() {
         window.updateAudit();

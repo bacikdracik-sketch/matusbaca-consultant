@@ -1207,10 +1207,19 @@ input[type=range]::-webkit-slider-thumb:hover {
             </div>
         </div>
 
-        <div class="calc-result-box" style="text-align: center; margin: 15px 0;">
-            <p style="text-transform: uppercase; font-size: 0.75rem; font-weight: 700; color: #64748b; margin-bottom: 5px;">Mesačná úspora</p>
-            <div style="font-size: 2.2rem; font-weight: 800; color: #B38E44;">
-                <span id="estimatedSavings">45</span> €
+        <!-- BOX S VÝSLEDKAMI (Nová splátka a Rozdiel) -->
+        <div class="calc-result-box" style="text-align: center; margin: 15px 0; background: rgba(179, 142, 68, 0.05); padding: 15px; border-radius: 10px; border: 1px solid rgba(179, 142, 68, 0.1);">
+            
+            <p style="text-transform: uppercase; font-size: 0.65rem; font-weight: 700; color: #64748b; margin-bottom: 2px;">Možná nová splátka</p>
+            <div style="font-size: 1.6rem; font-weight: 800; color: #0F172A; margin-bottom: 8px;">
+                <span id="newPaymentVal">455</span> €
+            </div>
+
+            <div style="height: 1px; background: #B38E44; opacity: 0.2; width: 50%; margin: 0 auto 8px auto;"></div>
+
+            <p style="text-transform: uppercase; font-size: 0.7rem; font-weight: 700; color: #B38E44; margin-bottom: 2px;">Mesačne ušetríte</p>
+            <div style="font-size: 2.1rem; font-weight: 800; color: #B38E44;">
+                <span id="estimatedSavings">85</span> €
             </div>
         </div>
 
@@ -1223,9 +1232,9 @@ input[type=range]::-webkit-slider-thumb:hover {
             <input type="email" id="refEmail" placeholder="Váš E-mail" style="width: 100%; padding: 10px; margin-bottom: 8px; border-radius: 6px; border: 1px solid #ddd;">
             <input type="tel" id="refPhone" placeholder="Váš Telefón" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 6px; border: 1px solid #ddd;">
 
-            <button class="btn-gold-action" onclick="handleRefinanceClick(event)" style="width: 100%;">
-                ZÍSKAŤ NIŽŠIU SPLÁTKU
-            </button>
+            <button class="btn-gold-action" onclick="handleRefinanceClick(event)" style="width: 100%; text-transform: uppercase;">
+    Zistiť, či nepreplácam
+</button>
         </div>
     </div>
 </div>

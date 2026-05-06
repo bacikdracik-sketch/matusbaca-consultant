@@ -1640,7 +1640,8 @@ input[type=range]::-webkit-slider-thumb:hover {
     <p class="copyright">Všetky práva vyhradené &copy; 2026 | Matúš Bača</p>
 </footer>
 <script>
-    // --- 1. OVLÁDANIE MOBILNÉHO MENU (HAMBURGER) ---
+document.addEventListener('DOMContentLoaded', () => {
+    // --- 1. OVLÁDANIE MOBILNÉHO MENU ---
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('nav-links');
 
@@ -1651,110 +1652,108 @@ input[type=range]::-webkit-slider-thumb:hover {
         });
     }
 
-   // ===============================
-// 1. SLIDERY + VÝPOČTY (Audit)
-// ===============================
-function setupSliders() {
-    // Definícia elementov pre AUDIT
+    // --- 2. LOGIKA SLIDEROV A VÝPOČTOV ---
     const amountInput = document.getElementById('rangeAmount');
     const yearsInput = document.getElementById('rangeYears');
     const rateInput = document.getElementById('rangeAuditRate');
 
-    // Ak na stránke nie sú tieto ID, skript nepokračuje a nevyhodí chybu
-    if (!amountInput || !yearsInput || !rateInput) return;
+    if (amountInput && yearsInput && rateInput) {
+        function updateAudit() {
+            const a = parseFloat(amountInput.value);
+            const y = parseFloat(yearsInput.value);
+            const r = parseFloat(rateInput.value);
 
-    function updateAudit() {
-        const a = parseFloat(amountInput.value);
-        const y = parseFloat(yearsInput.value);
-        const r = parseFloat(rateInput.value);
+            // Aktualizácia textov na stránke
+            document.getElementById('valAmount').innerText = a.toLocaleString('sk-SK');
+            document.getElementById('valYears').innerText = y;
+            document.getElementById('valAuditRate').innerText = r.toFixed(2);
 
-        // Aktualizácia textov pod slidermi
-        document.getElementById('valAmount').innerText = a.toLocaleString('sk-SK');
-        document.getElementById('valYears').innerText = y;
-        document.getElementById('valAuditRate').innerText = r.toFixed(2);
+            const months = y * 12;
+            const mRate = r / 100 / 12;
 
-        const months = y * 12;
-        const mRate = r / 100 / 12;
+            // Výpočet splátky
+            let monthly = 0;
+            if (mRate > 0) {
+                monthly = (a * mRate) / (1 - Math.pow(1 + mRate, -months));
+            } else {
+                monthly = a / months;
+            }
+            
+            const totalPaid = monthly * months;
+            const overpayment = totalPaid - a;
 
-        // 1. Výpočet aktuálnej mesačnej splátky
-        const monthly = (a * mRate) / (1 - Math.pow(1 + mRate, -months));
-        const totalPaid = monthly * months;
-        const overpayment = totalPaid - a;
+            // Výpočet úspory (-1% úrok)
+            const betterRateVal = Math.max(0.1, r - 1);
+            const mBetterRate = betterRateVal / 100 / 12;
+            const betterMonthly = (a * mBetterRate) / (1 - Math.pow(1 + mBetterRate, -months));
+            const savingsPotential = (monthly - betterMonthly) * months;
 
-        // 2. Výpočet "WOW" úspory (ak by bol úrok o 1% nižší)
-        const betterRateVal = Math.max(0.1, r - 1); // Minimálny úrok 0.1%
-        const mBetterRate = betterRateVal / 100 / 12;
-        const betterMonthly = (a * mBetterRate) / (1 - Math.pow(1 + mBetterRate, -months));
-        const betterTotalPaid = betterMonthly * months;
-        
-        const savingsPotential = totalPaid - betterTotalPaid;
-
-        // 3. Zobrazenie výsledkov v HTML
-        document.getElementById('auditMonthlyPayment').innerText = Math.round(monthly).toLocaleString('sk-SK');
-        document.getElementById('auditTotalOverpayment').innerText = Math.round(overpayment).toLocaleString('sk-SK');
-        document.getElementById('auditSave').innerText = Math.round(savingsPotential).toLocaleString('sk-SK');
-
-        // 🔥 Feel Fintech Animácia (jemné pulzovanie boxu pri pohybe)
-        const box = document.querySelector("#card-audit .calc-result-box");
-        if (box) {
-            box.style.transform = "scale(1.02)";
-            box.style.transition = "transform 0.1s ease";
-            setTimeout(() => box.style.transform = "scale(1)", 100);
+            // Zobrazenie výsledkov
+            document.getElementById('auditMonthlyPayment').innerText = Math.round(monthly).toLocaleString('sk-SK');
+            document.getElementById('auditTotalOverpayment').innerText = Math.round(overpayment).toLocaleString('sk-SK');
+            document.getElementById('auditSave').innerText = Math.round(savingsPotential).toLocaleString('sk-SK');
         }
+
+        // Naviazanie na pohyb sliderov
+        [amountInput, yearsInput, rateInput].forEach(el => {
+            el.addEventListener('input', updateAudit);
+        });
+
+        updateAudit(); // Prvotný výpočet
     }
+});
 
-    // Pridanie event listenerov
-    [amountInput, yearsInput, rateInput].forEach(el => {
-        el.addEventListener('input', updateAudit);
-    });
+// --- 3. ODOŠLANIE DÁT DO FORMSPREE ---
+async function sendAuditRequest() {
+    const email = document.getElementById('calc-email').value;
+    const phone = document.getElementById('calc-phone').value;
+    const btn = document.querySelector('.btn-gold-action');
 
-    // Prvotný výpočet pri načítaní
-    updateAudit();
-}
-
-// ===============================
-// 2. ODOŠLANIE DÁT (Lead Handler)
-// ===============================
-function handleCalcClick(e) {
-    e.preventDefault();
-    
-    const email = document.getElementById('calcEmail').value;
-    const phone = document.getElementById('calcPhone').value;
-    const btn = e.target;
-
+    // Základná kontrola
     if (!email || !phone) {
-        alert("Prosím, zadajte e-mail a telefón, aby sme vám mohli zaslať výsledok auditu.");
+        alert("Prosím, zadajte e-mail a telefón pre zaslanie výsledkov.");
         return;
     }
 
-    // Zhromaždenie dát pre Formspree
+    // Dáta pre Formspree report
     const leadData = {
-        sluzba: "Hypotekárny audit (Upgrade)",
+        sluzba: "Hypotekárny audit (Kalkulačka)",
         email: email,
-        telefon: phone,
+        telefon: "+421 " + phone,
         vyska_hypoteky: document.getElementById('rangeAmount').value + " €",
         doba_splacania: document.getElementById('rangeYears').value + " r.",
         aktualny_urok: document.getElementById('rangeAuditRate').value + " %",
-        aktualny_preplatok: document.getElementById('auditTotalOverpayment').innerText + " €",
-        potencialna_uspore_pri_minus_1_perce: document.getElementById('auditSave').innerText + " €"
+        vypocitany_preplatok: document.getElementById('auditTotalOverpayment').innerText + " €",
+        potencialna_uspora: document.getElementById('auditSave').innerText + " €"
     };
 
-    sendData(leadData, btn, () => {
-        // Reset formulára po úspechu
-        document.getElementById('calcEmail').value = "";
-        document.getElementById('calcPhone').value = "";
-        // Voliteľne môžeš zavrieť kalkulačku:
-        // openModal(); 
-    });
-}
+    // Vizuálna spätná väzba
+    const originalText = btn.innerText;
+    btn.innerText = "ODOSIELAM...";
+    btn.disabled = true;
 
-// ===============================
-// 3. POMOCNÉ FUNKCIE (Init)
-// ===============================
-window.addEventListener("load", () => {
-    setupSliders();
-});
-<script>
+    try {
+        const response = await fetch("https://formspree.io/f/xeepvqqy", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(leadData)
+        });
+
+        if (response.ok) {
+            alert("Ďakujeme! Vaša žiadosť o audit bola úspešne odoslaná.");
+            document.getElementById('calc-email').value = "";
+            document.getElementById('calc-phone').value = "";
+        } else {
+            alert("Nastala chyba pri odosielaní. Skúste to neskôr.");
+        }
+    } catch (error) {
+        alert("Chyba spojenia. Skontrolujte internetové pripojenie.");
+    } finally {
+        btn.innerText = originalText;
+        btn.disabled = false;
+    }
+}
+</script>
     
 <!-- WHATSAPP FLOAT (Fixná poloha na webe) -->
 <div style="position: fixed; bottom: 30px; right: 30px; z-index: 10001; display: flex; align-items: center; gap: 10px;">

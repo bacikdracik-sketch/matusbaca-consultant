@@ -1640,8 +1640,10 @@ input[type=range]::-webkit-slider-thumb:hover {
     <p class="copyright">Všetky práva vyhradené &copy; 2026 | Matúš Bača</p>
 </footer>
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-    // --- 1. OVLÁDANIE MOBILNÉHO MENU ---
+// Spustíme skript až po úplnom načítaní DOM
+document.addEventListener('DOMContentLoaded', function() {
+
+    // --- 1. MOBILNÉ MENU (Hamburger) ---
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('nav-links');
 
@@ -1652,82 +1654,94 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 2. LOGIKA SLIDEROV A VÝPOČTOV ---
+    // --- 2. LOGIKA KALKULAČKY (AUDIT) ---
     const amountInput = document.getElementById('rangeAmount');
     const yearsInput = document.getElementById('rangeYears');
     const rateInput = document.getElementById('rangeAuditRate');
 
+    // Kontrola, či elementy existujú, aby skript nepadol
     if (amountInput && yearsInput && rateInput) {
+        
         function updateAudit() {
-            const a = parseFloat(amountInput.value);
-            const y = parseFloat(yearsInput.value);
+            const P = parseFloat(amountInput.value);
+            const years = parseInt(yearsInput.value);
             const r = parseFloat(rateInput.value);
 
-            // Aktualizácia textov na stránke
-            document.getElementById('valAmount').innerText = a.toLocaleString('sk-SK');
-            document.getElementById('valYears').innerText = y;
+            // Aktualizácia textových hodnôt nad slidermi
+            document.getElementById('valAmount').innerText = P.toLocaleString('sk-SK');
+            document.getElementById('valYears').innerText = years;
             document.getElementById('valAuditRate').innerText = r.toFixed(2);
 
-            const months = y * 12;
-            const mRate = r / 100 / 12;
+            const n = years * 12; // počet mesiacov
+            const i = (r / 100) / 12; // mesačná úroková miera
 
-            // Výpočet splátky
+            // Vzorec pre mesačnú splátku
             let monthly = 0;
-            if (mRate > 0) {
-                monthly = (a * mRate) / (1 - Math.pow(1 + mRate, -months));
+            if (i > 0) {
+                monthly = P * (i * Math.pow(1 + i, n)) / (Math.pow(1 + i, n) - 1);
             } else {
-                monthly = a / months;
+                monthly = P / n;
             }
-            
-            const totalPaid = monthly * months;
-            const overpayment = totalPaid - a;
 
-            // Výpočet úspory (-1% úrok)
+            const totalPaid = monthly * n;
+            const overpayment = totalPaid - P;
+
+            // Výpočet úspory pri úroku o 1% nižšom
             const betterRateVal = Math.max(0.1, r - 1);
-            const mBetterRate = betterRateVal / 100 / 12;
-            const betterMonthly = (a * mBetterRate) / (1 - Math.pow(1 + mBetterRate, -months));
-            const savingsPotential = (monthly - betterMonthly) * months;
+            const betterI = (betterRateVal / 100) / 12;
+            const betterMonthly = P * (betterI * Math.pow(1 + betterI, n)) / (Math.pow(1 + betterI, n) - 1);
+            const saving = (monthly - betterMonthly) * n;
 
-            // Zobrazenie výsledkov
-            document.getElementById('auditMonthlyPayment').innerText = Math.round(monthly).toLocaleString('sk-SK');
-            document.getElementById('auditTotalOverpayment').innerText = Math.round(overpayment).toLocaleString('sk-SK');
-            document.getElementById('auditSave').innerText = Math.round(savingsPotential).toLocaleString('sk-SK');
+            // Zobrazenie výsledkov do boxov
+            const monthlyEl = document.getElementById('auditMonthlyPayment');
+            const overpayEl = document.getElementById('auditTotalOverpayment');
+            const saveEl = document.getElementById('auditSave');
+
+            if (monthlyEl) monthlyEl.innerText = Math.round(monthly).toLocaleString('sk-SK');
+            if (overpayEl) overpayEl.innerText = Math.round(overpayment).toLocaleString('sk-SK');
+            if (saveEl) saveEl.innerText = Math.round(saving).toLocaleString('sk-SK');
         }
 
-        // Naviazanie na pohyb sliderov
-        [amountInput, yearsInput, rateInput].forEach(el => {
-            el.addEventListener('input', updateAudit);
-        });
+        // Naviazanie funkcií na pohyb sliderov
+        amountInput.addEventListener('input', updateAudit);
+        yearsInput.addEventListener('input', updateAudit);
+        rateInput.addEventListener('input', updateAudit);
 
-        updateAudit(); // Prvotný výpočet
+        // Spustiť výpočet hneď pri načítaní (defaultné hodnoty)
+        updateAudit();
     }
 });
 
-// --- 3. ODOŠLANIE DÁT DO FORMSPREE ---
+// --- 3. FUNKCIA PRE ODOSLANIE FORMULÁRA (Formspree) ---
+// Táto funkcia musí byť mimo DOMContentLoaded, aby ju tlačidlo "onclick" videlo
 async function sendAuditRequest() {
-    const email = document.getElementById('calc-email').value;
-    const phone = document.getElementById('calc-phone').value;
+    const emailInput = document.getElementById('calc-email');
+    const phoneInput = document.getElementById('calc-phone');
     const btn = document.querySelector('.btn-gold-action');
 
-    // Základná kontrola
+    if (!emailInput || !phoneInput) return;
+
+    const email = emailInput.value.trim();
+    const phone = phoneInput.value.trim();
+
     if (!email || !phone) {
-        alert("Prosím, zadajte e-mail a telefón pre zaslanie výsledkov.");
+        alert("Prosím, zadajte e-mail a telefón.");
         return;
     }
 
-    // Dáta pre Formspree report
+    // Zhromaždenie všetkých dát z kalkulačky
     const leadData = {
         sluzba: "Hypotekárny audit (Kalkulačka)",
         email: email,
         telefon: "+421 " + phone,
-        vyska_hypoteky: document.getElementById('rangeAmount').value + " €",
+        vyska_uveru: document.getElementById('rangeAmount').value + " €",
         doba_splacania: document.getElementById('rangeYears').value + " r.",
         aktualny_urok: document.getElementById('rangeAuditRate').value + " %",
         vypocitany_preplatok: document.getElementById('auditTotalOverpayment').innerText + " €",
         potencialna_uspora: document.getElementById('auditSave').innerText + " €"
     };
 
-    // Vizuálna spätná väzba
+    // Zmena stavu tlačidla
     const originalText = btn.innerText;
     btn.innerText = "ODOSIELAM...";
     btn.disabled = true;
@@ -1740,14 +1754,14 @@ async function sendAuditRequest() {
         });
 
         if (response.ok) {
-            alert("Ďakujeme! Vaša žiadosť o audit bola úspešne odoslaná.");
-            document.getElementById('calc-email').value = "";
-            document.getElementById('calc-phone').value = "";
+            alert("Všetko v poriadku! Vaša žiadosť o audit bola odoslaná.");
+            emailInput.value = "";
+            phoneInput.value = "";
         } else {
-            alert("Nastala chyba pri odosielaní. Skúste to neskôr.");
+            alert("Ups! Server hlási chybu. Skúste to neskôr.");
         }
     } catch (error) {
-        alert("Chyba spojenia. Skontrolujte internetové pripojenie.");
+        alert("Chyba pri spojení. Skontrolujte internet.");
     } finally {
         btn.innerText = originalText;
         btn.disabled = false;

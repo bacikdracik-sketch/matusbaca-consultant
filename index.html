@@ -1106,70 +1106,69 @@ input[type=range]::-webkit-slider-thumb:hover {
     </div>
     <div class="grid-3">
         
-        <!-- KARTA 1: HYPOTEKÁRNY AUDIT -->
-<!-- Pridané uzavretie divu pred kalkulačkou -->
-<div class="card" onclick="openModal()" style="cursor: pointer;">
-    <div class="card-icon">
+        <!-- KARTA 1: HYPOTEKÁRNY AUDIT (Zladená verzia) -->
+<div class="card" id="card-audit">
+    <!-- IKONA: Prepínač (Toggle) -->
+    <div class="card-icon" onclick="openModal()" style="cursor: pointer;" title="Kliknite pre kalkulačku">
         <img src="House.png" alt="Hypotekárny audit">
     </div>
+    
     <h3>Hypotekárny Audit</h3>
         
-    <p class="card-description">
-        Detailná analýza vášho aktuálneho úveru a preverenie trhu. 
-        Zistíme, či nepreplácate zbytočne a nájdeme priestor na úsporu.
+    <!-- Popis, ktorý sa skryje po otvorení -->
+    <p id="audit-desc" class="card-description">
+        Detailná analýza trhu a preverenie vašich možností. Zistíme, v ktorej banke získate najnižší úrok a najlepšie podmienky pre váš nový domov.
     </p>
+
+    <!-- Kalkulačka (štýlovo zladená) -->
+    <div id="inline-calc" class="inline-calculator" style="display: none;">
+        <h4 style="text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; color: #64748b; margin-bottom: 20px; text-align: center;">Kalkulačka novej hypotéky</h4>
         
-    <span class="click-info">Kliknite pre kalkulačku ↓</span>
-
-    <div id="inline-calc" class="inline-calculator" onclick="event.stopPropagation()">
-        <h4>KALKULAČKA NAJVÝHODNEJŠEJ HYPOTÉKY</h4>
-        <p class="calc-sub">Sme viac ako hypotekárna kalkulačka. Pripravíme vám hypotéku na mieru.</p>
-
         <div class="calc-row">
-            <span>Výška hypotéky</span>
+            <span style="font-size: 0.85rem; font-weight: 600;">Výška hypotéky</span>
             <div class="range-wrapper">
-                <input type="range" id="rangeAmount" min="10000" max="500000" step="5000" value="80000">
-                <div class="input-mimic"><span id="valAmount">80 000</span> €</div>
+                <input type="range" id="rangeAmount" min="10000" max="500000" step="5000" value="120000" oninput="updateAuditValues()" style="cursor: pointer;">
+                <div class="input-mimic"><span id="valAmount">120 000</span> €</div>
             </div>
         </div>
 
         <div class="calc-row">
-            <span>Doba splácania</span>
+            <span style="font-size: 0.85rem; font-weight: 600;">Doba splácania</span>
             <div class="range-wrapper">
-                <input type="range" id="rangeYears" min="1" max="40" value="30">
-                <div class="input-mimic"><span id="valYears">30</span> rokov</div>
+                <input type="range" id="rangeYears" min="5" max="40" step="1" value="30" oninput="updateAuditValues()" style="cursor: pointer;">
+                <div class="input-mimic"><span id="valYears">30</span> r.</div>
             </div>
         </div>
 
-        <hr>
+        <!-- ZLADENÝ BOX S VÝSLEDKAMI (Magnet) -->
+        <div class="calc-result-box" style="text-align: center; margin: 15px 0; background: rgba(179, 142, 68, 0.05); padding: 15px; border-radius: 10px; border: 1px solid rgba(179, 142, 68, 0.1);">
+            
+            <p style="text-transform: uppercase; font-size: 0.65rem; font-weight: 700; color: #64748b; margin-bottom: 2px;">Odhadovaná mesačná splátka</p>
+            <div style="font-size: 1.6rem; font-weight: 800; color: #0F172A; margin-bottom: 8px;">
+                <span id="auditMonthlyPayment">485</span> €
+            </div>
+
+            <div style="height: 1px; background: #B38E44; opacity: 0.2; width: 50%; margin: 0 auto 8px auto;"></div>
+
+            <p style="text-transform: uppercase; font-size: 0.7rem; font-weight: 700; color: #B38E44; margin-bottom: 2px;">Aktuálna sadzba od</p>
+            <div style="font-size: 2.1rem; font-weight: 800; color: #B38E44;">
+                4.09 <span style="font-size: 1.2rem;">%</span>
+            </div>
+        </div>
 
         <div class="calc-contact">
-            <label class="checkbox-label">
-                <input type="checkbox" checked> Chcem nezáväznú ponuku hypotéky
+            <label class="checkbox-label" style="display: flex; align-items: center; gap: 10px; cursor: pointer; margin-bottom: 12px; text-align: left;">
+                <input type="checkbox" id="auditAgree" checked style="width: 18px; height: 18px; accent-color: #B38E44;"> 
+                <span style="font-size: 0.85rem; font-weight: 600; color: #0F172A;">Chcem nezáväzné porovnanie</span>
             </label>
             
-            <div class="input-group">
-                <label>E-mail *</label>
-                <!-- DOPLNENÉ id="calcEmail" -->
-                <input type="email" id="calcEmail" placeholder="vas@email.sk" required>
-            </div>
+            <input type="email" id="calcEmail" placeholder="Váš E-mail" style="width: 100%; padding: 10px; margin-bottom: 8px; border-radius: 6px; border: 1px solid #ddd;">
+            <input type="tel" id="calcPhone" placeholder="Váš Telefón" style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 6px; border: 1px solid #ddd;">
 
-            <div class="input-group">
-                <label>Telefón *</label>
-                <div class="phone-input">
-                    <img src="https://flagcdn.com/w20/sk.png" alt="SK">
-                    <!-- DOPLNENÉ id="calcPhone" -->
-                    <input type="tel" id="calcPhone" placeholder="09xx xxx xxx" required>
-                </div>
-            </div>
+            <button class="btn-gold-action" onclick="handleCalcClick(event)" style="width: 100%; text-transform: uppercase; font-weight: 700;">
+                Získať najlepšiu ponuku
+            </button>
         </div>
-
-        <p class="calc-legal">Súhlasím so spracovaním osobných údajov pre účely vypracovania ponuky.</p>
-        
-        <!-- Onclick funkcia je správne -->
-        <button class="btn-gold-action" onclick="handleCalcClick(event)">
-            POROVNAJTE SI HYPOTÉKY
-        </button>
     </div>
 </div>
 

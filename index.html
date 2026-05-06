@@ -1365,7 +1365,7 @@ input[type=range]::-webkit-slider-thumb:hover {
 </div>
 
     <!-- SEKCIA 4: INVESTOVANIE -->
-<section id="investovanie" class="reveal">
+<section id="investovanie" class="reveal" style="opacity: 1; transform: none;"> 
     <div class="card" id="card-invest">
 
         <!-- 🖼️ IKONA -->
@@ -1374,19 +1374,14 @@ input[type=range]::-webkit-slider-thumb:hover {
         </div>
 
         <div class="card-content" style="padding:20px;">
-
-            <!-- 🔥 HEADLINE -->
             <h3 style="line-height:1.3; margin-bottom:12px; font-size:1.25rem;">
                 📈 4. Investovanie: Koľko vás stojí to, že dnes neinvestujete?
             </h3>
 
-            <!-- 🧠 POPIS -->
-            <p id="invest-desc" class="card-description" style="font-size:0.9rem; color:#64748b; line-height:1.5; margin-bottom: 15px;">
-                Peniaze na účte strácajú hodnotu každý rok. 
-                Zistite za pár sekúnd, koľko by mohli zarábať, keby ste ich investovali do široko diverzifikovaných indexových fondov.
+            <p style="font-size:0.9rem; color:#64748b; line-height:1.5; margin-bottom: 15px;">
+                Peniaze na účte strácajú hodnotu každý rok. Zistite, koľko by mohli zarábať v ETF fondoch.
             </p>
 
-            <!-- TLAČIDLO NA OTVORENIE -->
             <button class="btn-open-calc" onclick="toggleCalculator('invest-inline-calc', 'card-invest')" style="background: #e2e8f0; color: #475569; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 600; margin-bottom: 10px;">
                 Otvoriť kalkulačku rastu
             </button>
@@ -1399,44 +1394,27 @@ input[type=range]::-webkit-slider-thumb:hover {
                 </h4>
 
                 <!-- INPUT 1: Mesačná investícia -->
-    <div class="calc-row" style="margin-bottom: 15px;">
-        <span style="font-size:0.85rem; display: block; margin-bottom: 5px;">Mesačná investícia</span>
-        <div class="range-wrapper">
-            <!-- PRIDANÝ oninput="updateInvestCalc()" -->
-            <input type="range" id="rangeInvest" min="20" max="1000" step="10" value="100" style="width: 100%;" oninput="updateInvestCalc()">
-        
-            <div class="input-mimic" style="margin-top: 5px;">
-                <span id="valInvest" style="font-weight:700;">100</span> €
-            </div>
-        </div>
-    </div
+                <div class="calc-row" style="margin-bottom: 15px;">
+                    <span style="font-size:0.85rem; display: block; margin-bottom: 5px;">Mesačná investícia</span>
+                    <input type="range" id="rangeInvest" min="20" max="1000" step="10" value="100" style="width: 100%;">
+                    <div style="margin-top: 5px; font-weight:700;"><span id="valInvest">100</span> €</div>
+                </div>
 
                 <!-- INPUT 2: Doba investovania -->
-    <div class="calc-row" style="margin-bottom: 15px;">
-        <span style="font-size:0.85rem; display: block; margin-bottom: 5px;">Doba investovania</span>
-        <div class="range-wrapper">
-            <!-- PRIDANÝ oninput="updateInvestCalc()" -->
-            <input type="range" id="rangeYearsInvest" min="5" max="40" value="20" style="width: 100%;" oninput="updateInvestCalc()">
-        
-            <div class="input-mimic" style="margin-top: 5px;">
-                <span id="valYearsInvest" style="font-weight:700;">20</span> rokov
-            </div>
-        </div>
-    </div>
+                <div class="calc-row" style="margin-bottom: 15px;">
+                    <span style="font-size:0.85rem; display: block; margin-bottom: 5px;">Doba investovania</span>
+                    <input type="range" id="rangeYearsInvest" min="5" max="40" value="20" style="width: 100%;">
+                    <div style="margin-top: 5px; font-weight:700;"><span id="valYearsInvest">20</span> rokov</div>
+                </div>
 
                 <!-- 💣 VÝSLEDOK -->
                 <div class="calc-result-box" style="background:#f0f9ff; padding:15px; border-radius:10px; margin-top:15px; border:1px solid #90cdf4;">
-                    <p style="text-transform:uppercase; font-size:0.65rem; font-weight:700; color:#2b6cb0; margin-bottom: 5px;">
-                        Budúca hodnota investície
-                    </p>
+                    <p style="text-transform:uppercase; font-size:0.65rem; font-weight:700; color:#2b6cb0; margin-bottom: 5px;">Budúca hodnota investície</p>
                     <div style="font-size:1.8rem; font-weight:800; color:#2b6cb0;">
                         <span id="investFuture">0</span> €
                     </div>
                     <p style="font-size:0.75rem; color:#2c5282; font-weight:600; margin-top: 5px;">
                         Vložené: <span id="investTotal">0</span> €
-                    </p>
-                    <p style="font-size:0.75rem; color:#c53030; margin-top:8px; font-weight:600; border-top: 1px dashed #90cdf4; padding-top: 8px;">
-                        👉 Bez investovania prichádzate o tento potenciálny rast.
                     </p>
                 </div>
 
@@ -1444,7 +1422,6 @@ input[type=range]::-webkit-slider-thumb:hover {
                 <div class="calc-contact" style="margin-top:15px;">
                     <input type="email" id="investEmail" placeholder="Váš E-mail" required style="width:100%; padding:10px; margin-bottom:8px; border-radius:6px; border:1px solid #ddd; box-sizing: border-box;">
                     <input type="tel" id="investPhone" placeholder="Váš Telefón" required style="width:100%; padding:10px; margin-bottom:12px; border-radius:6px; border:1px solid #ddd; box-sizing: border-box;">
-
                     <button onclick="handleLeadSubmit(event, 'Investovanie')" style="width:100%; padding:12px; font-weight:700; background: #2b6cb0; color: white; border: none; border-radius: 6px; cursor: pointer;">
                         Chcem začať investovať
                     </button>

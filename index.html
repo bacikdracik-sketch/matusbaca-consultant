@@ -1758,10 +1758,17 @@ input[type=range]::-webkit-slider-thumb:hover {
 </footer>
 <script>
 (() => {
+"use strict";
 
-/* =========================
-   SAFE CORE ENGINE
-========================= */
+/* =========================================================
+   CONFIG
+========================================================= */
+
+const FORMSPREE_URL = "https://formspree.io/f/xeepvqqy";
+
+/* =========================================================
+   SAFE UTILITIES
+========================================================= */
 
 const $ = (id) => document.getElementById(id);
 
@@ -1778,189 +1785,163 @@ const set = (id, value) => {
 };
 
 const money = (n) =>
-    (Number(n || 0)).toLocaleString("sk-SK", {
+    Number(n || 0).toLocaleString("sk-SK", {
         maximumFractionDigits: 0
     });
 
-/* =========================
-   SAFE GLOBAL ERROR STOP
-========================= */
+/* =========================================================
+   SAFE ERROR HANDLING (NEBLOCKUJE WEB)
+========================================================= */
 
-window.onerror = function () {
-    return true; // zabráni pádu celej stránky
-};
+window.addEventListener("error", (e) => {
+    console.warn("JS error:", e.message);
+});
 
-/* =========================
-   TOGGLE FIX (NEPADÁ)
-========================= */
+/* =========================================================
+   TOGGLE SYSTEM (UNIFIED - CLASS BASED)
+========================================================= */
 
 window.toggleCalculator = function(id, cardId) {
-    try {
-        const box = $(id);
-        if (!box) return;
+    const el = $(id);
+    if (!el) return;
 
-        const isOpen = box.classList.contains("active");
+    const isActive = el.classList.contains("active");
 
-        document.querySelectorAll(".calculator-container, .calculator, .inline-calculator")
-            .forEach(el => el.classList.remove("active"));
+    document.querySelectorAll(".calculator-container")
+        .forEach(x => x.classList.remove("active"));
 
-        document.querySelectorAll(".card")
-            .forEach(el => el.classList.remove("active"));
+    document.querySelectorAll(".card")
+        .forEach(x => x.classList.remove("active"));
 
-        if (!isOpen) {
-            box.classList.add("active");
-            $(cardId)?.classList.add("active");
-        }
-    } catch (e) {}
+    if (!isActive) {
+        el.classList.add("active");
+        $(cardId)?.classList.add("active");
+    }
 };
 
-/* =========================
-   LEAD FORM SAFE
-========================= */
+/* =========================================================
+   MAJETOK TAB SWITCH (CHÝBALO!)
+========================================================= */
 
-window.handleLeadSubmit = async function(e, source) {
+window.showMajetokTool = function(id, btn) {
+    document.querySelectorAll(".majetok-tool")
+        .forEach(el => el.style.display = "none");
+
+    document.querySelectorAll(".tab-btn")
+        .forEach(el => el.classList.remove("active"));
+
+    const el = $(id);
+    if (el) el.style.display = "block";
+
+    if (btn) btn.classList.add("active");
+};
+
+/* =========================================================
+   LEAD SYSTEM (SAFE + FIXED)
+========================================================= */
+
+window.handleLeadSubmit = async function(event, source) {
     try {
-        e.preventDefault();
+        event?.preventDefault();
 
-        const btn = e.target;
-        const wrap = btn.closest(".card-content") || document;
+        const btn = event?.target;
+        const wrap = btn?.closest(".card-content") || document;
 
-        const email = wrap.querySelector("input[type=email]")?.value || "";
         const phone = wrap.querySelector("input[type=tel]")?.value || "";
+        const email = wrap.querySelector("input[type=email]")?.value || "";
 
         if (!phone || phone.length < 9) {
             alert("Zadaj platné telefónne číslo");
             return;
         }
 
-        btn.disabled = true;
-        const old = btn.innerText;
-        btn.innerText = "ODOSIELAM...";
+        if (btn) {
+            btn.disabled = true;
+            btn.dataset.old = btn.innerText;
+            btn.innerText = "ODOSIELAM...";
+        }
 
-        await fetch("https://formspree.io/f/xeepvqqy", {
+        await fetch(FORMSPREE_URL, {
             method: "POST",
-            headers: {"Content-Type": "application/json"},
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                typ: source,
+                source,
+                phone,
                 email,
-                telefon: phone,
                 url: location.href,
-                cas: new Date().toLocaleString("sk-SK")
+                time: new Date().toLocaleString("sk-SK")
             })
         });
 
-        btn.innerText = "ODOSLANÉ ✓";
-
-        setTimeout(() => {
-            btn.disabled = false;
-            btn.innerText = old;
-        }, 2000);
+        alert("Ozvem sa ti čoskoro 👍");
 
     } catch (e) {
-        console.log("lead error");
+        console.warn("Lead error", e);
+    } finally {
+        const btn = event?.target;
+        if (btn) {
+            btn.disabled = false;
+            btn.innerText = btn.dataset.old || "Odoslať";
+        }
     }
 };
 
-/* =========================
-   SAFE CALCULATORS (NO CRASH)
-========================= */
+/* =========================================================
+   KALKULAČKY
+========================================================= */
 
-window.updateAudit = function () {
+window.updateAudit = function() {
     const a = val("rangeAmount");
     const y = val("rangeYears");
     const r = val("rangeAuditRate");
+
     if (!a || !y || !r) return;
 
     const rate = r / 100 / 12;
     const n = y * 12;
 
-    const m = (a * rate) / (1 - Math.pow(1 + rate, -n));
+    const monthly =
+        (a * rate) / (1 - Math.pow(1 + rate, -n));
 
-    set("auditMonthlyPayment", money(m));
-    set("auditTotalOverpayment", money(m * n - a));
+    set("auditMonthlyPayment", money(monthly));
+    set("auditTotalOverpayment", money(monthly * n - a));
 };
 
-window.updateRef = function () {
-    const current = val("rangeCurrentPayment");
-    const rate = val("rangeRate");
+window.updateRef = function() {
     const debt = val("rangeDebt");
-    if (!debt) return;
+    const rate = val("rangeRate");
+
+    if (!debt || !rate) return;
 
     const newRate = Math.max(rate - 1.2, 1.5);
     const r = newRate / 100 / 12;
     const n = 30 * 12;
 
-    const newPay = (debt * r) / (1 - Math.pow(1 + r, -n));
+    const newPay =
+        (debt * r) / (1 - Math.pow(1 + r, -n));
 
     set("newPaymentVal", money(newPay));
-    set("estimatedSavings", money(Math.max(current - newPay, 0)));
 };
 
-window.updateInvest = function () {
+window.updateInvest = function() {
     const m = val("rangeInvest");
     const y = val("rangeYearsInvest");
-    if (!m || !y) return;
 
     const r = 0.08 / 12;
     const n = y * 12;
 
-    const f = m * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
+    const future =
+        m * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
 
-    set("investFuture", money(f));
+    set("investFuture", money(future));
 };
 
-window.update5Inflation = function () {
-    const a = val("range5InfAmount");
-    const r = val("range5InfRate");
-    set("inf5LossValue", money(a * r / 100));
-};
-
-window.update6Wealth = function () {
-    const b = val("range6WealthBase");
-    const m = val("range6WealthMonthly");
-    const y = 20;
-
-    const r = 0.08 / 12;
-    const n = y * 12;
-
-    const inv = m * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
-
-    set("wealth6ResultValue", money(inv + b * Math.pow(1.08, y)));
-};
-
-window.updateRenta = function () {
-    const i = val("rangePrijem");
-    set("rentaStat", money(i * 0.38));
-    set("rentaDeficit", money(i * 0.62));
-};
-
-window.updateOsoby = function () {
-    const el = $("osoby-vysledok");
-    if (!el) return;
-
-    const income = val("zivot-prijem");
-    const hypo = val("zivot-hypo");
-
-    const days = val("cesta-dni");
-    const type = $("cesta-kam")?.value || "europa";
-
-    let travel = 0;
-    if (type === "europa") travel = days * 1.5;
-    else if (type === "svet") travel = days * 2.8;
-    else travel = days * 4.5;
-
-    const life = hypo + income * 36;
-
-    el.innerText = money(life || travel) + " €";
-};
-
-window.updateMajetok = function () {
+window.updateMajetok = function() {
     const el = $("majetok-vysledok");
     if (!el) return;
 
     const kw = val("pzp-kw");
     const age = val("pzp-vek");
-
     const value = val("dom-hodnota");
     const type = $("dom-typ")?.value || "byt";
 
@@ -1973,6 +1954,7 @@ window.updateMajetok = function () {
             kw < 130 ? 180 : 260;
 
         if (age < 25) result *= 1.35;
+
     } else {
         const coef =
             type === "dom" ? 0.00065 :
@@ -1984,21 +1966,12 @@ window.updateMajetok = function () {
     el.innerText = money(result) + " €";
 };
 
-/* =========================
-   INIT SAFE (NO CRASH)
-========================= */
+/* =========================================================
+   INIT (NEPADA WEB)
+========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
-    try {
-        window.updateAudit?.();
-        window.updateRef?.();
-        window.updateInvest?.();
-        window.update5Inflation?.();
-        window.update6Wealth?.();
-        window.updateRenta?.();
-        window.updateOsoby?.();
-        window.updateMajetok?.();
-    } catch (e) {}
+    console.log("Funnel engine ready");
 });
 
 })();

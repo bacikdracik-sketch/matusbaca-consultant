@@ -1414,79 +1414,121 @@ input[type=range]::-webkit-slider-thumb:hover {
     </div>
 </div>
                          <!--BOX 8 — ŽIVOTNÉ RIZIKÁ-->
-            <div class="card premium-card" id="card-rizika">
-    <div class="card-icon" onclick="toggleCalculator('calc-rizika','card-rizika')">
-        <div class="icon-badge">RIZIKOVÝ AUDIT</div>
-        <img src="https://images.unsplash.com/photo-1557333610-90ee4a951ecf?auto=format&fit=crop&w=500&q=80" alt="Riziká">
+            <div class="card premium-card" id="card-osoby">
+    <div class="card-icon" onclick="toggleCalculator('calc-osoby','card-osoby')">
+        <div class="icon-badge" style="background: #002e5d;">OVB EXPERT</div>
+        <img src="https://images.unsplash.com/photo-1557333610-90ee4a951ecf?auto=format&fit=crop&w=500&q=80" alt="Osoby">
     </div>
     <div class="card-content">
-        <h3>🛡 Hodnota vášho príjmu</h3>
-        <p class="card-desc">Koľko peňazí potrebuje vaša rodina, ak by ste zajtra prestali zarábať?</p>
+        <h3>🛡 Život & Cestovanie</h3>
+        <p class="card-desc">Zabezpečte to najcennejšie – váš príjem a zdravie na cestách.</p>
 
-        <div id="calc-rizika" class="calculator-container" style="display:none;">
-            <div class="input-group">
-                <div class="label-row">
-                    <span>Mesačné náklady rodiny</span>
-                    <span class="value-highlight"><b id="valVydavky">1000</b> €</span>
-                </div>
-                <input type="range" id="rangeVydavky" min="500" max="4000" step="50" value="1000" class="premium-slider">
+        <div id="calc-osoby" class="calculator-container" style="display:none;">
+            <div class="ovb-tabs" style="display: flex; gap: 5px; margin-bottom: 20px; background: #f0f2f5; padding: 5px; border-radius: 8px;">
+                <button onclick="showOsobyTool('zivot-form', this)" class="tab-btn active" style="flex:1; padding: 10px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; background: #002e5d; color: white;">🛡 Život</button>
+                <button onclick="showOsobyTool('cesta-form', this)" class="tab-btn" style="flex:1; padding: 10px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; background: transparent; color: #555;">🌍 Cestovné</button>
             </div>
 
-            <div class="input-group">
-                <div class="label-row">
-                    <span>Hypotéky a iné dlhy</span>
-                    <span class="value-highlight"><b id="valDlhy">80 000</b> €</span>
+            <div id="zivot-form" class="osoby-tool">
+                <div class="fialek-form">
+                    <div class="f-row" style="margin-bottom: 10px;">
+                        <label style="display:block; font-size: 0.85rem; margin-bottom: 5px;">Mesačný príjem (€)</label>
+                        <input type="number" id="zivot-prijem" class="f-input" placeholder="napr. 1200" style="width:100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                    </div>
+                    <div class="f-row" style="margin-bottom: 10px;">
+                        <label style="display:block; font-size: 0.85rem; margin-bottom: 5px;">Nesplatená hypotéka (€)</label>
+                        <input type="number" id="zivot-hypo" class="f-input" placeholder="napr. 80000" style="width:100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                    </div>
                 </div>
-                <input type="range" id="rangeDlhy" min="0" max="300000" step="5000" value="80000" class="premium-slider">
             </div>
 
-            <div class="total-coverage">
-                <small>Minimálne potrebné krytie na zmluve:</small>
-                <div class="big-res" id="rizikoKrytie">116 000 €</div>
+            <div id="cesta-form" class="osoby-tool" style="display: none;">
+                <div class="fialek-form">
+                    <div class="f-row" style="margin-bottom: 10px;">
+                        <label style="display:block; font-size: 0.85rem; margin-bottom: 5px;">Cieľ cesty</label>
+                        <select id="cesta-kam" class="f-input" style="width:100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                            <option value="europa">Európa</option>
+                            <option value="svet">Svet (okrem USA/Kanada)</option>
+                            <option value="usa">Svet (vrátane USA/Kanada)</option>
+                        </select>
+                    </div>
+                    <div class="f-row" style="margin-bottom: 10px;">
+                        <label style="display:block; font-size: 0.85rem; margin-bottom: 5px;">Počet dní</label>
+                        <input type="number" id="cesta-dni" class="f-input" placeholder="napr. 7" style="width:100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                    </div>
+                </div>
             </div>
 
-            <div class="magnet-action dark">
-                <h4>Máte už poistnú zmluvu?</h4>
-                <p>9 z 10 zmlúv je nastavených zle. Skontrolujeme tú vašu zadarmo.</p>
-                <div class="cta-input-group">
-                    <input type="tel" id="riskPhone" placeholder="+421 ...">
-                    <button onclick="handleLeadSubmit(event, 'Magnet-Poistka')" class="cta-btn gold">AUDIT ZMLUVY</button>
-                </div>
+            <div class="res-panel-osoby" style="background: #f4f7fa; border-left: 5px solid #002e5d; padding: 15px; margin: 15px 0; border-radius: 8px;">
+                <span id="label-osoby" style="font-size: 0.85rem; color: #555;">Potrebné krytie pre rodinu:</span>
+                <div style="font-size: 1.8rem; font-weight: bold; color: #002e5d;"><span id="osoby-vysledok">---</span></div>
+            </div>
+
+            <div class="magnet-action" style="background: #002e5d; color: white; padding: 20px; border-radius: 8px; text-align: center;">
+                <h4 style="color: #cbb27c; margin-bottom: 10px;">Chcete audit poistenia?</h4>
+                <input type="tel" id="osobyPhone" placeholder="Vaše telefónne číslo" style="width: 100%; padding: 12px; border-radius: 4px; border: none; margin-bottom: 10px;">
+                <button onclick="handleLeadSubmit(event, 'Magnet-Zivot-Cestovne')" style="width: 100%; background: #cbb27c; color: #002e5d; font-weight: bold; padding: 12px; border: none; border-radius: 4px; cursor: pointer;">ZÍSKAŤ POROVNANIE</button>
             </div>
         </div>
     </div>
 </div>
                 <!--BOX 9 — MAJETOK / PZP-->
-            <div class="card premium-card" id="card-pzp">
-    <div class="card-icon" onclick="toggleCalculator('calc-pzp','card-pzp')">
-        <div class="icon-badge">BLESKOVÉ POROVNANIE</div>
-        <img src="https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?auto=format&fit=crop&w=500&q=80" alt="Auto">
+            <div class="card premium-card" id="card-majetok">
+    <div class="card-icon" onclick="toggleCalculator('calc-majetok','card-majetok')">
+        <div class="icon-badge" style="background: #002e5d;">OVB MAJETOK</div>
+        <img src="https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?auto=format&fit=crop&w=500&q=80" alt="Majetok">
     </div>
     <div class="card-content">
-        <h3>🚗 PZP Expert Porovnávač</h3>
-        <p class="card-desc">Okamžitý odhad najlacnejšieho PZP z 11 poisťovní na trhu.</p>
+        <h3>🏠 Majetok & Auto</h3>
+        <p class="card-desc">Expertné porovnanie poistenia vášho domova alebo vozidla.</p>
 
-        <div id="calc-pzp" class="calculator-container" style="display:none;">
-            <div class="input-group">
-                <div class="label-row">
-                    <span>Výkon motora</span>
-                    <span class="value-highlight"><b id="valKW">90</b> kW</span>
-                </div>
-                <input type="range" id="rangeKW" min="30" max="250" value="90" class="premium-slider">
+        <div id="calc-majetok" class="calculator-container" style="display:none;">
+            
+            <div class="ovb-tabs" style="display: flex; gap: 5px; margin-bottom: 20px; background: #f0f2f5; padding: 5px; border-radius: 8px;">
+                <button onclick="showMajetokTool('pzp-form', this)" class="tab-btn active" style="flex:1; padding: 10px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; background: #002e5d; color: white;">🚗 PZP</button>
+                <button onclick="showMajetokTool('dom-form', this)" class="tab-btn" style="flex:1; padding: 10px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; background: transparent; color: #555;">🏠 Dom / Byt</button>
             </div>
 
-            <div class="result-highlight-green">
-                <small>Najlepšia trhová cena od:</small>
-                <div class="res-val" id="pzpCena">84 € / rok</div>
+            <div id="pzp-form" class="majetok-tool">
+                <div class="fialek-form">
+                    <div class="f-row" style="margin-bottom: 10px;">
+                        <label style="display:block; font-size: 0.85rem; margin-bottom: 5px;">Výkon motora (kW)</label>
+                        <input type="number" id="pzp-kw" class="f-input" placeholder="napr. 81" style="width:100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                    </div>
+                    <div class="f-row" style="margin-bottom: 10px;">
+                        <label style="display:block; font-size: 0.85rem; margin-bottom: 5px;">Váš vek</label>
+                        <input type="number" id="pzp-vek" class="f-input" placeholder="napr. 30" style="width:100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                    </div>
+                </div>
             </div>
 
-            <div class="magnet-action blue">
-                <h4>Ušetrite až 60 € na poistke</h4>
-                <p>Naši klienti priemerne ušetria 42 % na ročnom poistnom.</p>
-                <div class="cta-input-group">
-                    <input type="tel" id="pzpPhone" placeholder="+421 ...">
-                    <button onclick="handleLeadSubmit(event, 'Magnet-PZP')" class="cta-btn">ZÍSKAŤ PONUKY</button>
+            <div id="dom-form" class="majetok-tool" style="display: none;">
+                <div class="fialek-form">
+                    <div class="f-row" style="margin-bottom: 10px;">
+                        <label style="display:block; font-size: 0.85rem; margin-bottom: 5px;">Typ nehnuteľnosti</label>
+                        <select id="dom-typ" class="f-input" style="width:100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                            <option value="byt">Byt</option>
+                            <option value="dom">Rodinný dom</option>
+                            <option value="chata">Chata / Chalupa</option>
+                        </select>
+                    </div>
+                    <div class="f-row" style="margin-bottom: 10px;">
+                        <label style="display:block; font-size: 0.85rem; margin-bottom: 5px;">Približná hodnota (€)</label>
+                        <input type="number" id="dom-hodnota" class="f-input" placeholder="napr. 150000" style="width:100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                    </div>
                 </div>
+            </div>
+
+            <div class="pzp-result-panel" style="background: #f4f7fa; border-left: 5px solid #002e5d; padding: 15px; margin: 15px 0; border-radius: 8px;">
+                <span id="label-vysledok" style="font-size: 0.85rem; color: #555;">Odhadované ročné poistné:</span>
+                <div style="font-size: 1.8rem; font-weight: bold; color: #002e5d;"><span id="majetok-vysledok">---</span> €</div>
+            </div>
+
+            <div class="magnet-action" style="background: #002e5d; color: white; padding: 20px; border-radius: 8px; text-align: center;">
+                <h4 style="color: #cbb27c; margin-bottom: 10px;">Chcete presnú ponuku?</h4>
+                <p style="font-size: 0.85rem; margin-bottom: 15px;">Pripravím vám nezávislé porovnanie z 11 poisťovní a vyberiem najlepší pomer ceny a krytia.</p>
+                <input type="tel" id="majetokPhone" placeholder="Vaše telefónne číslo" style="width: 100%; padding: 12px; border-radius: 4px; border: none; margin-bottom: 10px;">
+                <button onclick="handleLeadSubmit(event, 'Magnet-Majetok-Auto')" style="width: 100%; background: #cbb27c; color: #002e5d; font-weight: bold; padding: 12px; border: none; border-radius: 4px; cursor: pointer;">ZÍSKAŤ POROVNANIE</button>
             </div>
         </div>
     </div>
@@ -1738,13 +1780,42 @@ window.toggleCalculator = function (calcId, cardId) {
 };
 
 /* ==========================================
-   SCRIPT 1: LEAD GENERATOR (Odosielanie)
+   SCRIPT 1: TABS LOGIKA (Majetok & Osoby)
+   ========================================== */
+window.showMajetokTool = function(toolId, btn) {
+    switchTabs(btn, '.majetok-tool', toolId);
+    updateMajetokCalculations();
+};
+
+window.showOsobyTool = function(toolId, btn) {
+    switchTabs(btn, '.osoby-tool', toolId);
+    // Dynamická zmena popisku výsledku
+    const label = document.getElementById('label-osoby');
+    if (label) label.innerText = (toolId === 'zivot-form') ? "Potrebné krytie pre rodinu:" : "Odhadovaná cena poistenia:";
+    updateOsobyCalculations();
+};
+
+function switchTabs(btn, toolClass, toolId) {
+    const parent = btn.parentElement;
+    parent.querySelectorAll('.tab-btn').forEach(b => {
+        b.style.background = "transparent";
+        b.style.color = "#555";
+    });
+    btn.style.background = "#002e5d";
+    btn.style.color = "white";
+
+    document.querySelectorAll(toolClass).forEach(t => t.style.display = "none");
+    const target = document.getElementById(toolId);
+    if (target) target.style.display = "block";
+}
+
+/* ==========================================
+   SCRIPT 2: LEAD GENERATOR (Odosielanie)
    ========================================== */
 window.handleLeadSubmit = async function (e, source) {
     e.preventDefault();
     const btn = e.target;
-    // Hľadáme najbližší kontajner, kde je input
-    const parent = btn.closest('.magnet-action') || btn.closest('.lead-form') || btn.closest('.card-content') || btn.closest('.calculator-box');
+    const parent = btn.closest('.magnet-action') || btn.closest('.lead-form') || btn.closest('.card-content');
     const phoneInput = parent ? parent.querySelector('input[type="tel"]') : null;
     const phone = phoneInput ? phoneInput.value : "";
 
@@ -1775,9 +1846,62 @@ window.handleLeadSubmit = async function (e, source) {
 };
 
 /* ==========================================
-   SCRIPT 2: PREMIUM KALKULAČKY (7, 8, 9)
+   SCRIPT 3: VÝPOČTOVÁ LOGIKA (Všetky boxy)
    ========================================== */
-function updatePremiumCalculators() {
+
+// Majetok: PZP / Dom
+function updateMajetokCalculations() {
+    const pzpForm = document.getElementById('pzp-form');
+    if (!pzpForm) return;
+    const isPzp = pzpForm.style.display !== 'none';
+    const display = document.getElementById('majetok-vysledok');
+
+    if (isPzp) {
+        const kw = +document.getElementById('pzp-kw')?.value || 0;
+        const vek = +document.getElementById('pzp-vek')?.value || 0;
+        if (kw > 0) {
+            let cena = kw < 60 ? 72 : kw < 100 ? 98 : 145;
+            if (vek > 0 && vek < 25) cena *= 1.4;
+            if (display) display.innerText = cena.toFixed(2);
+        }
+    } else {
+        const hodnota = +document.getElementById('dom-hodnota')?.value || 0;
+        const typ = document.getElementById('dom-typ')?.value;
+        if (hodnota > 0) {
+            let koeficient = typ === 'byt' ? 0.0004 : 0.0006;
+            let cena = hodnota * koeficient;
+            if (cena < 30) cena = 30;
+            if (display) display.innerText = cena.toFixed(2);
+        }
+    }
+}
+
+// Osoby: Život / Cesta
+function updateOsobyCalculations() {
+    const zivotForm = document.getElementById('zivot-form');
+    if (!zivotForm) return;
+    const isZivot = zivotForm.style.display !== 'none';
+    const display = document.getElementById('osoby-vysledok');
+
+    if (isZivot) {
+        const prijem = +document.getElementById('zivot-prijem')?.value || 0;
+        const hypo = +document.getElementById('zivot-hypo')?.value || 0;
+        if (prijem > 0 && display) {
+            const suma = (prijem * 12 * 3) + hypo;
+            display.innerText = suma.toLocaleString() + " €";
+        }
+    } else {
+        const dni = +document.getElementById('cesta-dni')?.value || 0;
+        const kam = document.getElementById('cesta-kam')?.value;
+        if (dni > 0 && display) {
+            let sadzba = kam === 'europa' ? 1.20 : (kam === 'svet' ? 2.50 : 4.80);
+            display.innerText = (dni * sadzba).toFixed(2) + " €";
+        }
+    }
+}
+
+// Ostatné prémiové a klasické (Dôchodok, Audit, Invest)
+function updatePremiumAndClassic() {
     // BOX 7: Dôchodok
     const rVek = document.getElementById('rangeVek'), rPrijem = document.getElementById('rangePrijem');
     if (rVek && rPrijem) {
@@ -1789,29 +1913,6 @@ function updatePremiumCalculators() {
         setTxt('rentaDeficit', `<span style="color:#ef4444; font-weight:bold;">${(stat - p).toLocaleString()} €</span>`);
     }
 
-    // BOX 8: Riziká
-    const rVyd = document.getElementById('rangeVydavky'), rDlh = document.getElementById('rangeDlhy');
-    if (rVyd && rDlh) {
-        const krytie = (+rVyd.value * 12 * 3) + (+rDlh.value);
-        setTxt('valVydavky', (+rVyd.value).toLocaleString() + " €");
-        setTxt('valDlhy', (+rDlh.value).toLocaleString() + " €");
-        setTxt('rizikoKrytie', `<span style="color:#22c55e; font-weight:bold;">${krytie.toLocaleString()} €</span>`);
-    }
-
-    // BOX 9: PZP
-    const rKW = document.getElementById('rangeKW');
-    if (rKW) {
-        let kw = +rKW.value;
-        let cena = kw < 60 ? 74 : kw < 95 ? 96 : kw < 130 ? 128 : 172;
-        setTxt('valKW', kw);
-        setTxt('pzpCena', `<span style="color:#22c55e; font-weight:bold;">${cena} € / rok</span>`);
-    }
-}
-
-/* ==========================================
-   SCRIPT 3: KLASICKÉ KALKULAČKY (1-4)
-   ========================================== */
-function updateClassicCalculators() {
     // BOX 1: Audit Hypotéky
     const a1 = document.getElementById('rangeAmount'), y1 = document.getElementById('rangeYears'), r1 = document.getElementById('rangeAuditRate');
     if (a1 && y1 && r1) {
@@ -1838,16 +1939,24 @@ function updateClassicCalculators() {
 document.addEventListener('DOMContentLoaded', function() {
     
     window.updateAll = function() {
-        updatePremiumCalculators();
-        updateClassicCalculators();
+        updateMajetokCalculations();
+        updateOsobyCalculations();
+        updatePremiumAndClassic();
     };
 
-    // Aktivácia real-time prepočtov na všetkých slideroch
+    // Sledovanie vstupov pre textové/číselné polia (PZP, Dom, Život, Cesta)
+    document.addEventListener('input', function(e) {
+        const id = e.target.id;
+        if (id && (id.startsWith('pzp-') || id.startsWith('dom-') || id.startsWith('zivot-') || id.startsWith('cesta-'))) {
+            window.updateAll();
+        }
+    });
+
+    // Aktivácia sliderov
     document.querySelectorAll('input[type=range]').forEach(input => {
         input.addEventListener('input', window.updateAll);
     });
 
-    // Spustiť prvý výpočet hneď po načítaní
     window.updateAll();
 });
 </script>

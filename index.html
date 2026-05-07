@@ -2037,6 +2037,48 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 })();
+    /* =========================
+   RESTORE BOX 1–6
+========================= */
+
+function safeBind(id, event, fn) {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener(event, fn);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    /* BOX 1–6 REINIT */
+    if (typeof updateAudit === "function") updateAudit();
+    if (typeof updateRef === "function") updateRef();
+    if (typeof updateInvest === "function") updateInvest();
+    if (typeof update5Inflation === "function") update5Inflation();
+    if (typeof update6Wealth === "function") update6Wealth();
+
+    /* BOX 7–9 */
+    if (typeof updateRenta === "function") updateRenta();
+    if (typeof updateOsoby === "function") updateOsoby();
+    if (typeof updateMajetok === "function") updateMajetok();
+
+    /* LIVE LISTENERS BOX 1–6 */
+    safeBind("rangeAmount", "input", updateAudit);
+    safeBind("rangeYears", "input", updateAudit);
+    safeBind("rangeAuditRate", "input", updateAudit);
+
+    safeBind("rangeCurrentPayment", "input", updateRef);
+    safeBind("rangeRate", "input", updateRef);
+    safeBind("rangeDebt", "input", updateRef);
+
+    safeBind("rangeInvest", "input", updateInvest);
+    safeBind("rangeYearsInvest", "input", updateInvest);
+
+    safeBind("range5InfAmount", "input", update5Inflation);
+    safeBind("range5InfRate", "input", update5Inflation);
+
+    safeBind("range6WealthBase", "input", update6Wealth);
+    safeBind("range6WealthMonthly", "input", update6Wealth);
+
+});
 </script>
 <div style="position: fixed; bottom: 30px; right: 30px; z-index: 10001; display: flex; align-items: center; gap: 10px;">
     <span style="background: white; padding: 5px 15px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 14px; font-weight: 600; color: #333; font-family: sans-serif;">

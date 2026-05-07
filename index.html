@@ -1099,7 +1099,7 @@ input[type=range]::-webkit-slider-thumb:hover {
     </div>
 
     <div class="grid-3">
-
+               <!-- KARTA 1: HYPOTEKÁRNY AUDIT (UPGRADE VERZIA) -->
     <div class="card" id="card-audit">
         <div class="card-icon" onclick="toggleCalculator('calc-audit','card-audit')" style="cursor: pointer;">
             <img src="House.png" alt="Hypotekárny audit">
@@ -1155,7 +1155,7 @@ input[type=range]::-webkit-slider-thumb:hover {
                     <button class="btn-gold-action" onclick="handleLeadSubmit(event, 'Audit')" style="width:100%; font-weight:700; padding:12px; font-size:1rem;">Skontrolujte moju hypotéku</button>
                 </div>
             </div>
-        </div>
+        </div>                  <!-- KARTA 2: REFINANCOVANIE -->
     </div> <div class="card" id="card-refinance">
         <div class="card-icon" onclick="toggleCalculator('ref-inline-calc','card-refinance')" style="cursor:pointer;">
             <img src="Refinance.png" alt="Refinancovanie">
@@ -1167,8 +1167,10 @@ input[type=range]::-webkit-slider-thumb:hover {
             <p style="font-size:0.9rem; color:#64748b; margin-bottom:15px;">
                 Väčšina klientov má nevýhodný starý úrok. Zistite, o koľko nižšiu splátku môžete mať.
             </p>
+                         <!-- KALKULAČKA -->
             <div id="ref-inline-calc" class="inline-calculator" style="display:none; border-top:1px solid #e2e8f0;">
                 <h4 style="text-align:center; font-size:0.75rem; color:#94a3b8; margin:15px 0; text-transform:uppercase; font-weight:700;">Modelácia refinancovania</h4>
+                         <!-- SPLÁTKY -->
                 <div class="calc-group" style="margin-bottom:20px;">
                     <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
                         <span style="font-size:0.85rem; font-weight:600;">Súčasná splátka</span>
@@ -1176,6 +1178,7 @@ input[type=range]::-webkit-slider-thumb:hover {
                     </div>
                     <input type="range" id="rangeCurrentPayment" min="200" max="1500" step="10" value="600" oninput="updateRef()" style="width:100%;">
                 </div>
+                       <!-- ÚROK -->
                 <div class="calc-group" style="margin-bottom:20px;">
                     <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
                         <span style="font-size:0.85rem; font-weight:600;">Váš úrok (%)</span>
@@ -1183,6 +1186,7 @@ input[type=range]::-webkit-slider-thumb:hover {
                     </div>
                     <input type="range" id="rangeRate" min="1" max="8" step="0.1" value="4.5" oninput="updateRef()" style="width:100%;">
                 </div>
+                     <!-- DLH -->
                 <div class="calc-group" style="margin-bottom:20px;">
                     <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
                         <span style="font-size:0.85rem; font-weight:600;">Zostatok hypotéky</span>
@@ -1190,18 +1194,20 @@ input[type=range]::-webkit-slider-thumb:hover {
                     </div>
                     <input type="range" id="rangeDebt" min="20000" max="300000" step="5000" value="120000" oninput="updateRef()" style="width:100%;">
                 </div>
+                     <!-- VÝSLEDOK -->
                 <div class="calc-result-box" style="background:#f0fff4; padding:20px; border-radius:12px; border:1px solid #c6f6d5; text-align:center; margin:20px 0;">
                     <p style="font-size:0.7rem; text-transform:uppercase; color:#2f855a; font-weight:800;">Môžete ušetriť každý mesiac</p>
                     <div style="font-size:2rem; font-weight:800; color:#2f855a;"><span id="estimatedSavings">0</span> €</div>
                     <p style="font-size:0.85rem; color:#276749; font-weight:600;">Nová splátka: <span id="newPaymentVal">0</span> €</p>
                 </div>
+                      <!-- KONTAKT -->
                 <div class="calc-contact" style="background:#f8fafc; padding:15px; border-radius:10px;">
                     <input type="email" id="refEmail" placeholder="Váš E-mail" style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #cbd5e1; border-radius:6px;">
                     <input type="tel" id="refPhone" placeholder="Váš Telefón" style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #cbd5e1; border-radius:6px;">
                     <button class="btn-gold-action" onclick="handleLeadSubmit(event, 'Refinancovanie')" style="width:100%; padding:14px; font-weight:700;">Získať lepšiu splátku</button>
                 </div>
             </div>
-        </div>
+        </div>              <!-- KARTA 3: LEAD MAGNET – HYPOTEKÁRNY SERVIS -->
     </div> <div class="card" id="card-admin">
         <div class="card-icon" onclick="toggleCalculator('admin-inline-calc','card-admin')" style="cursor:pointer;">
             <img src="Service.png" alt="Hypotekárny servis">
@@ -1213,9 +1219,10 @@ input[type=range]::-webkit-slider-thumb:hover {
                 Postrážime termíny, papiere aj banky za vás.
             </p>
             <span class="click-info">Zistite, čo všetko vám vieme ušetriť ↓</span>
-
+                            <!-- LEAD MAGNET BOX -->
             <div id="admin-inline-calc" class="inline-calculator" style="display:none;" onclick="event.stopPropagation()">
                 <h4 style="text-align:center;">📦 CHECKLIST + SERVIS ZDARMA</h4>
+                            <!-- BENEFITS -->
                 <div style="text-align:left; max-width:500px; margin:20px auto; font-size:0.9rem; line-height:1.6;">
                     ✅ Kontrola konca fixácie<br>
                     ✅ Overenie zostatku v banke<br>
@@ -1224,6 +1231,7 @@ input[type=range]::-webkit-slider-thumb:hover {
                     ✅ Upozornenia na termíny<br>
                 </div>
                 <hr>
+                   <!-- FORM -->
                 <div class="calc-contact">
                     <input type="email" id="adminEmail" placeholder="Váš E-mail" style="width:100%; padding:10px; margin-bottom:8px; border:1px solid #ddd; border-radius:6px;">
                     <input type="tel" id="adminPhone" placeholder="Váš Telefón" style="width:100%; padding:10px; margin-bottom:12px; border:1px solid #ddd; border-radius:6px;">

@@ -1757,241 +1757,220 @@ input[type=range]::-webkit-slider-thumb:hover {
     <p class="copyright">Všetky práva vyhradené &copy; 2026 | Matúš Bača</p>
 </footer>
 <script>
-
-/* =========================
-   MASTER FUNNEL CONTROLLER
-========================= */
+/* =========================================================
+   MASTER FUNNEL ENGINE — MATÚŠ BAČA
+   VERSION: 2026 LEAD MACHINE
+========================================================= */
 
 const FORMSPREE_URL = "https://formspree.io/f/xeepvqqy";
-const MY_EMAIL = "5538917@ovbmail.eu";
 
-/* helper */
-const $ = (id) => document.getElementById(id);
-const set = (id, val) => { const el = $(id); if(el) el.innerHTML = val; };
+/* =========================================================
+   GLOBAL STATE (FUNNEL MEMORY)
+========================================================= */
 
-/* =========================
-   TOGGLE CALCULATORS
-========================= */
-window.toggleCalculator = function(calcId, cardId){
-    const calc = $(calcId);
-    const card = $(cardId);
-    if(!calc) return;
-
-    const show = calc.style.display === "none" || calc.style.display === "";
-    calc.style.display = show ? "block" : "none";
-    if(card) card.classList.toggle("active", show);
+const FunnelState = {
+    step: 1,
+    type: null,
+    data: {}
 };
 
-/* =========================
-   LEAD SUBMIT (UNIVERSAL)
-========================= */
-window.handleLeadSubmit = async function(e, source){
-    e.preventDefault();
+/* =========================================================
+   HELPERS
+========================================================= */
 
-    const btn = e.target;
-    const wrap = btn.closest(".calc-contact") || btn.closest(".magnet-action") || btn.parentElement;
+function setText(id, val) {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = val;
+}
 
-    const email = wrap?.querySelector('input[type="email"]')?.value || "";
-    const phone = wrap?.querySelector('input[type="tel"]')?.value || "";
+function format(n) {
+    return Number(n).toLocaleString('sk-SK');
+}
 
-    if(phone.length < 9){
-        alert("Zadajte platné telefónne číslo");
+/* =========================================================
+   1. OPEN / CLOSE ANY CALC
+========================================================= */
+
+function toggleCalculator(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    const visible = el.style.display === "block";
+
+    document.querySelectorAll('.inline-calculator, .calculator-container')
+        .forEach(x => x.style.display = "none");
+
+    el.style.display = visible ? "none" : "block";
+
+    if (!visible) {
+        setTimeout(runAllCalculations, 50);
+    }
+}
+
+/* =========================================================
+   2. MASTER FUNNEL SELECTOR
+========================================================= */
+
+function startFunnel(type) {
+    FunnelState.type = type;
+    FunnelState.step = 1;
+
+    alert("📊 Spúšťam finančný audit: " + type);
+
+    showStep(1);
+}
+
+/* =========================================================
+   3. STEP SYSTEM (AK BUDEŠ CHCIEŤ EXPANDOVAŤ)
+========================================================= */
+
+function showStep(step) {
+    FunnelState.step = step;
+}
+
+/* =========================================================
+   4. MASTER CALCULATION ENGINE
+========================================================= */
+
+function runAllCalculations() {
+
+    updateHypo();
+    updateInvest();
+    updateInsurance();
+}
+
+/* =========================================================
+   5. HYPOTEKA CORE (ZOSTANE HLAVNÝ DRIVER)
+========================================================= */
+
+function updateHypo() {
+
+    const amount = document.getElementById('rangeAmount')?.value || 0;
+    const years = document.getElementById('rangeYears')?.value || 30;
+    const rate = document.getElementById('rangeAuditRate')?.value || 4;
+
+    const r = rate / 100 / 12;
+    const n = years * 12;
+
+    const monthly =
+        (amount * r) / (1 - Math.pow(1 + r, -n));
+
+    const total = monthly * n;
+    const overpay = total - amount;
+
+    setText('auditMonthlyPayment', format(monthly));
+    setText('auditTotalOverpayment', format(overpay));
+
+    FunnelState.data.hypo = overpay;
+}
+
+/* =========================================================
+   6. INVEST
+========================================================= */
+
+function updateInvest() {
+
+    const m = document.getElementById('rangeInvest')?.value || 100;
+    const y = document.getElementById('rangeYearsInvest')?.value || 20;
+
+    const rate = 0.08 / 12;
+    const months = y * 12;
+
+    const fv =
+        m * ((Math.pow(1 + rate, months) - 1) / rate) * (1 + rate);
+
+    setText('investFuture', format(fv));
+
+    FunnelState.data.invest = fv;
+}
+
+/* =========================================================
+   7. INSURANCE / SIMPLE RISK VIEW
+========================================================= */
+
+function updateInsurance() {
+
+    const income = parseFloat(document.getElementById('zivot-prijem')?.value || 0);
+    const hypo = parseFloat(document.getElementById('zivot-hypo')?.value || 0);
+
+    const cover = (income * 36) + hypo;
+
+    setText('osoby-vysledok', format(cover));
+
+    FunnelState.data.cover = cover;
+}
+
+/* =========================================================
+   8. MASTER RESULT ENGINE (🔥 FUNNEL MOMENT)
+========================================================= */
+
+function showFinalResult() {
+
+    const hypoLoss = FunnelState.data.hypo || 0;
+    const investGain = FunnelState.data.invest || 0;
+
+    const net = investGain - hypoLoss;
+
+    const shockLoss = hypoLoss > investGain;
+
+    let html = `
+        ⚠️ FINANČNÝ AUDIT DOMÁCNOSTI<br><br>
+        ${shockLoss ? "STRATA" : "POTENCIÁL"}:<br>
+        <b style="font-size:24px;">
+        ${format(Math.abs(net))} €
+        </b><br><br>
+        ${shockLoss ? "Mesačne zbytočne odchádza kapitál" : "Vaše peniaze majú potenciál rásť"}
+    `;
+
+    document.getElementById("finalResult").innerHTML = html;
+
+    document.getElementById("leadBox").style.display = "block";
+}
+
+/* =========================================================
+   9. LEAD CAPTURE (CRITICAL PART)
+========================================================= */
+
+async function submitLead(source) {
+
+    const phone = document.getElementById("leadPhone")?.value;
+    const email = document.getElementById("leadEmail")?.value;
+
+    if (!phone || phone.length < 9) {
+        alert("Zadajte telefón");
         return;
     }
 
-    btn.disabled = true;
-    btn.innerText = "ODOSIELAM...";
+    const payload = {
+        source: source,
+        phone: phone,
+        email: email,
+        result: FunnelState.data,
+        time: new Date().toLocaleString()
+    };
 
-    try{
-        await fetch(FORMSPREE_URL, {
-            method: "POST",
-            headers: {"Content-Type":"application/json"},
-            body: JSON.stringify({
-                source,
-                email,
-                phone,
-                page: window.location.href,
-                time: new Date().toISOString()
-            })
-        });
+    await fetch(FORMSPREE_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+    });
 
-        alert("Hotovo 👍 Ozvem sa čo najskôr.");
-    }catch(err){
-        alert("Chyba odoslania");
-    }
+    alert("✅ Ozvem sa vám s detailnou analýzou.");
+}
 
-    btn.disabled = false;
-    btn.innerText = "ODOSLAŤ";
-};
+/* =========================================================
+   AUTO INIT
+========================================================= */
 
-/* =========================
-   GLOBAL AUTO LISTENER
-========================= */
-document.addEventListener("input", function(e){
-    const id = e.target.id;
-
-    if(!id) return;
-
-    /* HYPO AUDIT */
-    if(["rangeAmount","rangeYears","rangeAuditRate"].includes(id)){
-        updateAudit();
-    }
-
-    /* INVEST */
-    if(["rangeInvest","rangeYearsInvest"].includes(id)){
-        updateInvest();
-    }
-
-    /* RENTA */
-    if(["rangePrijem","rangeVek"].includes(id)){
-        updateRenta();
-    }
-
-    /* OSOBY */
-    if(id.startsWith("zivot-") || id.startsWith("cesta-")){
-        updateOsoby();
-    }
-
-    /* MAJETOK */
-    if(id.startsWith("pzp-") || id.startsWith("dom-")){
-        updateMajetok();
-    }
-
-    /* INFLACIA */
-    if(id.startsWith("range5Inf")){
-        updateInflation();
-    }
-
-    /* WEALTH */
-    if(id.startsWith("range6Wealth")){
-        updateWealth();
-    }
+document.addEventListener('DOMContentLoaded', () => {
+    runAllCalculations();
 });
 
-/* =========================
-   1. AUDIT
-========================= */
-function updateAudit(){
-    const a = +$("rangeAmount").value;
-    const y = +$("rangeYears").value;
-    const r = +$("rangeAuditRate").value / 100 / 12;
-
-    set("valAmount", a.toLocaleString() + " €");
-
-    const monthly = r > 0
-        ? (a * r) / (1 - Math.pow(1+r, -(y*12)))
-        : a/(y*12);
-
-    set("auditMonthlyPayment", monthly.toFixed(0) + " €");
-
-    const overpay = monthly * 0.25 * y * 12;
-    set("auditTotalOverpayment", overpay.toFixed(0) + " €");
-
-    set("auditSave", (monthly * 12 * y * 0.1).toFixed(0) + " €");
-}
-
-/* =========================
-   2. INVEST
-========================= */
-function updateInvest(){
-    const m = +$("rangeInvest").value;
-    const y = +$("rangeYearsInvest").value;
-
-    set("valInvest", m + " €");
-
-    const r = 0.08/12;
-    const n = y*12;
-
-    const fv = m * ((Math.pow(1+r,n)-1)/r)*(1+r);
-
-    set("investFuture", fv.toFixed(0) + " €");
-    set("investTotal", (m*n).toFixed(0) + " €");
-}
-
-/* =========================
-   3. RENTA (FIXED)
-========================= */
-function updateRenta(){
-    const prijem = +$("rangePrijem").value;
-    const vek = +$("rangeVek").value;
-
-    set("valPrijem", prijem + " €");
-    set("valVek", vek + " r.");
-
-    const stat = prijem * 0.38;
-    const deficit = prijem - stat;
-
-    set("rentaStat", stat.toFixed(0) + " €");
-    set("rentaDeficit", "-" + deficit.toFixed(0) + " €");
-}
-
-/* =========================
-   4. OSOBY
-========================= */
-function updateOsoby(){
-    const prijem = +$("zivot-prijem")?.value || 0;
-    const hypo = +$("zivot-hypo")?.value || 0;
-
-    const result = (prijem * 36) + hypo;
-    set("osoby-vysledok", result.toLocaleString() + " €");
-}
-
-/* =========================
-   5. MAJETOK
-========================= */
-function updateMajetok(){
-    const kw = +$("pzp-kw")?.value || 0;
-    const vek = +$("pzp-vek")?.value || 0;
-
-    let cena = kw < 55 ? 69 :
-                kw < 85 ? 88 :
-                kw < 115 ? 112 :
-                158;
-
-    if(vek < 26) cena *= 1.3;
-
-    set("majetok-vysledok", cena.toFixed(0));
-}
-
-/* =========================
-   6. INFLÁCIA
-========================= */
-function updateInflation(){
-    const amount = +$("range5InfAmount").value;
-    const rate = +$("range5InfRate").value/100;
-
-    set("val5InfAmount", amount + " €");
-    set("val5InfRate", rate*100);
-
-    const loss = amount * rate;
-    set("inf5LossValue", loss.toFixed(0));
-}
-
-/* =========================
-   7. WEALTH
-========================= */
-function updateWealth(){
-    const base = +$("range6WealthBase").value;
-    const monthly = +$("range6WealthMonthly").value;
-
-    set("val6WealthBase", base + " €");
-    set("val6WealthMonthly", monthly + " €");
-
-    const result = base + (monthly * 240); // 20 rokov
-    set("wealth6ResultValue", result.toFixed(0));
-}
-
-/* INIT */
-document.addEventListener("DOMContentLoaded", () => {
-    updateAudit();
-    updateInvest();
-    updateRenta();
-    updateOsoby();
-    updateMajetok();
-    updateInflation();
-    updateWealth();
-});
-
+/* expose */
+window.toggleCalculator = toggleCalculator;
+window.startFunnel = startFunnel;
+window.showFinalResult = showFinalResult;
+window.submitLead = submitLead;
 </script>
 <div style="position: fixed; bottom: 30px; right: 30px; z-index: 10001; display: flex; align-items: center; gap: 10px;">
     <span style="background: white; padding: 5px 15px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 14px; font-weight: 600; color: #333; font-family: sans-serif;">

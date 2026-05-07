@@ -1694,208 +1694,240 @@ input[type=range]::-webkit-slider-thumb:hover {
 <script>
 document.addEventListener('DOMContentLoaded', function () {
 
-    // ============================================================
-    // HELPERS
-    // ============================================================
+    /* ============================================================
+       0. GLOBÁLNE POMOCNÉ FUNKCIE A CONFIG
+       ============================================================ */
+    const FORMSPREE_URL = "https://formspree.io/f/xeepvqqy";
+    const MY_EMAIL = "5538917@ovbmail.eu";
+
     const setTxt = (id, val) => {
         const el = document.getElementById(id);
         if (el) el.innerText = val;
     };
 
-    // ============================================================
-    // TOGGLE BOXOV
-    // ============================================================
+    // Prepínanie kariet (Otvorenie/Zatvorenie boxu)
     window.toggleCalculator = function (calcId, cardId) {
         const calc = document.getElementById(calcId);
         const card = document.getElementById(cardId);
-
         if (!calc) return;
-
-        const show = getComputedStyle(calc).display === 'none';
-
-        calc.style.display = show ? 'block' : 'none';
-
-        if (card) card.classList.toggle('active', show);
-
-        if (show) updateAll();
+        const isHidden = getComputedStyle(calc).display === 'none';
+        calc.style.display = isHidden ? 'block' : 'none';
+        if (card) card.classList.toggle('active', isHidden);
+        if (isHidden) updateAll();
     };
 
-    // ============================================================
-    // 1. AUDIT
-    // ============================================================
+    // Prepínanie nástrojov VNÚTRI boxu (napr. Box 7, 8, 9)
+    window.showTool = function (toolId, btn) {
+        const parent = btn.closest('.card-content');
+        parent.querySelectorAll('.tool-box').forEach(box => box.style.display = 'none');
+        parent.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
+        
+        const target = document.getElementById(toolId);
+        if (target) target.style.display = 'block';
+        btn.classList.add('active');
+    };
+
+    /* ============================================================
+       1. AUDIT HYPOTÉKY (Box 1)
+       ============================================================ */
     window.updateAudit = function () {
-        const a = document.getElementById('rangeAmount');
-        const y = document.getElementById('rangeYears');
-        const r = document.getElementById('rangeAuditRate');
+        const a = document.getElementById('rangeAmount'), 
+              y = document.getElementById('rangeYears'), 
+              r = document.getElementById('rangeAuditRate');
         if (!a || !y || !r) return;
 
-        const amount = +a.value;
-        const years = +y.value;
-        const rate = +r.value;
-
+        const amount = +a.value, years = +y.value, rate = +r.value;
         setTxt('valAmount', amount.toLocaleString('sk-SK'));
         setTxt('valYears', years);
         setTxt('valAuditRate', rate.toFixed(2));
 
-        const months = years * 12;
-        const m = rate / 100 / 12;
-
-        const monthly = m > 0
-            ? (amount * m) / (1 - Math.pow(1 + m, -months))
-            : amount / months;
-
-        const better = Math.max(0.1, rate - 1) / 100 / 12;
-
-        const betterPay = better > 0
-            ? (amount * better) / (1 - Math.pow(1 + better, -months))
-            : amount / months;
-
+        const months = years * 12, m = rate / 100 / 12;
+        const monthly = m > 0 ? (amount * m) / (1 - Math.pow(1 + m, -months)) : amount / months;
+        
         setTxt('auditMonthlyPayment', Math.round(monthly).toLocaleString('sk-SK'));
         setTxt('auditTotalOverpayment', Math.round(monthly * months - amount).toLocaleString('sk-SK'));
-        setTxt('auditSave', Math.round((monthly - betterPay) * months).toLocaleString('sk-SK'));
+        setTxt('auditSave', Math.round((monthly * 0.18) * months).toLocaleString('sk-SK')); 
     };
 
-    // ============================================================
-    // 2. REFINANC
-    // ============================================================
+    /* ============================================================
+       2. REFINANCOVANIE (Box 2)
+       ============================================================ */
     window.updateRef = function () {
-        const p = document.getElementById('rangeCurrentPayment');
-        const r = document.getElementById('rangeRate');
-        const d = document.getElementById('rangeDebt');
+        const p = document.getElementById('rangeCurrentPayment'), 
+              r = document.getElementById('rangeRate'), 
+              d = document.getElementById('rangeDebt');
         if (!p || !r || !d) return;
 
-        const pay = +p.value;
-        const rate = +r.value;
-        const debt = +d.value;
-
-        setTxt('valCurrentPayment', pay.toLocaleString('sk-SK'));
-        setTxt('valRate', rate.toFixed(1));
-        setTxt('valDebt', debt.toLocaleString('sk-SK'));
-
-        const months = 240;
-        const newRate = Math.max(1, rate - 1.2) / 100 / 12;
-
-        const newPay = (debt * newRate) / (1 - Math.pow(1 + newRate, -months));
-
-        const save = pay - newPay;
-
+        setTxt('valCurrentPayment', (+p.value).toLocaleString('sk-SK'));
+        setTxt('valRate', (+r.value).toFixed(1));
+        setTxt('valDebt', (+d.value).toLocaleString('sk-SK'));
+        
+        const newRate = Math.max(0.5, +r.value - 1.2) / 100 / 12;
+        const newPay = (+d.value * newRate) / (1 - Math.pow(1 + newRate, 240));
         setTxt('newPaymentVal', Math.round(newPay).toLocaleString('sk-SK'));
-        setTxt('estimatedSavings', Math.max(0, Math.round(save)).toLocaleString('sk-SK'));
     };
 
-    // ============================================================
-    // 3. INVEST
-    // ============================================================
+    /* ============================================================
+       3. INVESTOVANIE (Box 3)
+       ============================================================ */
     window.updateInvest = function () {
-        const m = document.getElementById('rangeInvest');
-        const y = document.getElementById('rangeYearsInvest');
+        const m = document.getElementById('rangeInvest'), 
+              y = document.getElementById('rangeYearsInvest');
         if (!m || !y) return;
 
-        const monthly = +m.value;
-        const years = +y.value;
+        const monthly = +m.value, years = +y.value, r = 0.08 / 12, months = years * 12;
+        const fv = monthly * ((Math.pow(1 + r, months) - 1) / r) * (1 + r);
 
         setTxt('valInvest', monthly.toLocaleString('sk-SK'));
         setTxt('valYearsInvest', years);
-
-        const r = 0.08 / 12;
-        const months = years * 12;
-
-        const fv = monthly * ((Math.pow(1 + r, months) - 1) / r) * (1 + r);
-
         setTxt('investFuture', Math.round(fv).toLocaleString('sk-SK'));
         setTxt('investTotal', Math.round(monthly * months).toLocaleString('sk-SK'));
     };
 
-    // ============================================================
-    // 4. INFLÁCIA
-    // ============================================================
+    /* ============================================================
+       4. OCHRANA PRED INFLÁCIOU (Box 4)
+       ============================================================ */
     window.update5Inflation = function () {
-        const a = document.getElementById('range5InfAmount');
-        const r = document.getElementById('range5InfRate');
+        const a = document.getElementById('range5InfAmount'), 
+              r = document.getElementById('range5InfRate');
         if (!a || !r) return;
 
-        const amt = +a.value;
-        const rate = +r.value;
-
-        setTxt('val5InfAmount', amt.toLocaleString('sk-SK'));
-        setTxt('val5InfRate', rate.toFixed(1));
-        setTxt('inf5LossValue', Math.round(amt * rate / 100).toLocaleString('sk-SK'));
+        setTxt('val5InfAmount', (+a.value).toLocaleString('sk-SK'));
+        setTxt('val5InfRate', (+r.value).toFixed(1));
+        setTxt('inf5LossValue', Math.round(+a.value * +r.value / 100).toLocaleString('sk-SK'));
     };
 
-    // ============================================================
-    // 5. MAJETOK
-    // ============================================================
+    /* ============================================================
+       5. BUDOVANIE MAJETKU (Box 5)
+       ============================================================ */
     window.update6Wealth = function () {
-        const b = document.getElementById('range6WealthBase');
-        const m = document.getElementById('range6WealthMonthly');
+        const b = document.getElementById('range6WealthBase'), 
+              m = document.getElementById('range6WealthMonthly');
         if (!b || !m) return;
 
-        const base = +b.value;
-        const monthly = +m.value;
-
-        const r = 0.07 / 12;
-        const n = 20 * 12;
-
-        const fv =
-            base * Math.pow(1 + r, n) +
-            monthly * ((Math.pow(1 + r, n) - 1) / r);
+        const base = +b.value, monthly = +m.value, r = 0.07 / 12, n = 240;
+        const fv = base * Math.pow(1 + r, n) + monthly * ((Math.pow(1 + r, n) - 1) / r);
 
         setTxt('val6WealthBase', base.toLocaleString('sk-SK'));
         setTxt('val6WealthMonthly', monthly.toLocaleString('sk-SK'));
         setTxt('wealth6ResultValue', Math.round(fv).toLocaleString('sk-SK'));
     };
 
-    // ============================================================
-    // 6. LEAD SYSTEM (VRÁTANE KARTY 3 = ADMIN)
-    // ============================================================
+    /* ============================================================
+       6. DÔCHODKOVÁ RENTA (Box 7)
+       ============================================================ */
+    window.vypocitajDochodok = function () {
+        const vek = +document.getElementById('vek-r')?.value;
+        const prijem = +document.getElementById('prijem-r')?.value;
+        const ciel = +document.getElementById('dochodok-r')?.value;
+        const res = document.getElementById('vysledok-dochodok');
+
+        if (vek && prijem && ciel) {
+            const statnyOdhad = prijem * 0.42;
+            const deficit = ciel - statnyOdhad;
+            res.innerHTML = `Deficit k cieľu: <b>${Math.round(deficit)} € / mes.</b><br><small>Odhad štátneho dôchodku: ${Math.round(statnyOdhad)} €</small>`;
+        } else {
+            res.innerText = "Vyplňte prosím údaje.";
+        }
+    };
+
+    /* ============================================================
+       7. ŽIVOTNÉ RIZIKÁ (Box 8)
+       ============================================================ */
+    window.vypocitajZivotnePoistenie = function () {
+        const prijem = +document.getElementById('riziko-prijem')?.value;
+        const hypo = +document.getElementById('riziko-hypo')?.value;
+        if (prijem || hypo) {
+            const krytie = (prijem * 12 * 3) + (hypo || 0);
+            alert("Odporúčané poistné krytie: " + krytie.toLocaleString() + " €");
+        } else {
+            alert("Zadajte aspoň príjem.");
+        }
+    };
+
+    /* ============================================================
+       8. OCHRANA AKTÍV (Box 9)
+       ============================================================ */
+    window.kontrolaPodpoistenia = function () {
+        const poistna = +document.getElementById('aktiva-poistna')?.value;
+        const realna = +document.getElementById('aktiva-realna')?.value;
+        if (poistna && realna) {
+            const podpoistenie = ((realna - poistna) / realna) * 100;
+            if (podpoistenie > 10) {
+                alert(`POZOR: Máte podpoistenie ${podpoistenie.toFixed(1)}%! V prípade škody vám poisťovňa vyplatí oveľa menej.`);
+            } else {
+                alert("Vaše poistenie sa zdá byť v poriadku.");
+            }
+        }
+    };
+
+    /* ============================================================
+       9. LEAD SYSTEM (Odosielanie Formspree)
+       ============================================================ */
     window.handleLeadSubmit = async function (e, type) {
         e.preventDefault();
-
         const btn = e.target;
 
+        // Mapovanie ID elementov pre jednotlivé sekcie
         const map = {
             Audit: ['calcEmail', 'calcPhone'],
             Refinancovanie: ['refEmail', 'refPhone'],
             Investovanie: ['investEmail', 'investPhone'],
             Inflacia: ['inf5Email', 'inf5Phone'],
             Majetok: ['wealth6Email', 'wealth6Phone'],
-            Admin: ['adminEmail', 'adminPhone'] // 🔥 KARTA 3 OPRAVENÁ
+            Admin: ['adminEmail', 'adminPhone'],
+            Renta: ['rentaEmail', 'rentaPhone'],
+            Poistenie: ['riskEmail', 'riskPhone'],
+            Aktiva: ['assetsEmail', 'assetsPhone']
         };
 
         const ids = map[type];
         if (!ids) return;
 
-        const email = document.getElementById(ids[0])?.value;
-        const phone = document.getElementById(ids[1])?.value;
+        const email = document.getElementById(ids[0])?.value || "Nezadaný";
+        const phone = document.getElementById(ids[1])?.value || "Nezadaný";
 
-        if (!email || !phone) return alert("Vyplň údaje");
+        if (email === "Nezadaný" && phone === "Nezadaný") {
+            return alert("Prosím, zadajte aspoň jeden kontaktný údaj.");
+        }
 
         try {
             btn.innerText = "ODOSIELAM...";
             btn.disabled = true;
 
-            await fetch("https://formspree.io/f/xeepvqqy", {
+            const payload = {
+                Typ_Leadu: type,
+                Email: email,
+                Telefon: phone,
+                _subject: `MATUSB - Nový záujemca: ${type}`,
+                _replyto: MY_EMAIL
+            };
+
+            const response = await fetch(FORMSPREE_URL, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ type, email, phone })
+                body: JSON.stringify(payload)
             });
 
-            alert("Odoslané!");
+            if (response.ok) {
+                alert("✅ Úspešne odoslané. Čoskoro sa vám ozvem.");
+                if (document.getElementById(ids[0])) document.getElementById(ids[0]).value = "";
+                if (document.getElementById(ids[1])) document.getElementById(ids[1]).value = "";
+            } else {
+                throw new Error();
+            }
 
-            document.getElementById(ids[0]).value = "";
-            document.getElementById(ids[1]).value = "";
-
-        } catch (e) {
-            alert("Chyba");
+        } catch (err) {
+            alert("❌ Chyba pri odosielaní. Skúste to prosím neskôr.");
         } finally {
             btn.innerText = "Odoslať";
             btn.disabled = false;
         }
     };
 
-    // ============================================================
-    // INIT
-    // ============================================================
+    /* ============================================================
+       INICIALIZÁCIA
+       ============================================================ */
     function updateAll() {
         window.updateAudit();
         window.updateRef();
@@ -1904,10 +1936,12 @@ document.addEventListener('DOMContentLoaded', function () {
         window.update6Wealth();
     }
 
-    document.querySelectorAll('input[type=range]').forEach(i => {
-        i.addEventListener('input', updateAll);
+    // Pridanie listenerov na všetky range inputy
+    document.querySelectorAll('input[type=range]').forEach(input => {
+        input.addEventListener('input', updateAll);
     });
 
+    // Spustenie prvotného výpočtu
     updateAll();
 
 });

@@ -1365,107 +1365,128 @@ input[type=range]::-webkit-slider-thumb:hover {
     <div class="container">
         <div class="grid-3">
 
-            <div class="card" id="card-renta">
+            <div class="card premium-card" id="card-renta">
     <div class="card-icon" onclick="toggleCalculator('calc-renta','card-renta')">
+        <div class="icon-badge">TOP ANALÝZA</div>
         <img src="https://images.unsplash.com/photo-1434626881859-194d67b2b86f?auto=format&fit=crop&w=500&q=80" alt="Dôchodok">
     </div>
     <div class="card-content">
-        <h3>💰 Dôchodková Renta</h3>
-        <p>Zistite, koľko vám bude mesačne chýbať a ako to vyriešiť cez 2. a 3. pilier.</p>
+        <h3>💰 Budúca Renta & Deficit</h3>
+        <p class="card-desc">Zistite, o koľko klesne váš životný štandard v momente odchodu do dôchodku.</p>
         
-        <div class="tool-buttons">
-            <button onclick="showTool('tool-renta1', this)" class="tool-btn active">📊 Kalkulačka deficitu</button>
-            <button onclick="showTool('tool-renta2', this)" class="tool-btn">📉 Audit 2. piliera</button>
-        </div>
-
-        <div id="calc-renta" class="tool-container" style="display:none;">
-            <div class="tool-box" id="tool-renta1">
-                <h4>Vypočítajte si prepad príjmu</h4>
-                <input type="number" id="vek-r" placeholder="Váš vek">
-                <input type="number" id="prijem-r" placeholder="Dnešný príjem (€)">
-                <input type="number" id="dochodok-r" placeholder="Želaný dôchodok (€)">
-                <button onclick="vypocitajDochodok()" class="calc-btn">VYPOČÍTAŤ DEFICIT</button>
-                <div id="vysledok-dochodok" class="calc-result"></div>
-                <hr>
-                <p>Chcete vedieť, ako tento deficit vymazať?</p>
-                <input type="tel" placeholder="Váš telefón">
-                <button onclick="handleLeadSubmit(event, 'Dochodok-Deficit')" class="calc-btn lead-btn">CHCIEM RIEŠENIE</button>
+        <div id="calc-renta" class="calculator-container" style="display:none;">
+            <div class="input-group">
+                <div class="label-row">
+                    <span>Váš aktuálny vek</span>
+                    <span class="value-highlight"><b id="valVek">30</b> r.</span>
+                </div>
+                <input type="range" id="rangeVek" min="18" max="62" value="30" class="premium-slider">
             </div>
-            <div class="tool-box" id="tool-renta2" style="display:none;">
-                <h4>Máte správne nastavený 2. pilier?</h4>
-                <p>Väčšina ľudí stráca tisíce eur v garantovaných fondoch.</p>
-                <input type="email" placeholder="Váš e-mail">
-                <input type="tel" placeholder="Váš telefón">
-                <button onclick="handleLeadSubmit(event, 'Audit-Piliere')" class="calc-btn lead-btn">ZÍSKAŤ AUDIT ZADARMO</button>
+
+            <div class="input-group">
+                <div class="label-row">
+                    <span>Mesačný čistý príjem</span>
+                    <span class="value-highlight"><b id="valPrijem">1200</b> €</span>
+                </div>
+                <input type="range" id="rangePrijem" min="600" max="5000" step="50" value="1200" class="premium-slider">
+            </div>
+
+            <div class="result-box-grid">
+                <div class="res-item">
+                    <small>Odhad štátnej penzie</small>
+                    <div class="res-val" id="rentaStat">456 €</div>
+                </div>
+                <div class="res-item warning">
+                    <small>Mesačný prepad (Deficit)</small>
+                    <div class="res-val" id="rentaDeficit">-744 €</div>
+                </div>
+            </div>
+
+            <div class="magnet-action">
+                <h4>Chcete zastaviť tento prepad?</h4>
+                <p>Získajte stratégiu pre 2. a 3. pilier, ktorá vám vráti dôstojnosť.</p>
+                <div class="cta-input-group">
+                    <input type="tel" id="rentaPhone" placeholder="+421 ...">
+                    <button onclick="handleLeadSubmit(event, 'Magnet-Renta')" class="cta-btn">ZÍSKAŤ STRATÉGIU</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
-                         /* =========================BOX 8 — ŽIVOTNÉ RIZIKÁ========================= */
-            <div class="card" id="card-rizika">
+                         <!--BOX 8 — ŽIVOTNÉ RIZIKÁ-->
+            <div class="card premium-card" id="card-rizika">
     <div class="card-icon" onclick="toggleCalculator('calc-rizika','card-rizika')">
+        <div class="icon-badge">RIZIKOVÝ AUDIT</div>
         <img src="https://images.unsplash.com/photo-1557333610-90ee4a951ecf?auto=format&fit=crop&w=500&q=80" alt="Riziká">
     </div>
     <div class="card-content">
-        <h3>🛡 Životné Riziká</h3>
-        <p>Kalkulačka, ktorá vám ukáže, na akú sumu musíte byť krytý, aby rodina prežila.</p>
+        <h3>🛡 Hodnota vášho príjmu</h3>
+        <p class="card-desc">Koľko peňazí potrebuje vaša rodina, ak by ste zajtra prestali zarábať?</p>
 
-        <div class="tool-buttons">
-            <button onclick="showTool('tool-riziko1', this)" class="tool-btn active">📊 Výpočet krytia</button>
-            <button onclick="showTool('tool-riziko2', this)" class="tool-btn">📑 Kontrola poistiek</button>
-        </div>
-
-        <div id="calc-rizika" class="tool-container" style="display:none;">
-            <div class="tool-box" id="tool-riziko1">
-                <input type="number" id="riziko-prijem" placeholder="Mesačný príjem (€)">
-                <input type="number" id="riziko-hypo" placeholder="Zostatok hypotéky (€)">
-                <button onclick="vypocitajZivotnePoistenie()" class="calc-btn">ANALÝZA KRYTIA</button>
-                <hr>
-                <p>Získajte ponuku s najširším krytím na trhu:</p>
-                <input type="tel" placeholder="Váš telefón">
-                <button onclick="handleLeadSubmit(event, 'Zivotne-Poistenie')" class="calc-btn lead-btn">POROVNAŤ CENY</button>
+        <div id="calc-rizika" class="calculator-container" style="display:none;">
+            <div class="input-group">
+                <div class="label-row">
+                    <span>Mesačné náklady rodiny</span>
+                    <span class="value-highlight"><b id="valVydavky">1000</b> €</span>
+                </div>
+                <input type="range" id="rangeVydavky" min="500" max="4000" step="50" value="1000" class="premium-slider">
             </div>
-            <div class="tool-box" id="tool-riziko2" style="display:none;">
-                <h4>Máte starú zmluvu?</h4>
-                <p>Staré poistky často nekryjú kritické choroby podľa moderných štandardov.</p>
-                <input type="tel" placeholder="Váš telefón">
-                <button onclick="handleLeadSubmit(event, 'Audit-Poistenia')" class="calc-btn lead-btn">SKONTROLOVAŤ ZMLUVU</button>
+
+            <div class="input-group">
+                <div class="label-row">
+                    <span>Hypotéky a iné dlhy</span>
+                    <span class="value-highlight"><b id="valDlhy">80 000</b> €</span>
+                </div>
+                <input type="range" id="rangeDlhy" min="0" max="300000" step="5000" value="80000" class="premium-slider">
+            </div>
+
+            <div class="total-coverage">
+                <small>Minimálne potrebné krytie na zmluve:</small>
+                <div class="big-res" id="rizikoKrytie">116 000 €</div>
+            </div>
+
+            <div class="magnet-action dark">
+                <h4>Máte už poistnú zmluvu?</h4>
+                <p>9 z 10 zmlúv je nastavených zle. Skontrolujeme tú vašu zadarmo.</p>
+                <div class="cta-input-group">
+                    <input type="tel" id="riskPhone" placeholder="+421 ...">
+                    <button onclick="handleLeadSubmit(event, 'Magnet-Poistka')" class="cta-btn gold">AUDIT ZMLUVY</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
-                /* =========================BOX 9 — MAJETOK / PZP======================== */
-            <div class="card" id="card-aktiva">
-    <div class="card-icon" onclick="toggleCalculator('calc-aktiva','card-aktiva')">
-        <img src="https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?auto=format&fit=crop&w=500&q=80" alt="Majetok">
+                <!--BOX 9 — MAJETOK / PZP-->
+            <div class="card premium-card" id="card-pzp">
+    <div class="card-icon" onclick="toggleCalculator('calc-pzp','card-pzp')">
+        <div class="icon-badge">BLESKOVÉ POROVNANIE</div>
+        <img src="https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?auto=format&fit=crop&w=500&q=80" alt="Auto">
     </div>
     <div class="card-content">
-        <h3>🏠 Ochrana Aktív (Majetok & PZP)</h3>
-        <p>Neriskujte, že vám poisťovňa vyplatí len polovicu škody kvôli podpoisteniu.</p>
+        <h3>🚗 PZP Expert Porovnávač</h3>
+        <p class="card-desc">Okamžitý odhad najlacnejšieho PZP z 11 poisťovní na trhu.</p>
 
-        <div class="tool-buttons">
-            <button onclick="showTool('tool-aktiva3', this)" class="tool-btn active">🏠 Podpoistenie</button>
-            <button onclick="showTool('tool-pzp', this)" class="tool-btn">🚗 PZP</button>
-        </div>
-
-        <div id="calc-aktiva" class="tool-container" style="display:none;">
-            <div class="tool-box" id="tool-aktiva3">
-                <h4>Hrozí vám krátenie plnenia?</h4>
-                <input type="number" id="aktiva-poistna" placeholder="Suma na zmluve (€)">
-                <input type="number" id="aktiva-realna" placeholder="Reálna cena dnes (€)">
-                <button onclick="kontrolaPodpoistenia()" class="calc-btn">OVERIŤ MAJETOK</button>
-                <hr>
-                <input type="tel" placeholder="Váš telefón">
-                <button onclick="handleLeadSubmit(event, 'Podpoistenie-Majetok')" class="calc-btn lead-btn">UPRAVIŤ ZMLUVU</button>
+        <div id="calc-pzp" class="calculator-container" style="display:none;">
+            <div class="input-group">
+                <div class="label-row">
+                    <span>Výkon motora</span>
+                    <span class="value-highlight"><b id="valKW">90</b> kW</span>
+                </div>
+                <input type="range" id="rangeKW" min="30" max="250" value="90" class="premium-slider">
             </div>
-            <div class="tool-box" id="tool-pzp" style="display:none;">
-                <h4>PZP z 11 poisťovní na jednom mieste</h4>
-                <input type="number" id="pzp-kw" placeholder="Výkon motora (kW)">
-                <button onclick="vypocitajPZP()" class="calc-btn">ODHADNÚŤ CENU</button>
-                <hr>
-                <p>Získajte presnú ponuku a ušetrite do 10 minút:</p>
-                <input type="tel" placeholder="Váš telefón">
-                <button onclick="handleLeadSubmit(event, 'PZP-Kalkulacia')" class="calc-btn lead-btn">NAJSŤ NAJLACNEJŠIE PZP</button>
+
+            <div class="result-highlight-green">
+                <small>Najlepšia trhová cena od:</small>
+                <div class="res-val" id="pzpCena">84 € / rok</div>
+            </div>
+
+            <div class="magnet-action blue">
+                <h4>Ušetrite až 60 € na poistke</h4>
+                <p>Naši klienti priemerne ušetria 42 % na ročnom poistnom.</p>
+                <div class="cta-input-group">
+                    <input type="tel" id="pzpPhone" placeholder="+421 ...">
+                    <button onclick="handleLeadSubmit(event, 'Magnet-PZP')" class="cta-btn">ZÍSKAŤ PONUKY</button>
+                </div>
             </div>
         </div>
     </div>
@@ -1694,162 +1715,140 @@ input[type=range]::-webkit-slider-thumb:hover {
     <p class="copyright">Všetky práva vyhradené &copy; 2026 | Matúš Bača</p>
 </footer>
 <script>
-document.addEventListener('DOMContentLoaded', function () {
+/* ==========================================
+   SCRIPT 0: ZÁKLADNÉ FUNKCIE & KONFIGURÁCIA
+   ========================================== */
+const FORMSPREE_URL = "https://formspree.io/f/xeepvqqy";
+const MY_EMAIL = "5538917@ovbmail.eu";
 
-    /* ============================================================
-       0. CONFIG & POMOCNÍCI
-       ============================================================ */
-    const FORMSPREE_URL = "https://formspree.io/f/xeepvqqy";
-    const MY_EMAIL = "5538917@ovbmail.eu";
+const setTxt = (id, val) => { 
+    const el = document.getElementById(id); 
+    if (el) el.innerHTML = val; 
+};
 
-    const setTxt = (id, val) => {
-        const el = document.getElementById(id);
-        if (el) el.innerHTML = val;
-    };
+// Funkcia na prepínanie viditeľnosti boxov 1-9
+window.toggleCalculator = function (calcId, cardId) {
+    const calc = document.getElementById(calcId);
+    const card = document.getElementById(cardId);
+    if (!calc) return;
+    const isHidden = getComputedStyle(calc).display === 'none';
+    calc.style.display = isHidden ? 'block' : 'none';
+    if (card) card.classList.toggle('active', isHidden);
+    if (isHidden && typeof window.updateAll === 'function') window.updateAll();
+};
 
-    // Hlavné prepínanie boxov (Karty 1-9)
-    window.toggleCalculator = function (calcId, cardId) {
-        const calc = document.getElementById(calcId);
-        const card = document.getElementById(cardId);
-        if (!calc) return;
-        const isHidden = getComputedStyle(calc).display === 'none';
-        calc.style.display = isHidden ? 'block' : 'none';
-        if (card) card.classList.toggle('active', isHidden);
-        if (isHidden) updateAll();
-    };
+/* ==========================================
+   SCRIPT 1: LEAD GENERATOR (Odosielanie)
+   ========================================== */
+window.handleLeadSubmit = async function (e, source) {
+    e.preventDefault();
+    const btn = e.target;
+    // Hľadáme najbližší kontajner, kde je input
+    const parent = btn.closest('.magnet-action') || btn.closest('.lead-form') || btn.closest('.card-content') || btn.closest('.calculator-box');
+    const phoneInput = parent ? parent.querySelector('input[type="tel"]') : null;
+    const phone = phoneInput ? phoneInput.value : "";
 
-    // Prepínanie nástrojov vnútri boxov (7, 8, 9)
-    window.showTool = function (toolId, btn) {
-        const parent = btn.closest('.card-content');
-        parent.querySelectorAll('.tool-box').forEach(box => box.style.display = 'none');
-        parent.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
-        const target = document.getElementById(toolId);
-        if (target) target.style.display = 'block';
-        btn.classList.add('active');
-    };
+    if (phone.trim().length < 9) {
+        alert("⚠️ Zadajte prosím platné telefónne číslo.");
+        return;
+    }
 
-    /* ============================================================
-       1-5. PÔVODNÉ KALKULAČKY (Optimalizované na efekt)
-       ============================================================ */
+    btn.innerText = "ODOSIELAM...";
+    btn.disabled = true;
+
+    try {
+        const response = await fetch(FORMSPREE_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ Zdroj: source, Telefon: phone, _replyto: MY_EMAIL })
+        });
+        if (response.ok) {
+            alert("✅ Úspešne odoslané. Čoskoro sa vám ozvem.");
+            if(phoneInput) phoneInput.value = "";
+        } else { throw new Error(); }
+    } catch (err) {
+        alert("❌ Chyba pri odosielaní. Skúste to neskôr.");
+    } finally {
+        btn.innerText = "ZÍSKAŤ ANALÝZU";
+        btn.disabled = false;
+    }
+};
+
+/* ==========================================
+   SCRIPT 2: PREMIUM KALKULAČKY (7, 8, 9)
+   ========================================== */
+function updatePremiumCalculators() {
+    // BOX 7: Dôchodok
+    const rVek = document.getElementById('rangeVek'), rPrijem = document.getElementById('rangePrijem');
+    if (rVek && rPrijem) {
+        const v = +rVek.value, p = +rPrijem.value;
+        const stat = Math.round(p * 0.38);
+        setTxt('valVek', v);
+        setTxt('valPrijem', p.toLocaleString() + " €");
+        setTxt('rentaStat', stat + " €");
+        setTxt('rentaDeficit', `<span style="color:#ef4444; font-weight:bold;">${(stat - p).toLocaleString()} €</span>`);
+    }
+
+    // BOX 8: Riziká
+    const rVyd = document.getElementById('rangeVydavky'), rDlh = document.getElementById('rangeDlhy');
+    if (rVyd && rDlh) {
+        const krytie = (+rVyd.value * 12 * 3) + (+rDlh.value);
+        setTxt('valVydavky', (+rVyd.value).toLocaleString() + " €");
+        setTxt('valDlhy', (+rDlh.value).toLocaleString() + " €");
+        setTxt('rizikoKrytie', `<span style="color:#22c55e; font-weight:bold;">${krytie.toLocaleString()} €</span>`);
+    }
+
+    // BOX 9: PZP
+    const rKW = document.getElementById('rangeKW');
+    if (rKW) {
+        let kw = +rKW.value;
+        let cena = kw < 60 ? 74 : kw < 95 ? 96 : kw < 130 ? 128 : 172;
+        setTxt('valKW', kw);
+        setTxt('pzpCena', `<span style="color:#22c55e; font-weight:bold;">${cena} € / rok</span>`);
+    }
+}
+
+/* ==========================================
+   SCRIPT 3: KLASICKÉ KALKULAČKY (1-4)
+   ========================================== */
+function updateClassicCalculators() {
+    // BOX 1: Audit Hypotéky
+    const a1 = document.getElementById('rangeAmount'), y1 = document.getElementById('rangeYears'), r1 = document.getElementById('rangeAuditRate');
+    if (a1 && y1 && r1) {
+        const m = (+r1.value / 100 / 12);
+        const monthly = m > 0 ? (+a1.value * m) / (1 - Math.pow(1 + m, -(+y1.value * 12))) : +a1.value / (+y1.value * 12);
+        setTxt('valAmount', (+a1.value).toLocaleString() + " €");
+        setTxt('auditMonthlyPayment', Math.round(monthly).toLocaleString() + " €");
+        setTxt('auditSave', `<b>${Math.round((monthly * 0.18) * (+y1.value * 12)).toLocaleString()} €</b>`);
+    }
+
+    // BOX 3: Investovanie
+    const m3 = document.getElementById('rangeInvest'), y3 = document.getElementById('rangeYearsInvest');
+    if (m3 && y3) {
+        const r = 0.08 / 12;
+        const fv = +m3.value * ((Math.pow(1 + r, +y3.value * 12) - 1) / r) * (1 + r);
+        setTxt('valInvest', (+m3.value).toLocaleString() + " €");
+        setTxt('investFuture', `<b style="color:#22c55e;">${Math.round(fv).toLocaleString()} €</b>`);
+    }
+}
+
+/* ==========================================
+   SCRIPT 4: INITIALIZER & LISTENERS
+   ========================================== */
+document.addEventListener('DOMContentLoaded', function() {
+    
     window.updateAll = function() {
-        // Box 1: Audit Hypo
-        const a1 = document.getElementById('rangeAmount'), y1 = document.getElementById('rangeYears'), r1 = document.getElementById('rangeAuditRate');
-        if (a1) {
-            const amount = +a1.value, years = +y1.value, rate = +r1.value;
-            const m = rate / 100 / 12;
-            const monthly = m > 0 ? (amount * m) / (1 - Math.pow(1 + m, -(years * 12))) : amount / (years * 12);
-            const total = monthly * years * 12;
-            setTxt('valAmount', amount.toLocaleString() + " €");
-            setTxt('auditMonthlyPayment', Math.round(monthly) + " €");
-            setTxt('auditTotalOverpayment', `<span style="color:#ef4444">${Math.round(total - amount).toLocaleString()} €</span>`);
-            setTxt('auditSave', `<b style="color:#22c55e">${Math.round((total - amount) * 0.2).toLocaleString()} €</b>`);
-        }
-        
-        // Box 3: Investovanie
-        const m3 = document.getElementById('rangeInvest'), y3 = document.getElementById('rangeYearsInvest');
-        if (m3) {
-            const monthly = +m3.value, years = +y3.value, r = 0.08 / 12;
-            const fv = monthly * ((Math.pow(1 + r, years * 12) - 1) / r) * (1 + r);
-            setTxt('valInvest', monthly + " €");
-            setTxt('investFuture', `<span style="color:#22c55e">${Math.round(fv).toLocaleString()} €</span>`);
-        }
+        updatePremiumCalculators();
+        updateClassicCalculators();
     };
 
-    /* ============================================================
-       6. DÔCHODOK (Lead Magnet)
-       ============================================================ */
-    window.vypocitajDochodok = function () {
-        const v = +document.getElementById('vek-r')?.value, p = +document.getElementById('prijem-r')?.value, c = +document.getElementById('dochodok-r')?.value;
-        const res = document.getElementById('vysledok-dochodok');
-        if (v && p && c) {
-            const odhadStat = p * 0.35; // Pesimistický (reálny) scenár
-            const deficit = c - odhadStat;
-            res.innerHTML = `<div style="background:#fef2f2; padding:10px; border-radius:8px; border:1px solid #fee2e2; margin-top:10px;">
-                                Štát vám dá: <b>${Math.round(odhadStat)} €</b><br>
-                                Váš mesačný deficit: <b style="color:#ef4444; font-size:1.2rem;">${Math.round(deficit)} €</b>
-                             </div>`;
-        }
-    };
-
-    /* ============================================================
-       7. POISTENIE (Lead Magnet)
-       ============================================================ */
-    window.vypocitajZivotnePoistenie = function () {
-        const p = +document.getElementById('riziko-prijem')?.value, h = +document.getElementById('riziko-hypo')?.value;
-        if (p) {
-            const suma = (p * 12 * 3) + (h || 0);
-            alert("⚠️ Aby ste neohrozili rodinu, potrebujete krytie aspoň " + suma.toLocaleString() + " €.\n\nPokračujte vyplnením kontaktu pre porovnanie cien.");
-        }
-    };
-
-    /* ============================================================
-       8. PZP (Lead Magnet)
-       ============================================================ */
-    window.vypocitajPZP = function () {
-        const kw = +document.getElementById('pzp-kw')?.value;
-        if (kw) {
-            let base = kw < 60 ? 72 : kw < 100 ? 98 : 145;
-            alert(`🔍 Najlacnejšie PZP pre váš výkon začína na ${base} €.\nChcete presný výpočet z 11 poisťovní? Kliknite na Získať ponuky.`);
-        }
-    };
-
-    /* ============================================================
-       9. LEAD SYSTEM (Odosielanie)
-       ============================================================ */
-    window.handleLeadSubmit = async function (e, type) {
-        e.preventDefault();
-        const btn = e.target;
-        const parent = btn.closest('.tool-box');
-        
-        // Získanie údajov z inputov v danom tool-boxe
-        const email = parent.querySelector('input[type="email"]')?.value || "Nezadaný";
-        const phone = parent.querySelector('input[type="tel"]')?.value || "";
-
-        // Validácia (aspoň telefón musí byť)
-        if (phone.length < 9) {
-            alert("Prosím zadajte platné telefónne číslo.");
-            return;
-        }
-
-        btn.innerText = "ODOSIELAM...";
-        btn.disabled = true;
-
-        try {
-            const response = await fetch(FORMSPREE_URL, {
-                method: "POST",
-                headers: { "Content-Type": "application/json", "Accept": "application/json" },
-                body: JSON.stringify({
-                    Zdroj: type,
-                    Email: email,
-                    Telefon: phone,
-                    _subject: `🔥 NOVÝ LEAD: ${type}`,
-                    _replyto: MY_EMAIL
-                })
-            });
-
-            if (response.ok) {
-                alert("✅ Ďakujem! Údaje boli odoslané. Čoskoro sa vám ozvem s výsledkom.");
-                parent.querySelectorAll('input').forEach(i => i.value = "");
-            } else {
-                throw new Error();
-            }
-        } catch (err) {
-            alert("❌ Chyba pri spojení. Skúste mi zavolať priamo na 0951499890.");
-        } finally {
-            btn.innerText = "ZÍSKAŤ ANALÝZU";
-            btn.disabled = false;
-        }
-    };
-
-    // Spustenie
-    document.querySelectorAll('input[type=range]').forEach(i => i.addEventListener('input', window.updateAll));
-    window.updateAll();
-
-    // Reset pod-nástrojov na viditeľné (Boxy 7,8,9)
-    ['tool-renta1', 'tool-riziko1', 'tool-aktiva3'].forEach(id => {
-        const el = document.getElementById(id);
-        if(el) el.style.display = 'block';
+    // Aktivácia real-time prepočtov na všetkých slideroch
+    document.querySelectorAll('input[type=range]').forEach(input => {
+        input.addEventListener('input', window.updateAll);
     });
+
+    // Spustiť prvý výpočet hneď po načítaní
+    window.updateAll();
 });
 </script>
     

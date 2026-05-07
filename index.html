@@ -1757,18 +1757,11 @@ input[type=range]::-webkit-slider-thumb:hover {
     <p class="copyright">Všetky práva vyhradené &copy; 2026 | Matúš Bača</p>
 </footer>
 <script>
-/* ==========================================
-   SCRIPT 0: ZÁKLADNÉ FUNKCIE & KONFIGURÁCIA
-   ========================================== */
+/* SCRIPT 0: ZÁKLAD */
 const FORMSPREE_URL = "https://formspree.io/f/xeepvqqy";
 const MY_EMAIL = "5538917@ovbmail.eu";
+const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.innerHTML = val; };
 
-const setTxt = (id, val) => { 
-    const el = document.getElementById(id); 
-    if (el) el.innerHTML = val; 
-};
-
-// Funkcia na prepínanie viditeľnosti boxov 1-9
 window.toggleCalculator = function (calcId, cardId) {
     const calc = document.getElementById(calcId);
     const card = document.getElementById(cardId);
@@ -1776,192 +1769,128 @@ window.toggleCalculator = function (calcId, cardId) {
     const isHidden = getComputedStyle(calc).display === 'none';
     calc.style.display = isHidden ? 'block' : 'none';
     if (card) card.classList.toggle('active', isHidden);
-    if (isHidden && typeof window.updateAll === 'function') window.updateAll();
 };
 
-/* ==========================================
-   SCRIPT 1: TABS LOGIKA (Majetok & Osoby)
-   ========================================== */
-window.showMajetokTool = function(toolId, btn) {
-    switchTabs(btn, '.majetok-tool', toolId);
-    updateMajetokCalculations();
-};
-
-window.showOsobyTool = function(toolId, btn) {
-    switchTabs(btn, '.osoby-tool', toolId);
-    // Dynamická zmena popisku výsledku
-    const label = document.getElementById('label-osoby');
-    if (label) label.innerText = (toolId === 'zivot-form') ? "Potrebné krytie pre rodinu:" : "Odhadovaná cena poistenia:";
-    updateOsobyCalculations();
-};
-
-function switchTabs(btn, toolClass, toolId) {
-    const parent = btn.parentElement;
-    parent.querySelectorAll('.tab-btn').forEach(b => {
-        b.style.background = "transparent";
-        b.style.color = "#555";
-    });
-    btn.style.background = "#002e5d";
-    btn.style.color = "white";
-
-    document.querySelectorAll(toolClass).forEach(t => t.style.display = "none");
-    const target = document.getElementById(toolId);
-    if (target) target.style.display = "block";
-}
-
-/* ==========================================
-   SCRIPT 2: LEAD GENERATOR (Odosielanie)
-   ========================================== */
 window.handleLeadSubmit = async function (e, source) {
     e.preventDefault();
     const btn = e.target;
-    const parent = btn.closest('.magnet-action') || btn.closest('.lead-form') || btn.closest('.card-content');
+    const parent = btn.closest('.magnet-action') || btn.closest('.card-content');
     const phoneInput = parent ? parent.querySelector('input[type="tel"]') : null;
     const phone = phoneInput ? phoneInput.value : "";
-
-    if (phone.trim().length < 9) {
-        alert("⚠️ Zadajte prosím platné telefónne číslo.");
-        return;
-    }
-
-    btn.innerText = "ODOSIELAM...";
-    btn.disabled = true;
-
+    if (phone.trim().length < 9) { alert("⚠️ Zadajte platné číslo."); return; }
+    btn.innerText = "ODOSIELAM..."; btn.disabled = true;
     try {
-        const response = await fetch(FORMSPREE_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
+        await fetch(FORMSPREE_URL, { method: "POST", headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ Zdroj: source, Telefon: phone, _replyto: MY_EMAIL })
         });
-        if (response.ok) {
-            alert("✅ Úspešne odoslané. Čoskoro sa vám ozvem.");
-            if(phoneInput) phoneInput.value = "";
-        } else { throw new Error(); }
-    } catch (err) {
-        alert("❌ Chyba pri odosielaní. Skúste to neskôr.");
-    } finally {
-        btn.innerText = "ZÍSKAŤ ANALÝZU";
-        btn.disabled = false;
-    }
+        alert("✅ Úspešne odoslané. Čoskoro sa vám ozvem.");
+    } catch (err) { alert("❌ Chyba pri odosielaní."); }
+    finally { btn.innerText = "ZÍSKAŤ ANALÝZU"; btn.disabled = false; }
 };
 
-/* ==========================================
-   SCRIPT 3: VÝPOČTOVÁ LOGIKA (Všetky boxy)
-   ========================================== */
-
-// Majetok: PZP / Dom
-function updateMajetokCalculations() {
-    const pzpForm = document.getElementById('pzp-form');
-    if (!pzpForm) return;
-    const isPzp = pzpForm.style.display !== 'none';
-    const display = document.getElementById('majetok-vysledok');
-
-    if (isPzp) {
-        const kw = +document.getElementById('pzp-kw')?.value || 0;
-        const vek = +document.getElementById('pzp-vek')?.value || 0;
-        if (kw > 0) {
-            let cena = kw < 60 ? 72 : kw < 100 ? 98 : 145;
-            if (vek > 0 && vek < 25) cena *= 1.4;
-            if (display) display.innerText = cena.toFixed(2);
-        }
-    } else {
-        const hodnota = +document.getElementById('dom-hodnota')?.value || 0;
-        const typ = document.getElementById('dom-typ')?.value;
-        if (hodnota > 0) {
-            let koeficient = typ === 'byt' ? 0.0004 : 0.0006;
-            let cena = hodnota * koeficient;
-            if (cena < 30) cena = 30;
-            if (display) display.innerText = cena.toFixed(2);
-        }
-    }
-}
-
-// Osoby: Život / Cesta
-function updateOsobyCalculations() {
-    const zivotForm = document.getElementById('zivot-form');
-    if (!zivotForm) return;
-    const isZivot = zivotForm.style.display !== 'none';
-    const display = document.getElementById('osoby-vysledok');
-
-    if (isZivot) {
-        const prijem = +document.getElementById('zivot-prijem')?.value || 0;
-        const hypo = +document.getElementById('zivot-hypo')?.value || 0;
-        if (prijem > 0 && display) {
-            const suma = (prijem * 12 * 3) + hypo;
-            display.innerText = suma.toLocaleString() + " €";
-        }
-    } else {
-        const dni = +document.getElementById('cesta-dni')?.value || 0;
-        const kam = document.getElementById('cesta-kam')?.value;
-        if (dni > 0 && display) {
-            let sadzba = kam === 'europa' ? 1.20 : (kam === 'svet' ? 2.50 : 4.80);
-            display.innerText = (dni * sadzba).toFixed(2) + " €";
-        }
-    }
-}
-
-// Ostatné prémiové a klasické (Dôchodok, Audit, Invest)
-function updatePremiumAndClassic() {
-    // BOX 7: Dôchodok
-    const rVek = document.getElementById('rangeVek'), rPrijem = document.getElementById('rangePrijem');
-    if (rVek && rPrijem) {
-        const v = +rVek.value, p = +rPrijem.value;
-        const stat = Math.round(p * 0.38);
-        setTxt('valVek', v);
-        setTxt('valPrijem', p.toLocaleString() + " €");
-        setTxt('rentaStat', stat + " €");
-        setTxt('rentaDeficit', `<span style="color:#ef4444; font-weight:bold;">${(stat - p).toLocaleString()} €</span>`);
-    }
-
-    // BOX 1: Audit Hypotéky
-    const a1 = document.getElementById('rangeAmount'), y1 = document.getElementById('rangeYears'), r1 = document.getElementById('rangeAuditRate');
-    if (a1 && y1 && r1) {
-        const m = (+r1.value / 100 / 12);
-        const monthly = m > 0 ? (+a1.value * m) / (1 - Math.pow(1 + m, -(+y1.value * 12))) : +a1.value / (+y1.value * 12);
-        setTxt('valAmount', (+a1.value).toLocaleString() + " €");
-        setTxt('auditMonthlyPayment', Math.round(monthly).toLocaleString() + " €");
-        setTxt('auditSave', `<b>${Math.round((monthly * 0.18) * (+y1.value * 12)).toLocaleString()} €</b>`);
-    }
-
-    // BOX 3: Investovanie
-    const m3 = document.getElementById('rangeInvest'), y3 = document.getElementById('rangeYearsInvest');
-    if (m3 && y3) {
-        const r = 0.08 / 12;
-        const fv = +m3.value * ((Math.pow(1 + r, +y3.value * 12) - 1) / r) * (1 + r);
-        setTxt('valInvest', (+m3.value).toLocaleString() + " €");
-        setTxt('investFuture', `<b style="color:#22c55e;">${Math.round(fv).toLocaleString()} €</b>`);
-    }
-}
-
-/* ==========================================
-   SCRIPT 4: INITIALIZER & LISTENERS
-   ========================================== */
-document.addEventListener('DOMContentLoaded', function() {
-    
-    window.updateAll = function() {
-        updateMajetokCalculations();
-        updateOsobyCalculations();
-        updatePremiumAndClassic();
+/* 1: HYPO AUDIT */
+(function() {
+    const update = () => {
+        const a = document.getElementById('rangeAmount'), y = document.getElementById('rangeYears'), r = document.getElementById('rangeAuditRate');
+        if (!a || !y || !r) return;
+        const amount = parseFloat(a.value), years = parseFloat(y.value), rate = parseFloat(r.value) / 100 / 12;
+        setTxt('valAmount', amount.toLocaleString() + " €");
+        let monthly = rate > 0 ? (amount * rate) / (1 - Math.pow(1 + rate, -(years * 12))) : amount / (years * 12);
+        setTxt('auditMonthlyPayment', monthly.toFixed(2) + " €");
+        let uspora = (monthly * 0.15) * (years * 12); 
+        setTxt('auditSave', `<b>${uspora.toFixed(2)} €</b>`);
     };
+    document.addEventListener('input', (e) => { if(e.target.id.includes('range')) update(); });
+    document.addEventListener('DOMContentLoaded', update);
+})();
 
-    // Sledovanie vstupov pre textové/číselné polia (PZP, Dom, Život, Cesta)
-    document.addEventListener('input', function(e) {
-        const id = e.target.id;
-        if (id && (id.startsWith('pzp-') || id.startsWith('dom-') || id.startsWith('zivot-') || id.startsWith('cesta-'))) {
-            window.updateAll();
-        }
-    });
+/* 2: INVESTOVANIE */
+(function() {
+    const update = () => {
+        const m = document.getElementById('rangeInvest'), y = document.getElementById('rangeYearsInvest');
+        if (!m || !y) return;
+        const mesacne = parseFloat(m.value), roky = parseFloat(y.value), urok = 0.08 / 12, pocetMesiacov = roky * 12;
+        setTxt('valInvest', mesacne.toLocaleString() + " €");
+        const fv = mesacne * ((Math.pow(1 + urok, pocetMesiacov) - 1) / urok) * (1 + urok);
+        setTxt('investFuture', `<b style="color:#22c55e;">${fv.toFixed(2)} €</b>`);
+    };
+    document.addEventListener('input', (e) => { if(e.target.id.includes('Invest')) update(); });
+    document.addEventListener('DOMContentLoaded', update);
+})();
 
-    // Aktivácia sliderov
-    document.querySelectorAll('input[type=range]').forEach(input => {
-        input.addEventListener('input', window.updateAll);
-    });
+/* 3: DÔCHODOK */
+(function() {
+    const update = () => {
+        const p = document.getElementById('rangePrijem'), v = document.getElementById('rangeVek');
+        if (!p || !v) return;
+        const prijem = parseFloat(p.value), vek = parseFloat(v.value);
+        const penziaStat = prijem * 0.3845; 
+        const deficit = prijem - penziaStat;
+        setTxt('valPrijem', prijem.toLocaleString() + " €");
+        setTxt('valVek', vek + " r.");
+        setTxt('rentaStat', penziaStat.toFixed(2) + " €");
+        setTxt('rentaDeficit', `<span style="color:#ef4444; font-weight:bold;">-${deficit.toFixed(2)} €</span>`);
+    };
+    document.addEventListener('input', (e) => { if(e.target.id.includes('rangeP')) update(); });
+    document.addEventListener('DOMContentLoaded', update);
+})();
 
-    window.updateAll();
-});
+/* SCRIPT 4: OSOBY */
+window.showOsobyTool = function(toolId, btn) {
+    const parent = btn.parentElement;
+    parent.querySelectorAll('.tab-btn').forEach(b => { b.style.background = "transparent"; b.style.color = "#555"; });
+    btn.style.background = "#002e5d"; btn.style.color = "white";
+    document.querySelectorAll('.osoby-tool').forEach(t => t.style.display = "none");
+    document.getElementById(toolId).style.display = "block";
+    updateOsoby();
+};
+
+function updateOsoby() {
+    const display = document.getElementById('osoby-vysledok');
+    if(!display) return;
+    const form = document.getElementById('zivot-form');
+    const isZivot = form && form.style.display !== 'none';
+    if (isZivot) {
+        const p = parseFloat(document.getElementById('zivot-prijem').value) || 0;
+        const h = parseFloat(document.getElementById('zivot-hypo').value) || 0;
+        const suma = (p * 36) + h;
+        display.innerText = suma.toLocaleString(undefined, {minimumFractionDigits: 2}) + " €";
+    } else {
+        const d = parseFloat(document.getElementById('cesta-dni').value) || 0, k = document.getElementById('cesta-kam').value;
+        let sadzba = k === 'europa' ? 1.25 : (k === 'svet' ? 2.65 : 4.95);
+        display.innerText = (d * sadzba).toFixed(2) + " €";
+    }
+}
+document.addEventListener('input', (e) => { if(e.target.id && (e.target.id.startsWith('zivot-') || e.target.id.startsWith('cesta-'))) updateOsoby(); });
+
+/* SCRIPT 5: MAJETOK */
+window.showMajetokTool = function(toolId, btn) {
+    const parent = btn.parentElement;
+    parent.querySelectorAll('.tab-btn').forEach(b => { b.style.background = "transparent"; b.style.color = "#555"; });
+    btn.style.background = "#002e5d"; btn.style.color = "white";
+    document.querySelectorAll('.majetok-tool').forEach(t => t.style.display = "none");
+    document.getElementById(toolId).style.display = "block";
+    updateMajetok();
+};
+
+function updateMajetok() {
+    const display = document.getElementById('majetok-vysledok');
+    if(!display) return;
+    const form = document.getElementById('pzp-form');
+    const isPzp = form && form.style.display !== 'none';
+    if (isPzp) {
+        const kw = parseFloat(document.getElementById('pzp-kw').value) || 0, v = parseFloat(document.getElementById('pzp-vek').value) || 0;
+        let cena = kw > 0 ? (kw < 55 ? 69.45 : kw < 85 ? 88.20 : kw < 115 ? 112.50 : 158.90) : 0;
+        if (v > 0 && v < 26) cena *= 1.45;
+        display.innerText = cena > 0 ? cena.toFixed(2) : "---";
+    } else {
+        const h = parseFloat(document.getElementById('dom-hodnota').value) || 0, t = document.getElementById('dom-typ').value;
+        const koef = t === 'byt' ? 0.00042 : 0.00065;
+        display.innerText = h > 0 ? Math.max(h * koef, 28.50).toFixed(2) : "---";
+    }
+}
+document.addEventListener('input', (e) => { if(e.target.id && (e.target.id.startsWith('pzp-') || e.target.id.startsWith('dom-'))) updateMajetok(); });
 </script>
-    
-<!-- WHATSAPP FLOAT (Fixná poloha na webe) -->
 <div style="position: fixed; bottom: 30px; right: 30px; z-index: 10001; display: flex; align-items: center; gap: 10px;">
     <span style="background: white; padding: 5px 15px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 14px; font-weight: 600; color: #333; font-family: sans-serif;">
         Napíšte mi

@@ -1360,35 +1360,524 @@ input[type=range]::-webkit-slider-thumb:hover {
             </div>
         </div> </div> </section>
 
-    <section class="bg-light">
-        <div class="section-header">
-            <h2>Finančná <span>Sloboda a Bezpečie</span></h2>
-        </div>
-        <div class="grid-3">
-            <div class="card">
-                <div class="card-icon">
-                    <img src="https://images.unsplash.com/photo-1434626881859-194d67b2b86f?auto=format&fit=crop&w=500&q=80" alt="Dôchodková Renta">
-                </div>
-                <h3>Dôchodková Renta</h3>
-                <p>Analýza 2. a 3. piliera doplnená o súkromné formy sporenia. Cieľom je zabezpečiť vám príjem, ktorý vám umožní udržať si životný štandard aj v starobe.</p>
+    <!-- BOX 7 — DÔCHODKOVÁ RENTA -->
+<div class="card" id="card-renta">
+
+    <div class="card-icon"
+         onclick="toggleCalculator('calc-renta','card-renta')"
+         style="cursor:pointer;">
+
+        <img src="https://images.unsplash.com/photo-1434626881859-194d67b2b86f?auto=format&fit=crop&w=500&q=80"
+             alt="Dôchodková renta">
+    </div>
+
+    <div class="card-content">
+
+        <h3>💰 Dôchodková Renta</h3>
+
+        <p class="card-text">
+            Aký dôchodok vás reálne čaká?
+            Väčšina ľudí to netuší.
+            Skontrolujte si svoj 2. a 3. pilier,
+            zistite možné chyby a vypočítajte si,
+            aký príjem môžete mať v budúcnosti.
+        </p>
+
+        <!-- LEAD MAGNET -->
+        <div class="lead-magnet-box">
+
+            <div class="lead-badge">
+                🎁 BEZPLATNÁ ANALÝZA DÔCHODKU
             </div>
 
-            <div class="card">
-                <div class="card-icon">
-                    <img src="https://images.unsplash.com/photo-1557333610-90ee4a951ecf?auto=format&fit=crop&w=500&q=80" alt="Krytie Životných Rizík">
-                </div>
-                <h3>Krytie Životných Rizík</h3>
-                <p>Zabezpečenie príjmu pre nepredvídané situácie. Profesionálne nastavenie poistnej ochrany tak, aby v prípade choroby alebo úrazu netrpela vaša rodina.</p>
+            <h4>
+                Zistite, koľko môžete mať na dôchodku
+            </h4>
+
+            <p>
+                Interaktívne nástroje vám pomôžu odhaliť:
+            </p>
+
+            <ul class="tool-list">
+                <li>✔ Stav a výkonnosť 2. piliera</li>
+                <li>✔ Či máte správny fond</li>
+                <li>✔ Výšku budúcej renty</li>
+                <li>✔ Možnosti 3. piliera</li>
+                <li>✔ Ako si budovať pasívny príjem</li>
+            </ul>
+
+        </div>
+
+        <!-- TOOL BUTTONS -->
+        <div class="tool-buttons">
+
+            <button onclick="showTool('tool-renta1')" class="tool-btn">
+                📊 Kalkulačka dôchodku
+            </button>
+
+            <button onclick="showTool('tool-renta2')" class="tool-btn">
+                🏦 Analýza 2. piliera
+            </button>
+
+            <button onclick="showTool('tool-renta3')" class="tool-btn">
+                📈 Výpočet dôchodkovej renty
+            </button>
+
+            <button onclick="showTool('tool-renta4')" class="tool-btn">
+                💼 3. pilier a investovanie
+            </button>
+
+        </div>
+
+        <!-- TOOLS -->
+        <div class="tool-container">
+
+            <!-- TOOL 1 -->
+            <div class="tool-box active-tool" id="tool-renta1">
+
+                <h4>📊 Kalkulačka budúceho dôchodku</h4>
+
+                <input type="number"
+                       id="vek"
+                       placeholder="Váš vek">
+
+                <input type="number"
+                       id="prijem"
+                       placeholder="Mesačný príjem (€)">
+
+                <input type="number"
+                       id="dochodok"
+                       placeholder="Koľko chcete mať na dôchodku (€)">
+
+                <button onclick="vypocitajDochodok()" class="calc-btn">
+                    Vypočítať
+                </button>
+
+                <div id="vysledok-dochodok" class="calc-result"></div>
+
             </div>
 
-            <div class="card">
-                <div class="card-icon">
-                    <img src="https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?auto=format&fit=crop&w=500&q=80" alt="Ochrana Aktív">
-                </div>
-                <h3>Ochrana Aktív</h3>
-                <p>Poistenie nehnuteľností, domácností a cenností. Komplexná ochrana všetkého, čo ste si roky budovali, pred vonkajšími vplyvmi a rizikami.</p>
+            <!-- TOOL 2 -->
+            <div class="tool-box" id="tool-renta2">
+
+                <h4>🏦 Kontrola 2. piliera</h4>
+
+                <p>
+                    Mnoho ľudí je v nesprávnom fonde
+                    a prichádzajú tak o tisíce eur.
+                </p>
+
+                <select>
+                    <option>Vyberte fond</option>
+                    <option>Dlhopisový</option>
+                    <option>Indexový</option>
+                    <option>Zmiešaný</option>
+                </select>
+
+                <button class="calc-btn">
+                    Skontrolovať fond
+                </button>
+
             </div>
+
+            <!-- TOOL 3 -->
+            <div class="tool-box" id="tool-renta3">
+
+                <h4>📈 Výpočet dôchodkovej renty</h4>
+
+                <input type="number"
+                       placeholder="Nasporená suma (€)">
+
+                <input type="number"
+                       placeholder="Počet rokov čerpania">
+
+                <button class="calc-btn">
+                    Vypočítať rentu
+                </button>
+
+            </div>
+
+            <!-- TOOL 4 -->
+            <div class="tool-box" id="tool-renta4">
+
+                <h4>💼 3. pilier a investovanie</h4>
+
+                <p>
+                    Zistite, ako môže pravidelné investovanie
+                    pomôcť vytvoriť váš budúci pasívny príjem.
+                </p>
+
+                <button class="calc-btn">
+                    Chcem analýzu investovania
+                </button>
+
+            </div>
+
         </div>
+
+    </div>
+</div>
+
+            <!-- BOX 8 — KRYTIE ŽIVOTNÝCH RIZÍK -->
+<div class="card" id="card-rizika">
+
+    <div class="card-icon"
+         onclick="toggleCalculator('calc-rizika','card-rizika')"
+         style="cursor:pointer;">
+
+        <img src="https://images.unsplash.com/photo-1557333610-90ee4a951ecf?auto=format&fit=crop&w=500&q=80"
+             alt="Krytie životných rizík">
+    </div>
+
+    <div class="card-content">
+
+        <h3>🛡 Krytie Životných Rizík</h3>
+
+        <p class="card-text">
+            Máte istotu, že vaše poistenie naozaj ochráni vás a vašu rodinu?
+            Väčšina ľudí platí poistky roky, no pritom nemá správne nastavené krytie
+            pri PN, invalidite, vážnych chorobách alebo strate príjmu.
+        </p>
+
+        <!-- LEAD MAGNET -->
+        <div class="lead-magnet-box">
+
+            <div class="lead-badge">
+                🎁 BEZPLATNÁ KONTROLA POISTENIA
+            </div>
+
+            <h4>
+                Zistite, či nie ste zbytočne podpoistený alebo nepreplácate
+            </h4>
+
+            <p>
+                Interaktívne nástroje vám pomôžu odhaliť:
+            </p>
+
+            <ul class="tool-list">
+                <li>✔ Nedostatočné poistné krytie</li>
+                <li>✔ Zbytočne drahé poistky</li>
+                <li>✔ Chýbajúce riziká v zmluve</li>
+                <li>✔ Slabú ochranu príjmu</li>
+                <li>✔ Nevhodné nastavenie hypotéky a poistenia</li>
+            </ul>
+
+        </div>
+
+        <!-- TOOL BUTTONS -->
+        <div class="tool-buttons">
+
+            <button onclick="showTool('tool-riziko1')" class="tool-btn">
+                📊 Kalkulačka životného poistenia
+            </button>
+
+            <button onclick="showTool('tool-riziko2')" class="tool-btn">
+                🏥 Kontrola kritických chorôb
+            </button>
+
+            <button onclick="showTool('tool-riziko3')" class="tool-btn">
+                💸 Ochrana príjmu
+            </button>
+
+            <button onclick="showTool('tool-riziko4')" class="tool-btn">
+                👨‍👩‍👧 Rodinné zabezpečenie
+            </button>
+
+            <button onclick="showTool('tool-riziko5')" class="tool-btn">
+                📑 Audit existujúcich poistiek
+            </button>
+
+        </div>
+
+        <!-- TOOLS -->
+        <div class="tool-container">
+
+            <!-- TOOL 1 -->
+            <div class="tool-box active-tool" id="tool-riziko1">
+
+                <h4>📊 Kalkulačka životného poistenia</h4>
+
+                <input type="number"
+                       placeholder="Váš vek">
+
+                <input type="number"
+                       placeholder="Mesačný príjem (€)">
+
+                <input type="number"
+                       placeholder="Výška hypotéky (€)">
+
+                <button class="calc-btn">
+                    Vypočítať odporúčané krytie
+                </button>
+
+                <div class="calc-result">
+                    Výsledok vám ukáže orientačné odporúčané krytie.
+                </div>
+
+            </div>
+
+            <!-- TOOL 2 -->
+            <div class="tool-box" id="tool-riziko2">
+
+                <h4>🏥 Kontrola kritických chorôb</h4>
+
+                <p>
+                    Zistite, či vaše poistenie pokrýva najčastejšie
+                    vážne ochorenia a dlhodobú PN.
+                </p>
+
+                <select>
+                    <option>Vyberte typ krytia</option>
+                    <option>Invalidita</option>
+                    <option>Rakovina</option>
+                    <option>Infarkt</option>
+                    <option>Mozgová príhoda</option>
+                </select>
+
+                <button class="calc-btn">
+                    Skontrolovať krytie
+                </button>
+
+            </div>
+
+            <!-- TOOL 3 -->
+            <div class="tool-box" id="tool-riziko3">
+
+                <h4>💸 Kalkulačka ochrany príjmu</h4>
+
+                <input type="number"
+                       placeholder="Mesačný príjem (€)">
+
+                <input type="number"
+                       placeholder="Mesačné výdavky (€)">
+
+                <button class="calc-btn">
+                    Vypočítať rezervu
+                </button>
+
+                <div class="calc-result">
+                    Zistíte, ako dlho by vaša rodina zvládla výpadok príjmu.
+                </div>
+
+            </div>
+
+            <!-- TOOL 4 -->
+            <div class="tool-box" id="tool-riziko4">
+
+                <h4>👨‍👩‍👧 Rodinné zabezpečenie</h4>
+
+                <p>
+                    Overte si, či by vaša rodina zvládla splácať hypotéku
+                    a bežné výdavky v prípade nečakanej udalosti.
+                </p>
+
+                <button class="calc-btn">
+                    Skontrolovať zabezpečenie rodiny
+                </button>
+
+            </div>
+
+            <!-- TOOL 5 -->
+            <div class="tool-box" id="tool-riziko5">
+
+                <h4>📑 Audit existujúcich poistiek</h4>
+
+                <p>
+                    Nahrajte alebo porovnajte svoje existujúce poistky
+                    a zistite, kde môžete ušetriť alebo získať lepšie krytie.
+                </p>
+
+                <button class="calc-btn">
+                    Chcem bezplatný audit
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+            <!-- BOX 9 — OCHRANA AKTÍV -->
+<div class="card" id="card-aktiva">
+
+    <div class="card-icon"
+         onclick="toggleCalculator('calc-aktiva','card-aktiva')"
+         style="cursor:pointer;">
+
+        <img src="https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?auto=format&fit=crop&w=500&q=80"
+             alt="Ochrana aktív">
+    </div>
+
+    <div class="card-content">
+
+        <h3>🏠 Ochrana Aktív</h3>
+
+        <p class="card-text">
+            Dom, byt, auto alebo majetok predstavujú hodnoty,
+            ktoré ste budovali celé roky.
+            Skontrolujte si, či vaše poistenia naozaj chránia to,
+            čo je pre vás najdôležitejšie.
+        </p>
+
+        <!-- LEAD MAGNET -->
+        <div class="lead-magnet-box">
+
+            <div class="lead-badge">
+                🎁 BEZPLATNÁ ANALÝZA MAJETKU
+            </div>
+
+            <h4>
+                Zistite, či nie ste podpoistený alebo neplatíte zbytočne veľa
+            </h4>
+
+            <p>
+                Interaktívne nástroje vám pomôžu odhaliť:
+            </p>
+
+            <ul class="tool-list">
+                <li>✔ Riziko podpoistenia nehnuteľnosti</li>
+                <li>✔ Slabé krytie domácnosti</li>
+                <li>✔ Nevýhodné PZP alebo havarijné poistenie</li>
+                <li>✔ Chýbajúce poistenie zodpovednosti</li>
+                <li>✔ Zbytočne vysoké poistné</li>
+            </ul>
+
+        </div>
+
+        <!-- TOOL BUTTONS -->
+        <div class="tool-buttons">
+
+            <button onclick="showTool('tool-aktiva1')" class="tool-btn">
+                🏡 Kalkulačka poistenia nehnuteľnosti
+            </button>
+
+            <button onclick="showTool('tool-aktiva2')" class="tool-btn">
+                🚗 Kalkulačka PZP
+            </button>
+
+            <button onclick="showTool('tool-aktiva3')" class="tool-btn">
+                🔥 Kontrola podpoistenia
+            </button>
+
+            <button onclick="showTool('tool-aktiva4')" class="tool-btn">
+                💎 Ochrana domácnosti
+            </button>
+
+            <button onclick="showTool('tool-aktiva5')" class="tool-btn">
+                📑 Audit majetkových poistiek
+            </button>
+
+        </div>
+
+        <!-- TOOLS -->
+        <div class="tool-container">
+
+            <!-- TOOL 1 -->
+            <div class="tool-box active-tool" id="tool-aktiva1">
+
+                <h4>🏡 Kalkulačka poistenia nehnuteľnosti</h4>
+
+                <input type="text"
+                       placeholder="Typ nehnuteľnosti">
+
+                <input type="number"
+                       placeholder="Hodnota nehnuteľnosti (€)">
+
+                <input type="number"
+                       placeholder="Rozloha (m²)">
+
+                <button class="calc-btn">
+                    Vypočítať odporúčané krytie
+                </button>
+
+                <div class="calc-result">
+                    Zistíte orientačné odporúčané poistné krytie.
+                </div>
+
+            </div>
+
+            <!-- TOOL 2 -->
+            <div class="tool-box" id="tool-aktiva2">
+
+                <h4>🚗 Kalkulačka PZP</h4>
+
+                <input type="text"
+                       placeholder="Značka vozidla">
+
+                <input type="number"
+                       placeholder="Objem motora">
+
+                <input type="number"
+                       placeholder="Vek vodiča">
+
+                <button class="calc-btn">
+                    Porovnať PZP
+                </button>
+
+                <div class="calc-result">
+                    Porovnanie cien a možností poistenia vozidla.
+                </div>
+
+            </div>
+
+            <!-- TOOL 3 -->
+            <div class="tool-box" id="tool-aktiva3">
+
+                <h4>🔥 Kontrola podpoistenia</h4>
+
+                <p>
+                    Väčšina nehnuteľností na Slovensku je podpoistených.
+                    To znamená, že pri škode nemusí poisťovňa vyplatiť plnú sumu.
+                </p>
+
+                <input type="number"
+                       placeholder="Aktuálna poistná suma (€)">
+
+                <input type="number"
+                       placeholder="Reálna hodnota nehnuteľnosti (€)">
+
+                <button class="calc-btn">
+                    Skontrolovať podpoistenie
+                </button>
+
+            </div>
+
+            <!-- TOOL 4 -->
+            <div class="tool-box" id="tool-aktiva4">
+
+                <h4>💎 Ochrana domácnosti</h4>
+
+                <p>
+                    Nábytok, elektronika, spotrebiče či cennosti —
+                    zistite, či je vaša domácnosť správne poistená.
+                </p>
+
+                <button class="calc-btn">
+                    Skontrolovať domácnosť
+                </button>
+
+            </div>
+            <!-- TOOL 5 -->
+            <div class="tool-box" id="tool-aktiva5">
+
+                <h4>📑 Audit majetkových poistiek</h4>
+
+                <p>
+                    Bezplatná kontrola existujúcich zmlúv,
+                    poistných súm a krytia vašej nehnuteľnosti či vozidla.
+                </p>
+
+                <button class="calc-btn">
+                    Chcem bezplatný audit
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
     </section>
     <section id="filozofia" class="bio">
         <div class="bio-image"></div>

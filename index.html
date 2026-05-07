@@ -1366,108 +1366,110 @@ input[type=range]::-webkit-slider-thumb:hover {
         <div class="grid-3">
 
             <div class="card" id="card-renta">
-                <div class="card-icon" onclick="toggleCalculator('calc-renta','card-renta')" style="cursor:pointer;">
-                    <img src="https://images.unsplash.com/photo-1434626881859-194d67b2b86f?auto=format&fit=crop&w=500&q=80" alt="Dôchodková renta">
-                </div>
-                <div class="card-content" style="padding:20px;">
-                    <h3 style="margin-bottom:15px;">💰 7. Dôchodková Renta</h3>
-                    <p class="card-text" style="font-size:0.9rem; color:#64748b; margin-bottom:15px;">
-                        Aký dôchodok vás reálne čaká? Skontrolujte si svoj 2. a 3. pilier a vypočítajte si budúci príjem.
-                    </p>
+    <div class="card-icon" onclick="toggleCalculator('calc-renta','card-renta')">
+        <img src="https://images.unsplash.com/photo-1434626881859-194d67b2b86f?auto=format&fit=crop&w=500&q=80" alt="Dôchodok">
+    </div>
+    <div class="card-content">
+        <h3>💰 Dôchodková Renta</h3>
+        <p>Zistite, koľko vám bude mesačne chýbať a ako to vyriešiť cez 2. a 3. pilier.</p>
+        
+        <div class="tool-buttons">
+            <button onclick="showTool('tool-renta1', this)" class="tool-btn active">📊 Kalkulačka deficitu</button>
+            <button onclick="showTool('tool-renta2', this)" class="tool-btn">📉 Audit 2. piliera</button>
+        </div>
 
-                    <div class="lead-magnet-box" style="background:#fff7ed; border:1px solid #ffedd5; padding:15px; border-radius:10px; margin-bottom:15px;">
-                        <div class="lead-badge" style="background:#f97316; color:white; font-size:0.65rem; padding:3px 8px; border-radius:4px; font-weight:800; display:inline-block; margin-bottom:10px;">
-                            🎁 BEZPLATNÁ ANALÝZA DÔCHODKU
-                        </div>
-                        <h4 style="font-size:0.9rem; margin-bottom:5px;">Zistite, koľko môžete mať na dôchodku</h4>
-                        <ul style="font-size:0.8rem; color:#475569; padding-left:15px;">
-                            <li>✔ Stav a výkonnosť 2. piliera</li>
-                            <li>✔ Výšku budúcej renty</li>
-                        </ul>
-                    </div>
-
-                    <div class="tool-buttons" style="display:flex; flex-direction:column; gap:5px; margin-bottom:15px;">
-                        <button onclick="showTool('tool-renta1', this)" class="tool-btn active" style="text-align:left; padding:8px; font-size:0.8rem; cursor:pointer; border:1px solid #ddd; border-radius:4px;">📊 Kalkulačka dôchodku</button>
-                        <button onclick="showTool('tool-renta2', this)" class="tool-btn" style="text-align:left; padding:8px; font-size:0.8rem; cursor:pointer; border:1px solid #ddd; border-radius:4px;">🏦 Kontrola 2. piliera</button>
-                    </div>
-
-                    <div id="calc-renta" class="tool-container">
-                        <div class="tool-box" id="tool-renta1" style="display:block;">
-                            <h4 style="font-size:0.85rem; margin-bottom:10px;">Kalkulačka budúceho dôchodku</h4>
-                            <input type="number" id="vek-r" placeholder="Váš vek" style="width:100%; padding:8px; margin-bottom:5px; border:1px solid #ddd; border-radius:4px;">
-                            <input type="number" id="prijem-r" placeholder="Mesačný príjem (€)" style="width:100%; padding:8px; margin-bottom:10px; border:1px solid #ddd; border-radius:4px;">
-                            <button onclick="vypocitajDochodok()" style="width:100%; padding:10px; background:#B38E44; color:white; border:none; border-radius:4px; font-weight:700; cursor:pointer;">Vypočítať</button>
-                            <div id="vysledok-dochodok" style="margin-top:10px; font-weight:700; font-size:0.9rem;"></div>
-                        </div>
-                        <div class="tool-box" id="tool-renta2" style="display:none;">
-                            <h4 style="font-size:0.85rem; margin-bottom:10px;">Kontrola 2. piliera</h4>
-                            <select style="width:100%; padding:8px; margin-bottom:10px; border:1px solid #ddd; border-radius:4px;">
-                                <option>Vyberte váš aktuálny fond</option>
-                                <option>Dlhopisový (Garantovaný)</option>
-                                <option>Indexový (Negarantovaný)</option>
-                                <option>Akciový / Zmiešaný</option>
-                            </select>
-                            <button onclick="handleLeadSubmit(event, 'Kontrola 2. piliera')" style="width:100%; padding:10px; background:#1e293b; color:white; border:none; border-radius:4px; cursor:pointer;">Skontrolovať fond</button>
-                        </div>
-                    </div>
-                </div>
+        <div id="calc-renta" class="tool-container" style="display:none;">
+            <div class="tool-box" id="tool-renta1">
+                <h4>Vypočítajte si prepad príjmu</h4>
+                <input type="number" id="vek-r" placeholder="Váš vek">
+                <input type="number" id="prijem-r" placeholder="Dnešný príjem (€)">
+                <input type="number" id="dochodok-r" placeholder="Želaný dôchodok (€)">
+                <button onclick="vypocitajDochodok()" class="calc-btn">VYPOČÍTAŤ DEFICIT</button>
+                <div id="vysledok-dochodok" class="calc-result"></div>
+                <hr>
+                <p>Chcete vedieť, ako tento deficit vymazať?</p>
+                <input type="tel" placeholder="Váš telefón">
+                <button onclick="handleLeadSubmit(event, 'Dochodok-Deficit')" class="calc-btn lead-btn">CHCIEM RIEŠENIE</button>
+            </div>
+            <div class="tool-box" id="tool-renta2" style="display:none;">
+                <h4>Máte správne nastavený 2. pilier?</h4>
+                <p>Väčšina ľudí stráca tisíce eur v garantovaných fondoch.</p>
+                <input type="email" placeholder="Váš e-mail">
+                <input type="tel" placeholder="Váš telefón">
+                <button onclick="handleLeadSubmit(event, 'Audit-Piliere')" class="calc-btn lead-btn">ZÍSKAŤ AUDIT ZADARMO</button>
+            </div>
+        </div>
+    </div>
+</div>
                          /* =========================BOX 8 — ŽIVOTNÉ RIZIKÁ========================= */
-            </div> <div class="card" id="card-rizika">
-                <div class="card-icon" onclick="toggleCalculator('calc-rizika','card-rizika')" style="cursor:pointer;">
-                    <img src="https://images.unsplash.com/photo-1557333610-90ee4a951ecf?auto=format&fit=crop&w=500&q=80" alt="Krytie životných rizík">
-                </div>
-                <div class="card-content" style="padding:20px;">
-                    <h3 style="margin-bottom:15px;">🛡 8. Krytie Životných Rizík</h3>
-                    <p class="card-text" style="font-size:0.9rem; color:#64748b; margin-bottom:15px;">
-                        Máte istotu, že vaše poistenie naozaj ochráni vás a vašu rodinu? Neplaťte zbytočne za nevýhodné zmluvy.
-                    </p>
+            <div class="card" id="card-rizika">
+    <div class="card-icon" onclick="toggleCalculator('calc-rizika','card-rizika')">
+        <img src="https://images.unsplash.com/photo-1557333610-90ee4a951ecf?auto=format&fit=crop&w=500&q=80" alt="Riziká">
+    </div>
+    <div class="card-content">
+        <h3>🛡 Životné Riziká</h3>
+        <p>Kalkulačka, ktorá vám ukáže, na akú sumu musíte byť krytý, aby rodina prežila.</p>
 
-                    <div class="lead-magnet-box" style="background:#f0fdf4; border:1px solid #dcfce7; padding:15px; border-radius:10px; margin-bottom:15px;">
-                        <div class="lead-badge" style="background:#22c55e; color:white; font-size:0.65rem; padding:3px 8px; border-radius:4px; font-weight:800; display:inline-block; margin-bottom:10px;">
-                            🎁 BEZPLATNÁ KONTROLA POISTENIA
-                        </div>
-                        <h4 style="font-size:0.9rem; margin-bottom:5px;">Zistite, či nepreplácate</h4>
-                        <button onclick="handleLeadSubmit(event, 'Audit poistenia')" style="width:100%; padding:10px; background:#1e293b; color:white; border:none; border-radius:4px; font-weight:700; cursor:pointer; font-size:0.8rem;">CHCEM AUDIT ZMLÚV</button>
-                    </div>
+        <div class="tool-buttons">
+            <button onclick="showTool('tool-riziko1', this)" class="tool-btn active">📊 Výpočet krytia</button>
+            <button onclick="showTool('tool-riziko2', this)" class="tool-btn">📑 Kontrola poistiek</button>
+        </div>
 
-                    <div class="tool-buttons" style="display:flex; flex-direction:column; gap:5px;">
-                        <button onclick="showTool('tool-riziko1', this)" class="tool-btn" style="text-align:left; padding:8px; font-size:0.8rem; cursor:pointer; border:1px solid #ddd; border-radius:4px;">📊 Ochrana príjmu</button>
-                    </div>
-
-                    <div id="tool-riziko1" class="tool-box" style="display:none; margin-top:15px;">
-                        <input type="number" id="prijem-riz" placeholder="Váš mesačný príjem (€)" style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
-                        <button onclick="alert('Odporúčaná poistná suma pre prípad invalidity: ' + (document.getElementById('prijem-riz').value * 24) + ' €')" style="width:100%; margin-top:10px; padding:10px; background:#B38E44; color:white; border:none; border-radius:4px; cursor:pointer;">Vypočítať krytie</button>
-                    </div>
-                </div>
+        <div id="calc-rizika" class="tool-container" style="display:none;">
+            <div class="tool-box" id="tool-riziko1">
+                <input type="number" id="riziko-prijem" placeholder="Mesačný príjem (€)">
+                <input type="number" id="riziko-hypo" placeholder="Zostatok hypotéky (€)">
+                <button onclick="vypocitajZivotnePoistenie()" class="calc-btn">ANALÝZA KRYTIA</button>
+                <hr>
+                <p>Získajte ponuku s najširším krytím na trhu:</p>
+                <input type="tel" placeholder="Váš telefón">
+                <button onclick="handleLeadSubmit(event, 'Zivotne-Poistenie')" class="calc-btn lead-btn">POROVNAŤ CENY</button>
+            </div>
+            <div class="tool-box" id="tool-riziko2" style="display:none;">
+                <h4>Máte starú zmluvu?</h4>
+                <p>Staré poistky často nekryjú kritické choroby podľa moderných štandardov.</p>
+                <input type="tel" placeholder="Váš telefón">
+                <button onclick="handleLeadSubmit(event, 'Audit-Poistenia')" class="calc-btn lead-btn">SKONTROLOVAŤ ZMLUVU</button>
+            </div>
+        </div>
+    </div>
+</div>
                 /* =========================BOX 9 — MAJETOK / PZP======================== */
-            </div> <div class="card" id="card-aktiva">
-                <div class="card-icon" onclick="toggleCalculator('calc-aktiva','card-aktiva')" style="cursor:pointer;">
-                    <img src="https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?auto=format&fit=crop&w=500&q=80" alt="Ochrana aktív">
-                </div>
-                <div class="card-content" style="padding:20px;">
-                    <h3 style="margin-bottom:15px;">🏠 9. Ochrana Aktív</h3>
-                    <p class="card-text" style="font-size:0.9rem; color:#64748b; margin-bottom:15px;">
-                        Dom alebo auto sú hodnoty, ktoré ste budovali roky. Chráňte ich pred podpoistením a živlami.
-                    </p>
+            <div class="card" id="card-aktiva">
+    <div class="card-icon" onclick="toggleCalculator('calc-aktiva','card-aktiva')">
+        <img src="https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?auto=format&fit=crop&w=500&q=80" alt="Majetok">
+    </div>
+    <div class="card-content">
+        <h3>🏠 Ochrana Aktív (Majetok & PZP)</h3>
+        <p>Neriskujte, že vám poisťovňa vyplatí len polovicu škody kvôli podpoisteniu.</p>
 
-                    <div class="lead-magnet-box" style="background:#f1f5f9; border:1px solid #e2e8f0; padding:15px; border-radius:10px; margin-bottom:15px;">
-                        <div class="lead-badge" style="background:#64748b; color:white; font-size:0.65rem; padding:3px 8px; border-radius:4px; font-weight:800; display:inline-block; margin-bottom:10px;">
-                            🎁 ANALÝZA MAJETKU
-                        </div>
-                        <h4 style="font-size:0.9rem; margin-bottom:5px;">Zistite riziko podpoistenia</h4>
-                        <p style="font-size:0.75rem; color:#475569;">Ceny nehnuteľností vzrástli, sú vaše zmluvy aktuálne?</p>
-                    </div>
+        <div class="tool-buttons">
+            <button onclick="showTool('tool-aktiva3', this)" class="tool-btn active">🏠 Podpoistenie</button>
+            <button onclick="showTool('tool-pzp', this)" class="tool-btn">🚗 PZP</button>
+        </div>
 
-                    <div class="tool-buttons" style="display:flex; flex-direction:column; gap:5px;">
-                        <button onclick="showTool('tool-aktiva1', this)" class="tool-btn" style="text-align:left; padding:8px; font-size:0.8rem; cursor:pointer; border:1px solid #ddd; border-radius:4px;">🏡 Kalkulačka nehnuteľnosti</button>
-                    </div>
-
-                    <div id="tool-aktiva1" class="tool-box" style="display:none; margin-top:15px;">
-                        <input type="number" placeholder="Hodnota nehnuteľnosti (€)" style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
-                        <button onclick="handleLeadSubmit(event, 'Kalkulačka nehnuteľnosti')" style="width:100%; margin-top:10px; padding:10px; background:#B38E44; color:white; border:none; border-radius:4px; cursor:pointer;">Overiť krytie</button>
-                    </div>
-                </div>
-            </div> </div> </div>
+        <div id="calc-aktiva" class="tool-container" style="display:none;">
+            <div class="tool-box" id="tool-aktiva3">
+                <h4>Hrozí vám krátenie plnenia?</h4>
+                <input type="number" id="aktiva-poistna" placeholder="Suma na zmluve (€)">
+                <input type="number" id="aktiva-realna" placeholder="Reálna cena dnes (€)">
+                <button onclick="kontrolaPodpoistenia()" class="calc-btn">OVERIŤ MAJETOK</button>
+                <hr>
+                <input type="tel" placeholder="Váš telefón">
+                <button onclick="handleLeadSubmit(event, 'Podpoistenie-Majetok')" class="calc-btn lead-btn">UPRAVIŤ ZMLUVU</button>
+            </div>
+            <div class="tool-box" id="tool-pzp" style="display:none;">
+                <h4>PZP z 11 poisťovní na jednom mieste</h4>
+                <input type="number" id="pzp-kw" placeholder="Výkon motora (kW)">
+                <button onclick="vypocitajPZP()" class="calc-btn">ODHADNÚŤ CENU</button>
+                <hr>
+                <p>Získajte presnú ponuku a ušetrite do 10 minút:</p>
+                <input type="tel" placeholder="Váš telefón">
+                <button onclick="handleLeadSubmit(event, 'PZP-Kalkulacia')" class="calc-btn lead-btn">NAJSŤ NAJLACNEJŠIE PZP</button>
+            </div>
+        </div>
+    </div>
+</div>
 </section>
     <section id="filozofia" class="bio">
         <div class="bio-image"></div>

@@ -1695,198 +1695,182 @@ input[type=range]::-webkit-slider-thumb:hover {
 document.addEventListener('DOMContentLoaded', function () {
 
     /* ============================================================
-       0. GLOBÁLNE POMOCNÉ FUNKCIE A CONFIG
+       0. GLOBÁLNA KONFIGURÁCIA
        ============================================================ */
     const FORMSPREE_URL = "https://formspree.io/f/xeepvqqy";
     const MY_EMAIL = "5538917@ovbmail.eu";
 
     const setTxt = (id, val) => {
         const el = document.getElementById(id);
-        if (el) el.innerText = val;
+        if (el) el.innerHTML = val;
     };
 
-    // Prepínanie hlavných boxov (Karty 1-9)
+    // Prepínanie boxov
     window.toggleCalculator = function (calcId, cardId) {
         const calc = document.getElementById(calcId);
         const card = document.getElementById(cardId);
         if (!calc) return;
-        
         const isHidden = getComputedStyle(calc).display === 'none';
         calc.style.display = isHidden ? 'block' : 'none';
-        
         if (card) card.classList.toggle('active', isHidden);
         if (isHidden) updateAll();
     };
 
-    // OPRAVA: Prepínanie nástrojov VNÚTRI boxov 7, 8, 9
+    // Prepínanie nástrojov vnútri boxov
     window.showTool = function (toolId, btn) {
         const parent = btn.closest('.card-content');
-        
-        // 1. Skryť všetky tool-boxy v tejto karte
-        const allTools = parent.querySelectorAll('.tool-box');
-        allTools.forEach(box => {
-            box.style.display = 'none';
-            box.classList.remove('active-tool');
-        });
-
-        // 2. Odobrať active class z tlačidiel
-        const allButtons = parent.querySelectorAll('.tool-btn');
-        allButtons.forEach(b => b.classList.remove('active'));
-        
-        // 3. Zobraziť vybraný tool
+        parent.querySelectorAll('.tool-box').forEach(box => box.style.display = 'none');
+        parent.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
         const target = document.getElementById(toolId);
-        if (target) {
-            target.style.display = 'block';
-            target.classList.add('active-tool');
-        }
+        if (target) target.style.display = 'block';
         btn.classList.add('active');
     };
 
     /* ============================================================
-       1. AUDIT HYPOTÉKY (Box 1)
+       1. AUDIT HYPOTÉKY - MAGNET: "Koľko preplácate?"
        ============================================================ */
     window.updateAudit = function () {
         const a = document.getElementById('rangeAmount'), y = document.getElementById('rangeYears'), r = document.getElementById('rangeAuditRate');
-        if (!a || !y || !r) return;
+        if (!a) return;
         const amount = +a.value, years = +y.value, rate = +r.value;
-        setTxt('valAmount', amount.toLocaleString('sk-SK'));
-        setTxt('valYears', years);
-        setTxt('valAuditRate', rate.toFixed(2));
-        const months = years * 12, m = rate / 100 / 12;
-        const monthly = m > 0 ? (amount * m) / (1 - Math.pow(1 + m, -months)) : amount / months;
-        setTxt('auditMonthlyPayment', Math.round(monthly).toLocaleString('sk-SK'));
-        setTxt('auditTotalOverpayment', Math.round(monthly * months - amount).toLocaleString('sk-SK'));
-        setTxt('auditSave', Math.round((monthly * 0.18) * months).toLocaleString('sk-SK')); 
+        const m = rate / 100 / 12;
+        const monthly = m > 0 ? (amount * m) / (1 - Math.pow(1 + m, -(years * 12))) : amount / (years * 12);
+        const overpayment = (monthly * years * 12) - amount;
+        
+        setTxt('valAmount', amount.toLocaleString() + " €");
+        setTxt('auditMonthlyPayment', Math.round(monthly) + " €");
+        setTxt('auditTotalOverpayment', `<span style="color:#ef4444">${Math.round(overpayment).toLocaleString()} €</span>`);
+        setTxt('auditSave', `<b>${Math.round(overpayment * 0.25).toLocaleString()} €</b>`);
     };
 
     /* ============================================================
-       2. REFINANCOVANIE (Box 2)
-       ============================================================ */
-    window.updateRef = function () {
-        const p = document.getElementById('rangeCurrentPayment'), r = document.getElementById('rangeRate'), d = document.getElementById('rangeDebt');
-        if (!p || !r || !d) return;
-        setTxt('valCurrentPayment', (+p.value).toLocaleString('sk-SK'));
-        setTxt('valRate', (+r.value).toFixed(1));
-        setTxt('valDebt', (+d.value).toLocaleString('sk-SK'));
-    };
-
-    /* ============================================================
-       3. INVESTOVANIE (Box 3)
+       3. INVESTOVANIE - MAGNET: "Sila zloženého úroku"
        ============================================================ */
     window.updateInvest = function () {
         const m = document.getElementById('rangeInvest'), y = document.getElementById('rangeYearsInvest');
-        if (!m || !y) return;
-        const monthly = +m.value, years = +y.value, r = 0.08 / 12, months = years * 12;
-        const fv = monthly * ((Math.pow(1 + r, months) - 1) / r) * (1 + r);
-        setTxt('valInvest', monthly.toLocaleString('sk-SK'));
-        setTxt('valYearsInvest', years);
-        setTxt('investFuture', Math.round(fv).toLocaleString('sk-SK'));
+        if (!m) return;
+        const monthly = +m.value, years = +y.value, r = 0.08 / 12;
+        const fv = monthly * ((Math.pow(1 + r, years * 12) - 1) / r) * (1 + r);
+        setTxt('valInvest', monthly + " €");
+        setTxt('investFuture', `<span style="color:#22c55e">${Math.round(fv).toLocaleString()} €</span>`);
     };
 
     /* ============================================================
-       4. OCHRANA PRED INFLÁCIOU (Box 4)
-       ============================================================ */
-    window.update5Inflation = function () {
-        const a = document.getElementById('range5InfAmount'), r = document.getElementById('range5InfRate');
-        if (a && r) {
-            setTxt('val5InfAmount', (+a.value).toLocaleString('sk-SK'));
-            setTxt('val5InfRate', (+r.value).toFixed(1));
-            setTxt('inf5LossValue', Math.round(+a.value * +r.value / 100).toLocaleString('sk-SK'));
-        }
-    };
-
-    /* ============================================================
-       5. BUDOVANIE MAJETKO (Box 5)
-       ============================================================ */
-    window.update6Wealth = function () {
-        const b = document.getElementById('range6WealthBase'), m = document.getElementById('range6WealthMonthly');
-        if (b && m) {
-            setTxt('val6WealthBase', (+b.value).toLocaleString('sk-SK'));
-            setTxt('val6WealthMonthly', (+m.value).toLocaleString('sk-SK'));
-        }
-    };
-
-    /* ============================================================
-       6. DÔCHODKOVÁ RENTA (Box 7)
+       6. DÔCHODOK - MAGNET: "Šok z deficitu"
        ============================================================ */
     window.vypocitajDochodok = function () {
-        const vek = +document.getElementById('vek-r')?.value;
-        const prijem = +document.getElementById('prijem-r')?.value;
-        const ciel = +document.getElementById('dochodok-r')?.value;
+        const v = +document.getElementById('vek-r')?.value;
+        const p = +document.getElementById('prijem-r')?.value;
+        const c = +document.getElementById('dochodok-r')?.value;
         const res = document.getElementById('vysledok-dochodok');
-        if (vek && prijem && ciel) {
-            const deficit = ciel - (prijem * 0.42);
-            res.innerHTML = `Deficit k cieľu: <b>${Math.round(deficit)} € / mes.</b>`;
+        if (v && p && c) {
+            const statny = p * 0.38; // Konzervatívny odhad
+            const deficit = c - statny;
+            res.innerHTML = `Váš štátny dôchodok: ${Math.round(statny)} €<br>
+                             Mesačne vám bude chýbať: <b style="color:#ef4444">${Math.round(deficit)} €</b>`;
         }
     };
 
     /* ============================================================
-       7. ŽIVOTNÉ RIZIKÁ (Box 8)
+       7. ŽIVOTNÉ POISTENIE - MAGNET: "Cena vášho výpadku"
        ============================================================ */
     window.vypocitajZivotnePoistenie = function () {
-        const prijem = +document.getElementById('riziko-prijem')?.value;
-        const hypo = +document.getElementById('riziko-hypo')?.value;
-        if (prijem) alert("Odporúčané poistné krytie: " + (prijem * 12 * 3 + (hypo || 0)).toLocaleString() + " €");
+        const p = +document.getElementById('riziko-prijem')?.value;
+        const h = +document.getElementById('riziko-hypo')?.value;
+        if (p) {
+            const suma = (p * 12 * 3) + (h || 0);
+            alert("Aby vaša rodina prežila kritické obdobie, potrebujete krytie minimálne: " + suma.toLocaleString() + " €");
+        }
     };
 
     /* ============================================================
-       8. OCHRANA AKTÍV (Box 9)
+       8. PZP - MAGNET: "Porovnanie 11 poisťovní"
+       ============================================================ */
+    window.vypocitajPZP = function () {
+        const kw = +document.getElementById('pzp-kw')?.value;
+        if (kw) {
+            let odhad = kw < 70 ? 79 : kw < 110 ? 115 : 158;
+            alert(`Najlacnejšie PZP na trhu začína od: ${odhad} € / rok.\nChcete presnú kalkuláciu z 11 poisťovní? Vyplňte kontakt.`);
+        }
+    };
+
+    /* ============================================================
+       9. PODPOISTENIE - MAGNET: "Hrozba krátenia plnenia"
        ============================================================ */
     window.kontrolaPodpoistenia = function () {
         const p = +document.getElementById('aktiva-poistna')?.value;
         const r = +document.getElementById('aktiva-realna')?.value;
         if (p && r) {
-            const pod = ((r - p) / r) * 100;
-            alert(pod > 10 ? `Podpoistenie: ${pod.toFixed(1)}%!` : "V poriadku.");
+            const rozdiel = ((r - p) / r) * 100;
+            if (rozdiel > 15) {
+                alert(`⚠️ POZOR! Ste podpoistený o ${rozdiel.toFixed(0)}%.\nV prípade požiara alebo vytopenia vám poisťovňa vyplatí o ${rozdiel.toFixed(0)}% MENEJ peňazí!`);
+            } else {
+                alert("Vaša zmluva vyzerá byť v poriadku.");
+            }
         }
     };
 
     /* ============================================================
-       9. LEAD SYSTEM (Formspree)
+       UNIVERZÁLNY LEAD SYSTEM (Formspree)
        ============================================================ */
     window.handleLeadSubmit = async function (e, type) {
         e.preventDefault();
         const btn = e.target;
-        const map = {
-            Audit:['calcEmail','calcPhone'], Refinancovanie:['refEmail','refPhone'],
-            Investovanie:['investEmail','investPhone'], Inflacia:['inf5Email','inf5Phone'],
-            Majetok:['wealth6Email','wealth6Phone'], Admin:['adminEmail','adminPhone'],
-            Renta:['rentaEmail','rentaPhone'], Poistenie:['riskEmail','riskPhone'], Aktiva:['assetsEmail','assetsPhone']
-        };
-        const ids = map[type];
-        const email = document.getElementById(ids[0])?.value || "Nezadaný";
-        const phone = document.getElementById(ids[1])?.value || "Nezadaný";
+        
+        // Dynamické hľadanie kontaktov v danom boxe
+        const parent = btn.closest('.tool-box');
+        const emailEl = parent.querySelector('input[type="email"]');
+        const phoneEl = parent.querySelector('input[type="tel"]');
+        
+        const email = emailEl ? emailEl.value : "Nezadaný";
+        const phone = phoneEl ? phoneEl.value : "Nezadaný";
+
+        if (email === "" && phone === "") {
+            alert("Zanechajte prosím kontakt, aby sme vám mohli zaslať výsledok.");
+            return;
+        }
+
+        btn.innerText = "ODOSIELAM...";
+        btn.disabled = true;
 
         try {
-            btn.innerText = "ODOSIELAM...";
-            btn.disabled = true;
             await fetch(FORMSPREE_URL, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ Typ: type, Email: email, Telefon: phone, _replyto: MY_EMAIL })
+                body: JSON.stringify({
+                    Zdroj: type,
+                    Email: email,
+                    Telefon: phone,
+                    _subject: `NOVÝ LEAD - ${type}`,
+                    _replyto: MY_EMAIL
+                })
             });
-            alert("✅ Úspešne odoslané.");
-        } catch (err) { alert("Chyba."); }
-        finally { btn.innerText = "Odoslať"; btn.disabled = false; }
+            alert("✅ Úspešne odoslané. Čoskoro vás budem kontaktovať s kompletným riešením.");
+            if(emailEl) emailEl.value = "";
+            if(phoneEl) phoneEl.value = "";
+        } catch (err) {
+            alert("Chyba. Skúste to prosím neskôr.");
+        } finally {
+            btn.innerText = "ZÍSKAŤ ANALÝZU";
+            btn.disabled = false;
+        }
     };
 
-    /* ============================================================
-       INICIALIZÁCIA (Dôležité pre zobrazenie 7, 8, 9)
-       ============================================================ */
-    function updateAll() {
-        window.updateAudit(); window.updateRef(); window.updateInvest();
-        window.update5Inflation(); window.update6Wealth();
-    }
+    // Inicializácia range sliderov
+    window.updateAll = function() {
+        window.updateAudit();
+        window.updateInvest();
+    };
 
-    // Nastavenie viditeľnosti pre prvé nástroje v boxoch 7, 8, 9 hneď po načítaní
-    const defaultTools = ['tool-renta1', 'tool-riziko1', 'tool-aktiva3'];
-    defaultTools.forEach(id => {
+    document.querySelectorAll('input[type=range]').forEach(i => i.addEventListener('input', window.updateAll));
+    window.updateAll();
+
+    // Defaultné zobrazenie prvých kalkulačiek v 7, 8, 9
+    const starters = ['tool-renta1', 'tool-riziko1', 'tool-aktiva3'];
+    starters.forEach(id => {
         const el = document.getElementById(id);
-        if (el) el.style.display = 'block';
+        if(el) el.style.display = 'block';
     });
-
-    document.querySelectorAll('input[type=range]').forEach(i => i.addEventListener('input', updateAll));
-    updateAll();
 });
 </script>
     

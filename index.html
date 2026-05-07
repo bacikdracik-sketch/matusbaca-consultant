@@ -1758,475 +1758,204 @@ input[type=range]::-webkit-slider-thumb:hover {
 </footer>
 <script>
 /* =========================================================
-   MATÚŠ BAČA — MASTER LEAD MAGNET SCRIPT
-   VERZIA: FULL PREMIUM 2026
+   MASTER FUNNEL ENGINE — MATÚŠ BAČA
+   VERSION: 2026 LEAD MACHINE
 ========================================================= */
 
 const FORMSPREE_URL = "https://formspree.io/f/xeepvqqy";
 
 /* =========================================================
-   POMOCNÉ FUNKCIE
+   GLOBAL STATE (FUNNEL MEMORY)
 ========================================================= */
 
-function setText(id, value) {
+const FunnelState = {
+    step: 1,
+    type: null,
+    data: {}
+};
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function setText(id, val) {
     const el = document.getElementById(id);
-    if (el) el.innerHTML = value;
+    if (el) el.innerHTML = val;
 }
 
-function formatMoney(num) {
-    return Number(num).toLocaleString('sk-SK', {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0
-    });
+function format(n) {
+    return Number(n).toLocaleString('sk-SK');
 }
 
-function toggleCalculator(calcId, cardId) {
-    const calc = document.getElementById(calcId);
-    const card = document.getElementById(cardId);
+/* =========================================================
+   1. OPEN / CLOSE ANY CALC
+========================================================= */
 
-    if (!calc) return;
+function toggleCalculator(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
 
-    const isVisible = calc.style.display === "block";
+    const visible = el.style.display === "block";
 
     document.querySelectorAll('.inline-calculator, .calculator-container')
-        .forEach(el => el.style.display = "none");
+        .forEach(x => x.style.display = "none");
 
-    document.querySelectorAll('.card')
-        .forEach(el => el.classList.remove('active'));
+    el.style.display = visible ? "none" : "block";
 
-    if (!isVisible) {
-        calc.style.display = "block";
-        if (card) card.classList.add('active');
+    if (!visible) {
+        setTimeout(runAllCalculations, 50);
     }
 }
 
 /* =========================================================
-   LEAD SUBMIT
+   2. MASTER FUNNEL SELECTOR
 ========================================================= */
 
-async function handleLeadSubmit(e, source) {
+function startFunnel(type) {
+    FunnelState.type = type;
+    FunnelState.step = 1;
 
-    e.preventDefault();
+    alert("📊 Spúšťam finančný audit: " + type);
 
-    const btn = e.target;
-
-    let wrapper =
-        btn.closest('.calc-contact') ||
-        btn.closest('.magnet-action') ||
-        btn.closest('.card-content');
-
-    const email =
-        wrapper.querySelector('input[type="email"]')?.value || "";
-
-    const phone =
-        wrapper.querySelector('input[type="tel"]')?.value || "";
-
-    if (phone.length < 9) {
-        alert("⚠️ Zadajte platné telefónne číslo.");
-        return;
-    }
-
-    btn.disabled = true;
-    const original = btn.innerText;
-    btn.innerText = "ODOSIELAM...";
-
-    try {
-
-        await fetch(FORMSPREE_URL, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                typ: source,
-                email: email,
-                telefon: phone,
-                cas: new Date().toLocaleString('sk-SK'),
-                url: window.location.href
-            })
-        });
-
-        btn.innerText = "ODOSLANÉ ✓";
-
-        alert("✅ Ďakujem. Ozvem sa vám čo najskôr.");
-
-    } catch (err) {
-
-        alert("❌ Nastala chyba pri odoslaní.");
-
-        btn.innerText = original;
-
-    } finally {
-
-        setTimeout(() => {
-            btn.disabled = false;
-            btn.innerText = original;
-        }, 2500);
-
-    }
+    showStep(1);
 }
 
 /* =========================================================
-   1 — HYPOTEKÁRNY AUDIT
+   3. STEP SYSTEM (AK BUDEŠ CHCIEŤ EXPANDOVAŤ)
 ========================================================= */
 
-function updateAudit() {
+function showStep(step) {
+    FunnelState.step = step;
+}
 
-    const amount =
-        parseFloat(document.getElementById('rangeAmount').value);
+/* =========================================================
+   4. MASTER CALCULATION ENGINE
+========================================================= */
 
-    const years =
-        parseFloat(document.getElementById('rangeYears').value);
+function runAllCalculations() {
 
-    const rate =
-        parseFloat(document.getElementById('rangeAuditRate').value);
+    updateHypo();
+    updateInvest();
+    updateInsurance();
+}
 
-    setText('valAmount', formatMoney(amount));
-    setText('valYears', years);
-    setText('valAuditRate', rate.toFixed(2));
+/* =========================================================
+   5. HYPOTEKA CORE (ZOSTANE HLAVNÝ DRIVER)
+========================================================= */
 
-    const monthlyRate = rate / 100 / 12;
-    const payments = years * 12;
+function updateHypo() {
+
+    const amount = document.getElementById('rangeAmount')?.value || 0;
+    const years = document.getElementById('rangeYears')?.value || 30;
+    const rate = document.getElementById('rangeAuditRate')?.value || 4;
+
+    const r = rate / 100 / 12;
+    const n = years * 12;
 
     const monthly =
-        (amount * monthlyRate) /
-        (1 - Math.pow(1 + monthlyRate, -payments));
+        (amount * r) / (1 - Math.pow(1 + r, -n));
 
-    const total = monthly * payments;
-    const overpayment = total - amount;
+    const total = monthly * n;
+    const overpay = total - amount;
 
-    const lowerRate = (rate - 1) / 100 / 12;
+    setText('auditMonthlyPayment', format(monthly));
+    setText('auditTotalOverpayment', format(overpay));
 
-    const betterMonthly =
-        (amount * lowerRate) /
-        (1 - Math.pow(1 + lowerRate, -payments));
-
-    const save =
-        (monthly - betterMonthly) * payments;
-
-    setText('auditMonthlyPayment',
-        formatMoney(monthly));
-
-    setText('auditTotalOverpayment',
-        formatMoney(overpayment));
-
-    setText('auditSave',
-        formatMoney(save));
+    FunnelState.data.hypo = overpay;
 }
 
 /* =========================================================
-   2 — REFINANCOVANIE
-========================================================= */
-
-function updateRef() {
-
-    const current =
-        parseFloat(document.getElementById('rangeCurrentPayment').value);
-
-    const rate =
-        parseFloat(document.getElementById('rangeRate').value);
-
-    const debt =
-        parseFloat(document.getElementById('rangeDebt').value);
-
-    setText('valCurrentPayment',
-        formatMoney(current));
-
-    setText('valRate',
-        rate.toFixed(1));
-
-    setText('valDebt',
-        formatMoney(debt));
-
-    const newRate = Math.max(rate - 1.2, 1.5);
-
-    const currentMonthlyRate = rate / 100 / 12;
-    const newMonthlyRate = newRate / 100 / 12;
-
-    const months = 30 * 12;
-
-    const newPayment =
-        (debt * newMonthlyRate) /
-        (1 - Math.pow(1 + newMonthlyRate, -months));
-
-    const savings = current - newPayment;
-
-    setText('estimatedSavings',
-        formatMoney(Math.max(savings, 0)));
-
-    setText('newPaymentVal',
-        formatMoney(newPayment));
-}
-
-/* =========================================================
-   3 — INVESTOVANIE
+   6. INVEST
 ========================================================= */
 
 function updateInvest() {
 
-    const monthly =
-        parseFloat(document.getElementById('rangeInvest').value);
-
-    const years =
-        parseFloat(document.getElementById('rangeYearsInvest').value);
-
-    setText('valInvest',
-        formatMoney(monthly));
-
-    setText('valYearsInvest',
-        years);
+    const m = document.getElementById('rangeInvest')?.value || 100;
+    const y = document.getElementById('rangeYearsInvest')?.value || 20;
 
     const rate = 0.08 / 12;
-    const months = years * 12;
+    const months = y * 12;
 
-    const future =
-        monthly *
-        ((Math.pow(1 + rate, months) - 1) / rate) *
-        (1 + rate);
+    const fv =
+        m * ((Math.pow(1 + rate, months) - 1) / rate) * (1 + rate);
 
-    const total =
-        monthly * months;
+    setText('investFuture', format(fv));
 
-    setText('investFuture',
-        formatMoney(future));
-
-    setText('investTotal',
-        formatMoney(total));
+    FunnelState.data.invest = fv;
 }
 
 /* =========================================================
-   4 — INFLÁCIA
+   7. INSURANCE / SIMPLE RISK VIEW
 ========================================================= */
 
-function update5Inflation() {
+function updateInsurance() {
 
-    const amount =
-        parseFloat(document.getElementById('range5InfAmount').value);
+    const income = parseFloat(document.getElementById('zivot-prijem')?.value || 0);
+    const hypo = parseFloat(document.getElementById('zivot-hypo')?.value || 0);
 
-    const rate =
-        parseFloat(document.getElementById('range5InfRate').value);
+    const cover = (income * 36) + hypo;
 
-    setText('val5InfAmount',
-        formatMoney(amount));
+    setText('osoby-vysledok', format(cover));
 
-    setText('val5InfRate',
-        rate);
-
-    const loss = amount * (rate / 100);
-
-    setText('inf5LossValue',
-        formatMoney(loss));
+    FunnelState.data.cover = cover;
 }
 
 /* =========================================================
-   5 — MAJETOK / DETI
+   8. MASTER RESULT ENGINE (🔥 FUNNEL MOMENT)
 ========================================================= */
 
-function update6Wealth() {
+function showFinalResult() {
 
-    const base =
-        parseFloat(document.getElementById('range6WealthBase').value);
+    const hypoLoss = FunnelState.data.hypo || 0;
+    const investGain = FunnelState.data.invest || 0;
 
-    const monthly =
-        parseFloat(document.getElementById('range6WealthMonthly').value);
+    const net = investGain - hypoLoss;
 
-    setText('val6WealthBase',
-        formatMoney(base));
+    const shockLoss = hypoLoss > investGain;
 
-    setText('val6WealthMonthly',
-        formatMoney(monthly));
+    let html = `
+        ⚠️ FINANČNÝ AUDIT DOMÁCNOSTI<br><br>
+        ${shockLoss ? "STRATA" : "POTENCIÁL"}:<br>
+        <b style="font-size:24px;">
+        ${format(Math.abs(net))} €
+        </b><br><br>
+        ${shockLoss ? "Mesačne zbytočne odchádza kapitál" : "Vaše peniaze majú potenciál rásť"}
+    `;
 
-    const years = 20;
-    const rate = 0.08 / 12;
-    const months = years * 12;
+    document.getElementById("finalResult").innerHTML = html;
 
-    const invest =
-        monthly *
-        ((Math.pow(1 + rate, months) - 1) / rate) *
-        (1 + rate);
-
-    const futureBase =
-        base * Math.pow(1.08, years);
-
-    const total =
-        invest + futureBase;
-
-    setText('wealth6ResultValue',
-        formatMoney(total));
+    document.getElementById("leadBox").style.display = "block";
 }
 
 /* =========================================================
-   6 — DÔCHODOK
+   9. LEAD CAPTURE (CRITICAL PART)
 ========================================================= */
 
-function updateRenta() {
+async function submitLead(source) {
 
-    const vek =
-        parseFloat(document.getElementById('rangeVek').value);
+    const phone = document.getElementById("leadPhone")?.value;
+    const email = document.getElementById("leadEmail")?.value;
 
-    const prijem =
-        parseFloat(document.getElementById('rangePrijem').value);
-
-    setText('valVek', vek);
-    setText('valPrijem',
-        formatMoney(prijem));
-
-    const statna =
-        prijem * 0.38;
-
-    const deficit =
-        prijem - statna;
-
-    setText('rentaStat',
-        formatMoney(statna) + " €");
-
-    setText('rentaDeficit',
-        "-" + formatMoney(deficit) + " €");
-}
-
-/* =========================================================
-   7 — ŽIVOT / CESTOVANIE
-========================================================= */
-
-function updateOsoby() {
-
-    const display =
-        document.getElementById('osoby-vysledok');
-
-    if (!display) return;
-
-    const zivotVisible =
-        document.getElementById('zivot-form').style.display !== 'none';
-
-    if (zivotVisible) {
-
-        const prijem =
-            parseFloat(document.getElementById('zivot-prijem').value) || 0;
-
-        const hypo =
-            parseFloat(document.getElementById('zivot-hypo').value) || 0;
-
-        const krytie =
-            hypo + (prijem * 36);
-
-        display.innerText =
-            formatMoney(krytie) + " €";
-
-    } else {
-
-        const dni =
-            parseFloat(document.getElementById('cesta-dni').value) || 0;
-
-        const kam =
-            document.getElementById('cesta-kam').value;
-
-        let price = 0;
-
-        if (kam === 'europa') price = dni * 1.5;
-        if (kam === 'svet') price = dni * 2.8;
-        if (kam === 'usa') price = dni * 4.5;
-
-        display.innerText =
-            formatMoney(price) + " €";
-
+    if (!phone || phone.length < 9) {
+        alert("Zadajte telefón");
+        return;
     }
-}
 
-/* =========================================================
-   8 — MAJETOK / PZP
-========================================================= */
+    const payload = {
+        source: source,
+        phone: phone,
+        email: email,
+        result: FunnelState.data,
+        time: new Date().toLocaleString()
+    };
 
-function updateMajetok() {
+    await fetch(FORMSPREE_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+    });
 
-    const display =
-        document.getElementById('majetok-vysledok');
-
-    if (!display) return;
-
-    const pzpVisible =
-        document.getElementById('pzp-form').style.display !== 'none';
-
-    if (pzpVisible) {
-
-        const kw =
-            parseFloat(document.getElementById('pzp-kw').value) || 0;
-
-        const vek =
-            parseFloat(document.getElementById('pzp-vek').value) || 0;
-
-        let cena = 0;
-
-        if (kw < 60) cena = 85;
-        else if (kw < 90) cena = 120;
-        else if (kw < 130) cena = 180;
-        else cena = 260;
-
-        if (vek < 25) cena *= 1.35;
-
-        display.innerText =
-            formatMoney(cena);
-
-    } else {
-
-        const hodnota =
-            parseFloat(document.getElementById('dom-hodnota').value) || 0;
-
-        const typ =
-            document.getElementById('dom-typ').value;
-
-        let coef = 0.00045;
-
-        if (typ === 'dom') coef = 0.00065;
-        if (typ === 'chata') coef = 0.00075;
-
-        const cena =
-            Math.max(hodnota * coef, 35);
-
-        display.innerText =
-            formatMoney(cena);
-    }
-}
-
-/* =========================================================
-   TABY
-========================================================= */
-
-function showOsobyTool(id, btn) {
-
-    document.querySelectorAll('.osoby-tool')
-        .forEach(el => el.style.display = 'none');
-
-    document.getElementById(id).style.display = 'block';
-
-    btn.parentElement.querySelectorAll('.tab-btn')
-        .forEach(b => {
-            b.style.background = 'transparent';
-            b.style.color = '#555';
-        });
-
-    btn.style.background = '#002e5d';
-    btn.style.color = '#fff';
-
-    updateOsoby();
-}
-
-function showMajetokTool(id, btn) {
-
-    document.querySelectorAll('.majetok-tool')
-        .forEach(el => el.style.display = 'none');
-
-    document.getElementById(id).style.display = 'block';
-
-    btn.parentElement.querySelectorAll('.tab-btn')
-        .forEach(b => {
-            b.style.background = 'transparent';
-            b.style.color = '#555';
-        });
-
-    btn.style.background = '#002e5d';
-    btn.style.color = '#fff';
-
-    updateMajetok();
+    alert("✅ Ozvem sa vám s detailnou analýzou.");
 }
 
 /* =========================================================
@@ -2234,36 +1963,14 @@ function showMajetokTool(id, btn) {
 ========================================================= */
 
 document.addEventListener('DOMContentLoaded', () => {
-
-    updateAudit();
-    updateRef();
-    updateInvest();
-    update5Inflation();
-    update6Wealth();
-    updateRenta();
-    updateOsoby();
-    updateMajetok();
-
+    runAllCalculations();
 });
 
-/* =========================================================
-   GLOBAL
-========================================================= */
-
-window.updateAudit = updateAudit;
-window.updateRef = updateRef;
-window.updateInvest = updateInvest;
-window.update5Inflation = update5Inflation;
-window.update6Wealth = update6Wealth;
-window.updateRenta = updateRenta;
-window.updateOsoby = updateOsoby;
-window.updateMajetok = updateMajetok;
-
-window.showOsobyTool = showOsobyTool;
-window.showMajetokTool = showMajetokTool;
+/* expose */
 window.toggleCalculator = toggleCalculator;
-window.handleLeadSubmit = handleLeadSubmit;
-
+window.startFunnel = startFunnel;
+window.showFinalResult = showFinalResult;
+window.submitLead = submitLead;
 </script>
 <div style="position: fixed; bottom: 30px; right: 30px; z-index: 10001; display: flex; align-items: center; gap: 10px;">
     <span style="background: white; padding: 5px 15px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 14px; font-weight: 600; color: #333; font-family: sans-serif;">

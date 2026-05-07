@@ -1767,67 +1767,67 @@ input[type=range]::-webkit-slider-thumb:hover {
 
 const $ = (id) => document.getElementById(id);
 
-const val = (id) => {
+const num = (id) => {
     const el = $(id);
-    return el ? (parseFloat(el.value) || 0) : 0;
+    if (!el) return 0;
+    const v = parseFloat(el.value);
+    return isNaN(v) ? 0 : v;
 };
 
-const text = (id, value) => {
+const txt = (id, val) => {
     const el = $(id);
-    if (el) el.innerText = value;
+    if (el) el.innerHTML = val;
 };
 
 const money = (n) =>
-    Number(n || 0).toLocaleString('sk-SK');
+    Number(n || 0).toLocaleString("sk-SK");
 
 /* =========================
-   TOGGLE SAFE
+   TOGGLE (SAFE GLOBAL)
 ========================= */
 
 window.toggleCalculator = function(calcId, cardId) {
-
     const calc = $(calcId);
     const card = $(cardId);
 
     if (!calc) return;
 
-    const isOpen = calc.style.display === "block";
+    const open = calc.style.display === "block";
 
-    document.querySelectorAll('.inline-calculator, .calculator-container')
-        .forEach(el => el.style.display = "none");
+    document.querySelectorAll(".inline-calculator, .calculator-container")
+        .forEach(e => e.style.display = "none");
 
-    document.querySelectorAll('.card')
-        .forEach(el => el.classList.remove('active'));
+    document.querySelectorAll(".card")
+        .forEach(e => e.classList.remove("active"));
 
-    if (!isOpen) {
+    if (!open) {
         calc.style.display = "block";
-        if (card) card.classList.add('active');
+        if (card) card.classList.add("active");
     }
 };
 
 /* =========================
-   LEAD SAFE (1 FUNKCIA PRE VŠETKO)
+   LEAD FORM SAFE
 ========================= */
 
 window.handleLeadSubmit = async function(e, source) {
-
     if (e) e.preventDefault();
 
     const btn = e?.target;
     if (!btn) return;
 
-    const wrapper =
-        btn.closest('.calc-contact') ||
-        btn.closest('.magnet-action') ||
-        btn.closest('.card-content');
+    const wrap =
+        btn.closest(".calc-contact") ||
+        btn.closest(".magnet-action") ||
+        btn.closest(".card-content");
 
     const phone =
-        wrapper?.querySelector('input[type="tel"]')?.value || "";
+        wrap?.querySelector("input[type='tel']")?.value || "";
 
     const email =
-        wrapper?.querySelector('input[type="email"]')?.value || "";
+        wrap?.querySelector("input[type='email']")?.value || "";
 
-    if (!phone || phone.length < 9) {
+    if (phone.length < 8) {
         alert("Zadaj telefón");
         return;
     }
@@ -1845,15 +1845,15 @@ window.handleLeadSubmit = async function(e, source) {
                 phone,
                 email,
                 url: location.href,
-                time: new Date().toLocaleString('sk-SK')
+                time: new Date().toLocaleString("sk-SK")
             })
         });
 
-        btn.innerText = "ODOSLANÉ ✓";
+        btn.innerText = "OK ✓";
 
     } catch (err) {
         console.log(err);
-        alert("Chyba odoslania");
+        alert("Chyba");
         btn.innerText = old;
     }
 
@@ -1864,198 +1864,76 @@ window.handleLeadSubmit = async function(e, source) {
 };
 
 /* =========================
-   BOX 1 — AUDIT
-========================= */
-
-function updateAudit() {
-
-    const amount = val('rangeAmount');
-    const years = val('rangeYears');
-    const rate = val('rangeAuditRate');
-
-    text('valAmount', money(amount));
-    text('valYears', years);
-    text('valAuditRate', rate.toFixed(2));
-
-    const r = rate / 100 / 12;
-    const n = years * 12;
-
-    const monthly =
-        (amount * r) / (1 - Math.pow(1 + r, -n));
-
-    const total = monthly * n;
-    const over = total - amount;
-
-    const lower = (rate - 1) / 100 / 12;
-
-    const better =
-        (amount * lower) / (1 - Math.pow(1 + lower, -n));
-
-    const save = (monthly - better) * n;
-
-    text('auditMonthlyPayment', money(monthly));
-    text('auditTotalOverpayment', money(over));
-    text('auditSave', money(save));
-}
-
-/* =========================
-   BOX 2 — REFINANCE
-========================= */
-
-function updateRef() {
-
-    const current = val('rangeCurrentPayment');
-    const rate = val('rangeRate');
-    const debt = val('rangeDebt');
-
-    text('valCurrentPayment', money(current));
-    text('valRate', rate.toFixed(1));
-    text('valDebt', money(debt));
-
-    const newRate = Math.max(rate - 1.2, 1.5);
-
-    const r = newRate / 100 / 12;
-    const n = 30 * 12;
-
-    const newPay =
-        (debt * r) / (1 - Math.pow(1 + r, -n));
-
-    const save = current - newPay;
-
-    text('estimatedSavings', money(Math.max(save, 0)));
-    text('newPaymentVal', money(newPay));
-}
-
-/* =========================
-   BOX 3 — INVEST
-========================= */
-
-function updateInvest() {
-
-    const m = val('rangeInvest');
-    const y = val('rangeYearsInvest');
-
-    text('valInvest', money(m));
-    text('valYearsInvest', y);
-
-    const r = 0.08 / 12;
-    const n = y * 12;
-
-    const future =
-        m * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
-
-    const total = m * n;
-
-    text('investFuture', money(future));
-    text('investTotal', money(total));
-}
-
-/* =========================
-   BOX 4 — INFLÁCIA
-========================= */
-
-function update5Inflation() {
-
-    const a = val('range5InfAmount');
-    const r = val('range5InfRate');
-
-    text('val5InfAmount', money(a));
-    text('val5InfRate', r);
-
-    text('inf5LossValue', money(a * r / 100));
-}
-
-/* =========================
-   BOX 5 — MAJETOK
-========================= */
-
-function update6Wealth() {
-
-    const base = val('range6WealthBase');
-    const m = val('range6WealthMonthly');
-
-    text('val6WealthBase', money(base));
-    text('val6WealthMonthly', money(m));
-
-    const r = 0.08 / 12;
-    const n = 20 * 12;
-
-    const invest =
-        m * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
-
-    const futureBase = base * Math.pow(1.08, 20);
-
-    text('wealth6ResultValue', money(invest + futureBase));
-}
-
-/* =========================
-   BOX 6 — RENTA (SAFE)
+   BOX 7 — RENTA SAFE FIX
 ========================= */
 
 function updateRenta() {
 
-    const vek = val('rangeVek');
-    const prijem = val('rangePrijem');
+    const vek = num("rangeVek");
+    const prijem = num("rangePrijem");
 
-    text('valVek', vek);
-    text('valPrijem', money(prijem));
+    txt("valVek", vek);
+    txt("valPrijem", money(prijem));
 
-    const stat = prijem * 0.38;
+    const statna = prijem * 0.38;
+    const deficit = prijem - statna;
 
-    text('rentaStat', money(stat) + " €");
-    text('rentaDeficit', "-" + money(prijem - stat) + " €");
+    txt("rentaStat", money(statna) + " €");
+    txt("rentaDeficit", "-" + money(deficit) + " €");
 }
 
 /* =========================
-   BOX 7 — OSOBY SAFE
+   BOX 8 — OSOBY SAFE
 ========================= */
 
 function updateOsoby() {
 
-    const out = $('osoby-vysledok');
+    const out = $("osoby-vysledok");
     if (!out) return;
 
-    const zivot = $('zivot-form');
-    const visible = zivot && zivot.style.display !== 'none';
+    const zivot = $("zivot-form");
+    const isZivot = zivot && zivot.style.display !== "none";
 
-    if (visible) {
+    if (isZivot) {
 
-        const p = val('zivot-prijem');
-        const h = val('zivot-hypo');
+        const prijem = num("zivot-prijem");
+        const hypo = num("zivot-hypo");
 
-        out.innerText = money(h + (p * 36)) + " €";
+        const krytie = hypo + (prijem * 36);
+
+        out.innerHTML = money(krytie);
 
     } else {
 
-        const dni = val('cesta-dni');
-        const kam = $('cesta-kam')?.value || 'europa';
+        const dni = num("cesta-dni");
+        const kam = $("cesta-kam")?.value || "europa";
 
         let price = 0;
 
-        if (kam === 'europa') price = dni * 1.5;
-        if (kam === 'svet') price = dni * 2.8;
-        if (kam === 'usa') price = dni * 4.5;
+        if (kam === "europa") price = dni * 1.5;
+        if (kam === "svet") price = dni * 2.8;
+        if (kam === "usa") price = dni * 4.5;
 
-        out.innerText = money(price) + " €";
+        out.innerHTML = money(price);
     }
 }
 
 /* =========================
-   BOX 8 — MAJETOK SAFE
+   BOX 9 — MAJETOK SAFE
 ========================= */
 
 function updateMajetok() {
 
-    const out = $('majetok-vysledok');
+    const out = $("majetok-vysledok");
     if (!out) return;
 
-    const pzp = $('pzp-form');
-    const visible = pzp && pzp.style.display !== 'none';
+    const pzp = $("pzp-form");
+    const isPzp = pzp && pzp.style.display !== "none";
 
-    if (visible) {
+    if (isPzp) {
 
-        const kw = val('pzp-kw');
-        const vek = val('pzp-vek');
+        const kw = num("pzp-kw");
+        const vek = num("pzp-vek");
 
         let cena = 85;
 
@@ -2065,54 +1943,95 @@ function updateMajetok() {
 
         if (vek < 25) cena *= 1.35;
 
-        out.innerText = money(cena);
+        out.innerHTML = money(cena);
 
     } else {
 
-        const h = val('dom-hodnota');
-        const t = $('dom-typ')?.value || 'byt';
+        const hodnota = num("dom-hodnota");
+        const typ = $("dom-typ")?.value || "byt";
 
         let coef = 0.00045;
 
-        if (t === 'dom') coef = 0.00065;
-        if (t === 'chata') coef = 0.00075;
+        if (typ === "dom") coef = 0.00065;
+        if (typ === "chata") coef = 0.00075;
 
-        out.innerText = money(Math.max(h * coef, 35));
+        out.innerHTML = money(Math.max(hodnota * coef, 35));
     }
 }
 
 /* =========================
-   INIT SAFE
+   TAB SYSTEM SAFE
 ========================= */
 
-document.addEventListener('DOMContentLoaded', () => {
+window.showOsobyTool = function(id, btn) {
+    document.querySelectorAll(".osoby-tool")
+        .forEach(e => e.style.display = "none");
 
-    try {
-        updateAudit();
-        updateRef();
-        updateInvest();
-        update5Inflation();
-        update6Wealth();
-        updateRenta();
-        updateOsoby();
-        updateMajetok();
-    } catch (e) {
-        console.log("INIT ERROR:", e);
-    }
-});
+    const el = $(id);
+    if (el) el.style.display = "block";
+
+    btn?.parentElement?.querySelectorAll("button")
+        .forEach(b => {
+            b.style.background = "transparent";
+            b.style.color = "#555";
+        });
+
+    btn.style.background = "#002e5d";
+    btn.style.color = "#fff";
+
+    updateOsoby();
+};
+
+window.showMajetokTool = function(id, btn) {
+    document.querySelectorAll(".majetok-tool")
+        .forEach(e => e.style.display = "none");
+
+    const el = $(id);
+    if (el) el.style.display = "block";
+
+    btn?.parentElement?.querySelectorAll("button")
+        .forEach(b => {
+            b.style.background = "transparent";
+            b.style.color = "#555";
+        });
+
+    btn.style.background = "#002e5d";
+    btn.style.color = "#fff";
+
+    updateMajetok();
+};
 
 /* =========================
-   EXPORT GLOBAL
+   INIT SAFE (NEPADÁ NIČ)
 ========================= */
 
-window.updateAudit = updateAudit;
-window.updateRef = updateRef;
-window.updateInvest = updateInvest;
-window.update5Inflation = update5Inflation;
-window.update6Wealth = update6Wealth;
-window.updateRenta = updateRenta;
-window.updateOsoby = updateOsoby;
-window.updateMajetok = updateMajetok;
+document.addEventListener("DOMContentLoaded", () => {
+
+    try { updateRenta(); } catch(e){}
+    try { updateOsoby(); } catch(e){}
+    try { updateMajetok(); } catch(e){}
+
+    const bind = (id, ev, fn) => {
+        const el = $(id);
+        if (el) el.addEventListener(ev, fn);
+    };
+
+    /* BOX 7 */
+    bind("rangeVek","input",updateRenta);
+    bind("rangePrijem","input",updateRenta);
+
+    /* BOX 8 */
+    bind("zivot-prijem","input",updateOsoby);
+    bind("zivot-hypo","input",updateOsoby);
+    bind("cesta-dni","input",updateOsoby);
+    bind("cesta-kam","change",updateOsoby);
+
+    /* BOX 9 */
+    bind("pzp-kw","input",updateMajetok);
+    bind("pzp-vek","input",updateMajetok);
+    bind("dom-hodnota","input",updateMajetok);
+    bind("dom-typ","change",updateMajetok);
+});
 
 })();
 </script>

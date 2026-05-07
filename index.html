@@ -2085,40 +2085,32 @@ function updateRenta() {
 }
 
 /* =========================================================
-   7 — ŽIVOT / CESTOVANIE
+   FIX BOX 7 — ŽIVOT / CESTOVANIE (SAFE VERSION)
 ========================================================= */
 
 function updateOsoby() {
 
-    const display =
-        document.getElementById('osoby-vysledok');
-
+    const display = document.getElementById('osoby-vysledok');
     if (!display) return;
 
-    const zivotVisible =
-        document.getElementById('zivot-form').style.display !== 'none';
+    const zivotForm = document.getElementById('zivot-form');
+    const cestaForm = document.getElementById('cesta-form');
+
+    const zivotVisible = zivotForm && zivotForm.style.display !== 'none';
 
     if (zivotVisible) {
 
-        const prijem =
-            parseFloat(document.getElementById('zivot-prijem').value) || 0;
+        const prijem = parseFloat(document.getElementById('zivot-prijem')?.value) || 0;
+        const hypo = parseFloat(document.getElementById('zivot-hypo')?.value) || 0;
 
-        const hypo =
-            parseFloat(document.getElementById('zivot-hypo').value) || 0;
+        const krytie = hypo + (prijem * 36);
 
-        const krytie =
-            hypo + (prijem * 36);
-
-        display.innerText =
-            formatMoney(krytie) + " €";
+        display.innerText = formatMoney(krytie) + " €";
 
     } else {
 
-        const dni =
-            parseFloat(document.getElementById('cesta-dni').value) || 0;
-
-        const kam =
-            document.getElementById('cesta-kam').value;
+        const dni = parseFloat(document.getElementById('cesta-dni')?.value) || 0;
+        const kam = document.getElementById('cesta-kam')?.value || 'europa';
 
         let price = 0;
 
@@ -2126,33 +2118,29 @@ function updateOsoby() {
         if (kam === 'svet') price = dni * 2.8;
         if (kam === 'usa') price = dni * 4.5;
 
-        display.innerText =
-            formatMoney(price) + " €";
-
+        display.innerText = formatMoney(price) + " €";
     }
 }
 
+
 /* =========================================================
-   8 — MAJETOK / PZP
+   FIX BOX 8 — MAJETOK / PZP + NEHNUTEĽNOSŤ
 ========================================================= */
 
 function updateMajetok() {
 
-    const display =
-        document.getElementById('majetok-vysledok');
-
+    const display = document.getElementById('majetok-vysledok');
     if (!display) return;
 
-    const pzpVisible =
-        document.getElementById('pzp-form').style.display !== 'none';
+    const pzpForm = document.getElementById('pzp-form');
+    const domForm = document.getElementById('dom-form');
+
+    const pzpVisible = pzpForm && pzpForm.style.display !== 'none';
 
     if (pzpVisible) {
 
-        const kw =
-            parseFloat(document.getElementById('pzp-kw').value) || 0;
-
-        const vek =
-            parseFloat(document.getElementById('pzp-vek').value) || 0;
+        const kw = parseFloat(document.getElementById('pzp-kw')?.value) || 0;
+        const vek = parseFloat(document.getElementById('pzp-vek')?.value) || 0;
 
         let cena = 0;
 
@@ -2163,89 +2151,45 @@ function updateMajetok() {
 
         if (vek < 25) cena *= 1.35;
 
-        display.innerText =
-            formatMoney(cena);
+        display.innerText = formatMoney(cena);
 
     } else {
 
-        const hodnota =
-            parseFloat(document.getElementById('dom-hodnota').value) || 0;
-
-        const typ =
-            document.getElementById('dom-typ').value;
+        const hodnota = parseFloat(document.getElementById('dom-hodnota')?.value) || 0;
+        const typ = document.getElementById('dom-typ')?.value || 'byt';
 
         let coef = 0.00045;
 
         if (typ === 'dom') coef = 0.00065;
         if (typ === 'chata') coef = 0.00075;
 
-        const cena =
-            Math.max(hodnota * coef, 35);
+        const cena = Math.max(hodnota * coef, 35);
 
-        display.innerText =
-            formatMoney(cena);
+        display.innerText = formatMoney(cena);
     }
 }
 
-/* =========================================================
-   TABY
-========================================================= */
-
-function showOsobyTool(id, btn) {
-
-    document.querySelectorAll('.osoby-tool')
-        .forEach(el => el.style.display = 'none');
-
-    document.getElementById(id).style.display = 'block';
-
-    btn.parentElement.querySelectorAll('.tab-btn')
-        .forEach(b => {
-            b.style.background = 'transparent';
-            b.style.color = '#555';
-        });
-
-    btn.style.background = '#002e5d';
-    btn.style.color = '#fff';
-
-    updateOsoby();
-}
-
-function showMajetokTool(id, btn) {
-
-    document.querySelectorAll('.majetok-tool')
-        .forEach(el => el.style.display = 'none');
-
-    document.getElementById(id).style.display = 'block';
-
-    btn.parentElement.querySelectorAll('.tab-btn')
-        .forEach(b => {
-            b.style.background = 'transparent';
-            b.style.color = '#555';
-        });
-
-    btn.style.background = '#002e5d';
-    btn.style.color = '#fff';
-
-    updateMajetok();
-}
 
 /* =========================================================
-   AUTO INIT
+   AUTO SAFE INIT (DÔLEŽITÉ FIX)
 ========================================================= */
+
+function safeInit(fn) {
+    try { fn(); } catch (e) { console.warn("Init error:", e); }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    updateAudit();
-    updateRef();
-    updateInvest();
-    update5Inflation();
-    update6Wealth();
-    updateRenta();
-    updateOsoby();
-    updateMajetok();
+    safeInit(updateAudit);
+    safeInit(updateRef);
+    safeInit(updateInvest);
+    safeInit(update5Inflation);
+    safeInit(update6Wealth);
+    safeInit(updateRenta);
+    safeInit(updateOsoby);
+    safeInit(updateMajetok);
 
 });
-
 /* =========================================================
    GLOBAL
 ========================================================= */

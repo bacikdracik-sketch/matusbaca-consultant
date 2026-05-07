@@ -1757,224 +1757,513 @@ input[type=range]::-webkit-slider-thumb:hover {
     <p class="copyright">Všetky práva vyhradené &copy; 2026 | Matúš Bača</p>
 </footer>
 <script>
-(() => {
-"use strict";
-
 /* =========================================================
-   CONFIG
+   MATÚŠ BAČA — MASTER LEAD MAGNET SCRIPT
+   VERZIA: FULL PREMIUM 2026
 ========================================================= */
 
 const FORMSPREE_URL = "https://formspree.io/f/xeepvqqy";
 
 /* =========================================================
-   SAFE UTILITIES
+   POMOCNÉ FUNKCIE
 ========================================================= */
 
-const $ = (id) => document.getElementById(id);
+function setText(id, value) {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = value;
+}
 
-const val = (id) => {
-    const el = $(id);
-    if (!el) return 0;
-    const v = parseFloat(el.value);
-    return isNaN(v) ? 0 : v;
-};
-
-const set = (id, value) => {
-    const el = $(id);
-    if (el) el.innerText = value;
-};
-
-const money = (n) =>
-    Number(n || 0).toLocaleString("sk-SK", {
+function formatMoney(num) {
+    return Number(num).toLocaleString('sk-SK', {
+        minimumFractionDigits: 0,
         maximumFractionDigits: 0
     });
+}
 
-/* =========================================================
-   SAFE ERROR HANDLING (NEBLOCKUJE WEB)
-========================================================= */
+function toggleCalculator(calcId, cardId) {
+    const calc = document.getElementById(calcId);
+    const card = document.getElementById(cardId);
 
-window.addEventListener("error", (e) => {
-    console.warn("JS error:", e.message);
-});
+    if (!calc) return;
 
-/* =========================================================
-   TOGGLE SYSTEM (UNIFIED - CLASS BASED)
-========================================================= */
+    const isVisible = calc.style.display === "block";
 
-window.toggleCalculator = function(id, cardId) {
-    const el = $(id);
-    if (!el) return;
-
-    const isActive = el.classList.contains("active");
-
-    document.querySelectorAll(".calculator-container")
-        .forEach(x => x.classList.remove("active"));
-
-    document.querySelectorAll(".card")
-        .forEach(x => x.classList.remove("active"));
-
-    if (!isActive) {
-        el.classList.add("active");
-        $(cardId)?.classList.add("active");
-    }
-};
-
-/* =========================================================
-   MAJETOK TAB SWITCH (CHÝBALO!)
-========================================================= */
-
-window.showMajetokTool = function(id, btn) {
-    document.querySelectorAll(".majetok-tool")
+    document.querySelectorAll('.inline-calculator, .calculator-container')
         .forEach(el => el.style.display = "none");
 
-    document.querySelectorAll(".tab-btn")
-        .forEach(el => el.classList.remove("active"));
+    document.querySelectorAll('.card')
+        .forEach(el => el.classList.remove('active'));
 
-    const el = $(id);
-    if (el) el.style.display = "block";
-
-    if (btn) btn.classList.add("active");
-};
+    if (!isVisible) {
+        calc.style.display = "block";
+        if (card) card.classList.add('active');
+    }
+}
 
 /* =========================================================
-   LEAD SYSTEM (SAFE + FIXED)
+   LEAD SUBMIT
 ========================================================= */
 
-window.handleLeadSubmit = async function(event, source) {
+async function handleLeadSubmit(e, source) {
+
+    e.preventDefault();
+
+    const btn = e.target;
+
+    let wrapper =
+        btn.closest('.calc-contact') ||
+        btn.closest('.magnet-action') ||
+        btn.closest('.card-content');
+
+    const email =
+        wrapper.querySelector('input[type="email"]')?.value || "";
+
+    const phone =
+        wrapper.querySelector('input[type="tel"]')?.value || "";
+
+    if (phone.length < 9) {
+        alert("⚠️ Zadajte platné telefónne číslo.");
+        return;
+    }
+
+    btn.disabled = true;
+    const original = btn.innerText;
+    btn.innerText = "ODOSIELAM...";
+
     try {
-        event?.preventDefault();
-
-        const btn = event?.target;
-        const wrap = btn?.closest(".card-content") || document;
-
-        const phone = wrap.querySelector("input[type=tel]")?.value || "";
-        const email = wrap.querySelector("input[type=email]")?.value || "";
-
-        if (!phone || phone.length < 9) {
-            alert("Zadaj platné telefónne číslo");
-            return;
-        }
-
-        if (btn) {
-            btn.disabled = true;
-            btn.dataset.old = btn.innerText;
-            btn.innerText = "ODOSIELAM...";
-        }
 
         await fetch(FORMSPREE_URL, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify({
-                source,
-                phone,
-                email,
-                url: location.href,
-                time: new Date().toLocaleString("sk-SK")
+                typ: source,
+                email: email,
+                telefon: phone,
+                cas: new Date().toLocaleString('sk-SK'),
+                url: window.location.href
             })
         });
 
-        alert("Ozvem sa ti čoskoro 👍");
+        btn.innerText = "ODOSLANÉ ✓";
 
-    } catch (e) {
-        console.warn("Lead error", e);
+        alert("✅ Ďakujem. Ozvem sa vám čo najskôr.");
+
+    } catch (err) {
+
+        alert("❌ Nastala chyba pri odoslaní.");
+
+        btn.innerText = original;
+
     } finally {
-        const btn = event?.target;
-        if (btn) {
+
+        setTimeout(() => {
             btn.disabled = false;
-            btn.innerText = btn.dataset.old || "Odoslať";
-        }
+            btn.innerText = original;
+        }, 2500);
+
     }
-};
+}
 
 /* =========================================================
-   KALKULAČKY
+   1 — HYPOTEKÁRNY AUDIT
 ========================================================= */
 
-window.updateAudit = function() {
-    const a = val("rangeAmount");
-    const y = val("rangeYears");
-    const r = val("rangeAuditRate");
+function updateAudit() {
 
-    if (!a || !y || !r) return;
+    const amount =
+        parseFloat(document.getElementById('rangeAmount').value);
 
-    const rate = r / 100 / 12;
-    const n = y * 12;
+    const years =
+        parseFloat(document.getElementById('rangeYears').value);
+
+    const rate =
+        parseFloat(document.getElementById('rangeAuditRate').value);
+
+    setText('valAmount', formatMoney(amount));
+    setText('valYears', years);
+    setText('valAuditRate', rate.toFixed(2));
+
+    const monthlyRate = rate / 100 / 12;
+    const payments = years * 12;
 
     const monthly =
-        (a * rate) / (1 - Math.pow(1 + rate, -n));
+        (amount * monthlyRate) /
+        (1 - Math.pow(1 + monthlyRate, -payments));
 
-    set("auditMonthlyPayment", money(monthly));
-    set("auditTotalOverpayment", money(monthly * n - a));
-};
+    const total = monthly * payments;
+    const overpayment = total - amount;
 
-window.updateRef = function() {
-    const debt = val("rangeDebt");
-    const rate = val("rangeRate");
+    const lowerRate = (rate - 1) / 100 / 12;
 
-    if (!debt || !rate) return;
+    const betterMonthly =
+        (amount * lowerRate) /
+        (1 - Math.pow(1 + lowerRate, -payments));
 
-    const newRate = Math.max(rate - 1.2, 1.5);
-    const r = newRate / 100 / 12;
-    const n = 30 * 12;
+    const save =
+        (monthly - betterMonthly) * payments;
 
-    const newPay =
-        (debt * r) / (1 - Math.pow(1 + r, -n));
+    setText('auditMonthlyPayment',
+        formatMoney(monthly));
 
-    set("newPaymentVal", money(newPay));
-};
+    setText('auditTotalOverpayment',
+        formatMoney(overpayment));
 
-window.updateInvest = function() {
-    const m = val("rangeInvest");
-    const y = val("rangeYearsInvest");
-
-    const r = 0.08 / 12;
-    const n = y * 12;
-
-    const future =
-        m * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
-
-    set("investFuture", money(future));
-};
-
-window.updateMajetok = function() {
-    const el = $("majetok-vysledok");
-    if (!el) return;
-
-    const kw = val("pzp-kw");
-    const age = val("pzp-vek");
-    const value = val("dom-hodnota");
-    const type = $("dom-typ")?.value || "byt";
-
-    let result = 0;
-
-    if (kw > 0) {
-        result =
-            kw < 60 ? 85 :
-            kw < 90 ? 120 :
-            kw < 130 ? 180 : 260;
-
-        if (age < 25) result *= 1.35;
-
-    } else {
-        const coef =
-            type === "dom" ? 0.00065 :
-            type === "chata" ? 0.00075 : 0.00045;
-
-        result = Math.max(value * coef, 35);
-    }
-
-    el.innerText = money(result) + " €";
-};
+    setText('auditSave',
+        formatMoney(save));
+}
 
 /* =========================================================
-   INIT (NEPADA WEB)
+   2 — REFINANCOVANIE
 ========================================================= */
 
-document.addEventListener("DOMContentLoaded", () => {
-    console.log("Funnel engine ready");
+function updateRef() {
+
+    const current =
+        parseFloat(document.getElementById('rangeCurrentPayment').value);
+
+    const rate =
+        parseFloat(document.getElementById('rangeRate').value);
+
+    const debt =
+        parseFloat(document.getElementById('rangeDebt').value);
+
+    setText('valCurrentPayment',
+        formatMoney(current));
+
+    setText('valRate',
+        rate.toFixed(1));
+
+    setText('valDebt',
+        formatMoney(debt));
+
+    const newRate = Math.max(rate - 1.2, 1.5);
+
+    const currentMonthlyRate = rate / 100 / 12;
+    const newMonthlyRate = newRate / 100 / 12;
+
+    const months = 30 * 12;
+
+    const newPayment =
+        (debt * newMonthlyRate) /
+        (1 - Math.pow(1 + newMonthlyRate, -months));
+
+    const savings = current - newPayment;
+
+    setText('estimatedSavings',
+        formatMoney(Math.max(savings, 0)));
+
+    setText('newPaymentVal',
+        formatMoney(newPayment));
+}
+
+/* =========================================================
+   3 — INVESTOVANIE
+========================================================= */
+
+function updateInvest() {
+
+    const monthly =
+        parseFloat(document.getElementById('rangeInvest').value);
+
+    const years =
+        parseFloat(document.getElementById('rangeYearsInvest').value);
+
+    setText('valInvest',
+        formatMoney(monthly));
+
+    setText('valYearsInvest',
+        years);
+
+    const rate = 0.08 / 12;
+    const months = years * 12;
+
+    const future =
+        monthly *
+        ((Math.pow(1 + rate, months) - 1) / rate) *
+        (1 + rate);
+
+    const total =
+        monthly * months;
+
+    setText('investFuture',
+        formatMoney(future));
+
+    setText('investTotal',
+        formatMoney(total));
+}
+
+/* =========================================================
+   4 — INFLÁCIA
+========================================================= */
+
+function update5Inflation() {
+
+    const amount =
+        parseFloat(document.getElementById('range5InfAmount').value);
+
+    const rate =
+        parseFloat(document.getElementById('range5InfRate').value);
+
+    setText('val5InfAmount',
+        formatMoney(amount));
+
+    setText('val5InfRate',
+        rate);
+
+    const loss = amount * (rate / 100);
+
+    setText('inf5LossValue',
+        formatMoney(loss));
+}
+
+/* =========================================================
+   5 — MAJETOK / DETI
+========================================================= */
+
+function update6Wealth() {
+
+    const base =
+        parseFloat(document.getElementById('range6WealthBase').value);
+
+    const monthly =
+        parseFloat(document.getElementById('range6WealthMonthly').value);
+
+    setText('val6WealthBase',
+        formatMoney(base));
+
+    setText('val6WealthMonthly',
+        formatMoney(monthly));
+
+    const years = 20;
+    const rate = 0.08 / 12;
+    const months = years * 12;
+
+    const invest =
+        monthly *
+        ((Math.pow(1 + rate, months) - 1) / rate) *
+        (1 + rate);
+
+    const futureBase =
+        base * Math.pow(1.08, years);
+
+    const total =
+        invest + futureBase;
+
+    setText('wealth6ResultValue',
+        formatMoney(total));
+}
+
+/* =========================================================
+   6 — DÔCHODOK
+========================================================= */
+
+function updateRenta() {
+
+    const vek =
+        parseFloat(document.getElementById('rangeVek').value);
+
+    const prijem =
+        parseFloat(document.getElementById('rangePrijem').value);
+
+    setText('valVek', vek);
+    setText('valPrijem',
+        formatMoney(prijem));
+
+    const statna =
+        prijem * 0.38;
+
+    const deficit =
+        prijem - statna;
+
+    setText('rentaStat',
+        formatMoney(statna) + " €");
+
+    setText('rentaDeficit',
+        "-" + formatMoney(deficit) + " €");
+}
+
+/* =========================================================
+   7 — ŽIVOT / CESTOVANIE
+========================================================= */
+
+function updateOsoby() {
+
+    const display =
+        document.getElementById('osoby-vysledok');
+
+    if (!display) return;
+
+    const zivotVisible =
+        document.getElementById('zivot-form').style.display !== 'none';
+
+    if (zivotVisible) {
+
+        const prijem =
+            parseFloat(document.getElementById('zivot-prijem').value) || 0;
+
+        const hypo =
+            parseFloat(document.getElementById('zivot-hypo').value) || 0;
+
+        const krytie =
+            hypo + (prijem * 36);
+
+        display.innerText =
+            formatMoney(krytie) + " €";
+
+    } else {
+
+        const dni =
+            parseFloat(document.getElementById('cesta-dni').value) || 0;
+
+        const kam =
+            document.getElementById('cesta-kam').value;
+
+        let price = 0;
+
+        if (kam === 'europa') price = dni * 1.5;
+        if (kam === 'svet') price = dni * 2.8;
+        if (kam === 'usa') price = dni * 4.5;
+
+        display.innerText =
+            formatMoney(price) + " €";
+
+    }
+}
+
+/* =========================================================
+   8 — MAJETOK / PZP
+========================================================= */
+
+function updateMajetok() {
+
+    const display =
+        document.getElementById('majetok-vysledok');
+
+    if (!display) return;
+
+    const pzpVisible =
+        document.getElementById('pzp-form').style.display !== 'none';
+
+    if (pzpVisible) {
+
+        const kw =
+            parseFloat(document.getElementById('pzp-kw').value) || 0;
+
+        const vek =
+            parseFloat(document.getElementById('pzp-vek').value) || 0;
+
+        let cena = 0;
+
+        if (kw < 60) cena = 85;
+        else if (kw < 90) cena = 120;
+        else if (kw < 130) cena = 180;
+        else cena = 260;
+
+        if (vek < 25) cena *= 1.35;
+
+        display.innerText =
+            formatMoney(cena);
+
+    } else {
+
+        const hodnota =
+            parseFloat(document.getElementById('dom-hodnota').value) || 0;
+
+        const typ =
+            document.getElementById('dom-typ').value;
+
+        let coef = 0.00045;
+
+        if (typ === 'dom') coef = 0.00065;
+        if (typ === 'chata') coef = 0.00075;
+
+        const cena =
+            Math.max(hodnota * coef, 35);
+
+        display.innerText =
+            formatMoney(cena);
+    }
+}
+
+/* =========================================================
+   TABY
+========================================================= */
+
+function showOsobyTool(id, btn) {
+
+    document.querySelectorAll('.osoby-tool')
+        .forEach(el => el.style.display = 'none');
+
+    document.getElementById(id).style.display = 'block';
+
+    btn.parentElement.querySelectorAll('.tab-btn')
+        .forEach(b => {
+            b.style.background = 'transparent';
+            b.style.color = '#555';
+        });
+
+    btn.style.background = '#002e5d';
+    btn.style.color = '#fff';
+
+    updateOsoby();
+}
+
+function showMajetokTool(id, btn) {
+
+    document.querySelectorAll('.majetok-tool')
+        .forEach(el => el.style.display = 'none');
+
+    document.getElementById(id).style.display = 'block';
+
+    btn.parentElement.querySelectorAll('.tab-btn')
+        .forEach(b => {
+            b.style.background = 'transparent';
+            b.style.color = '#555';
+        });
+
+    btn.style.background = '#002e5d';
+    btn.style.color = '#fff';
+
+    updateMajetok();
+}
+
+/* =========================================================
+   AUTO INIT
+========================================================= */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    updateAudit();
+    updateRef();
+    updateInvest();
+    update5Inflation();
+    update6Wealth();
+    updateRenta();
+    updateOsoby();
+    updateMajetok();
+
 });
 
-})();
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+window.updateAudit = updateAudit;
+window.updateRef = updateRef;
+window.updateInvest = updateInvest;
+window.update5Inflation = update5Inflation;
+window.update6Wealth = update6Wealth;
+window.updateRenta = updateRenta;
+window.updateOsoby = updateOsoby;
+window.updateMajetok = updateMajetok;
+
+window.showOsobyTool = showOsobyTool;
+window.showMajetokTool = showMajetokTool;
+window.toggleCalculator = toggleCalculator;
+window.handleLeadSubmit = handleLeadSubmit;
+
 </script>
 <div style="position: fixed; bottom: 30px; right: 30px; z-index: 10001; display: flex; align-items: center; gap: 10px;">
     <span style="background: white; padding: 5px 15px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 14px; font-weight: 600; color: #333; font-family: sans-serif;">

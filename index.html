@@ -1762,63 +1762,75 @@ input[type=range]::-webkit-slider-thumb:hover {
 "use strict";
 
 /* =========================
-   SAFE CORE
+   SAFE CORE HELPERS
 ========================= */
 
 const $ = (id) => document.getElementById(id);
 
 const val = (id) => {
     const el = $(id);
-    if (!el) return 0;
-    const v = parseFloat(el.value);
-    return isNaN(v) ? 0 : v;
+    return el ? (parseFloat(el.value) || 0) : 0;
 };
 
-const set = (id, v) => {
+const text = (id, value) => {
     const el = $(id);
-    if (el) el.innerText = v;
+    if (el) el.innerText = value;
 };
 
 const money = (n) =>
-    Number(n || 0).toLocaleString("sk-SK");
+    Number(n || 0).toLocaleString('sk-SK');
 
 /* =========================
-   SAFE TOGGLE (NEPADÁ)
+   TOGGLE SAFE
 ========================= */
 
 window.toggleCalculator = function(calcId, cardId) {
+
     const calc = $(calcId);
     const card = $(cardId);
+
     if (!calc) return;
 
-    const open = calc.style.display === "block";
+    const isOpen = calc.style.display === "block";
 
-    document.querySelectorAll(".calculator-container")
-        .forEach(e => e.style.display = "none");
+    document.querySelectorAll('.inline-calculator, .calculator-container')
+        .forEach(el => el.style.display = "none");
 
-    document.querySelectorAll(".card")
-        .forEach(e => e.classList.remove("active"));
+    document.querySelectorAll('.card')
+        .forEach(el => el.classList.remove('active'));
 
-    if (!open) {
+    if (!isOpen) {
         calc.style.display = "block";
-        if (card) card.classList.add("active");
+        if (card) card.classList.add('active');
     }
 };
 
 /* =========================
-   LEAD (STABILNÝ)
+   LEAD SAFE (1 FUNKCIA PRE VŠETKO)
 ========================= */
 
 window.handleLeadSubmit = async function(e, source) {
 
     if (e) e.preventDefault();
 
-    const btn = e.target;
-    const wrap = btn.closest(".magnet-action") || btn.closest(".card-content");
-    const phone = wrap?.querySelector("input[type='tel']")?.value || "";
-    const email = wrap?.querySelector("input[type='email']")?.value || "";
+    const btn = e?.target;
+    if (!btn) return;
 
-    if (phone.length < 9) return alert("Zadaj telefón");
+    const wrapper =
+        btn.closest('.calc-contact') ||
+        btn.closest('.magnet-action') ||
+        btn.closest('.card-content');
+
+    const phone =
+        wrapper?.querySelector('input[type="tel"]')?.value || "";
+
+    const email =
+        wrapper?.querySelector('input[type="email"]')?.value || "";
+
+    if (!phone || phone.length < 9) {
+        alert("Zadaj telefón");
+        return;
+    }
 
     const old = btn.innerText;
     btn.disabled = true;
@@ -1828,11 +1840,20 @@ window.handleLeadSubmit = async function(e, source) {
         await fetch("https://formspree.io/f/xeepvqqy", {
             method: "POST",
             headers: {"Content-Type":"application/json"},
-            body: JSON.stringify({ source, phone, email, url: location.href })
+            body: JSON.stringify({
+                source,
+                phone,
+                email,
+                url: location.href,
+                time: new Date().toLocaleString('sk-SK')
+            })
         });
 
-        btn.innerText = "HOTOVO ✓";
-    } catch (e) {
+        btn.innerText = "ODOSLANÉ ✓";
+
+    } catch (err) {
+        console.log(err);
+        alert("Chyba odoslania");
         btn.innerText = old;
     }
 
@@ -1843,112 +1864,255 @@ window.handleLeadSubmit = async function(e, source) {
 };
 
 /* =========================
-   1–6 (PLNÁ LOGIKA)
+   BOX 1 — AUDIT
 ========================= */
 
 function updateAudit() {
-    const a = val("rangeAmount");
-    const y = val("rangeYears");
-    const r = val("rangeAuditRate");
 
-    const m = (a * (r/100/12)) / (1 - Math.pow(1 + (r/100/12), -(y*12)));
+    const amount = val('rangeAmount');
+    const years = val('rangeYears');
+    const rate = val('rangeAuditRate');
 
-    set("auditMonthlyPayment", money(m));
-}
+    text('valAmount', money(amount));
+    text('valYears', years);
+    text('valAuditRate', rate.toFixed(2));
 
-function updateRef() {
-    const d = val("rangeDebt");
-    const r = val("rangeRate");
+    const r = rate / 100 / 12;
+    const n = years * 12;
 
-    const nr = Math.max(r - 1.2, 1.5);
+    const monthly =
+        (amount * r) / (1 - Math.pow(1 + r, -n));
 
-    const m = (d * (nr/100/12)) / (1 - Math.pow(1 + (nr/100/12), -360));
+    const total = monthly * n;
+    const over = total - amount;
 
-    set("newPaymentVal", money(m));
-}
+    const lower = (rate - 1) / 100 / 12;
 
-function updateInvest() {
-    const m = val("rangeInvest");
-    const y = val("rangeYearsInvest");
+    const better =
+        (amount * lower) / (1 - Math.pow(1 + lower, -n));
 
-    const r = 0.08/12;
-    const f = m * ((Math.pow(1+r,y*12)-1)/r)*(1+r);
+    const save = (monthly - better) * n;
 
-    set("investFuture", money(f));
-}
-
-function update5Inflation() {
-    const a = val("range5InfAmount");
-    const r = val("range5InfRate");
-    set("inf5LossValue", money(a*(r/100)));
-}
-
-function update6Wealth() {
-    const b = val("range6WealthBase");
-    const m = val("range6WealthMonthly");
-
-    const r = 0.08/12;
-    const f = m * ((Math.pow(1+r,240)-1)/r)*(1+r);
-
-    set("wealth6ResultValue", money(f + b*Math.pow(1.08,20)));
-}
-
-function updateRenta() {
-    const v = val("rangeVek");
-    const p = val("rangePrijem");
-
-    set("rentaStat", money(p*0.38)+" €");
-    set("rentaDeficit", "-"+money(p*0.62)+" €");
+    text('auditMonthlyPayment', money(monthly));
+    text('auditTotalOverpayment', money(over));
+    text('auditSave', money(save));
 }
 
 /* =========================
-   7–8 FIX
+   BOX 2 — REFINANCE
+========================= */
+
+function updateRef() {
+
+    const current = val('rangeCurrentPayment');
+    const rate = val('rangeRate');
+    const debt = val('rangeDebt');
+
+    text('valCurrentPayment', money(current));
+    text('valRate', rate.toFixed(1));
+    text('valDebt', money(debt));
+
+    const newRate = Math.max(rate - 1.2, 1.5);
+
+    const r = newRate / 100 / 12;
+    const n = 30 * 12;
+
+    const newPay =
+        (debt * r) / (1 - Math.pow(1 + r, -n));
+
+    const save = current - newPay;
+
+    text('estimatedSavings', money(Math.max(save, 0)));
+    text('newPaymentVal', money(newPay));
+}
+
+/* =========================
+   BOX 3 — INVEST
+========================= */
+
+function updateInvest() {
+
+    const m = val('rangeInvest');
+    const y = val('rangeYearsInvest');
+
+    text('valInvest', money(m));
+    text('valYearsInvest', y);
+
+    const r = 0.08 / 12;
+    const n = y * 12;
+
+    const future =
+        m * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
+
+    const total = m * n;
+
+    text('investFuture', money(future));
+    text('investTotal', money(total));
+}
+
+/* =========================
+   BOX 4 — INFLÁCIA
+========================= */
+
+function update5Inflation() {
+
+    const a = val('range5InfAmount');
+    const r = val('range5InfRate');
+
+    text('val5InfAmount', money(a));
+    text('val5InfRate', r);
+
+    text('inf5LossValue', money(a * r / 100));
+}
+
+/* =========================
+   BOX 5 — MAJETOK
+========================= */
+
+function update6Wealth() {
+
+    const base = val('range6WealthBase');
+    const m = val('range6WealthMonthly');
+
+    text('val6WealthBase', money(base));
+    text('val6WealthMonthly', money(m));
+
+    const r = 0.08 / 12;
+    const n = 20 * 12;
+
+    const invest =
+        m * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
+
+    const futureBase = base * Math.pow(1.08, 20);
+
+    text('wealth6ResultValue', money(invest + futureBase));
+}
+
+/* =========================
+   BOX 6 — RENTA (SAFE)
+========================= */
+
+function updateRenta() {
+
+    const vek = val('rangeVek');
+    const prijem = val('rangePrijem');
+
+    text('valVek', vek);
+    text('valPrijem', money(prijem));
+
+    const stat = prijem * 0.38;
+
+    text('rentaStat', money(stat) + " €");
+    text('rentaDeficit', "-" + money(prijem - stat) + " €");
+}
+
+/* =========================
+   BOX 7 — OSOBY SAFE
 ========================= */
 
 function updateOsoby() {
-    const out = $("osoby-vysledok");
+
+    const out = $('osoby-vysledok');
     if (!out) return;
 
-    const z = $("zivot-form")?.style.display !== "none";
+    const zivot = $('zivot-form');
+    const visible = zivot && zivot.style.display !== 'none';
 
-    out.innerText = z
-        ? money(val("zivot-hypo") + val("zivot-prijem")*36) + " €"
-        : money(val("cesta-dni")*2.8) + " €";
-}
+    if (visible) {
 
-function updateMajetok() {
-    const out = $("majetok-vysledok");
-    if (!out) return;
+        const p = val('zivot-prijem');
+        const h = val('zivot-hypo');
 
-    const p = $("pzp-form")?.style.display !== "none";
+        out.innerText = money(h + (p * 36)) + " €";
 
-    out.innerText = p
-        ? money(val("pzp-kw") < 90 ? 120 : 180)
-        : money(val("dom-hodnota")*0.0006);
+    } else {
+
+        const dni = val('cesta-dni');
+        const kam = $('cesta-kam')?.value || 'europa';
+
+        let price = 0;
+
+        if (kam === 'europa') price = dni * 1.5;
+        if (kam === 'svet') price = dni * 2.8;
+        if (kam === 'usa') price = dni * 4.5;
+
+        out.innerText = money(price) + " €";
+    }
 }
 
 /* =========================
-   INIT (JEDINÝ)
+   BOX 8 — MAJETOK SAFE
 ========================= */
 
-document.addEventListener("DOMContentLoaded", () => {
+function updateMajetok() {
 
-    updateAudit();
-    updateRef();
-    updateInvest();
-    update5Inflation();
-    update6Wealth();
-    updateRenta();
-    updateOsoby();
-    updateMajetok();
+    const out = $('majetok-vysledok');
+    if (!out) return;
 
-    const bind = (id, ev, fn) => $(id)?.addEventListener(ev, fn);
+    const pzp = $('pzp-form');
+    const visible = pzp && pzp.style.display !== 'none';
 
-    ["rangeVek","rangePrijem"].forEach(i=>bind(i,"input",updateRenta));
-    ["zivot-prijem","zivot-hypo","cesta-dni","cesta-kam"].forEach(i=>bind(i,"input",updateOsoby));
-    ["pzp-kw","pzp-vek","dom-hodnota","dom-typ"].forEach(i=>bind(i,"input",updateMajetok));
+    if (visible) {
 
+        const kw = val('pzp-kw');
+        const vek = val('pzp-vek');
+
+        let cena = 85;
+
+        if (kw >= 60) cena = 120;
+        if (kw >= 90) cena = 180;
+        if (kw >= 130) cena = 260;
+
+        if (vek < 25) cena *= 1.35;
+
+        out.innerText = money(cena);
+
+    } else {
+
+        const h = val('dom-hodnota');
+        const t = $('dom-typ')?.value || 'byt';
+
+        let coef = 0.00045;
+
+        if (t === 'dom') coef = 0.00065;
+        if (t === 'chata') coef = 0.00075;
+
+        out.innerText = money(Math.max(h * coef, 35));
+    }
+}
+
+/* =========================
+   INIT SAFE
+========================= */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    try {
+        updateAudit();
+        updateRef();
+        updateInvest();
+        update5Inflation();
+        update6Wealth();
+        updateRenta();
+        updateOsoby();
+        updateMajetok();
+    } catch (e) {
+        console.log("INIT ERROR:", e);
+    }
 });
+
+/* =========================
+   EXPORT GLOBAL
+========================= */
+
+window.updateAudit = updateAudit;
+window.updateRef = updateRef;
+window.updateInvest = updateInvest;
+window.update5Inflation = update5Inflation;
+window.update6Wealth = update6Wealth;
+window.updateRenta = updateRenta;
+window.updateOsoby = updateOsoby;
+window.updateMajetok = updateMajetok;
 
 })();
 </script>

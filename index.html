@@ -1077,10 +1077,12 @@ input[type=range]::-webkit-slider-thumb:hover {
     </div>
 </nav>
 
-    <section class="hero" id="home" style="background: linear-gradient(rgba(10, 15, 28, 0.4), rgba(10, 15, 28, 0.5)), url('hero-office.png') center/cover no-repeat !important;">
-    <div class="hero-overlay" style="background: transparent !important;"></div>
+    <section class="hero" id="home" style="background: linear-gradient(rgba(10, 15, 28, 0.4), rgba(10, 15, 28, 0.5)), url('hero-office.png') center/cover no-repeat !important; position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center;">
     
-    <div class="hero-content">
+    <div class="hero-overlay" style="background: transparent !important; position: absolute; inset: 0; pointer-events: none; z-index: 1;"></div>
+    
+    <div class="hero-content" style="position: relative; z-index: 10; max-width: 1000px; text-align: center; padding: 40px 20px;">
+        
         <div class="hero-badge">
             Moderné finančné plánovanie • Hypotéky • Investície • Ochrana majetku
         </div>
@@ -1095,7 +1097,7 @@ input[type=range]::-webkit-slider-thumb:hover {
             ktoré pomáhajú robiť lepšie rozhodnutia pre dnešok aj budúcnosť.
         </p>
 
-        <div class="hero-btns-container">
+        <div class="hero-btns-container" style="position: relative; z-index: 20; display: flex; justify-content: center; gap: 18px; flex-wrap: wrap;">
             <a href="#contact" class="btn-primary">
                 Bezplatný finančný audit
             </a>

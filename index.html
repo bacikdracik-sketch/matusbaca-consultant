@@ -1823,40 +1823,73 @@ function updateRenta() {
     setText('rentaDeficit', "-" + formatMoney(p - (p * 0.38)) + " €");
 }
 
-// 7. ŽIVOT / CESTOVANIE
+/* ——— 7 — ŽIVOT / CESTOVANIE ——— */
 function updateOsoby() {
     const display = document.getElementById('osoby-vysledok');
     if (!display) return;
-    const form = document.getElementById('zivot-form');
-    if (form && form.style.display !== 'none') {
-        const p = parseFloat(document.getElementById('zivot-prijem')?.value || 0);
-        const h = parseFloat(document.getElementById('zivot-hypo')?.value || 0);
-        display.innerText = formatMoney(h + (p * 36)) + " €";
+
+    // Kontrola, či je zobrazený formulár pre životné poistenie
+    const zivotForm = document.getElementById('zivot-form');
+    const isZivotActive = zivotForm && zivotForm.style.display !== 'none';
+
+    if (isZivotActive) {
+        // Logika pre Životné poistenie (Krytie = Hypo + 3-ročný príjem)
+        const prijem = parseFloat(document.getElementById('zivot-prijem')?.value || 0);
+        const hypo = parseFloat(document.getElementById('zivot-hypo')?.value || 0);
+        const krytie = hypo + (prijem * 36);
+        
+        display.innerText = formatMoney(krytie) + " €";
     } else {
-        const d = parseFloat(document.getElementById('cesta-dni')?.value || 0);
-        const k = document.getElementById('cesta-kam')?.value;
-        let pr = k === 'europa' ? 1.5 : (k === 'svet' ? 2.8 : 4.5);
-        display.innerText = formatMoney(d * pr) + " €";
+        // Logika pre Cestovné poistenie (Dni * Destinácia)
+        const dni = parseFloat(document.getElementById('cesta-dni')?.value || 0);
+        const kam = document.getElementById('cesta-kam')?.value;
+        
+        let sadzba = 1.5; // Európa
+        if (kam === 'svet') sadzba = 2.8;
+        if (kam === 'usa') sadzba = 4.5;
+        
+        const cena = dni * sadzba;
+        display.innerText = formatMoney(cena) + " €";
     }
 }
 
-// 8. MAJETOK / PZP
+/* ——— 8 — MAJETOK / PZP ——— */
 function updateMajetok() {
     const display = document.getElementById('majetok-vysledok');
     if (!display) return;
-    const pzp = document.getElementById('pzp-form');
-    if (pzp && pzp.style.display !== 'none') {
+
+    // Kontrola, či je zobrazený formulár pre PZP
+    const pzpForm = document.getElementById('pzp-form');
+    const isPzpActive = pzpForm && pzpForm.style.display !== 'none';
+
+    if (isPzpActive) {
+        // Logika pre PZP (podľa výkonu kW)
         const kw = parseFloat(document.getElementById('pzp-kw')?.value || 0);
-        let c = kw < 60 ? 85 : (kw < 90 ? 120 : (kw < 130 ? 180 : 260));
-        display.innerText = formatMoney(c);
+        const vek = parseFloat(document.getElementById('pzp-vek')?.value || 0);
+        
+        let cena = 0;
+        if (kw < 60) cena = 85;
+        else if (kw < 90) cena = 120;
+        else if (kw < 130) cena = 180;
+        else cena = 260;
+
+        // Prirážka pre mladých vodičov
+        if (vek > 0 && vek < 25) cena *= 1.35;
+
+        display.innerText = formatMoney(cena) + " €";
     } else {
-        const h = parseFloat(document.getElementById('dom-hodnota')?.value || 0);
-        const t = document.getElementById('dom-typ')?.value;
-        let coef = t === 'dom' ? 0.00065 : (t === 'chata' ? 0.00075 : 0.00045);
-        display.innerText = formatMoney(Math.max(h * coef, 35));
+        // Logika pre Nehnuteľnosť (Hodnota * koeficient podľa typu)
+        const hodnota = parseFloat(document.getElementById('dom-hodnota')?.value || 0);
+        const typ = document.getElementById('dom-typ')?.value;
+
+        let koeficient = 0.00045; // Byt (štandard)
+        if (typ === 'dom') koeficient = 0.00065;
+        if (typ === 'chata') koeficient = 0.00075;
+
+        const vysledok = Math.max(hodnota * koeficient, 35); // Minimálne poistné 35€
+        display.innerText = formatMoney(vysledok) + " €";
     }
 }
-
 /* =========================================================
    UI FUNKCIE
    ========================================================= */

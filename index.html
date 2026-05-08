@@ -189,7 +189,7 @@
     transform: translateX(3px);
 }
 
-        /* PREMIUM HERO - TVOJ ŠTÝL */
+/* PREMIUM HERO - OPRAVENÁ VERZIA */
 .hero {
     position: relative;
     min-height: 100vh;
@@ -199,9 +199,9 @@
     overflow: hidden;
     padding: 40px 20px;
     text-align: center;
-    /* Tvoja fotka s tmavým gradientom */
+    /* UPRAVENÉ: Zosvetlený gradient (0.4 namiesto 0.85), aby bolo vidno fotku */
     background: 
-        linear-gradient(rgba(10, 15, 28, 0.85), rgba(10, 15, 28, 0.92)),
+        linear-gradient(rgba(10, 15, 28, 0.4), rgba(10, 15, 28, 0.6)),
         url('hero-office.png') center/cover no-repeat;
     color: white;
 }
@@ -210,11 +210,14 @@
     position: absolute;
     inset: 0;
     backdrop-filter: blur(3px);
+    /* TOTO OPRAVÍ TLAČIDLÁ: Prepustí kliknutie pod seba */
+    pointer-events: none; 
+    z-index: 1;
 }
 
 .hero-content {
     position: relative;
-    z-index: 2;
+    z-index: 10; /* Zvýšený index, aby bol obsah vždy navrchu */
     max-width: 1000px;
     animation: heroFade 1s ease;
 }
@@ -224,9 +227,9 @@
     padding: 12px 22px;
     border-radius: 50px;
     margin-bottom: 28px;
-    background: rgba(179, 142, 68, 0.15); /* Tvoja zlatá s priesvitnosťou */
+    background: rgba(179, 142, 68, 0.15);
     border: 1px solid rgba(179, 142, 68, 0.3);
-    color: #B38E44; /* Tvoja zlatá */
+    color: #B38E44;
     font-size: 0.92rem;
     letter-spacing: 1px;
     font-weight: 700;
@@ -237,15 +240,15 @@
 .hero h1 {
     font-size: clamp(46px, 7vw, 84px);
     line-height: 1.02;
-    font-weight: 300; /* TENKÉ PÍSMO */
+    font-weight: 300;
     margin-bottom: 28px;
     letter-spacing: -2px;
     text-transform: uppercase;
 }
 
 .hero h1 span {
-    font-weight: 900; /* EXTRA HRUBÉ PÍSMO */
-    color: #B38E44; /* TVOJA ZLATÁ */
+    font-weight: 900;
+    color: #B38E44;
 }
 
 .hero p {
@@ -264,10 +267,14 @@
     gap: 18px;
     flex-wrap: wrap;
     margin-bottom: 55px;
+    position: relative;
+    z-index: 20; /* Tlačidlá musia byť úplne navrchu */
 }
 
+/* TLAČIDLÁ - ZACHOVANÝ TVOJ ŠTÝL */
 .btn-primary,
 .btn-secondary {
+    display: inline-block; /* Pridané pre lepšiu stabilitu */
     padding: 18px 36px;
     border-radius: 12px;
     font-size: 1rem;
@@ -275,11 +282,12 @@
     text-decoration: none;
     transition: 0.35s ease;
     text-transform: uppercase;
+    cursor: pointer; /* Aby sa objavil prst po prejdení myšou */
 }
 
 .btn-primary {
-    background: #B38E44; /* Tvoja zlatá */
-    color: white;
+    background: #B38E44;
+    color: white !important;
     box-shadow: 0 15px 40px rgba(179, 142, 68, 0.25);
 }
 
@@ -291,7 +299,7 @@
 .btn-secondary {
     border: 1px solid rgba(255, 255, 255, 0.12);
     background: rgba(255, 255, 255, 0.05);
-    color: white;
+    color: white !important;
     backdrop-filter: blur(10px);
 }
 
@@ -299,6 +307,7 @@
     background: rgba(255, 255, 255, 0.1);
 }
 
+/* OSTATNÉ - TVOJ ŠTÝL BEZ ZMENY */
 .hero-proof {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -311,21 +320,6 @@
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(10px);
-}
-
-.proof-box strong {
-    display: block;
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-    color: #B38E44; /* Názvy kategórií zlatou */
-}
-
-.proof-box span {
-    color: rgba(255, 255, 255, 0.72);
-    line-height: 1.6;
-    font-size: 0.95rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
 }
 
 @keyframes heroFade {

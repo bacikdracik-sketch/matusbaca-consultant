@@ -270,26 +270,22 @@
     position: relative;
     z-index: 20; /* Tlačidlá musia byť úplne navrchu */
 }
-        /* ============================================================
-   FINÁLNA OPRAVA TLAČIDIEL (JEDNOTNÝ A SILNÝ KÓD)
-   ============================================================ */
-
-/* 1. Kontajner pre tlačidlá */
+       /* --- OPRAVENÝ DIZAJN A FUNKČNOSŤ TLAČIDIEL --- */
 .hero-btns-container {
     display: flex !important;
     justify-content: center !important;
-    gap: 15px !important;
+    gap: 18px !important;
     flex-wrap: wrap !important;
-    margin-top: 30px !important;
+    margin-top: 40px !important;
     position: relative !important;
-    z-index: 99999 !important; /* Extrémne vysoký z-index pre klikateľnosť */
-    pointer-events: auto !important;
+    z-index: 1000 !important; /* Musí byť nad overlayom */
 }
 
-/* 2. Spoločné vlastnosti pre obidve tlačidlá */
 .hero-btns-container .btn-primary, 
 .hero-btns-container .hero-cta {
     display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     min-width: 250px !important;
     padding: 16px 32px !important;
     font-size: 0.95rem !important;
@@ -297,39 +293,36 @@
     text-transform: uppercase !important;
     border-radius: 4px !important;
     text-decoration: none !important;
-    align-items: center !important;
-    justify-content: center !important;
     transition: all 0.3s ease !important;
     cursor: pointer !important;
-    pointer-events: auto !important; /* Kľúčové pre oživenie klikania */
-    position: relative !important;
+    pointer-events: auto !important;
 }
 
-/* 3. Špecifické farby - Tmavomodré tlačidlo */
+/* Modré tlačidlo */
 .hero-btns-container .btn-primary {
     background: #0F172A !important;
     color: #FFFFFF !important;
     border: 2px solid #0F172A !important;
 }
 
-/* 4. Špecifické farby - Biele tlačidlo */
+/* Biele tlačidlo */
 .hero-btns-container .hero-cta {
     background: #FFFFFF !important;
     color: #0F172A !important;
     border: 2px solid #FFFFFF !important;
 }
 
-/* 5. Hover efekty (zmena farby pri prejdení myšou) */
+/* Hover efekty */
 .hero-btns-container .btn-primary:hover,
 .hero-btns-container .hero-cta:hover {
     transform: translateY(-3px) !important;
-    background: #B38E44 !important; /* Zlatá */
+    background: #B38E44 !important;
     border-color: #B38E44 !important;
     color: #FFFFFF !important;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15) !important;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2) !important;
 }
 
-/* 6. Úprava pre mobil (pod sebou na celú šírku) */
+/* Mobilná verzia */
 @media (max-width: 580px) {
     .hero-btns-container .btn-primary, 
     .hero-btns-container .hero-cta {
@@ -895,10 +888,8 @@
             <a href="#contact" class="btn-primary" style="pointer-events: auto !important; cursor: pointer !important;">
              Bezplatný finančný audit
          </a>
-            <a href="#calculator" class="hero-cta">
-                Vyskúšať kalkulačky
-            </a>
-        </div>
+            <a href="#calculator" class="hero-cta">Vyskúšať kalkulačky</a>
+</div>
 
         <div style="display: flex; gap: 20px; justify-content: center; margin-top: 50px; flex-wrap: wrap; padding: 0 10px;">
             <div style="background: rgba(255,255,255,0.1); padding: 15px 20px; border-radius: 8px; border: 1px solid rgba(179, 142, 68, 0.3); min-width: 200px; backdrop-filter: blur(5px);">

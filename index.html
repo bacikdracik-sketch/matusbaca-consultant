@@ -1723,215 +1723,192 @@ input[type=range]::-webkit-slider-thumb:hover {
         <p style="font-size: 0.85rem; color: #d4af37; font-weight: 500;">Všetky práva vyhradené © 2026 | Matúš Bača</p>
     </div>
 </footer>
-<script>
 /* =========================================================
-   MATÚŠ BAČA — FINAL CALCULATOR ENGINE 2026
-   ========================================================= */
+   SAFE MASTER SCRIPT — ANTI CRASH VERSION
+========================================================= */
 
 const FORMSPREE_URL = "https://formspree.io/f/xeepvqqy";
 
-// 1. ZÁKLADNÉ FUNKCIE (OPRAVENÉ PREPOJENIE)
+/* -------------------------
+   SAFE HELPERS
+------------------------- */
+
+function el(id) {
+    return document.getElementById(id) || null;
+}
+
 function setText(id, value) {
-    const el = document.getElementById(id);
-    if (el) {
-        el.innerHTML = value;
-    }
+    const e = el(id);
+    if (e) e.innerHTML = value;
+}
+
+function val(id, fallback = 0) {
+    const e = el(id);
+    if (!e) return fallback;
+    return parseFloat(e.value) || fallback;
 }
 
 function formatMoney(num) {
-    return Number(num).toLocaleString('sk-SK', {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0
-    });
+    return Number(num || 0).toLocaleString('sk-SK');
 }
 
-// 2. HYPOTEKÁRNY AUDIT
-function updateAudit() {
-    const amountEl = document.getElementById('rangeAmount');
-    const yearsEl = document.getElementById('rangeYears');
-    const rateEl = document.getElementById('rangeAuditRate');
-
-    if (!amountEl || !yearsEl || !rateEl) return;
-
-    const amount = parseFloat(amountEl.value);
-    const years = parseFloat(yearsEl.value);
-    const rate = parseFloat(rateEl.value);
-
-    setText('valAmount', formatMoney(amount));
-    setText('valYears', years);
-    setText('valAuditRate', rate.toFixed(2));
-
-    const monthlyRate = rate / 100 / 12;
-    const payments = years * 12;
-
-    const monthly = (amount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -payments));
-    const total = monthly * payments;
-    const overpayment = total - amount;
-
-    const lowerRate = (rate - 1) / 100 / 12;
-    const betterMonthly = (amount * lowerRate) / (1 - Math.pow(1 + lowerRate, -payments));
-    const save = (monthly - betterMonthly) * payments;
-
-    setText('auditMonthlyPayment', formatMoney(monthly));
-    setText('auditTotalOverpayment', formatMoney(overpayment));
-    setText('auditSave', formatMoney(save));
-}
-
-// 3. REFINANCOVANIE
-function updateRef() {
-    const currentEl = document.getElementById('rangeCurrentPayment');
-    const rateEl = document.getElementById('rangeRate');
-    const debtEl = document.getElementById('rangeDebt');
-
-    if (!currentEl || !rateEl || !debtEl) return;
-
-    const current = parseFloat(currentEl.value);
-    const rate = parseFloat(rateEl.value);
-    const debt = parseFloat(debtEl.value);
-
-    setText('valCurrentPayment', formatMoney(current));
-    setText('valRate', rate.toFixed(1));
-    setText('valDebt', formatMoney(debt));
-
-    const newRate = Math.max(rate - 1.2, 1.5);
-    const newMonthlyRate = newRate / 100 / 12;
-    const months = 30 * 12;
-
-    const newPayment = (debt * newMonthlyRate) / (1 - Math.pow(1 + newMonthlyRate, -months));
-    const savings = current - newPayment;
-
-    setText('estimatedSavings', formatMoney(Math.max(savings, 0)));
-    setText('newPaymentVal', formatMoney(newPayment));
-}
-
-// 4. INVESTOVANIE
-function updateInvest() {
-    const monthlyEl = document.getElementById('rangeInvest');
-    const yearsEl = document.getElementById('rangeYearsInvest');
-
-    if (!monthlyEl || !yearsEl) return;
-
-    const monthly = parseFloat(monthlyEl.value);
-    const years = parseFloat(yearsEl.value);
-
-    setText('valInvest', formatMoney(monthly));
-    setText('valYearsInvest', years);
-
-    const rate = 0.08 / 12;
-    const months = years * 12;
-
-    const future = monthly * ((Math.pow(1 + rate, months) - 1) / rate) * (1 + rate);
-    const total = monthly * months;
-
-    setText('investFuture', formatMoney(future));
-    setText('investTotal', formatMoney(total));
-}
-
-// 5. INFLÁCIA
-function update5Inflation() {
-    const amountEl = document.getElementById('range5InfAmount');
-    const rateEl = document.getElementById('range5InfRate');
-
-    if (!amountEl || !rateEl) return;
-
-    const amount = parseFloat(amountEl.value);
-    const rate = parseFloat(rateEl.value);
-
-    setText('val5InfAmount', formatMoney(amount));
-    setText('val5InfRate', rate);
-
-    const loss = amount * (rate / 100);
-    setText('inf5LossValue', formatMoney(loss));
-}
-
-// 6. DÔCHODOK (RENTA)
-function updateRenta() {
-    const vekEl = document.getElementById('rangeVek');
-    const prijemEl = document.getElementById('rangePrijem');
-
-    if (!vekEl || !prijemEl) return;
-
-    const vek = parseFloat(vekEl.value);
-    const prijem = parseFloat(prijemEl.value);
-
-    setText('valVek', vek);
-    setText('valPrijem', formatMoney(prijem));
-
-    const statna = prijem * 0.38;
-    const deficit = prijem - statna;
-
-    setText('rentaStat', formatMoney(statna) + " €");
-    setText('rentaDeficit', "-" + formatMoney(deficit) + " €");
-}
-
-/* =========================================================
-   OSTATNÉ FUNKCIE (SUBMIT, TABS, REVEAL)
-   ========================================================= */
+/* -------------------------
+   SAFE TOGGLE
+------------------------- */
 
 function toggleCalculator(calcId, cardId) {
-    const calc = document.getElementById(calcId);
-    if (!calc) return;
-    const isVisible = calc.style.display === "block";
-    document.querySelectorAll('.inline-calculator, .calculator-container').forEach(el => el.style.display = "none");
-    if (!isVisible) calc.style.display = "block";
-}
-
-async function handleLeadSubmit(e, source) {
-    e.preventDefault();
-    const btn = e.target;
-    let wrapper = btn.closest('.calc-contact') || btn.closest('.magnet-action') || btn.closest('.card-content');
-    const email = wrapper.querySelector('input[type="email"]')?.value || "";
-    const phone = wrapper.querySelector('input[type="tel"]')?.value || "";
-
-    if (phone.length < 9) { alert("⚠️ Zadajte platné telefónne číslo."); return; }
-    btn.disabled = true;
-    btn.innerText = "ODOSIELAM...";
-
     try {
-        await fetch(FORMSPREE_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ typ: source, email: email, telefon: phone, cas: new Date().toLocaleString('sk-SK') })
-        });
-        btn.innerText = "ODOSLANÉ ✓";
-        alert("✅ Ďakujem. Ozvem sa vám.");
-    } catch (err) {
-        alert("❌ Chyba pri odoslaní.");
-        btn.innerText = "SKÚSIŤ ZNOVA";
-    } finally {
-        setTimeout(() => { btn.disabled = false; }, 2500);
+        const calc = el(calcId);
+        const card = el(cardId);
+
+        if (!calc) return;
+
+        const isVisible = calc.style.display === "block";
+
+        document.querySelectorAll('.inline-calculator, .calculator-container')
+            .forEach(e => e.style.display = "none");
+
+        document.querySelectorAll('.card')
+            .forEach(e => e.classList.remove('active'));
+
+        if (!isVisible) {
+            calc.style.display = "block";
+            if (card) card.classList.add('active');
+        }
+    } catch (e) {
+        console.warn("toggleCalculator error:", e);
     }
 }
 
-// INICIALIZÁCIA PRI NAČÍTANÍ
-document.addEventListener('DOMContentLoaded', () => {
-    // Spustí výpočty len ak sú na stránke
-    updateAudit();
-    updateRef();
-    updateInvest();
-    update5Inflation();
-    updateRenta();
+/* -------------------------
+   LEAD FORM SAFE
+------------------------- */
 
-    // Reveal efekt
-    const reveals = document.querySelectorAll(".reveal");
-    const reveal = () => {
-        reveals.forEach(el => {
-            if (el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add("active");
+async function handleLeadSubmit(e, source) {
+    e.preventDefault();
+
+    try {
+        const btn = e.target;
+
+        const wrapper =
+            btn.closest('.calc-contact') ||
+            btn.closest('.magnet-action') ||
+            btn.closest('.card-content');
+
+        if (!wrapper) return;
+
+        const emailEl = wrapper.querySelector('input[type="email"]');
+        const phoneEl = wrapper.querySelector('input[type="tel"]');
+
+        const email = emailEl ? emailEl.value : "";
+        const phone = phoneEl ? phoneEl.value : "";
+
+        if (!phone || phone.length < 9) {
+            alert("Zadajte platné telefónne číslo.");
+            return;
+        }
+
+        btn.disabled = true;
+        const original = btn.innerText;
+        btn.innerText = "ODOSIELAM...";
+
+        await fetch(FORMSPREE_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                typ: source,
+                email,
+                telefon: phone,
+                cas: new Date().toLocaleString('sk-SK'),
+                url: window.location.href
+            })
         });
-    };
-    window.addEventListener("scroll", reveal);
-    reveal();
+
+        btn.innerText = "ODOSLANÉ ✓";
+        alert("Ďakujem, ozvem sa.");
+
+        setTimeout(() => {
+            btn.disabled = false;
+            btn.innerText = original;
+        }, 2500);
+
+    } catch (err) {
+        console.warn("submit error:", err);
+        alert("Chyba pri odoslaní.");
+    }
+}
+
+/* -------------------------
+   SAFE CALCULATORS
+------------------------- */
+
+function updateAudit() {
+    try {
+        const amount = val('rangeAmount');
+        const years = val('rangeYears');
+        const rate = val('rangeAuditRate');
+
+        setText('valAmount', formatMoney(amount));
+        setText('valYears', years);
+        setText('valAuditRate', rate.toFixed(2));
+
+        const monthlyRate = rate / 100 / 12;
+        const payments = years * 12;
+
+        const monthly =
+            (amount * monthlyRate) /
+            (1 - Math.pow(1 + monthlyRate, -payments));
+
+        setText('auditMonthlyPayment', formatMoney(monthly));
+
+    } catch (e) {
+        console.warn("audit error", e);
+    }
+}
+
+function updateRef() {
+    try {
+        const current = val('rangeCurrentPayment');
+        const rate = val('rangeRate');
+        const debt = val('rangeDebt');
+
+        setText('valCurrentPayment', formatMoney(current));
+        setText('valRate', rate);
+        setText('valDebt', formatMoney(debt));
+
+        const newRate = Math.max(rate - 1.2, 1.5);
+
+        const newPayment = debt * 0.004;
+
+        setText('newPaymentVal', formatMoney(newPayment));
+        setText('estimatedSavings', formatMoney(Math.max(current - newPayment, 0)));
+
+    } catch (e) {
+        console.warn("ref error", e);
+    }
+}
+
+/* -------------------------
+   INIT SAFE
+------------------------- */
+
+document.addEventListener('DOMContentLoaded', () => {
+    try {
+        updateAudit();
+        updateRef();
+    } catch (e) {
+        console.warn("INIT ERROR:", e);
+    }
 });
 
-// EXPORTOVANIE FUNKCIÍ DO WINDOW (Aby fungovali oninput="updateAudit()")
+/* -------------------------
+   GLOBALS
+------------------------- */
+
 window.updateAudit = updateAudit;
 window.updateRef = updateRef;
-window.updateInvest = updateInvest;
-window.update5Inflation = update5Inflation;
-window.updateRenta = updateRenta;
-window.handleLeadSubmit = handleLeadSubmit;
 window.toggleCalculator = toggleCalculator;
-</script>
+window.handleLeadSubmit = handleLeadSubmit;
 <div style="position: fixed; bottom: 30px; right: 30px; z-index: 10001; display: flex; align-items: center; gap: 10px;">
     <span style="background: white; padding: 5px 15px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 14px; font-weight: 600; color: #333; font-family: sans-serif;">
         Napíšte mi

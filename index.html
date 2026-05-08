@@ -270,6 +270,61 @@
     position: relative;
     z-index: 20; /* Tlačidlá musia byť úplne navrchu */
 }
+         /* FINÁLNA OPRAVA TLAČIDIEL */
+.hero-btns-container {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+    position: relative !important;
+    z-index: 9999 !important; /* Toto zabezpečí, že sa na ne bude dať kliknúť */
+}
+
+.hero-btns-container .btn-primary, 
+.hero-btns-container .hero-cta {
+    min-width: 250px;
+    padding: 16px 25px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 4px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    cursor: pointer !important;
+}
+
+.hero-btns-container .btn-primary {
+    background: #0F172A !important; /* Tmavomodrá */
+    color: white !important;
+    border: 2px solid #0F172A !important;
+}
+
+.hero-btns-container .hero-cta {
+    background: #FFFFFF !important; /* Biela */
+    color: #0F172A !important;
+    border: 2px solid #FFFFFF !important;
+}
+
+.hero-btns-container .btn-primary:hover,
+.hero-btns-container .hero-cta:hover {
+    transform: translateY(-3px);
+    background: #B38E44 !important; /* Zlatá pri hoveri */
+    border-color: #B38E44 !important;
+    color: white !important;
+}
+
+/* Úprava pre mobil, aby boli pod sebou a rovnako široké */
+@media (max-width: 580px) {
+    .hero-btns-container .btn-primary, 
+    .hero-btns-container .hero-cta {
+        width: 100%;
+        flex: 1 1 100%;
+    }
+}
 
 /* TLAČIDLÁ - ZACHOVANÝ TVOJ ŠTÝL */
 .btn-primary,
@@ -862,22 +917,6 @@ input[type=range]::-webkit-slider-thumb:hover {
 
 @media (max-width: 768px) {
 
-    /* HERO */
-    .hero {
-        background-size: cover !important;
-        background-position: center top !important;
-        min-height: 75vh !important;
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: flex-end !important;
-        padding-bottom: 50px !important;
-    }
-
-    .hero-container {
-        margin-top: 0 !important;
-        text-align: center !important;
-        max-width: 100% !important;
-    }
 
     /* KARTY */
     .card {
@@ -1023,123 +1062,7 @@ input[type=range]::-webkit-slider-thumb:hover {
             .whatsapp-float { bottom: 20px; right: 20px; width: 50px; height: 50px; }
         }
 
-        /* Zjednotenie tlačidiel v Hero sekcii */
-.hero-btns-container {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-    margin-top: 30px;
-}
-
-/* Štýl pre obe tlačidlá, aby mali rovnaký základ */
-.hero-btns-container .btn-primary, 
-.hero-btns-container .hero-cta {
-    flex: 0 1 auto;
-    min-width: 250px; /* Rovnaká minimálna šírka */
-    padding: 16px 25px;
-    font-size: 0.95rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border-radius: 4px;
-    text-align: center;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 10px; 
-}
-/* Modré tlačidlo (pôvodné) */
-.hero-btns-container .btn-primary {
-    background: var(--primary-navy);
-    color: white !important;
-    border: 2px solid var(--primary-navy);
-}
-
-/* Biele tlačidlo (WhatsApp) */
-.hero-btns-container .hero-cta {
-    background: var(--pure-white);
-    color: var(--primary-navy) !important;
-    border: 2px solid var(--pure-white);
-    margin-top: 0; /* Zrušíme ten posun, čo sme tam mali predtým */
-}
-
-.hero-btns-container .btn-primary:hover,
-.hero-btns-container .hero-cta:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    background: var(--gold-muted);
-    border-color: var(--gold-muted);
-    color: white !important;
-}
-
-/* Úprava pre mobil, aby boli pod sebou a rovnako široké */
-@media (max-width: 580px) {
-    .hero-btns-container .btn-primary, 
-    .hero-btns-container .hero-cta {
-        width: 100%;
-        flex: 1 1 100%;
-    }
-}/* Zjednotenie tlačidiel v Hero sekcii */
-.hero-btns-container {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-    margin-top: 30px;
-}
-
-/* Štýl pre obe tlačidlá, aby mali rovnaký základ */
-.hero-btns-container .btn-primary, 
-.hero-btns-container .hero-cta {
-    flex: 0 1 auto;
-    min-width: 250px; /* Rovnaká minimálna šírka */
-    padding: 16px 25px;
-    font-size: 0.95rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border-radius: 4px;
-    text-align: center;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Modré tlačidlo (pôvodné) */
-.hero-btns-container .btn-primary {
-    background: var(--primary-navy);
-    color: white !important;
-    border: 2px solid var(--primary-navy);
-}
-
-/* Biele tlačidlo (WhatsApp) */
-.hero-btns-container .hero-cta {
-    background: var(--pure-white);
-    color: var(--primary-navy) !important;
-    border: 2px solid var(--pure-white);
-    margin-top: 0; /* Zrušíme ten posun, čo sme tam mali predtým */
-}
-
-.hero-btns-container .btn-primary:hover,
-.hero-btns-container .hero-cta:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    background: var(--gold-muted);
-    border-color: var(--gold-muted);
-    color: white !important;
-}
-
-/* Úprava pre mobil, aby boli pod sebou a rovnako široké */
-@media (max-width: 580px) {
-    .hero-btns-container .btn-primary, 
-    .hero-btns-container .hero-cta {
-        width: 100%;
-        flex: 1 1 100%;
-    }
-}
+      
     </style>
 </head>
   <nav>

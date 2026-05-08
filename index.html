@@ -1726,12 +1726,12 @@ input[type=range]::-webkit-slider-thumb:hover {
     
 <script>
 /* =========================================================
-   MATÚŠ BAČA — FINAL COMPLETE ENGINE (ALL 8 TOOLS)
+   MATÚŠ BAČA — FINÁLNY ENGINE (8 NÁSTROJOV + ODOSIELANIE)
    ========================================================= */
 
 const FORMSPREE_URL = "https://formspree.io/f/xeepvqqy";
 
-// POMOCNÉ FUNKCIE
+// --- POMOCNÉ FUNKCIE ---
 function setText(id, value) {
     const el = document.getElementById(id);
     if (el) el.innerHTML = value;
@@ -1749,11 +1749,7 @@ function getValue(id) {
     return el ? parseFloat(el.value) : null;
 }
 
-/* =========================================================
-   VŠETKÝCH 8 KALKULAČIEK
-   ========================================================= */
-
-// 1. AUDIT
+// --- 1. AUDIT ---
 function updateAudit() {
     const amount = getValue('rangeAmount'), years = getValue('rangeYears'), rate = getValue('rangeAuditRate');
     if (amount === null) return;
@@ -1768,7 +1764,7 @@ function updateAudit() {
     setText('auditSave', formatMoney((monthly - bMonthly) * p));
 }
 
-// 2. REFINANCOVANIE
+// --- 2. REFINANCOVANIE ---
 function updateRef() {
     const curr = getValue('rangeCurrentPayment'), rate = getValue('rangeRate'), debt = getValue('rangeDebt');
     if (curr === null) return;
@@ -1781,7 +1777,7 @@ function updateRef() {
     setText('newPaymentVal', formatMoney(nPay));
 }
 
-// 3. INVESTOVANIE
+// --- 3. INVESTOVANIE ---
 function updateInvest() {
     const mon = getValue('rangeInvest'), yrs = getValue('rangeYearsInvest');
     if (mon === null) return;
@@ -1793,7 +1789,7 @@ function updateInvest() {
     setText('investTotal', formatMoney(mon * m));
 }
 
-// 4. INFLÁCIA
+// --- 4. INFLÁCIA ---
 function update5Inflation() {
     const amt = getValue('range5InfAmount'), r = getValue('range5InfRate');
     if (amt === null) return;
@@ -1802,18 +1798,18 @@ function update5Inflation() {
     setText('inf5LossValue', formatMoney(amt * (r / 100)));
 }
 
-// 5. MAJETOK / DETI (update6Wealth)
+// --- 5. MAJETOK / DETI ---
 function update6Wealth() {
     const base = getValue('range6WealthBase'), mon = getValue('range6WealthMonthly');
     if (base === null) return;
     setText('val6WealthBase', formatMoney(base));
     setText('val6WealthMonthly', formatMoney(mon));
-    const r = 0.08 / 12, m = 240; // 20 rokov
+    const r = 0.08 / 12, m = 240; 
     const res = (mon * ((Math.pow(1 + r, m) - 1) / r) * (1 + r)) + (base * Math.pow(1.08, 20));
     setText('wealth6ResultValue', formatMoney(res));
 }
 
-// 6. DÔCHODOK (RENTA)
+// --- 6. RENTA ---
 function updateRenta() {
     const v = getValue('rangeVek'), p = getValue('rangePrijem');
     if (v === null) return;
@@ -1823,77 +1819,78 @@ function updateRenta() {
     setText('rentaDeficit', "-" + formatMoney(p - (p * 0.38)) + " €");
 }
 
-/* ——— 7 — ŽIVOT / CESTOVANIE ——— */
+// --- 7. ŽIVOT A CESTOVANIE ---
 function updateOsoby() {
     const display = document.getElementById('osoby-vysledok');
     if (!display) return;
-
-    // Kontrola, či je zobrazený formulár pre životné poistenie
     const zivotForm = document.getElementById('zivot-form');
     const isZivotActive = zivotForm && zivotForm.style.display !== 'none';
 
     if (isZivotActive) {
-        // Logika pre Životné poistenie (Krytie = Hypo + 3-ročný príjem)
         const prijem = parseFloat(document.getElementById('zivot-prijem')?.value || 0);
         const hypo = parseFloat(document.getElementById('zivot-hypo')?.value || 0);
-        const krytie = hypo + (prijem * 36);
-        
-        display.innerText = formatMoney(krytie) + " €";
+        display.innerText = formatMoney(hypo + (prijem * 36)) + " €";
     } else {
-        // Logika pre Cestovné poistenie (Dni * Destinácia)
         const dni = parseFloat(document.getElementById('cesta-dni')?.value || 0);
         const kam = document.getElementById('cesta-kam')?.value;
-        
-        let sadzba = 1.5; // Európa
-        if (kam === 'svet') sadzba = 2.8;
-        if (kam === 'usa') sadzba = 4.5;
-        
-        const cena = dni * sadzba;
-        display.innerText = formatMoney(cena) + " €";
+        let s = (kam === 'svet') ? 2.8 : (kam === 'usa' ? 4.5 : 1.5);
+        display.innerText = formatMoney(dni * s) + " €";
     }
 }
 
-/* ——— 8 — MAJETOK / PZP ——— */
+// --- 8. MAJETOK A AUTO ---
 function updateMajetok() {
     const display = document.getElementById('majetok-vysledok');
     if (!display) return;
-
-    // Kontrola, či je zobrazený formulár pre PZP
     const pzpForm = document.getElementById('pzp-form');
     const isPzpActive = pzpForm && pzpForm.style.display !== 'none';
 
     if (isPzpActive) {
-        // Logika pre PZP (podľa výkonu kW)
         const kw = parseFloat(document.getElementById('pzp-kw')?.value || 0);
         const vek = parseFloat(document.getElementById('pzp-vek')?.value || 0);
-        
-        let cena = 0;
-        if (kw < 60) cena = 85;
-        else if (kw < 90) cena = 120;
-        else if (kw < 130) cena = 180;
-        else cena = 260;
-
-        // Prirážka pre mladých vodičov
-        if (vek > 0 && vek < 25) cena *= 1.35;
-
-        display.innerText = formatMoney(cena) + " €";
+        let c = (kw < 60) ? 85 : (kw < 90 ? 120 : (kw < 130 ? 180 : 260));
+        if (vek > 0 && vek < 25) c *= 1.35;
+        display.innerText = formatMoney(c) + " €";
     } else {
-        // Logika pre Nehnuteľnosť (Hodnota * koeficient podľa typu)
-        const hodnota = parseFloat(document.getElementById('dom-hodnota')?.value || 0);
-        const typ = document.getElementById('dom-typ')?.value;
-
-        let koeficient = 0.00045; // Byt (štandard)
-        if (typ === 'dom') koeficient = 0.00065;
-        if (typ === 'chata') koeficient = 0.00075;
-
-        const vysledok = Math.max(hodnota * koeficient, 35); // Minimálne poistné 35€
-        display.innerText = formatMoney(vysledok) + " €";
+        const h = parseFloat(document.getElementById('dom-hodnota')?.value || 0);
+        const t = document.getElementById('dom-typ')?.value;
+        let k = (t === 'dom') ? 0.00065 : (t === 'chata' ? 0.00075 : 0.00045);
+        display.innerText = formatMoney(Math.max(h * k, 35)) + " €";
     }
 }
-/* =========================================================
-   UI FUNKCIE
-   ========================================================= */
 
+// --- 9. ODOSIELANIE (UNIVERZÁLNE) ---
+async function handleLeadSubmit(e, source) {
+    e.preventDefault();
+    const btn = e.target;
+    const wrapper = btn.closest('.calc-contact') || btn.closest('.card-content') || btn.closest('section');
+    const phone = wrapper?.querySelector('input[type="tel"]')?.value || "";
+
+    if (phone.length < 9) {
+        alert("⚠️ Zadajte platné telefónne číslo.");
+        return;
+    }
+
+    const originalText = btn.innerText;
+    btn.disabled = true;
+    btn.innerText = "ODOSIELAM...";
+
+    try {
+        await fetch(FORMSPREE_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ zdroj: source, telefon: phone, cas: new Date().toLocaleString('sk-SK') })
+        });
+        btn.innerText = "ODOSLANÉ ✓";
+        alert("✅ Ďakujem, údaje boli odoslané.");
+    } catch (err) {
+        alert("❌ Chyba pri odosielaní.");
+        btn.innerText = originalText;
+        btn.disabled = false;
+    }
+}
+
+// --- UI FUNKCIE ---
 function showOsobyTool(id, btn) {
     document.querySelectorAll('.osoby-tool').forEach(el => el.style.display = 'none');
     document.getElementById(id).style.display = 'block';
@@ -1918,28 +1915,17 @@ function toggleCalculator(calcId) {
     if (!vis) calc.style.display = "block";
 }
 
-async function handleLeadSubmit(e, source) {
-    e.preventDefault();
-    const btn = e.target;
-    let wrp = btn.closest('.calc-contact') || btn.closest('.magnet-action') || btn.closest('.card-content');
-    const ph = wrp.querySelector('input[type="tel"]')?.value || "";
-    if (ph.length < 9) { alert("⚠️ Zadajte platné číslo."); return; }
-    btn.disabled = true; btn.innerText = "ODOSIELAM...";
-    try {
-        await fetch(FORMSPREE_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ typ: source, telefon: ph, cas: new Date().toLocaleString() }) });
-        btn.innerText = "ODOSLANÉ ✓";
-    } catch (err) { btn.innerText = "CHYBA"; btn.disabled = false; }
-}
-
-// INIT
+// --- INICIALIZÁCIA ---
 document.addEventListener('DOMContentLoaded', () => {
-    [updateAudit, updateRef, updateInvest, update5Inflation, update6Wealth, updateRenta, updateOsoby, updateMajetok].forEach(fn => { try { fn(); } catch(e){} });
+    const tools = [updateAudit, updateRef, updateInvest, update5Inflation, update6Wealth, updateRenta, updateOsoby, updateMajetok];
+    tools.forEach(fn => { try { fn(); } catch(e){} });
+
     const reveals = document.querySelectorAll(".reveal");
     const rev = () => { reveals.forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add("active"); }); };
     window.addEventListener("scroll", rev); rev();
 });
 
-// GLOBAL
+// EXPORT DO WINDOW
 window.updateAudit = updateAudit; window.updateRef = updateRef; window.updateInvest = updateInvest;
 window.update5Inflation = update5Inflation; window.update6Wealth = update6Wealth; window.updateRenta = updateRenta;
 window.updateOsoby = updateOsoby; window.updateMajetok = updateMajetok;

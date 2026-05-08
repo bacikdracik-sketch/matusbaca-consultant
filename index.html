@@ -1724,21 +1724,183 @@ input[type=range]::-webkit-slider-thumb:hover {
     </div>
 </footer>
 <script>
-    // Reveal animácie pri scrollovaní
-    function reveal() {
-        var reveals = document.querySelectorAll(".reveal");
-        for (var i = 0; i < reveals.length; i++) {
-            var windowHeight = window.innerHeight;
-            var elementTop = reveals[i].getBoundingClientRect().top;
-            var elementVisible = 150;
-            if (elementTop < windowHeight - elementVisible) {
+/* =========================================================
+   MATÚŠ BAČA — MASTER LEAD MAGNET SCRIPT (OPRAVENÁ VERZIA)
+   ========================================================= */
+
+const FORMSPREE_URL = "https://formspree.io/f/xeepvqqy";
+
+// POMOCNÉ FUNKCIE
+function setText(id, value) {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = value;
+}
+
+function formatMoney(num) {
+    return Number(num).toLocaleString('sk-SK', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    });
+}
+
+// BEZPEČNÉ ZÍSKANIE HODNOTY (Zabráni pádu skriptu)
+function getValue(id) {
+    const el = document.getElementById(id);
+    return el ? parseFloat(el.value) : null;
+}
+
+/* =========================================================
+   KALKULAČKY S KONTROLOU EXISTENCIE
+   ========================================================= */
+
+function updateAudit() {
+    const amount = getValue('rangeAmount');
+    const years = getValue('rangeYears');
+    const rate = getValue('rangeAuditRate');
+
+    if (amount === null || years === null || rate === null) return;
+
+    setText('valAmount', formatMoney(amount));
+    setText('valYears', years);
+    setText('valAuditRate', rate.toFixed(2));
+
+    const monthlyRate = rate / 100 / 12;
+    const payments = years * 12;
+    const monthly = (amount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -payments));
+    const total = monthly * payments;
+    const overpayment = total - amount;
+
+    const lowerRate = (rate - 1) / 100 / 12;
+    const betterMonthly = (amount * lowerRate) / (1 - Math.pow(1 + lowerRate, -payments));
+    const save = (monthly - betterMonthly) * payments;
+
+    setText('auditMonthlyPayment', formatMoney(monthly));
+    setText('auditTotalOverpayment', formatMoney(overpayment));
+    setText('auditSave', formatMoney(save));
+}
+
+function updateRef() {
+    const current = getValue('rangeCurrentPayment');
+    const rate = getValue('rangeRate');
+    const debt = getValue('rangeDebt');
+
+    if (current === null || rate === null || debt === null) return;
+
+    setText('valCurrentPayment', formatMoney(current));
+    setText('valRate', rate.toFixed(1));
+    setText('valDebt', formatMoney(debt));
+
+    const newRate = Math.max(rate - 1.2, 1.5);
+    const newMonthlyRate = newRate / 100 / 12;
+    const months = 30 * 12;
+    const newPayment = (debt * newMonthlyRate) / (1 - Math.pow(1 + newMonthlyRate, -months));
+    const savings = current - newPayment;
+
+    setText('estimatedSavings', formatMoney(Math.max(savings, 0)));
+    setText('newPaymentVal', formatMoney(newPayment));
+}
+
+function updateInvest() {
+    const monthly = getValue('rangeInvest');
+    const years = getValue('rangeYearsInvest');
+    if (monthly === null || years === null) return;
+
+    setText('valInvest', formatMoney(monthly));
+    setText('valYearsInvest', years);
+
+    const rate = 0.08 / 12;
+    const months = years * 12;
+    const future = monthly * ((Math.pow(1 + rate, months) - 1) / rate) * (1 + rate);
+    const total = monthly * months;
+
+    setText('investFuture', formatMoney(future));
+    setText('investTotal', formatMoney(total));
+}
+
+function update5Inflation() {
+    const amount = getValue('range5InfAmount');
+    const rate = getValue('range5InfRate');
+    if (amount === null || rate === null) return;
+
+    setText('val5InfAmount', formatMoney(amount));
+    setText('val5InfRate', rate);
+    const loss = amount * (rate / 100);
+    setText('inf5LossValue', formatMoney(loss));
+}
+
+function update6Wealth() {
+    const base = getValue('range6WealthBase');
+    const monthly = getValue('range6WealthMonthly');
+    if (base === null || monthly === null) return;
+
+    setText('val6WealthBase', formatMoney(base));
+    setText('val6WealthMonthly', formatMoney(monthly));
+
+    const years = 20;
+    const rate = 0.08 / 12;
+    const months = years * 12;
+    const invest = monthly * ((Math.pow(1 + rate, months) - 1) / rate) * (1 + rate);
+    const futureBase = base * Math.pow(1.08, years);
+    const total = invest + futureBase;
+
+    setText('wealth6ResultValue', formatMoney(total));
+}
+
+function updateRenta() {
+    const vek = getValue('rangeVek');
+    const prijem = getValue('rangePrijem');
+    if (vek === null || prijem === null) return;
+
+    setText('valVek', vek);
+    setText('valPrijem', formatMoney(prijem));
+    const statna = prijem * 0.38;
+    const deficit = prijem - statna;
+
+    setText('rentaStat', formatMoney(statna) + " €");
+    setText('rentaDeficit', "-" + formatMoney(deficit) + " €");
+}
+
+// OSTATNÉ FUNKCIE (LEAD SUBMIT, TABS, ETC.) ZOSTÁVAJÚ ROVNAKÉ...
+// [Tu si kľudne nechaj svoje funkcie handleLeadSubmit, toggleCalculator, updateOsoby atď.]
+
+/* =========================================================
+   AUTO INIT - TERAZ BEZPEČNÝ
+   ========================================================= */
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Spustíme len to, čo na stránke reálne existuje
+    try { updateAudit(); } catch(e){}
+    try { updateRef(); } catch(e){}
+    try { updateInvest(); } catch(e){}
+    try { update5Inflation(); } catch(e){}
+    try { update6Wealth(); } catch(e){}
+    try { updateRenta(); } catch(e){}
+    
+    // REVEAL ANIMÁCIA (Aby sa sekcie zobrazili)
+    const reveals = document.querySelectorAll(".reveal");
+    const revealFunc = () => {
+        for (let i = 0; i < reveals.length; i++) {
+            let windowHeight = window.innerHeight;
+            let elementTop = reveals[i].getBoundingClientRect().top;
+            if (elementTop < windowHeight - 150) {
                 reveals[i].classList.add("active");
             }
         }
-    }
-    window.addEventListener("scroll", reveal);
-    // Spustiť raz pri načítaní
-    document.addEventListener("DOMContentLoaded", reveal);
+    };
+    window.addEventListener("scroll", revealFunc);
+    revealFunc(); 
+});
+
+// GLOBAL EXPOSE
+window.updateAudit = updateAudit;
+window.updateRef = updateRef;
+window.updateInvest = updateInvest;
+window.update5Inflation = update5Inflation;
+window.update6Wealth = update6Wealth;
+window.updateRenta = updateRenta;
+window.handleLeadSubmit = handleLeadSubmit;
+window.toggleCalculator = toggleCalculator;
+
 </script>
 <div style="position: fixed; bottom: 30px; right: 30px; z-index: 10001; display: flex; align-items: center; gap: 10px;">
     <span style="background: white; padding: 5px 15px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 14px; font-weight: 600; color: #333; font-family: sans-serif;">

@@ -270,59 +270,68 @@
     position: relative;
     z-index: 20; /* Tlačidlá musia byť úplne navrchu */
 }
-         /* FINÁLNA OPRAVA TLAČIDIEL */
-.hero-btns-container {
+         //* ABSOLÚTNA OPRAVA TLAČIDIEL - NAHRADÍ VŠETKO PREDCHÁDZAJÚCE */
+div.hero-btns-container {
     display: flex !important;
     justify-content: center !important;
-    gap: 15px;
-    flex-wrap: wrap;
-    margin-top: 30px;
+    gap: 15px !important;
+    flex-wrap: wrap !important;
+    margin-top: 30px !important;
     position: relative !important;
-    z-index: 9999 !important; /* Toto zabezpečí, že sa na ne bude dať kliknúť */
+    z-index: 99999 !important; /* Musí byť vyššie ako overlay */
+    pointer-events: auto !important;
 }
 
-.hero-btns-container .btn-primary, 
-.hero-btns-container .hero-cta {
-    min-width: 250px;
-    padding: 16px 25px;
-    font-size: 0.95rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    border-radius: 4px;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
+/* Použijeme trojitý selektor, aby sme mali istotu, že vyhrá nad všetkým */
+section.hero .hero-btns-container a.btn-primary, 
+section.hero .hero-btns-container a.hero-cta {
+    display: inline-flex !important;
+    min-width: 250px !important;
+    padding: 16px 32px !important;
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    border-radius: 4px !important;
+    text-decoration: none !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.3s ease !important;
     cursor: pointer !important;
+    pointer-events: auto !important; /* Toto vynúti klikateľnosť */
+    position: relative !important;
+    z-index: 100000 !important;
 }
 
-.hero-btns-container .btn-primary {
-    background: #0F172A !important; /* Tmavomodrá */
-    color: white !important;
+/* Modré tlačidlo */
+section.hero .hero-btns-container a.btn-primary {
+    background: #0F172A !important;
+    color: #FFFFFF !important;
     border: 2px solid #0F172A !important;
 }
 
-.hero-btns-container .hero-cta {
-    background: #FFFFFF !important; /* Biela */
+/* Biele tlačidlo */
+section.hero .hero-btns-container a.hero-cta {
+    background: #FFFFFF !important;
     color: #0F172A !important;
     border: 2px solid #FFFFFF !important;
 }
 
-.hero-btns-container .btn-primary:hover,
-.hero-btns-container .hero-cta:hover {
-    transform: translateY(-3px);
-    background: #B38E44 !important; /* Zlatá pri hoveri */
+/* Hover efekty */
+section.hero .hero-btns-container a.btn-primary:hover,
+section.hero .hero-btns-container a.hero-cta:hover {
+    transform: translateY(-3px) !important;
+    background: #B38E44 !important;
     border-color: #B38E44 !important;
-    color: white !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2) !important;
 }
 
-/* Úprava pre mobil, aby boli pod sebou a rovnako široké */
+/* Mobilná úprava */
 @media (max-width: 580px) {
-    .hero-btns-container .btn-primary, 
-    .hero-btns-container .hero-cta {
-        width: 100%;
-        flex: 1 1 100%;
+    section.hero .hero-btns-container a.btn-primary, 
+    section.hero .hero-btns-container a.hero-cta {
+        width: 100% !important;
+        flex: 1 1 100% !important;
     }
 }
 
@@ -1098,9 +1107,9 @@ input[type=range]::-webkit-slider-thumb:hover {
         </p>
 
         <div class="hero-btns-container" style="position: relative; z-index: 20; display: flex; justify-content: center; gap: 18px; flex-wrap: wrap;">
-            <a href="#contact" class="btn-primary">
-                Bezplatný finančný audit
-            </a>
+            <a href="#contact" class="btn-primary" style="pointer-events: auto !important; cursor: pointer !important;">
+             Bezplatný finančný audit
+         </a>
             <a href="#calculator" class="hero-cta">
                 Vyskúšať kalkulačky
             </a>

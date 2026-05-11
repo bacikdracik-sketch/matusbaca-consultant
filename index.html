@@ -1200,93 +1200,51 @@ button:active {
     background: #B38E44 !important;
         }
     /* =========================================================
-   REMOVE VERTICAL LINES — GLOBAL FIX
+   CLEAN MOBILE FIX
 ========================================================= */
 
-body::before,
-body::after,
-section::before,
-section::after,
-.container::before,
-.container::after,
-.grid-3::before,
-.grid-3::after,
-.card::before,
-.card::after,
-.bg-light::before,
-.bg-light::after {
-    display: none !important;
-    content: none !important;
-}
-
-/* odstránenie borderov */
-section,
-.container,
-.grid-3,
-.card,
-.premium-card,
-.bg-light {
-    border-left: none !important;
-    border-right: none !important;
-}
-
-/* odstránenie outline */
-* {
-    outline: none !important;
-}
-
-/* overflow fix */
 html,
 body {
     overflow-x: hidden !important;
     max-width: 100% !important;
-        }
-    /* =========================================================
-   CLEAN MOBILE EDGE FIX — BEZ ZÚŽENIA
-========================================================= */
+}
 
 @media (max-width: 768px) {
 
-    html,
-    body {
-        overflow-x: hidden !important;
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-
-    body::before,
-    body::after,
-    section::before,
-    section::after,
-    .container::before,
-    .container::after,
-    .grid-3::before,
-    .grid-3::after {
-        display: none !important;
-        content: none !important;
-    }
-
+    body,
     section,
     .container,
+    .grid-3,
+    .card,
+    .premium-card,
     .bg-light {
-        border-left: none !important;
-        border-right: none !important;
         width: 100% !important;
         max-width: 100% !important;
+        box-sizing: border-box !important;
     }
 
     .grid-3 {
-        width: 100% !important;
-        max-width: 100% !important;
-        padding-left: 12px !important;
-        padding-right: 12px !important;
-        box-sizing: border-box !important;
+        padding-left: 15px !important;
+        padding-right: 15px !important;
     }
 
     .card,
     .premium-card {
-        max-width: 100% !important;
-        box-shadow: 0 10px 28px rgba(15, 23, 42, 0.10) !important;
+        overflow: hidden !important;
+        margin: 0 auto 20px auto !important;
+        border-radius: 18px !important;
+    }
+
+    .card img,
+    .premium-card img {
+        width: 100% !important;
+        display: block !important;
+        height: auto !important;
+    }
+
+    *::before,
+    *::after {
+        display: none !important;
     }
 }
     /* =========================================================

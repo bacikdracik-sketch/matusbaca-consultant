@@ -864,42 +864,17 @@
         @media (max-width: 768px) {
             .whatsapp-float { bottom: 20px; right: 20px; width: 50px; height: 50px; }
         }
-
-      /* =========================================================
-   MOBILE SIDE LINES FIX
+/* =========================================================
+   CLEAN MOBILE EDGE FIX
 ========================================================= */
 
 @media (max-width: 768px) {
-    body,
-    section,
-    .container,
-    .grid-3,
-    .contact-container,
-    .values-section,
-    .bg-light {
-        border-left: none !important;
-        border-right: none !important;
-        box-shadow: none;
-    }
 
-    section {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-    }
-
-    .grid-3 {
-        padding-left: 12px !important;
-        padding-right: 12px !important;
+    html,
+    body {
+        overflow-x: hidden !important;
         max-width: 100% !important;
     }
-}
-        /* =========================================================
-   FORCE REMOVE MOBILE SIDE LINES
-========================================================= */
-
-@media (max-width: 768px) {
 
     body::before,
     body::after,
@@ -907,19 +882,29 @@
     section::after,
     .container::before,
     .container::after,
-    .bg-light::before,
-    .bg-light::after,
-    .values-section::before,
-    .values-section::after {
+    .grid-3::before,
+    .grid-3::after {
         display: none !important;
         content: none !important;
-        background: none !important;
     }
 
-    body {
-        overflow-x: hidden !important;
+    section,
+    .container,
+    .grid-3,
+    .card,
+    .premium-card,
+    .bg-light {
+        border-left: none !important;
+        border-right: none !important;
+        box-shadow: none !important;
+    }
+
+    .grid-3 {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
     }
 }
+      
         /* =========================================================
    GLOBAL BUTTON SYSTEM
 ========================================================= */
@@ -1247,6 +1232,48 @@ button:active {
 #kontakt button:hover,
 #kontakt .btn-primary:hover {
     background: #B38E44 !important;
+        }
+    /* =========================================================
+   REMOVE VERTICAL LINES — GLOBAL FIX
+========================================================= */
+
+body::before,
+body::after,
+section::before,
+section::after,
+.container::before,
+.container::after,
+.grid-3::before,
+.grid-3::after,
+.card::before,
+.card::after,
+.bg-light::before,
+.bg-light::after {
+    display: none !important;
+    content: none !important;
+}
+
+/* odstránenie borderov */
+section,
+.container,
+.grid-3,
+.card,
+.premium-card,
+.bg-light {
+    border-left: none !important;
+    border-right: none !important;
+}
+
+/* odstránenie outline */
+* {
+    outline: none !important;
+}
+
+/* overflow fix */
+html,
+body {
+    overflow-x: hidden !important;
+    max-width: 100% !important;
         }
     </style>
 </head>

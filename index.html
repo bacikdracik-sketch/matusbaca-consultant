@@ -1524,29 +1524,32 @@
         Väčšina ľudí netuší, aký veľký rozdiel bude medzi dnešným príjmom a budúcim dôchodkom.
     </p>
 
-    <div style="background:#fff5f5; border-left:4px solid #c53030; padding:14px; border-radius:8px; margin-bottom:18px;">
-        <strong style="display:block; color:#c53030; margin-bottom:6px; font-size:0.92rem;">
-            ⚠️ Štátny dôchodok nemusí stačiť na váš dnešný životný štandard.
-        </strong>
-        <span style="font-size:0.82rem; color:#2d3748; line-height:1.5;">
-            Pripravím vám jednoduchú kontrolu 2. a 3. piliera a ukážem, ako si vytvoriť vlastnú rentu.
-        </span>
-    </div>
+    <div id="calc-renta" class="inline-calculator" style="display:none;">
 
-    <div style="background:#f8fafc; padding:15px; border-radius:10px; margin-bottom:15px;">
-        ✅ kontrola 2. piliera<br>
-        ✅ nastavenie fondov<br>
-        ✅ možnosti 3. piliera<br>
-        ✅ plán vlastnej renty
-    </div>
+        <div style="background:#fff5f5; border-left:4px solid #c53030; padding:14px; border-radius:8px; margin-bottom:18px;">
+            <strong style="display:block; color:#c53030; margin-bottom:6px; font-size:0.92rem;">
+                ⚠️ Štátny dôchodok nemusí stačiť na váš dnešný životný štandard.
+            </strong>
+            <span style="font-size:0.82rem; color:#2d3748; line-height:1.5;">
+                Pripravím vám jednoduchú kontrolu 2. a 3. piliera a ukážem, ako si vytvoriť vlastnú rentu.
+            </span>
+        </div>
 
-    <div class="calc-contact">
-        <input type="tel" id="rentaPhone" placeholder="Vaše telefónne číslo" style="width:100%; padding:12px; margin-bottom:12px; border:1px solid #ddd; border-radius:6px;">
-        <button onclick="handleLeadSubmit(event, 'Dôchodková renta')" style="width:100%; background:#B38E44; color:white; font-weight:800; padding:14px; border:none; border-radius:6px; cursor:pointer;">
-            CHCEM SKONTROLOVAŤ MÔJ DÔCHODOK
-        </button>
-    </div>
+        <div style="background:#f8fafc; padding:15px; border-radius:10px; margin-bottom:15px;">
+            ✅ kontrola 2. piliera<br>
+            ✅ nastavenie fondov<br>
+            ✅ možnosti 3. piliera<br>
+            ✅ plán vlastnej renty
+        </div>
 
+        <div class="calc-contact">
+            <input type="tel" id="rentaPhone" placeholder="Vaše telefónne číslo" style="width:100%; padding:12px; margin-bottom:12px; border:1px solid #ddd; border-radius:6px;">
+            <button onclick="handleLeadSubmit(event, 'Dôchodková renta')" style="width:100%; background:#B38E44; color:white; font-weight:800; padding:14px; border:none; border-radius:6px; cursor:pointer;">
+                CHCEM SKONTROLOVAŤ MÔJ DÔCHODOK
+            </button>
+        </div>
+
+    </div>
     </div>
                          <!--BOX 8 — ŽIVOTNÉ RIZIKÁ-->
             <div class="card premium-card" id="card-osoby">
@@ -2021,14 +2024,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const rev = () => { reveals.forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add("active"); }); };
     window.addEventListener("scroll", rev); rev();
 });
+function toggleCalculator(calcId) {
+    const calc = document.getElementById(calcId);
 
-// EXPORT DO WINDOW
-window.updateAudit = updateAudit; window.updateRef = updateRef; window.updateInvest = updateInvest;
-window.update5Inflation = update5Inflation; window.update6Wealth = update6Wealth; window.updateRenta = updateRenta;
-window.updateOsoby = updateOsoby; window.updateMajetok = updateMajetok;
-window.showOsobyTool = showOsobyTool; window.showMajetokTool = showMajetokTool;
-window.toggleCalculator = toggleCalculator; window.handleLeadSubmit = handleLeadSubmit;
-window
+    if (!calc) {
+        alert("Nenašiel som kalkulačku s ID: " + calcId);
+        return;
+    }
+
+    const isOpen = window.getComputedStyle(calc).display !== "none";
+
+    document.querySelectorAll(".inline-calculator, .calculator-container").forEach(el => {
+        el.style.display = "none";
+    });
+
+    if (!isOpen) {
+        calc.style.display = "block";
+    }
+    }
+    // EXPORT DO WINDOW
+window.toggleCalculator = toggleCalculator;
+window.showOsobyTool = showOsobyTool;
+window.showMajetokTool = showMajetokTool;
+window.handleLeadSubmit = handleLeadSubmit;
 /* =========================================================
    HAMBURGER MENU ENGINE
 ========================================================= */

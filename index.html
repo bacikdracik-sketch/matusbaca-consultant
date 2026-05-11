@@ -1354,7 +1354,7 @@ input[type="submit"]:hover,
     }
 }
         /* =========================================================
-   PREMIUM MAPA KLIENTOV
+   PREMIUM MAPA KLIENTOV — FINAL VERSION
 ========================================================= */
 
 .client-map-section {
@@ -1371,6 +1371,8 @@ input[type="submit"]:hover,
     overflow: hidden;
 }
 
+/* NADPISY */
+
 .client-map-section .section-header h2 {
     color: white !important;
 }
@@ -1379,28 +1381,52 @@ input[type="submit"]:hover,
     color: rgba(255,255,255,0.72) !important;
 }
 
+/* WRAPPER */
+
 .client-map-wrapper {
     position: relative;
     max-width: 900px;
     margin: 70px auto 40px;
 }
 
-.slovakia-map {
-    width: 100%;
-    opacity: 0.28 !important;
+/* FALLBACK MAPA */
 
-    filter:
-        invert(1)
-        brightness(2.5)
-        contrast(1.1);
-
-    display: block;
+.slovakia-map-fallback {
+    position: relative;
+    height: 420px;
+    max-width: 900px;
+    margin: 0 auto;
 }
+
+.map-shape {
+    position: absolute;
+    inset: 40px 30px;
+
+    border: 2px solid rgba(255,255,255,0.22);
+    border-radius: 55% 45% 45% 55%;
+
+    color: rgba(255,255,255,0.10);
+
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 200;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    backdrop-filter: blur(2px);
+}
+
+/* BODY */
 
 .map-dot {
     position: absolute;
+
     width: 16px;
     height: 16px;
+
     background: #D4AF37;
     border-radius: 50%;
 
@@ -1409,19 +1435,26 @@ input[type="submit"]:hover,
         0 0 20px rgba(212,175,55,0.7);
 
     animation: pulseMap 2.4s infinite;
+
     cursor: pointer;
+    z-index: 10;
 }
+
+/* TOOLTIP */
 
 .map-dot span {
     position: absolute;
+
     top: -38px;
     left: 50%;
+
     transform: translateX(-50%);
 
     background: rgba(15,23,42,0.96);
     color: white;
 
     padding: 8px 12px;
+
     border-radius: 999px;
 
     font-size: 0.75rem;
@@ -1439,6 +1472,8 @@ input[type="submit"]:hover,
     opacity: 1;
     top: -46px;
 }
+
+/* ANIMÁCIA */
 
 @keyframes pulseMap {
 
@@ -1461,7 +1496,9 @@ input[type="submit"]:hover,
     }
 }
 
-/* POZÍCIE MIEST */
+/* =========================================================
+   POZÍCIE MIEST
+========================================================= */
 
 .kosice {
     top: 62%;
@@ -1517,14 +1554,20 @@ input[type="submit"]:hover,
 
 .map-trust-line {
     text-align: center;
+
     color: rgba(255,255,255,0.82);
+
     font-size: 1rem;
     font-weight: 500;
+
     margin-top: 30px;
+
     letter-spacing: 0.4px;
 }
 
-/* MOBILE */
+/* =========================================================
+   MOBILE
+========================================================= */
 
 @media (max-width: 768px) {
 
@@ -1534,6 +1577,10 @@ input[type="submit"]:hover,
 
     .client-map-wrapper {
         margin-top: 45px;
+    }
+
+    .slovakia-map-fallback {
+        height: 340px;
     }
 
     .map-dot {
@@ -2399,54 +2446,21 @@ input[type="submit"]:hover,
 
     <div class="client-map-wrapper">
 
-        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e6/Blank_map_of_Slovakia.svg"
-             alt="Mapa Slovenska"
-             class="slovakia-map">
+        <div class="slovakia-map-fallback">
+    <div class="map-shape">Slovensko</div>
 
-        <!-- BODY MIEST -->
-
-        <div class="map-dot kosice">
-            <span>Košice</span>
-        </div>
-
-        <div class="map-dot michalovce">
-            <span>Michalovce</span>
-        </div>
-
-        <div class="map-dot humenne">
-            <span>Humenné</span>
-        </div>
-
-        <div class="map-dot strazske">
-            <span>Strážske</span>
-        </div>
-
-        <div class="map-dot vranov">
-            <span>Vranov nad Topľou</span>
-        </div>
-
-        <div class="map-dot snina">
-            <span>Snina</span>
-        </div>
-
-        <div class="map-dot trebisov">
-            <span>Trebišov</span>
-        </div>
-
-        <div class="map-dot topolcany">
-            <span>Topoľčany</span>
-        </div>
-
-        <div class="map-dot partizanske">
-            <span>Partizánske</span>
-        </div>
-
-        <div class="map-dot povazska">
-            <span>Považská Bystrica</span>
-        </div>
-
+    <div class="map-dot kosice"><span>Košice</span></div>
+    <div class="map-dot michalovce"><span>Michalovce</span></div>
+    <div class="map-dot humenne"><span>Humenné</span></div>
+    <div class="map-dot strazske"><span>Strážske</span></div>
+    <div class="map-dot vranov"><span>Vranov nad Topľou</span></div>
+    <div class="map-dot snina"><span>Snina</span></div>
+    <div class="map-dot trebisov"><span>Trebišov</span></div>
+    <div class="map-dot topolcany"><span>Topoľčany</span></div>
+    <div class="map-dot partizanske"><span>Partizánske</span></div>
+    <div class="map-dot povazska"><span>Považská Bystrica</span></div>
+</div>
     </div>
-
     <div class="map-trust-line">
         🟡 Osobné stretnutia • 💻 Online konzultácie • 📍 Klienti po celom Slovensku
     </div>

@@ -835,902 +835,82 @@
 }
 
        /* =========================================================
-   WHATSAPP FLOAT + MOBILE CTA FIX
+   FINAL CLEAN FIX — FLOATING BUTTONS / MOBILE / LEAD CTA
 ========================================================= */
-
-.whatsapp-float {
-    position: fixed !important;
-    width: 60px;
-    height: 60px;
-    bottom: 40px;
-    right: 40px;
-    background-color: #25d366;
-    color: #FFF;
-    border-radius: 50%;
-    text-align: center;
-    font-size: 30px;
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
-    z-index: 10000 !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    animation: pulse-green 2s infinite;
-}
-
-.whatsapp-float:hover {
-    transform: scale(1.1);
-    background-color: #128c7e;
-}
-
-@keyframes pulse-green {
-    0% {
-        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
-    }
-    70% {
-        box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
-    }
-    100% {
-        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
-    }
-}
-
-/* =========================================================
-   MOBILE STICKY CTA BUTTON
-========================================================= */
-
-@media (max-width: 768px) {
-
-    .mobile-sticky-cta {
-        position: fixed !important;
-        left: 14px;
-        right: 14px;
-        bottom: 18px;
-        z-index: 9999 !important;
-        background: #B38E44;
-        color: white;
-        text-align: center;
-        padding: 15px 18px;
-        border-radius: 999px;
-        font-weight: 800;
-        text-decoration: none;
-        box-shadow: 0 12px 30px rgba(0,0,0,0.25);
-    }
-
-    .whatsapp-float {
-        position: fixed !important;
-        bottom: 95px !important;
-        right: 20px !important;
-        width: 50px;
-        height: 50px;
-        font-size: 26px;
-        z-index: 10000 !important;
-    }
-
-    body {
-        padding-bottom: 90px !important;
-    }
-}
-
-/* =========================================================
-   KARIÉRA FULL WIDTH FIX
-========================================================= */
-
-#kariera-form,
-#kariera-form .container,
-#kariera-form .contact-container {
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-}
 
 html,
 body {
     overflow-x: hidden !important;
+    max-width: 100% !important;
 }
 
-        /* =========================================================
-   GLOBAL BUTTON SYSTEM
-========================================================= */
-
-button,
-.btn,
-.cta-button,
-.card button,
-.calculator-container button,
-.inline-calculator button,
-.contact-form button {
-    background: #002e5d !important;
+/* WhatsApp */
+.whatsapp-float {
+    position: fixed !important;
+    right: 22px !important;
+    bottom: 95px !important;
+    width: 56px !important;
+    height: 56px !important;
+    background: #25d366 !important;
     color: white !important;
-
-    border: none !important;
-    border-radius: 10px !important;
-
-    padding: 14px 22px !important;
-
-    font-weight: 700 !important;
-    letter-spacing: 0.3px;
-
-    cursor: pointer !important;
-
-    transition: all 0.25s ease !important;
-
-    box-shadow: 0 4px 12px rgba(0,46,93,0.15);
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-decoration: none !important;
+    font-size: 28px !important;
+    z-index: 10001 !important;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25) !important;
 }
 
-/* HOVER */
-button:hover,
-.btn:hover,
-.cta-button:hover,
-.card button:hover,
-.calculator-container button:hover,
-.inline-calculator button:hover,
-.contact-form button:hover {
-
-    background: #B38E44 !important;
-
-    transform: translateY(-2px);
-
-    box-shadow: 0 8px 20px rgba(179,142,68,0.25);
+.whatsapp-label {
+    position: absolute;
+    right: 70px;
+    background: white;
+    color: #0F172A;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
 }
 
-/* ACTIVE */
-button:active {
-    transform: scale(0.98);
-}
-        /* =========================================================
-   FLOATING CTA — PREMIUM
-========================================================= */
-
+/* Floating CTA */
 .floating-cta {
-    position: fixed;
-    right: 18px;
-    bottom: 18px;
-    z-index: 9999;
-    display: flex;
-    gap: 10px;
-    align-items: center;
+    position: fixed !important;
+    right: 20px !important;
+    bottom: 20px !important;
+    z-index: 9999 !important;
+    display: flex !important;
+    gap: 10px !important;
+    align-items: center !important;
 }
 
 .floating-btn {
-    text-decoration: none;
-    border-radius: 999px;
-    font-weight: 800;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.18);
-    transition: all 0.25s ease;
+    text-decoration: none !important;
+    border-radius: 999px !important;
+    font-weight: 800 !important;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.18) !important;
 }
 
 .floating-btn.main {
-    background: #002e5d;
-    color: white;
-    padding: 14px 20px;
-    font-size: 0.9rem;
+    background: #002e5d !important;
+    color: white !important;
+    padding: 14px 22px !important;
 }
 
 .floating-btn.phone {
-    background: #B38E44;
-    color: white;
-    width: 52px;
-    height: 52px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.3rem;
-}
-
-.floating-btn:hover {
-    transform: translateY(-3px);
-    background: #B38E44;
-}
-
-/* Mobil */
-@media (max-width: 768px) {
-    .floating-cta {
-        left: 12px;
-        right: 12px;
-        bottom: 12px;
-    }
-
-    .floating-btn.main {
-        flex: 1;
-        text-align: center;
-        padding: 15px 12px;
-    }
-
-    .floating-btn.phone {
-        width: 52px;
-        min-width: 52px;
-    }
-
-    body {
-        padding-bottom: 80px;
-    }
-}
-        /* =========================================================
-   FINAL MOBILE FLOATING FIX
-========================================================= */
-
-@media (max-width: 768px) {
-
-    .floating-cta {
-        left: 14px !important;
-        right: auto !important;
-        bottom: 18px !important;
-        width: calc(100% - 115px) !important;
-        z-index: 9998 !important;
-    }
-
-    .floating-btn.main {
-        width: 100% !important;
-        height: 58px !important;
-        padding: 0 14px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        white-space: nowrap !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-        font-size: 0.9rem !important;
-        border-radius: 999px !important;
-    }
-
-    .floating-btn.phone {
-        display: none !important;
-    }
-
-    .whatsapp-float,
-    .whatsapp-button,
-    .wa-float {
-        right: 18px !important;
-        bottom: 18px !important;
-        z-index: 9999 !important;
-    }
-}
-        /* MOBILE: vypnúť modré floating CTA, aby sa nebilo s WhatsApp */
-@media (max-width: 768px) {
-    .floating-cta {
-        display: none !important;
-    }
-
-    body {
-        padding-bottom: 0 !important;
-    }
-}
-        /* =========================================================
-   MOBILE HERO FIX — PREMIUM CLEAN
-========================================================= */
-
-@media (max-width: 768px) {
-
-    .hero {
-        min-height: 100vh !important;
-        padding-top: 120px !important;
-        padding-bottom: 60px !important;
-        align-items: flex-start !important;
-        background-position: center top !important;
-    }
-
-    .hero-content {
-        padding: 20px 18px !important;
-        max-width: 100% !important;
-    }
-
-    .hero-badge {
-        font-size: 0.72rem !important;
-        line-height: 1.4 !important;
-        margin-bottom: 18px !important;
-        padding: 8px 12px !important;
-    }
-
-    .hero h1 {
-        font-size: 2rem !important;
-        line-height: 1.15 !important;
-        margin-bottom: 18px !important;
-    }
-
-    .hero h1 span {
-        display: block !important;
-        font-size: 2rem !important;
-        color: #B38E44 !important;
-    }
-
-    .hero p {
-        font-size: 1rem !important;
-        line-height: 1.7 !important;
-        margin-bottom: 26px !important;
-        padding: 0 4px !important;
-    }
-
-    .hero-btns-container {
-        flex-direction: column !important;
-        gap: 14px !important;
-        width: 100% !important;
-    }
-
-    .hero-btns-container a,
-    .btn-primary,
-    .hero-cta {
-        width: 100% !important;
-        max-width: 100% !important;
-        text-align: center !important;
-        padding: 16px 18px !important;
-        font-size: 0.95rem !important;
-        border-radius: 8px !important;
-    }
-
-    .hero-content > div:last-child {
-        margin-top: 35px !important;
-        gap: 14px !important;
-    }
-
-    .hero-content > div:last-child > div {
-        width: 100% !important;
-        min-width: 0 !important;
-        padding: 18px 16px !important;
-    }
-}
-        /* =========================================================
-   SERVICES / CARDS MOBILE PREMIUM FIX
-========================================================= */
-
-@media (max-width: 768px) {
-
-    .grid-3 {
-        display: grid !important;
-        grid-template-columns: 1fr !important;
-        gap: 24px !important;
-        padding: 0 16px !important;
-    }
-
-    .card,
-    .premium-card {
-        width: 100% !important;
-        max-width: 100% !important;
-        border-radius: 16px !important;
-        overflow: hidden !important;
-        background: #ffffff !important;
-        box-shadow: 0 10px 28px rgba(15, 23, 42, 0.10) !important;
-    }
-
-    .card-icon {
-    width: 100% !important;
-    height: 200px !important;
-    overflow
-    }
-        /* =========================================================
-   CONTACT SECTION — PREMIUM LEAD FIX
-========================================================= */
-
-#kontakt {
-    background: linear-gradient(135deg, #0F172A, #002e5d) !important;
-    color: white !important;
-    padding: 90px 18px !important;
-}
-
-#kontakt .section-header h2,
-#kontakt .section-header span {
-    color: white !important;
-}
-
-#kontakt .contact-container,
-#kontakt form,
-#kontakt .contact-form {
-    background: white !important;
-    color: #0F172A !important;
-    border-radius: 20px !important;
-    padding: 28px !important;
-    box-shadow: 0 20px 45px rgba(0,0,0,0.22) !important;
-}
-
-#kontakt input,
-#kontakt textarea,
-#kontakt select {
-    width: 100% !important;
-    padding: 15px 16px !important;
-    border: 1px solid #d6dce5 !important;
-    border-radius: 10px !important;
-    font-size: 1rem !important;
-    margin-bottom: 14px !important;
-    background: #f8fafc !important;
-    color: #0F172A !important;
-}
-
-#kontakt input:focus,
-#kontakt textarea:focus,
-#kontakt select:focus {
-    outline: none !important;
-    border-color: #B38E44 !important;
-    box-shadow: 0 0 0 3px rgba(179,142,68,0.18) !important;
-}
-
-#kontakt button,
-#kontakt .btn-primary {
-    width: 100% !important;
-    background: #002e5d !important;
-    color: white !important;
-    padding: 16px 20px !important;
-    border-radius: 12px !important;
-    font-weight: 800 !important;
-}
-
-#kontakt button:hover,
-#kontakt .btn-primary:hover {
     background: #B38E44 !important;
-        }
-    /* =========================================================
-   CLEAN MOBILE FIX
-========================================================= */
-
-html,
-body {
-    overflow-x: hidden !important;
-    max-width: 100% !important;
+    color: white !important;
+    width: 52px !important;
+    height: 52px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 
-@media (max-width: 768px) {
-
-    body,
-    section,
-    .container,
-    .grid-3,
-    .card,
-    .premium-card,
-    .bg-light {
-        width: 100% !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-    }
-
-    .grid-3 {
-        padding-left: 15px !important;
-        padding-right: 15px !important;
-    }
-
-    .card,
-    .premium-card {
-        overflow: hidden !important;
-        margin: 0 auto 20px auto !important;
-        border-radius: 18px !important;
-    }
-
-    .card img,
-    .premium-card img {
-        width: 100% !important;
-        display: block !important;
-        height: auto !important;
-    }
-
-    *::before,
-    *::after {
-        display: none !important;
-    }
-}
-    /* =========================================================
-   CONTACT MOBILE IMAGE / WIDTH FIX
-========================================================= */
-
-@media (max-width: 768px) {
-
-    #kontakt,
-    #contact {
-        overflow: hidden !important;
-        padding-left: 16px !important;
-        padding-right: 16px !important;
-    }
-
-    #kontakt .contact-container,
-    #contact .contact-container {
-        display: block !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 auto !important;
-        padding: 0 !important;
-    }
-
-    #kontakt .contact-form,
-    #contact .contact-form {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 auto !important;
-        padding: 24px 18px !important;
-        border-radius: 20px !important;
-    }
-
-    #kontakt img,
-    #contact img {
-        max-width: 100% !important;
-        height: auto !important;
-        object-fit: contain !important;
-    }
-
-    #kontakt::before,
-    #kontakt::after,
-    #contact::before,
-    #contact::after {
-        display: none !important;
-        content: none !important;
-    }
-}
-    /* =========================================================
-   CONTACT BUTTON MOBILE FIX
-========================================================= */
-
-@media (max-width: 768px) {
-
-    #kontakt button,
-    #contact button,
-    #kontakt .btn-primary,
-    #contact .btn-primary {
-        width: 100% !important;
-        max-width: 100% !important;
-        min-width: 0 !important;
-        display: block !important;
-        padding: 16px 12px !important;
-        font-size: 0.9rem !important;
-        line-height: 1.2 !important;
-        white-space: normal !important;
-        text-align: center !important;
-        border-radius: 12px !important;
-        overflow: visible !important;
-    }
-
-    .whatsapp-float {
-        bottom: 24px !important;
-        right: 18px !important;
-        width: 54px !important;
-        height: 54px !important;
-        z-index: 9999 !important;
-    }
-        }
-    /* =========================================================
-   KARIÉRA MOBILE FIX
-========================================================= */
-
-@media (max-width: 768px) {
-
-    #kariera-form {
-        padding: 90px 18px !important;
-        background-position: center center !important;
-        background-size: cover !important;
-        overflow: hidden !important;
-    }
-
-    #kariera-form .section-header h2 {
-        font-size: 2.2rem !important;
-        line-height: 1.2 !important;
-    }
-
-    #kariera-form p {
-        font-size: 1.05rem !important;
-        line-height: 1.8 !important;
-    }
-
-    #kariera-form .btn-primary {
-        width: 100% !important;
-        max-width: 100% !important;
-        display: block !important;
-        padding: 18px 20px !important;
-        font-size: 0.9rem !important;
-    }
-}
-    /* =========================================================
-   ULTIMATE MOBILE OVERFLOW FIX
-========================================================= */
-
-@media (max-width: 768px) {
-
-    * {
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-    }
-
-    html,
-    body {
-        overflow-x: hidden !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        position: relative !important;
-    }
-
-    body {
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    section,
-    .container,
-    .grid-3,
-    .card,
-    .contact-container,
-    .values-section,
-    .bg-light {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-        overflow: hidden !important;
-    }
-
-    img,
-    video,
-    iframe {
-        max-width: 100% !important;
-        height: auto !important;
-        display: block !important;
-    }
-
-    [style*="100vw"] {
-        width: 100% !important;
-    }
-
-    [style*="translateX"] {
-        transform: none !important;
-    }
-}
-    /* tvoje ostatne CSS */
-
-footer {
-    display: block !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-}
-    /* =========================================================
-   MAP MOBILE FIX
-========================================================= */
-
-.map-wrapper {
-    width: 100%;
-    max-width: 100%;
-    padding: 0 20px;
-    margin: 0 auto;
-    overflow: hidden;
-    box-sizing: border-box;
-}
-
-.map-wrapper iframe {
-    width: 100%;
-    max-width: 100%;
-    border-radius: 20px;
-    display: block;
-}
-    /* ULTIMATE MOBILE FIX */
-@media (max-width:768px) {
-
-   ...
-}
-
-/* BOX 9 FIX */
-#card-majetok {
-    overflow: hidden !important;
-    max-width: 100% !important;
-}
-
-#card-majetok img {
-    width: 100% !important;
-    display: block !important;
-}
-    /* =========================================================
-   FIX BOXOV 7–9 — CLEAN SERVICES SECTION
-========================================================= */
-
-.services-clean {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding: 80px 20px !important;
-    margin: 0 !important;
-    background: #f8fafc !important;
-    overflow: hidden !important;
-    box-sizing: border-box !important;
-    border: none !important;
-    box-shadow: none !important;
-}
-
-.services-clean-grid {
-    width: 100% !important;
-    max-width: 1200px !important;
-    margin: 0 auto !important;
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 28px !important;
-    box-sizing: border-box !important;
-    border: none !important;
-    box-shadow: none !important;
-}
-
-.services-clean .card,
-.services-clean .premium-card {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 !important;
-    overflow: hidden !important;
-    box-sizing: border-box !important;
-    border: none !important;
-}
-
-.services-clean img {
-    width: 100% !important;
-    max-width: 100% !important;
-    display: block !important;
-}
-
-@media (max-width: 768px) {
-    .services-clean {
-        padding: 50px 15px !important;
-    }
-
-    .services-clean-grid {
-        grid-template-columns: 1fr !important;
-        gap: 24px !important;
-    }
-    }
-    /* =========================================================
-   PREMIUM FINAL FIX — KARTY 7–9 + MOBILE + HOVER
-========================================================= */
-
-.premium-card {
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.premium-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 18px 35px rgba(15, 23, 42, 0.16) !important;
-}
-
-.premium-card .card-icon img {
-    transition: transform 0.35s ease;
-}
-
-.premium-card:hover .card-icon img {
-    transform: scale(1.05);
-}
-
-.inline-calculator {
-    animation: fadeCalc 0.3s ease;
-}
-
-@keyframes fadeCalc {
-    from {
-        opacity: 0;
-        transform: translateY(8px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* =========================================================
-   MOBILE FIX — KARTY 7–9
-========================================================= */
-
-@media (max-width: 768px) {
-
-    .section-header {
-        padding-left: 18px !important;
-        padding-right: 18px !important;
-        margin-top: 50px !important;
-        margin-bottom: 30px !important;
-    }
-
-    .section-header h2 {
-        font-size: 2rem !important;
-        line-height: 1.2 !important;
-        letter-spacing: 1px !important;
-    }
-
-    .container {
-        width: 100% !important;
-        max-width: 100% !important;
-        padding-left: 14px !important;
-        padding-right: 14px !important;
-        box-sizing: border-box !important;
-    }
-
-    .grid-3 {
-        display: grid !important;
-        grid-template-columns: 1fr !important;
-        gap: 24px !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        padding: 0 !important;
-    }
-
-    .premium-card {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 auto !important;
-        border-radius: 14px !important;
-        overflow: hidden !important;
-        box-sizing: border-box !important;
-    }
-
-    .premium-card .card-icon img {
-        width: 100% !important;
-        height: 190px !important;
-        object-fit: cover !important;
-        display: block !important;
-    }
-
-    .premium-card .card-content {
-        padding: 18px !important;
-    }
-
-    .premium-card h3 {
-        font-size: 1.15rem !important;
-        line-height: 1.35 !important;
-    }
-
-    .premium-card p {
-        font-size: 0.9rem !important;
-        line-height: 1.6 !important;
-    }
-
-    .inline-calculator {
-        width: 100% !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-    }
-
-    .calc-contact input,
-    .calc-contact button {
-        width: 100% !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-    }
-}
-    /* =========================================================
-   FIX PREKRÝVANIA CTA / WHATSAPP / PHONE — MOBILE
-========================================================= */
-
-@media (max-width: 768px) {
-
-    .floating-cta {
-        position: fixed !important;
-        left: 14px !important;
-        right: 14px !important;
-        bottom: 14px !important;
-        z-index: 9998 !important;
-        display: flex !important;
-        justify-content: center !important;
-    }
-
-    .floating-btn.main {
-        width: 100% !important;
-        max-width: 100% !important;
-        text-align: center !important;
-        padding: 15px 18px !important;
-        border-radius: 999px !important;
-    }
-
-    .floating-btn.phone {
-        display: none !important;
-    }
-
-    .whatsapp-float {
-        position: fixed !important;
-        right: 18px !important;
-        bottom: 86px !important;
-        width: 52px !important;
-        height: 52px !important;
-        z-index: 10001 !important;
-    }
-
-    .whatsapp-label {
-        display: none !important;
-    }
-
-    body {
-        padding-bottom: 100px !important;
-    }
-}
-    /* =========================================================
-   LEAD MAGNET CTA BUTTON — RECENZIE
-========================================================= */
-
+/* Recenzie CTA */
 .lead-review-btn {
     background: linear-gradient(135deg, #d4af37, #b38e44) !important;
     color: #0f172a !important;
@@ -1740,12 +920,190 @@ footer {
     text-decoration: none !important;
     box-shadow: 0 14px 35px rgba(212, 175, 55, 0.35) !important;
     display: inline-block !important;
-    letter-spacing: 0.5px !important;
 }
 
-.lead-review-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 18px 45px rgba(212, 175, 55, 0.45) !important;
+/* Trust štatistiky */
+.trust-stats {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: 80px auto 0;
+    text-align: center;
+    gap: 24px;
+}
+
+.trust-stat {
+    flex: 1;
+    min-width: 200px;
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 28px 20px;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+}
+
+.trust-stat h3 {
+    font-size: 2.8rem;
+    color: #d4af37;
+    margin-bottom: 5px;
+    font-weight: 800;
+}
+
+.trust-stat p {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+    letter-spacing: 1px;
+    color: #0f172a;
+}
+
+/* Kariéra lead magnet */
+.career-lead-section {
+    width: 100%;
+    padding: 110px 20px;
+    background:
+        linear-gradient(rgba(15, 23, 42, 0.86), rgba(15, 23, 42, 0.88)),
+        url('kariera-team.png') center/cover no-repeat;
+    color: white;
+    text-align: center;
+}
+
+.career-overlay {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.career-badge {
+    display: inline-block;
+    background: rgba(212, 175, 55, 0.15);
+    border: 1px solid rgba(212, 175, 55, 0.45);
+    color: #facc15;
+    padding: 9px 18px;
+    border-radius: 999px;
+    font-weight: 800;
+    margin-bottom: 25px;
+}
+
+.career-lead-section h2 {
+    font-size: clamp(2rem, 5vw, 3.6rem);
+    line-height: 1.12;
+    margin-bottom: 25px;
+    color: white;
+}
+
+.career-lead-section p {
+    max-width: 760px;
+    margin: 0 auto 35px;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.9);
+}
+
+.career-benefits {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+    gap: 16px;
+    max-width: 720px;
+    margin: 0 auto 35px;
+}
+
+.career-benefits div {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.14);
+    padding: 16px;
+    border-radius: 14px;
+    font-weight: 700;
+}
+
+.career-cta {
+    display: inline-block;
+    background: #d4af37;
+    color: #0f172a;
+    padding: 18px 42px;
+    border-radius: 999px;
+    font-weight: 900;
+    text-decoration: none;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+    section,
+    .container,
+    .grid-3,
+    .card,
+    .premium-card,
+    .contact-container,
+    .values-section {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .grid-3 {
+        grid-template-columns: 1fr !important;
+        padding: 0 15px !important;
+        gap: 24px !important;
+    }
+
+    .card,
+    .premium-card {
+        margin: 0 auto 22px !important;
+        border-radius: 16px !important;
+        overflow: hidden !important;
+    }
+
+    .card-icon {
+        height: 190px !important;
+        overflow: hidden !important;
+    }
+
+    .card-icon img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        display: block !important;
+    }
+
+    .floating-cta {
+        left: 14px !important;
+        right: 80px !important;
+        bottom: 16px !important;
+    }
+
+    .floating-btn.main {
+        width: 100% !important;
+        text-align: center !important;
+        padding: 15px 12px !important;
+        font-size: 0.88rem !important;
+    }
+
+    .floating-btn.phone {
+        display: none !important;
+    }
+
+    .whatsapp-float {
+        right: 18px !important;
+        bottom: 18px !important;
+        width: 54px !important;
+        height: 54px !important;
+    }
+
+    .whatsapp-label {
+        display: none !important;
+    }
+
+    .career-lead-section {
+        padding: 80px 18px !important;
+    }
+
+    .career-benefits {
+        grid-template-columns: 1fr !important;
+    }
+
+    body {
+        padding-bottom: 90px !important;
+    }
 }
     </style>
 </head>

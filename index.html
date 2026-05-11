@@ -1771,7 +1771,29 @@ window.update5Inflation = update5Inflation; window.update6Wealth = update6Wealth
 window.updateOsoby = updateOsoby; window.updateMajetok = updateMajetok;
 window.showOsobyTool = showOsobyTool; window.showMajetokTool = showMajetokTool;
 window.toggleCalculator = toggleCalculator; window.handleLeadSubmit = handleLeadSubmit;
+window
+/* =========================================================
+   HAMBURGER MENU ENGINE
+========================================================= */
+
+const hamburger = document.getElementById("hamburger");
+const navLinks = document.getElementById("nav-links");
+
+if (hamburger && navLinks) {
+    hamburger.addEventListener("click", function () {
+        hamburger.classList.toggle("active");
+        navLinks.classList.toggle("open");
+    });
+
+    navLinks.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", function () {
+            hamburger.classList.remove("active");
+            navLinks.classList.remove("open");
+        });
+    });
+}
 </script>
+
 <div style="position: fixed; bottom: 30px; right: 30px; z-index: 10001; display: flex; align-items: center; gap: 10px;">
     <span style="background: white; padding: 5px 15px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 14px; font-weight: 600; color: #333; font-family: sans-serif;">
         Napíšte mi

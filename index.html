@@ -1440,171 +1440,120 @@
                     <div class="icon-badge" style="position: absolute; top: 10px; left: 10px; background: #B38E44; color: white; padding: 4px 10px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; z-index: 10;">TOP ANALÝZA</div>
                     <img src="https://images.unsplash.com/photo-1434626881859-194d67b2b86f?auto=format&fit=crop&w=500&q=80" alt="Dôchodok" style="width: 100%; height: 200px; object-fit: cover; display: block;">
                 </div>
-    <div class="card-content">
-        <h3>💰 Budúca Renta & Deficit</h3>
-        <p class="card-desc">Zistite, o koľko klesne váš životný štandard v momente odchodu do dôchodku.</p>
-        
-        <div id="calc-renta" class="calculator-container" style="display:none;">
-            <div class="input-group">
-                <div class="label-row">
-                    <span>Váš aktuálny vek</span>
-                    <span class="value-highlight"><b id="valVek">30</b> r.</span>
-                </div>
-                <input type="range" id="rangeVek" min="18" max="62" value="30" class="premium-slider">
-            </div>
+    <div class="card-content" style="padding:20px;">
 
-            <div class="input-group">
-                <div class="label-row">
-                    <span>Mesačný čistý príjem</span>
-                    <span class="value-highlight"><b id="valPrijem">1200</b> €</span>
-                </div>
-                <input type="range" id="rangePrijem" min="600" max="5000" step="50" value="1200" class="premium-slider">
-            </div>
+    <h3 style="line-height:1.3; margin-bottom:12px; font-size:1.25rem;">
+        💰 Budete mať na dôchodku dosť peňazí?
+    </h3>
 
-            <div class="result-box-grid">
-                <div class="res-item">
-                    <small>Odhad štátnej penzie</small>
-                    <div class="res-val" id="rentaStat">456 €</div>
-                </div>
-                <div class="res-item warning">
-                    <small>Mesačný prepad (Deficit)</small>
-                    <div class="res-val" id="rentaDeficit">-744 €</div>
-                </div>
-            </div>
+    <p style="font-size:0.92rem; color:#64748b; line-height:1.6; margin-bottom:15px;">
+        Väčšina ľudí netuší, aký veľký rozdiel bude medzi dnešným príjmom a budúcim dôchodkom.
+    </p>
 
-            <div class="magnet-action">
-                <h4>Chcete zastaviť tento prepad?</h4>
-                <p>Získajte stratégiu pre 2. a 3. pilier, ktorá vám vráti dôstojnosť.</p>
-                <div class="cta-input-group">
-                    <input type="tel" id="rentaPhone" placeholder="+421 ...">
-                    <button onclick="handleLeadSubmit(event, 'Magnet-Renta')" class="cta-btn">ZÍSKAŤ STRATÉGIU</button>
-                </div>
-            </div>
-        </div>
+    <div style="background:#fff5f5; border-left:4px solid #c53030; padding:14px; border-radius:8px; margin-bottom:18px;">
+        <strong style="display:block; color:#c53030; margin-bottom:6px; font-size:0.92rem;">
+            ⚠️ Štátny dôchodok nemusí stačiť na váš dnešný životný štandard.
+        </strong>
+        <span style="font-size:0.82rem; color:#2d3748; line-height:1.5;">
+            Pripravím vám jednoduchú kontrolu 2. a 3. piliera a ukážem, ako si vytvoriť vlastnú rentu.
+        </span>
     </div>
-</div>
+
+    <div style="background:#f8fafc; padding:15px; border-radius:10px; margin-bottom:15px;">
+        ✅ kontrola 2. piliera<br>
+        ✅ nastavenie fondov<br>
+        ✅ možnosti 3. piliera<br>
+        ✅ plán vlastnej renty
+    </div>
+
+    <div class="calc-contact">
+        <input type="tel" id="rentaPhone" placeholder="Vaše telefónne číslo" style="width:100%; padding:12px; margin-bottom:12px; border:1px solid #ddd; border-radius:6px;">
+        <button onclick="handleLeadSubmit(event, 'Dôchodková renta')" style="width:100%; background:#B38E44; color:white; font-weight:800; padding:14px; border:none; border-radius:6px; cursor:pointer;">
+            CHCEM SKONTROLOVAŤ MÔJ DÔCHODOK
+        </button>
+    </div>
+
+    </div>
                          <!--BOX 8 — ŽIVOTNÉ RIZIKÁ-->
             <div class="card premium-card" id="card-osoby">
     <div class="card-icon" onclick="toggleCalculator('calc-osoby','card-osoby')">
         <div class="icon-badge" style="background: #002e5d;">OVB EXPERT</div>
         <img src="https://images.unsplash.com/photo-1557333610-90ee4a951ecf?auto=format&fit=crop&w=500&q=80" alt="Osoby">
     </div>
-    <div class="card-content">
-        <h3>🛡 Život & Cestovanie</h3>
-        <p class="card-desc">Zabezpečte to najcennejšie – váš príjem a zdravie na cestách.</p>
+    <div class="card-content" style="padding:20px;">
 
-        <div id="calc-osoby" class="calculator-container" style="display:none;">
-            <div class="ovb-tabs" style="display: flex; gap: 5px; margin-bottom: 20px; background: #f0f2f5; padding: 5px; border-radius: 8px;">
-                <button onclick="showOsobyTool('zivot-form', this)" class="tab-btn active" style="flex:1; padding: 10px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; background: #002e5d; color: white;">🛡 Život</button>
-                <button onclick="showOsobyTool('cesta-form', this)" class="tab-btn" style="flex:1; padding: 10px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; background: transparent; color: #555;">🌍 Cestovné</button>
-            </div>
+    <h3 style="line-height:1.3; margin-bottom:12px; font-size:1.25rem;">
+        🛡️ Čo sa stane s rodinou, ak vypadne váš príjem?
+    </h3>
 
-            <div id="zivot-form" class="osoby-tool">
-                <div class="fialek-form">
-                    <div class="f-row" style="margin-bottom: 10px;">
-                        <label style="display:block; font-size: 0.85rem; margin-bottom: 5px;">Mesačný príjem (€)</label>
-                        <input type="number" id="zivot-prijem" class="f-input" placeholder="napr. 1200" style="width:100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
-                    </div>
-                    <div class="f-row" style="margin-bottom: 10px;">
-                        <label style="display:block; font-size: 0.85rem; margin-bottom: 5px;">Nesplatená hypotéka (€)</label>
-                        <input type="number" id="zivot-hypo" class="f-input" placeholder="napr. 80000" style="width:100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
-                    </div>
-                </div>
-            </div>
+    <p style="font-size:0.92rem; color:#64748b; line-height:1.6; margin-bottom:15px;">
+        Mnohé poistky vyzerajú dobre na papieri, ale pri vážnej situácii nemusia pokryť hypotéku, príjem ani rodinu.
+    </p>
 
-            <div id="cesta-form" class="osoby-tool" style="display: none;">
-                <div class="fialek-form">
-                    <div class="f-row" style="margin-bottom: 10px;">
-                        <label style="display:block; font-size: 0.85rem; margin-bottom: 5px;">Cieľ cesty</label>
-                        <select id="cesta-kam" class="f-input" style="width:100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
-                            <option value="europa">Európa</option>
-                            <option value="svet">Svet (okrem USA/Kanada)</option>
-                            <option value="usa">Svet (vrátane USA/Kanada)</option>
-                        </select>
-                    </div>
-                    <div class="f-row" style="margin-bottom: 10px;">
-                        <label style="display:block; font-size: 0.85rem; margin-bottom: 5px;">Počet dní</label>
-                        <input type="number" id="cesta-dni" class="f-input" placeholder="napr. 7" style="width:100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
-                    </div>
-                </div>
-            </div>
-
-            <div class="res-panel-osoby" style="background: #f4f7fa; border-left: 5px solid #002e5d; padding: 15px; margin: 15px 0; border-radius: 8px;">
-                <span id="label-osoby" style="font-size: 0.85rem; color: #555;">Potrebné krytie pre rodinu:</span>
-                <div style="font-size: 1.8rem; font-weight: bold; color: #002e5d;"><span id="osoby-vysledok">---</span></div>
-            </div>
-
-            <div class="magnet-action" style="background: #002e5d; color: white; padding: 20px; border-radius: 8px; text-align: center;">
-                <h4 style="color: #cbb27c; margin-bottom: 10px;">Chcete audit poistenia?</h4>
-                <input type="tel" id="osobyPhone" placeholder="Vaše telefónne číslo" style="width: 100%; padding: 12px; border-radius: 4px; border: none; margin-bottom: 10px;">
-                <button onclick="handleLeadSubmit(event, 'Magnet-Zivot-Cestovne')" style="width: 100%; background: #cbb27c; color: #002e5d; font-weight: bold; padding: 12px; border: none; border-radius: 4px; cursor: pointer;">ZÍSKAŤ POROVNANIE</button>
-            </div>
-        </div>
+    <div style="background:#fff5f5; border-left:4px solid #c53030; padding:14px; border-radius:8px; margin-bottom:18px;">
+        <strong style="display:block; color:#c53030; margin-bottom:6px; font-size:0.92rem;">
+            ⚠️ Najväčšie riziko nie je poistka. Najväčšie riziko je zle nastavená poistka.
+        </strong>
+        <span style="font-size:0.82rem; color:#2d3748; line-height:1.5;">
+            Skontrolujem, či máte správne krytý príjem, hypotéku, invaliditu, PN, úraz aj vážne ochorenia.
+        </span>
     </div>
-</div>
+
+    <div style="background:#f8fafc; padding:15px; border-radius:10px; margin-bottom:15px; font-size:0.9rem; line-height:1.8;">
+        ✅ ochrana príjmu<br>
+        ✅ krytie hypotéky<br>
+        ✅ invalidita a vážne ochorenia<br>
+        ✅ poistka bez zbytočných prirážok
+    </div>
+
+    <div class="calc-contact">
+        <input type="tel" id="osobyPhone" placeholder="Vaše telefónne číslo" style="width:100%; padding:12px; margin-bottom:12px; border:1px solid #ddd; border-radius:6px;">
+        <button onclick="handleLeadSubmit(event, 'Ochrana príjmu a rodiny')" style="width:100%; background:#002e5d; color:white; font-weight:800; padding:14px; border:none; border-radius:6px; cursor:pointer;">
+            CHCEM SKONTROLOVAŤ MOJU POISTKU
+        </button>
+    </div>
+
+    </div>
                 <!--BOX 9 — MAJETOK / PZP-->
             <div class="card premium-card" id="card-majetok">
     <div class="card-icon" onclick="toggleCalculator('calc-majetok','card-majetok')">
         <div class="icon-badge" style="background: #002e5d;">OVB MAJETOK</div>
         <img src="https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?auto=format&fit=crop&w=500&q=80" alt="Majetok">
     </div>
-    <div class="card-content">
-        <h3>🏠 Majetok & Auto</h3>
-        <p class="card-desc">Expertné porovnanie poistenia vášho domova alebo vozidla.</p>
+    <div class="card-content" style="padding:20px;">
 
-        <div id="calc-majetok" class="calculator-container" style="display:none;">
-            
-            <div class="ovb-tabs" style="display: flex; gap: 5px; margin-bottom: 20px; background: #f0f2f5; padding: 5px; border-radius: 8px;">
-                <button onclick="showMajetokTool('pzp-form', this)" class="tab-btn active" style="flex:1; padding: 10px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; background: #002e5d; color: white;">🚗 PZP</button>
-                <button onclick="showMajetokTool('dom-form', this)" class="tab-btn" style="flex:1; padding: 10px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; background: transparent; color: #555;">🏠 Dom / Byt</button>
-            </div>
+    <h3 style="line-height:1.3; margin-bottom:12px; font-size:1.25rem;">
+        🏠 Platíte za poistenie majetku alebo auta zbytočne veľa?
+    </h3>
 
-            <div id="pzp-form" class="majetok-tool">
-                <div class="fialek-form">
-                    <div class="f-row" style="margin-bottom: 10px;">
-                        <label style="display:block; font-size: 0.85rem; margin-bottom: 5px;">Výkon motora (kW)</label>
-                        <input type="number" id="pzp-kw" class="f-input" placeholder="napr. 81" style="width:100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
-                    </div>
-                    <div class="f-row" style="margin-bottom: 10px;">
-                        <label style="display:block; font-size: 0.85rem; margin-bottom: 5px;">Váš vek</label>
-                        <input type="number" id="pzp-vek" class="f-input" placeholder="napr. 30" style="width:100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
-                    </div>
-                </div>
-            </div>
+    <p style="font-size:0.92rem; color:#64748b; line-height:1.6; margin-bottom:15px;">
+        Mnoho ľudí má staré poistky, slabé krytie alebo zbytočne drahé PZP. Stačí krátka kontrola a často sa dá nájsť lepší pomer ceny a ochrany.
+    </p>
 
-            <div id="dom-form" class="majetok-tool" style="display: none;">
-                <div class="fialek-form">
-                    <div class="f-row" style="margin-bottom: 10px;">
-                        <label style="display:block; font-size: 0.85rem; margin-bottom: 5px;">Typ nehnuteľnosti</label>
-                        <select id="dom-typ" class="f-input" style="width:100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
-                            <option value="byt">Byt</option>
-                            <option value="dom">Rodinný dom</option>
-                            <option value="chata">Chata / Chalupa</option>
-                        </select>
-                    </div>
-                    <div class="f-row" style="margin-bottom: 10px;">
-                        <label style="display:block; font-size: 0.85rem; margin-bottom: 5px;">Približná hodnota (€)</label>
-                        <input type="number" id="dom-hodnota" class="f-input" placeholder="napr. 150000" style="width:100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
-                    </div>
-                </div>
-            </div>
-
-            <div class="pzp-result-panel" style="background: #f4f7fa; border-left: 5px solid #002e5d; padding: 15px; margin: 15px 0; border-radius: 8px;">
-                <span id="label-vysledok" style="font-size: 0.85rem; color: #555;">Odhadované ročné poistné:</span>
-                <div style="font-size: 1.8rem; font-weight: bold; color: #002e5d;"><span id="majetok-vysledok">---</span> €</div>
-            </div>
-
-            <div class="magnet-action" style="background: #002e5d; color: white; padding: 20px; border-radius: 8px; text-align: center;">
-                <h4 style="color: #cbb27c; margin-bottom: 10px;">Chcete presnú ponuku?</h4>
-                <p style="font-size: 0.85rem; margin-bottom: 15px;">Pripravím vám nezávislé porovnanie z 11 poisťovní a vyberiem najlepší pomer ceny a krytia.</p>
-                <input type="tel" id="majetokPhone" placeholder="Vaše telefónne číslo" style="width: 100%; padding: 12px; border-radius: 4px; border: none; margin-bottom: 10px;">
-                <button onclick="handleLeadSubmit(event, 'Magnet-Majetok-Auto')" style="width: 100%; background: #cbb27c; color: #002e5d; font-weight: bold; padding: 12px; border: none; border-radius: 4px; cursor: pointer;">ZÍSKAŤ POROVNANIE</button>
-            </div>
+    <div style="background:#fffaf0; border-left:4px solid #B38E44; padding:14px; border-radius:8px; margin-bottom:18px;">
+        <strong style="display:block; color:#744210; margin-bottom:6px; font-size:0.92rem;">
+            🚗 Lacnejšia poistka nemusí znamenať horšiu ochranu.
+        </strong>
+        <span style="font-size:0.82rem; color:#2d3748; line-height:1.5;">
+            Porovnám PZP, havarijné poistenie, byt, dom alebo domácnosť a ukážem vám, kde sa dá ušetriť bez zníženia bezpečia.
+        </span>
     </div>
-</div>
 
-</div>
-</div>
+    <div style="background:#f8fafc; padding:15px; border-radius:10px; margin-bottom:15px; font-size:0.9rem; line-height:1.8;">
+        ✅ PZP a havarijné poistenie<br>
+        ✅ poistenie bytu a domu<br>
+        ✅ kontrola poistnej sumy<br>
+        ✅ porovnanie viacerých poisťovní
+    </div>
+
+    <div class="calc-contact">
+        <input type="tel" id="majetokPhone" placeholder="Vaše telefónne číslo" style="width:100%; padding:12px; margin-bottom:12px; border:1px solid #ddd; border-radius:6px;">
+        <button onclick="handleLeadSubmit(event, 'Poistenie majetku a auta')" style="width:100%; background:#B38E44; color:white; font-weight:800; padding:14px; border:none; border-radius:6px; cursor:pointer;">
+            CHCEM POROVNAŤ MOJU POISTKU
+        </button>
+    </div>
+
+    </div>
 </section>
     <section id="filozofia" class="bio">
     <div class="bio-image"></div>

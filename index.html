@@ -206,18 +206,25 @@
     color: white;
 }
 
+/* =========================================================
+   HERO OVERLAY FIX
+========================================================= */
+
 .hero-overlay {
     position: absolute;
     inset: 0;
-    backdrop-filter: blur(3px);
-    /* TOTO OPRAVÍ TLAČIDLÁ: Prepustí kliknutie pod seba */
-    pointer-events: none; 
+    background: transparent !important;
+    pointer-events: none !important;
     z-index: 1;
 }
 
+/* =========================================================
+   HERO CONTENT LAYER FIX
+========================================================= */
+
 .hero-content {
     position: relative;
-    z-index: 10; /* Zvýšený index, aby bol obsah vždy navrchu */
+    z-index: 100;
     max-width: 1000px;
     animation: heroFade 1s ease;
 }

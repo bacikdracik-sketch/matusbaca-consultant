@@ -1077,6 +1077,16 @@ button:active {
         z-index: 9999 !important;
     }
 }
+        /* MOBILE: vypnúť modré floating CTA, aby sa nebilo s WhatsApp */
+@media (max-width: 768px) {
+    .floating-cta {
+        display: none !important;
+    }
+
+    body {
+        padding-bottom: 0 !important;
+    }
+}
     </style>
 </head>
   <nav>

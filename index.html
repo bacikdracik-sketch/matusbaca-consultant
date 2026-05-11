@@ -1359,7 +1359,15 @@ input[type="submit"]:hover,
 
 .client-map-section {
     padding: 110px 20px;
-    background: linear-gradient(180deg, #0F172A, #111827);
+
+    background:
+        linear-gradient(
+            180deg,
+            #1e293b 0%,
+            #243447 45%,
+            #334155 100%
+        );
+
     overflow: hidden;
 }
 
@@ -1379,8 +1387,14 @@ input[type="submit"]:hover,
 
 .slovakia-map {
     width: 100%;
-    opacity: 0.16;
-    filter: brightness(1.8);
+    opacity: 0.28 !important;
+
+    filter:
+        invert(1)
+        brightness(2.5)
+        contrast(1.1);
+
+    display: block;
 }
 
 .map-dot {

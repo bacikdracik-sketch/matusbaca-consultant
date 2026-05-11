@@ -1508,6 +1508,121 @@ footer {
         gap: 24px !important;
     }
     }
+    /* =========================================================
+   PREMIUM FINAL FIX — KARTY 7–9 + MOBILE + HOVER
+========================================================= */
+
+.premium-card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.premium-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 35px rgba(15, 23, 42, 0.16) !important;
+}
+
+.premium-card .card-icon img {
+    transition: transform 0.35s ease;
+}
+
+.premium-card:hover .card-icon img {
+    transform: scale(1.05);
+}
+
+.inline-calculator {
+    animation: fadeCalc 0.3s ease;
+}
+
+@keyframes fadeCalc {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================================================
+   MOBILE FIX — KARTY 7–9
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .section-header {
+        padding-left: 18px !important;
+        padding-right: 18px !important;
+        margin-top: 50px !important;
+        margin-bottom: 30px !important;
+    }
+
+    .section-header h2 {
+        font-size: 2rem !important;
+        line-height: 1.2 !important;
+        letter-spacing: 1px !important;
+    }
+
+    .container {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+        box-sizing: border-box !important;
+    }
+
+    .grid-3 {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 24px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+    }
+
+    .premium-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        border-radius: 14px !important;
+        overflow: hidden !important;
+        box-sizing: border-box !important;
+    }
+
+    .premium-card .card-icon img {
+        width: 100% !important;
+        height: 190px !important;
+        object-fit: cover !important;
+        display: block !important;
+    }
+
+    .premium-card .card-content {
+        padding: 18px !important;
+    }
+
+    .premium-card h3 {
+        font-size: 1.15rem !important;
+        line-height: 1.35 !important;
+    }
+
+    .premium-card p {
+        font-size: 0.9rem !important;
+        line-height: 1.6 !important;
+    }
+
+    .inline-calculator {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .calc-contact input,
+    .calc-contact button {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+}
     </style>
 </head>
   <nav>

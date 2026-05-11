@@ -1353,6 +1353,190 @@ input[type="submit"]:hover,
         line-height: 1.2 !important;
     }
 }
+        /* =========================================================
+   PREMIUM MAPA KLIENTOV
+========================================================= */
+
+.client-map-section {
+    padding: 110px 20px;
+    background: linear-gradient(180deg, #0F172A, #111827);
+    overflow: hidden;
+}
+
+.client-map-section .section-header h2 {
+    color: white !important;
+}
+
+.client-map-section .section-header p {
+    color: rgba(255,255,255,0.72) !important;
+}
+
+.client-map-wrapper {
+    position: relative;
+    max-width: 900px;
+    margin: 70px auto 40px;
+}
+
+.slovakia-map {
+    width: 100%;
+    opacity: 0.16;
+    filter: brightness(1.8);
+}
+
+.map-dot {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: #D4AF37;
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 0 0 rgba(212,175,55,0.8),
+        0 0 20px rgba(212,175,55,0.7);
+
+    animation: pulseMap 2.4s infinite;
+    cursor: pointer;
+}
+
+.map-dot span {
+    position: absolute;
+    top: -38px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    background: rgba(15,23,42,0.96);
+    color: white;
+
+    padding: 8px 12px;
+    border-radius: 999px;
+
+    font-size: 0.75rem;
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    opacity: 0;
+    pointer-events: none;
+
+    transition: all 0.25s ease;
+}
+
+.map-dot:hover span {
+    opacity: 1;
+    top: -46px;
+}
+
+@keyframes pulseMap {
+
+    0% {
+        box-shadow:
+            0 0 0 0 rgba(212,175,55,0.7),
+            0 0 18px rgba(212,175,55,0.6);
+    }
+
+    70% {
+        box-shadow:
+            0 0 0 18px rgba(212,175,55,0),
+            0 0 25px rgba(212,175,55,0.2);
+    }
+
+    100% {
+        box-shadow:
+            0 0 0 0 rgba(212,175,55,0),
+            0 0 18px rgba(212,175,55,0.6);
+    }
+}
+
+/* POZÍCIE MIEST */
+
+.kosice {
+    top: 62%;
+    left: 72%;
+}
+
+.michalovce {
+    top: 56%;
+    left: 83%;
+}
+
+.humenne {
+    top: 43%;
+    left: 82%;
+}
+
+.strazske {
+    top: 51%;
+    left: 80%;
+}
+
+.vranov {
+    top: 51%;
+    left: 74%;
+}
+
+.snina {
+    top: 40%;
+    left: 91%;
+}
+
+.trebisov {
+    top: 67%;
+    left: 77%;
+}
+
+.topolcany {
+    top: 48%;
+    left: 41%;
+}
+
+.partizanske {
+    top: 52%;
+    left: 39%;
+}
+
+.povazska {
+    top: 36%;
+    left: 30%;
+}
+
+/* TRUST TEXT */
+
+.map-trust-line {
+    text-align: center;
+    color: rgba(255,255,255,0.82);
+    font-size: 1rem;
+    font-weight: 500;
+    margin-top: 30px;
+    letter-spacing: 0.4px;
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+    .client-map-section {
+        padding: 80px 16px;
+    }
+
+    .client-map-wrapper {
+        margin-top: 45px;
+    }
+
+    .map-dot {
+        width: 13px;
+        height: 13px;
+    }
+
+    .map-dot span {
+        font-size: 0.65rem;
+        padding: 6px 10px;
+    }
+
+    .map-trust-line {
+        font-size: 0.9rem;
+        line-height: 1.8;
+    }
+}
     </style>
 </head>
   <nav>
@@ -2180,6 +2364,78 @@ input[type="submit"]:hover,
     </div>
 
 </div>
+
+</section>
+    <!-- =========================================================
+     MAPA KLIENTOV — PREMIUM TRUST SECTION
+========================================================= -->
+
+<section class="client-map-section reveal">
+
+    <div class="section-header">
+        <h2>
+            Dôvera klientov <span>naprieč Slovenskom</span>
+        </h2>
+
+        <p>
+            Hypotéky, refinancovanie, poistenie, investície a finančné plánovanie —
+            osobne aj online pre klientov z rôznych miest Slovenska.
+        </p>
+    </div>
+
+    <div class="client-map-wrapper">
+
+        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e6/Blank_map_of_Slovakia.svg"
+             alt="Mapa Slovenska"
+             class="slovakia-map">
+
+        <!-- BODY MIEST -->
+
+        <div class="map-dot kosice">
+            <span>Košice</span>
+        </div>
+
+        <div class="map-dot michalovce">
+            <span>Michalovce</span>
+        </div>
+
+        <div class="map-dot humenne">
+            <span>Humenné</span>
+        </div>
+
+        <div class="map-dot strazske">
+            <span>Strážske</span>
+        </div>
+
+        <div class="map-dot vranov">
+            <span>Vranov nad Topľou</span>
+        </div>
+
+        <div class="map-dot snina">
+            <span>Snina</span>
+        </div>
+
+        <div class="map-dot trebisov">
+            <span>Trebišov</span>
+        </div>
+
+        <div class="map-dot topolcany">
+            <span>Topoľčany</span>
+        </div>
+
+        <div class="map-dot partizanske">
+            <span>Partizánske</span>
+        </div>
+
+        <div class="map-dot povazska">
+            <span>Považská Bystrica</span>
+        </div>
+
+    </div>
+
+    <div class="map-trust-line">
+        🟡 Osobné stretnutia • 💻 Online konzultácie • 📍 Klienti po celom Slovensku
+    </div>
 
 </section>
 

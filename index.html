@@ -1105,6 +1105,165 @@ body {
         padding-bottom: 90px !important;
     }
 }
+        /* =========================================================
+   CONTACT LEAD MAGNET — KOMPAKTNÝ FORMULÁR
+========================================================= */
+
+.contact-lead-section {
+    background: linear-gradient(135deg, #0F172A, #002e5d);
+    padding: 90px 20px;
+    color: white;
+}
+
+.contact-lead-box {
+    max-width: 1120px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 0.9fr;
+    gap: 42px;
+    align-items: center;
+}
+
+.contact-lead-info {
+    padding: 20px;
+}
+
+.contact-badge {
+    display: inline-block;
+    background: rgba(212, 175, 55, 0.14);
+    color: #facc15;
+    border: 1px solid rgba(212, 175, 55, 0.42);
+    padding: 9px 16px;
+    border-radius: 999px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    font-size: 0.85rem;
+}
+
+.contact-lead-info h2 {
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    line-height: 1.1;
+    margin-bottom: 22px;
+    color: white;
+}
+
+.contact-lead-info p {
+    font-size: 1.08rem;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.86);
+    max-width: 620px;
+    margin-bottom: 28px;
+}
+
+.contact-benefits {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 28px;
+}
+
+.contact-benefits div {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    padding: 13px 14px;
+    font-weight: 700;
+    font-size: 0.92rem;
+}
+
+.direct-contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.direct-contact a {
+    color: white;
+    text-decoration: none;
+    background: rgba(255,255,255,0.08);
+    padding: 12px 16px;
+    border-radius: 999px;
+    font-weight: 800;
+}
+
+.contact-lead-form {
+    background: white;
+    color: #0F172A;
+    border-radius: 22px;
+    padding: 30px;
+    box-shadow: 0 24px 55px rgba(0,0,0,0.25);
+}
+
+.contact-lead-form input,
+.contact-lead-form textarea,
+.contact-lead-form select {
+    width: 100%;
+    padding: 14px 15px;
+    margin-bottom: 13px;
+    border: 1px solid #d6dce5;
+    border-radius: 11px;
+    background: #f8fafc;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.96rem;
+    color: #0F172A;
+}
+
+.contact-lead-form input:focus,
+.contact-lead-form textarea:focus,
+.contact-lead-form select:focus {
+    outline: none;
+    border-color: #B38E44;
+    box-shadow: 0 0 0 3px rgba(179,142,68,0.16);
+}
+
+.contact-lead-form button {
+    width: 100%;
+    padding: 16px 18px;
+    border-radius: 12px;
+    border: none;
+    background: #B38E44 !important;
+    color: white !important;
+    font-weight: 900;
+    cursor: pointer;
+    margin-top: 4px;
+}
+
+.contact-lead-form small {
+    display: block;
+    text-align: center;
+    margin-top: 14px;
+    color: #64748b;
+    font-size: 0.78rem;
+}
+
+@media (max-width: 768px) {
+    .contact-lead-section {
+        padding: 70px 16px;
+    }
+
+    .contact-lead-box {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .contact-lead-info {
+        padding: 0;
+        text-align: center;
+    }
+
+    .contact-benefits {
+        grid-template-columns: 1fr;
+    }
+
+    .direct-contact {
+        justify-content: center;
+    }
+
+    .contact-lead-form {
+        padding: 24px 18px;
+        border-radius: 18px;
+    }
+}
     </style>
 </head>
   <nav>
@@ -1970,34 +2129,74 @@ body {
 
 </section>
 
-<section id="kontakt" class="reveal">
-    <div class="contact-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 80px; width: 100%;">
-        <div class="contact-info">
-            <h2>Navrhnime Vašu <span>Stratégiu</span>.</h2>
-            <div class="contact-method">
-                <span class="method-label">Telefonický kontakt</span>
-                <a href="tel:0951499890" class="method-link">0951 499 890</a>
+<section id="kontakt" class="contact-lead-section reveal">
+
+    <div class="contact-lead-box">
+
+        <div class="contact-lead-info">
+
+            <div class="contact-badge">
+                🔍 Bezplatná finančná kontrola
             </div>
-            <div class="contact-method">
-                <span class="method-label">E-mailová adresa</span>
-                <a href="mailto:5538917@ovbmail.eu" class="method-link">5538917@ovbmail.eu</a>
+
+            <h2>
+                Zistite, či neplatíte zbytočne veľa
+            </h2>
+
+            <p>
+                Pošlite mi kontakt a pripravím vám nezáväznú kontrolu hypotéky, úverov, poistenia alebo dôchodkového nastavenia.
+            </p>
+
+            <div class="contact-benefits">
+                <div>✅ kontrola splátok a úverov</div>
+                <div>✅ porovnanie poistiek</div>
+                <div>✅ preverenie 2. a 3. piliera</div>
+                <div>✅ návrh ďalšieho kroku</div>
             </div>
-            <div class="contact-method">
-                <span class="method-label">Sídlo spoločnosti</span>
-                <p style="font-size: 1.05rem; margin-bottom: 5px;">OVB Allfinanz Slovensko a.s.</p>
-                <p style="font-size: 0.95rem; color: #64748b;">Pobočka Michalovce / Východné Slovensko<br><strong>Obchodná 2928/2, 071 01 Michalovce</strong></p>
+
+            <div class="direct-contact">
+                <a href="tel:0951499890">📞 0951 499 890</a>
+                <a href="mailto:5538917@ovbmail.eu">✉️ 5538917@ovbmail.eu</a>
             </div>
+
         </div>
-        <div class="contact-form" style="background: #f8fafc; padding: 40px; border-radius: 5px;">
+
+        <div class="contact-lead-form">
+
             <form action="https://formspree.io/f/xeepvqqy" method="POST">
-                <div class="form-group" style="margin-bottom: 15px;"><input type="text" name="name" placeholder="Meno a priezvisko" required style="width: 100%; padding: 10px;"></div>
-                <div class="form-group" style="margin-bottom: 15px;"><input type="email" name="email" placeholder="Váš e-mail" required style="width: 100%; padding: 10px;"></div>
-                <div class="form-group" style="margin-bottom: 15px;"><input type="tel" name="phone" placeholder="Telefónne číslo" style="width: 100%; padding: 10px;"></div>
-                <div class="form-group" style="margin-bottom: 15px;"><textarea name="message" rows="4" placeholder="Vaša správa..." required style="width: 100%; padding: 10px;"></textarea></div>
-                <button type="submit" class="btn-primary" style="width:100%; border:none; cursor:pointer; padding: 15px;">ODOSLAŤ ŽIADOSŤ</button>
+
+                <input type="text" name="name" placeholder="Meno a priezvisko" required>
+
+                <input type="email" name="email" placeholder="Váš e-mail" required>
+
+                <input type="tel" name="phone" placeholder="Telefónne číslo">
+
+                <select name="topic" required>
+                    <option value="">Čo chcete preveriť?</option>
+                    <option>Hypotéku alebo refinancovanie</option>
+                    <option>Spotrebné úvery / konsolidáciu</option>
+                    <option>Poistenie</option>
+                    <option>2. alebo 3. pilier</option>
+                    <option>Investovanie</option>
+                    <option>Kariérnu príležitosť</option>
+                </select>
+
+                <textarea name="message" rows="4" placeholder="Krátko napíšte, čo riešite..."></textarea>
+
+                <button type="submit">
+                    CHCEM BEZPLATNÚ KONTROLU
+                </button>
+
+                <small>
+                    Odpoviem vám osobne. Nejde o žiadny automat.
+                </small>
+
             </form>
+
         </div>
+
     </div>
+
 </section>
 
 <section class="contact-map reveal">

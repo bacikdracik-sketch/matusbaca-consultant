@@ -895,6 +895,31 @@
         max-width: 100% !important;
     }
 }
+        /* =========================================================
+   FORCE REMOVE MOBILE SIDE LINES
+========================================================= */
+
+@media (max-width: 768px) {
+
+    body::before,
+    body::after,
+    section::before,
+    section::after,
+    .container::before,
+    .container::after,
+    .bg-light::before,
+    .bg-light::after,
+    .values-section::before,
+    .values-section::after {
+        display: none !important;
+        content: none !important;
+        background: none !important;
+    }
+
+    body {
+        overflow-x: hidden !important;
+    }
+}
     </style>
 </head>
   <nav>

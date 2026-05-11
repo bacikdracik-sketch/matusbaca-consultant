@@ -1038,28 +1038,43 @@ button:active {
     }
 }
         /* =========================================================
-   MOBILE FLOATING CTA FIX
+   FINAL MOBILE FLOATING FIX
 ========================================================= */
 
 @media (max-width: 768px) {
+
     .floating-cta {
-        left: 16px !important;
-        right: 16px !important;
+        left: 14px !important;
+        right: auto !important;
         bottom: 18px !important;
-        justify-content: center !important;
+        width: calc(100% - 115px) !important;
+        z-index: 9998 !important;
     }
 
     .floating-btn.main {
         width: 100% !important;
-        max-width: 420px !important;
-        text-align: center !important;
-        padding: 16px 18px !important;
+        height: 58px !important;
+        padding: 0 14px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        font-size: 0.9rem !important;
         border-radius: 999px !important;
-        font-size: 0.95rem !important;
     }
 
     .floating-btn.phone {
         display: none !important;
+    }
+
+    .whatsapp-float,
+    .whatsapp-button,
+    .wa-float {
+        right: 18px !important;
+        bottom: 18px !important;
+        z-index: 9999 !important;
     }
 }
     </style>

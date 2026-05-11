@@ -1265,76 +1265,92 @@ body {
     }
 }
         /* =========================================================
-   PREMIUM MINIMAL HEADINGS
+   ABSOLUTE FINAL OVERRIDE — JEDNOTNÉ NADPISY A TLAČIDLÁ
 ========================================================= */
 
-.section-header {
-    text-align: center !important;
-    margin-bottom: 55px !important;
-    padding: 0 20px !important;
-}
-
+/* NADPISY SEKCIÍ */
+section .section-header h2,
 .section-header h2,
-.contact-lead-info h2,
-.career-lead-section h2,
-.bio-text h2,
-.contact-info h2 {
-    font-size: clamp(2rem, 5vw, 3.8rem) !important;
+#kontakt h2,
+#kariera-form h2,
+.bio-text h2 {
+    font-size: clamp(2rem, 5vw, 3.6rem) !important;
     font-weight: 200 !important;
-    line-height: 1.12 !important;
-    letter-spacing: 1px !important;
-    color: #0F172A !important;
+    line-height: 1.15 !important;
+    letter-spacing: 1.2px !important;
     text-transform: uppercase !important;
+    color: #0F172A !important;
 }
 
+section .section-header h2 span,
 .section-header h2 span,
-.contact-lead-info h2 span,
-.career-lead-section h2 span,
+#kontakt h2 span,
+#kariera-form h2 span,
 .bio-text h2 span,
-.contact-info h2 span {
+.bio-text h2 b {
     color: #B38E44 !important;
     font-weight: 700 !important;
 }
 
-/* TMAVÉ SEKCIE */
-.hero h1,
-.career-lead-section h2,
-.contact-lead-info h2,
+/* NADPISY NA TMAVOM POZADÍ */
+#kariera-form h2,
+#kontakt h2,
 .bio-text h2 {
-    color: white !important;
+    color: #ffffff !important;
 }
 
-/* POPISY */
-.section-header p,
-.contact-lead-info p,
-.career-lead-section p,
-.bio-text p {
-    max-width: 760px !important;
-    margin: 24px auto 0 !important;
-    font-size: 1rem !important;
-    line-height: 1.9 !important;
-    color: #64748B !important;
-    font-weight: 300 !important;
+/* TLAČIDLÁ — MODRÉ */
+a.btn-primary,
+.btn-primary,
+button,
+input[type="submit"],
+.hero-cta,
+.career-cta,
+.lead-review-btn,
+.floating-btn.main,
+.contact-lead-form button,
+.card button,
+.inline-calculator button {
+    background: #002e5d !important;
+    background-color: #002e5d !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 999px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    text-decoration: none !important;
+    box-shadow: 0 10px 24px rgba(0, 46, 93, 0.16) !important;
 }
 
-.hero p,
-.career-lead-section p,
-.contact-lead-info p,
-.bio-text p {
-    color: rgba(255,255,255,0.82) !important;
+/* HOVER — ZLATÉ */
+a.btn-primary:hover,
+.btn-primary:hover,
+button:hover,
+input[type="submit"]:hover,
+.hero-cta:hover,
+.career-cta:hover,
+.lead-review-btn:hover,
+.floating-btn.main:hover,
+.contact-lead-form button:hover,
+.card button:hover,
+.inline-calculator button:hover {
+    background: #B38E44 !important;
+    background-color: #B38E44 !important;
+    color: #ffffff !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 14px 28px rgba(179, 142, 68, 0.25) !important;
 }
 
-/* MOBILE */
+/* MOBIL */
 @media (max-width: 768px) {
-
+    section .section-header h2,
     .section-header h2,
-    .contact-lead-info h2,
-    .career-lead-section h2,
-    .bio-text h2,
-    .contact-info h2 {
+    #kontakt h2,
+    #kariera-form h2,
+    .bio-text h2 {
         font-size: 2rem !important;
         line-height: 1.2 !important;
-        letter-spacing: 0.5px !important;
     }
 }
     </style>

@@ -394,8 +394,14 @@
 /* Na mobiloch pod sebou */
 @media (max-width: 992px) {
     .grid-3 { 
-        grid-template-columns: 1fr; /* Prepne na jeden stĺpec */
-        max-width: 500px; /* Na mobile nechceme, aby boli karty príliš široké */
+        grid-template-columns: 1fr;
+        max-width: 100% !important;
+        width: 100% !important;
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        box-sizing: border-box !important;
     }
 }
         /* =========================================================

@@ -398,6 +398,27 @@
         max-width: 500px; /* Na mobile nechceme, aby boli karty príliš široké */
     }
 }
+        /* =========================================================
+   PREMIUM CARD HOVER EFFECT
+========================================================= */
+
+.card {
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+    border-color: #B38E44;
+}
+
+.card:hover .card-icon img {
+    transform: scale(1.06);
+}
+
+.card-icon img {
+    transition: transform 0.45s ease;
+}
       
         /* --- O MNE (BIO) --- */
         .bio {
@@ -1437,7 +1458,6 @@
 
             <div class="card premium-card" id="card-renta" style="overflow: hidden; border-radius: 12px; background: white; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
                 <div class="card-icon" onclick="toggleCalculator('calc-renta','card-renta')" style="cursor:pointer; position: relative;">
-                    <div class="icon-badge" style="position: absolute; top: 10px; left: 10px; background: #B38E44; color: white; padding: 4px 10px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; z-index: 10;">TOP ANALÝZA</div>
                     <img src="https://images.unsplash.com/photo-1434626881859-194d67b2b86f?auto=format&fit=crop&w=500&q=80" alt="Dôchodok" style="width: 100%; height: 200px; object-fit: cover; display: block;">
                 </div>
     <div class="card-content" style="padding:20px;">
@@ -1477,7 +1497,6 @@
                          <!--BOX 8 — ŽIVOTNÉ RIZIKÁ-->
             <div class="card premium-card" id="card-osoby">
     <div class="card-icon" onclick="toggleCalculator('calc-osoby','card-osoby')">
-        <div class="icon-badge" style="background: #002e5d;">OVB EXPERT</div>
         <img src="https://images.unsplash.com/photo-1557333610-90ee4a951ecf?auto=format&fit=crop&w=500&q=80" alt="Osoby">
     </div>
     <div class="card-content" style="padding:20px;">
@@ -1517,7 +1536,6 @@
                 <!--BOX 9 — MAJETOK / PZP-->
             <div class="card premium-card" id="card-majetok">
     <div class="card-icon" onclick="toggleCalculator('calc-majetok','card-majetok')">
-        <div class="icon-badge" style="background: #002e5d;">OVB MAJETOK</div>
         <img src="https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?auto=format&fit=crop&w=500&q=80" alt="Majetok">
     </div>
     <div class="card-content" style="padding:20px;">

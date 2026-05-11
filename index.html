@@ -1397,6 +1397,60 @@ body {
         font-size: 0.9rem !important;
     }
 }
+    /* =========================================================
+   ULTIMATE MOBILE OVERFLOW FIX
+========================================================= */
+
+@media (max-width: 768px) {
+
+    * {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    html,
+    body {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        position: relative !important;
+    }
+
+    body {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    section,
+    .container,
+    .grid-3,
+    .card,
+    .contact-container,
+    .values-section,
+    .bg-light {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        overflow: hidden !important;
+    }
+
+    img,
+    video,
+    iframe {
+        max-width: 100% !important;
+        height: auto !important;
+        display: block !important;
+    }
+
+    [style*="100vw"] {
+        width: 100% !important;
+    }
+
+    [style*="translateX"] {
+        transform: none !important;
+    }
+}
     </style>
 </head>
   <nav>

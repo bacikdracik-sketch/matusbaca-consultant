@@ -870,47 +870,7 @@
         @media (max-width: 768px) {
             .whatsapp-float { bottom: 20px; right: 20px; width: 50px; height: 50px; }
         }
-/* =========================================================
-   CLEAN MOBILE EDGE FIX
-========================================================= */
 
-@media (max-width: 768px) {
-
-    html,
-    body {
-        overflow-x: hidden !important;
-        max-width: 100% !important;
-    }
-
-    body::before,
-    body::after,
-    section::before,
-    section::after,
-    .container::before,
-    .container::after,
-    .grid-3::before,
-    .grid-3::after {
-        display: none !important;
-        content: none !important;
-    }
-
-    section,
-    .container,
-    .grid-3,
-    .card,
-    .premium-card,
-    .bg-light {
-        border-left: none !important;
-        border-right: none !important;
-        box-shadow: none !important;
-    }
-
-    .grid-3 {
-        padding-left: 16px !important;
-        padding-right: 16px !important;
-    }
-}
-      
         /* =========================================================
    GLOBAL BUTTON SYSTEM
 ========================================================= */
@@ -1406,6 +1366,37 @@ body {
         z-index: 9999 !important;
     }
         }
+    /* =========================================================
+   KARIÉRA MOBILE FIX
+========================================================= */
+
+@media (max-width: 768px) {
+
+    #kariera-form {
+        padding: 90px 18px !important;
+        background-position: center center !important;
+        background-size: cover !important;
+        overflow: hidden !important;
+    }
+
+    #kariera-form .section-header h2 {
+        font-size: 2.2rem !important;
+        line-height: 1.2 !important;
+    }
+
+    #kariera-form p {
+        font-size: 1.05rem !important;
+        line-height: 1.8 !important;
+    }
+
+    #kariera-form .btn-primary {
+        width: 100% !important;
+        max-width: 100% !important;
+        display: block !important;
+        padding: 18px 20px !important;
+        font-size: 0.9rem !important;
+    }
+}
     </style>
 </head>
   <nav>
@@ -2213,16 +2204,7 @@ body {
         </div>
         <div style="flex: 1; min-width: 200px;">
             <h3 style="font-size: 2.8rem; color: #d4af37; margin-bottom: 5px; font-weight: 700;">1.</h3>
-            <p style="font-weight: 600; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">Rok skúseností</p>
-        </div>
-        <div style="flex: 1; min-width: 200px;">
-            <h3 style="font-size: 2.8rem; color: #d4af37; margin-bottom: 5px; font-weight: 700;">100%</h3>
-            <p style="font-weight: 600; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">Osobný prístup</p>
-        </div>
-    </div>
-</section>
-    
-<section id="kariera-form" class="reveal" style="padding: 140px 10%; margin-top: 60px; background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), url('kariera-team.png') center/cover no-repeat; color: white; text-align: center;">
+            <p style="font-weight: 600; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">Rok skúseností</p><section id="kariera-form" class="reveal" style="margin-top: 60px; background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), url('kariera-team.png') center/cover no-repeat; color: white; text-align: center;">
     <div class="section-header">
         <h2 style="color: white !important;">Buduj <span>Kariéru</span> so mnou</h2>
     </div>

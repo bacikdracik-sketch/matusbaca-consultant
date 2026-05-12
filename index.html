@@ -1743,58 +1743,112 @@ input[type="submit"]:hover,
 }
 
 .point-straske {
-    top: 47%;
-    left: 89%;
+/* =========================================================
+   PREMIUM MAPA KLIENTOV
+========================================================= */
+
+.client-map-section {
+    padding: 110px 20px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #020817 0%,
+            #0f172a 100%
+        );
+
+    position: relative;
+    overflow: hidden;
+}
+
+/* WRAP */
+
+.slovakia-map-wrapper {
+    max-width: 1100px;
+    margin: 70px auto 0;
+}
+
+/* SVG */
+
+.slovakia-map {
+    width: 100%;
+    height: auto;
+}
+
+/* TVAR SLOVENSKA */
+
+.map-shape {
+
+    fill:
+        linear-gradient(
+            135deg,
+            rgba(148,163,184,0.35),
+            rgba(255,255,255,0.08)
+        );
+
+    fill: rgba(148,163,184,0.28);
+
+    stroke: rgba(255,255,255,0.12);
+    stroke-width: 3;
+
+    filter:
+        drop-shadow(0 0 35px rgba(255,255,255,0.08));
+}
+
+/* BODY KLIENTOV */
+
+.client-dot {
+    fill: #fbbf24;
+
+    filter:
+        drop-shadow(0 0 12px rgba(251,191,36,0.9));
+
+    animation: pulseDot 2.6s infinite;
+}
+
+/* PULZ */
+
+@keyframes pulseDot {
+
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.18);
+        opacity: 0.85;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 /* CTA */
 
 .map-cta {
     text-align: center;
-    margin-top: 50px;
-        }
-        .slovakia-map-fake {
-    position: relative;
-    width: 100%;
-    height: 360px;
-    margin: 60px auto 0;
+    margin-top: 40px;
 }
 
-.sk-shape {
-    position: absolute;
-    inset: 40px 20px;
+/* MOBILE */
 
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,0.22),
-            rgba(148,163,184,0.38)
-        );
+@media (max-width: 768px) {
 
-    clip-path: polygon(
-        3% 55%,
-        13% 42%,
-        27% 38%,
-        38% 28%,
-        52% 34%,
-        66% 25%,
-        80% 35%,
-        96% 42%,
-        90% 58%,
-        75% 64%,
-        59% 70%,
-        43% 64%,
-        28% 70%,
-        13% 66%
-    );
+    .client-map-section {
+        padding: 90px 15px;
+    }
 
-    border: 2px solid rgba(251,191,36,0.35);
+    .slovakia-map-wrapper {
+        margin-top: 50px;
+    }
 
-    box-shadow:
-        0 0 40px rgba(251,191,36,0.12),
-        inset 0 0 30px rgba(255,255,255,0.05);
+    .section-header h2 {
+        font-size: 2rem;
+    }
 
-    opacity: 1;
 }
     </style>
 </head>
@@ -2645,20 +2699,47 @@ input[type="submit"]:hover,
         </p>
     </div>
 
-    <div class="slovakia-map-wrap">
+    <div class="slovakia-map-wrapper">
 
-        <div class="slovakia-map-fake">
-    <div class="sk-shape"></div>
+    <svg viewBox="0 0 1000 450" class="slovakia-map">
 
-    <div class="map-point point-bratislava" title="Bratislava"></div>
-    <div class="map-point point-zilina" title="Žilina"></div>
-    <div class="map-point point-banska" title="Banská Bystrica"></div>
-    <div class="map-point point-presov" title="Prešov"></div>
-    <div class="map-point point-kosice" title="Košice"></div>
-    <div class="map-point point-michalovce" title="Michalovce"></div>
-    <div class="map-point point-humenne" title="Humenné"></div>
-    <div class="map-point point-straske" title="Strážske"></div>
-</div>
+        <path class="map-shape"
+            d="
+            M65,250
+            L110,200
+            L180,190
+            L240,150
+            L330,165
+            L420,120
+            L520,145
+            L610,110
+            L700,160
+            L790,185
+            L900,210
+            L940,250
+            L915,295
+            L830,320
+            L740,350
+            L630,370
+            L540,345
+            L470,320
+            L390,340
+            L300,310
+            L220,330
+            L150,300
+            Z
+        " />
+
+        <circle class="client-dot" cx="220" cy="230" r="8" />
+        <circle class="client-dot" cx="380" cy="280" r="8" />
+        <circle class="client-dot" cx="640" cy="210" r="8" />
+        <circle class="client-dot" cx="760" cy="240" r="8" />
+        <circle class="client-dot" cx="850" cy="260" r="8" />
+        <circle class="client-dot" cx="900" cy="230" r="8" />
+
+    </svg>
+
+    </div>
 
     <div class="map-cta">
         <a href="#kontakt" class="btn-primary">

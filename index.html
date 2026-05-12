@@ -1634,6 +1634,123 @@ input[type="submit"]:hover,
         pointer-events: none !important;
     }
 }
+        /* =========================================================
+   PREMIUM MAPA KLIENTOV
+========================================================= */
+
+.client-map-section {
+    padding: 120px 20px;
+    background:
+        linear-gradient(
+            180deg,
+            #0f172a 0%,
+            #111827 100%
+        );
+
+    position: relative;
+    overflow: hidden;
+}
+
+.slovakia-map-wrap {
+    position: relative;
+    max-width: 900px;
+    margin: 70px auto 0;
+}
+
+.slovakia-map {
+    width: 100%;
+    opacity: 0.18;
+    filter:
+        drop-shadow(0 0 30px rgba(255,255,255,0.08));
+}
+
+/* BODY */
+
+.map-point {
+    width: 14px;
+    height: 14px;
+    background: #fbbf24;
+    border-radius: 50%;
+
+    position: absolute;
+
+    box-shadow:
+        0 0 0 rgba(251,191,36,0.7);
+
+    animation: pulse 2.5s infinite;
+}
+
+/* ANIMÁCIA */
+
+@keyframes pulse {
+
+    0% {
+        transform: scale(1);
+        box-shadow:
+            0 0 0 0 rgba(251,191,36,0.7);
+    }
+
+    70% {
+        transform: scale(1.2);
+        box-shadow:
+            0 0 0 18px rgba(251,191,36,0);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow:
+            0 0 0 0 rgba(251,191,36,0);
+    }
+}
+
+/* POZÍCIE MIEST */
+
+.point-bratislava {
+    top: 73%;
+    left: 10%;
+}
+
+.point-zilina {
+    top: 43%;
+    left: 35%;
+}
+
+.point-banska {
+    top: 58%;
+    left: 43%;
+}
+
+.point-presov {
+    top: 36%;
+    left: 82%;
+}
+
+.point-kosice {
+    top: 50%;
+    left: 86%;
+}
+
+.point-michalovce {
+    top: 53%;
+    left: 93%;
+}
+
+.point-humenne {
+    top: 40%;
+    left: 90%;
+}
+
+.point-straske {
+    top: 47%;
+    left: 89%;
+}
+
+/* CTA */
+
+.map-cta {
+    text-align: center;
+    margin-top: 50px;
+        }
     </style>
 </head>
   <nav>
@@ -2464,41 +2581,48 @@ input[type="submit"]:hover,
 
 </section>
     <!-- =========================================================
-     MAPA KLIENTOV — PREMIUM TRUST SECTION
+     PREMIUM MAPA KLIENTOV SLOVENSKO
 ========================================================= -->
 
-<section class="client-map-section reveal">
+<section class="client-map-section">
 
     <div class="section-header">
+        <span class="section-badge">DÔVERA KLIENTOV</span>
+
         <h2>
-            Dôvera klientov <span>naprieč Slovenskom</span>
+            Klienti po celom Slovensku
         </h2>
 
         <p>
-            Hypotéky, refinancovanie, poistenie, investície a finančné plánovanie —
-            osobne aj online pre klientov z rôznych miest Slovenska.
+            Pomáham ľuďom z rôznych miest Slovenska nastaviť hypotéky,
+            investície, poistenie aj finančný plán tak,
+            aby mali svoje financie pod kontrolou.
         </p>
     </div>
 
-    <div class="client-map-wrapper">
+    <div class="slovakia-map-wrap">
 
-        <div class="slovakia-map-fallback">
-    <div class="map-shape">Slovensko</div>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/32/Blank_map_of_Slovakia.svg"
+             alt="Mapa Slovenska"
+             class="slovakia-map">
 
-    <div class="map-dot kosice"><span>Košice</span></div>
-    <div class="map-dot michalovce"><span>Michalovce</span></div>
-    <div class="map-dot humenne"><span>Humenné</span></div>
-    <div class="map-dot strazske"><span>Strážske</span></div>
-    <div class="map-dot vranov"><span>Vranov nad Topľou</span></div>
-    <div class="map-dot snina"><span>Snina</span></div>
-    <div class="map-dot trebisov"><span>Trebišov</span></div>
-    <div class="map-dot topolcany"><span>Topoľčany</span></div>
-    <div class="map-dot partizanske"><span>Partizánske</span></div>
-    <div class="map-dot povazska"><span>Považská Bystrica</span></div>
-</div>
+        <!-- BODY MIEST -->
+
+        <div class="map-point point-kosice"></div>
+        <div class="map-point point-presov"></div>
+        <div class="map-point point-bratislava"></div>
+        <div class="map-point point-zilina"></div>
+        <div class="map-point point-banska"></div>
+        <div class="map-point point-michalovce"></div>
+        <div class="map-point point-humenne"></div>
+        <div class="map-point point-straske"></div>
+
     </div>
-    <div class="map-trust-line">
-        🟡 Osobné stretnutia • 💻 Online konzultácie • 📍 Klienti po celom Slovensku
+
+    <div class="map-cta">
+        <a href="#kontakt" class="btn-primary">
+            Chcem nezáväznú konzultáciu
+        </a>
     </div>
 
 </section>

@@ -1777,22 +1777,16 @@ input[type="submit"]:hover,
 
 /* TVAR SLOVENSKA */
 
-.map-shape {
+.slovakia-real-map {
+    width: 100%;
+    display: block;
 
-    fill:
-        linear-gradient(
-            135deg,
-            rgba(148,163,184,0.35),
-            rgba(255,255,255,0.08)
-        );
-
-    fill: rgba(148,163,184,0.28);
-
-    stroke: rgba(255,255,255,0.12);
-    stroke-width: 3;
+    opacity: 0.78;
 
     filter:
-        drop-shadow(0 0 35px rgba(255,255,255,0.08));
+        brightness(1.4)
+        contrast(1.1)
+        drop-shadow(0 0 30px rgba(255,255,255,0.10));
 }
 
 /* BODY KLIENTOV */
@@ -1807,6 +1801,65 @@ input[type="submit"]:hover,
 }
 
 /* PULZ */
+/* =========================================================
+   PREMIUM MAPA KLIENTOV — NOVÁ VERZIA
+========================================================= */
+
+.client-map-section {
+    padding: 110px 20px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #020817 0%,
+            #0f172a 100%
+        );
+
+    position: relative;
+    overflow: hidden;
+}
+
+/* WRAP */
+
+.slovakia-map-wrapper {
+    position: relative;
+    max-width: 1000px;
+    margin: 70px auto 0;
+}
+
+/* REÁLNA MAPA */
+
+.slovakia-real-map {
+    width: 100%;
+    display: block;
+
+    opacity: 0.78;
+
+    filter:
+        brightness(1.45)
+        contrast(1.08)
+        drop-shadow(0 0 28px rgba(255,255,255,0.10));
+}
+
+/* BODY KLIENTOV */
+
+.client-dot {
+    position: absolute;
+
+    width: 14px;
+    height: 14px;
+
+    background: #fbbf24;
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 18px rgba(251,191,36,0.9);
+
+    animation: pulseDot 2.5s infinite;
+}
+
+/* ANIMÁCIA */
 
 @keyframes pulseDot {
 
@@ -1816,7 +1869,7 @@ input[type="submit"]:hover,
     }
 
     50% {
-        transform: scale(1.18);
+        transform: scale(1.25);
         opacity: 0.85;
     }
 
@@ -1826,11 +1879,91 @@ input[type="submit"]:hover,
     }
 }
 
+/* =========================================================
+   BODY MIEST
+========================================================= */
+
+/* ZÁPAD */
+
+.dot-bratislava {
+    left: 8%;
+    top: 72%;
+}
+
+.dot-trnava {
+    left: 12%;
+    top: 66%;
+}
+
+.dot-nitra {
+    left: 21%;
+    top: 67%;
+}
+
+/* STRED */
+
+.dot-zilina {
+    left: 35%;
+    top: 42%;
+}
+
+.dot-banska {
+    left: 44%;
+    top: 58%;
+}
+
+.dot-martin {
+    left: 40%;
+    top: 46%;
+}
+
+/* VÝCHOD */
+
+.dot-poprad {
+    left: 63%;
+    top: 40%;
+}
+
+.dot-presov {
+    left: 79%;
+    top: 38%;
+}
+
+.dot-kosice {
+    left: 84%;
+    top: 52%;
+}
+
+.dot-vranov {
+    left: 87%;
+    top: 41%;
+}
+
+.dot-humenne {
+    left: 91%;
+    top: 39%;
+}
+
+.dot-straske {
+    left: 90%;
+    top: 48%;
+}
+
+.dot-michalovce {
+    left: 92%;
+    top: 54%;
+}
+
+.dot-trebisov {
+    left: 86%;
+    top: 60%;
+}
+
 /* CTA */
 
 .map-cta {
     text-align: center;
-    margin-top: 40px;
+    margin-top: 45px;
 }
 
 /* MOBILE */
@@ -1845,10 +1978,14 @@ input[type="submit"]:hover,
         margin-top: 50px;
     }
 
+    .client-dot {
+        width: 11px;
+        height: 11px;
+    }
+
     .section-header h2 {
         font-size: 2rem;
     }
-
 }
     </style>
 </head>
@@ -2701,45 +2838,31 @@ input[type="submit"]:hover,
 
     <div class="slovakia-map-wrapper">
 
-    <svg viewBox="0 0 1000 450" class="slovakia-map">
+    <img src="slovensko.svg"
+         alt="Mapa Slovenska"
+         class="slovakia-real-map">
 
-        <path class="map-shape"
-            d="
-            M65,250
-            L110,200
-            L180,190
-            L240,150
-            L330,165
-            L420,120
-            L520,145
-            L610,110
-            L700,160
-            L790,185
-            L900,210
-            L940,250
-            L915,295
-            L830,320
-            L740,350
-            L630,370
-            L540,345
-            L470,320
-            L390,340
-            L300,310
-            L220,330
-            L150,300
-            Z
-        " />
+    <!-- ZÁPAD -->
+    <div class="client-dot dot-bratislava" title="Bratislava"></div>
+    <div class="client-dot dot-trnava" title="Trnava"></div>
+    <div class="client-dot dot-nitra" title="Nitra"></div>
 
-        <circle class="client-dot" cx="220" cy="230" r="8" />
-        <circle class="client-dot" cx="380" cy="280" r="8" />
-        <circle class="client-dot" cx="640" cy="210" r="8" />
-        <circle class="client-dot" cx="760" cy="240" r="8" />
-        <circle class="client-dot" cx="850" cy="260" r="8" />
-        <circle class="client-dot" cx="900" cy="230" r="8" />
+    <!-- STRED -->
+    <div class="client-dot dot-zilina" title="Žilina"></div>
+    <div class="client-dot dot-banska" title="Banská Bystrica"></div>
+    <div class="client-dot dot-martin" title="Martin"></div>
 
-    </svg>
+    <!-- VÝCHOD -->
+    <div class="client-dot dot-presov" title="Prešov"></div>
+    <div class="client-dot dot-kosice" title="Košice"></div>
+    <div class="client-dot dot-vranov" title="Vranov nad Topľou"></div>
+    <div class="client-dot dot-humenne" title="Humenné"></div>
+    <div class="client-dot dot-straske" title="Strážske"></div>
+    <div class="client-dot dot-michalovce" title="Michalovce"></div>
+    <div class="client-dot dot-trebisov" title="Trebišov"></div>
+    <div class="client-dot dot-poprad" title="Poprad"></div>
 
-    </div>
+</div>
 
     <div class="map-cta">
         <a href="#kontakt" class="btn-primary">

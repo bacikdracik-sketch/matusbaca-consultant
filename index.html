@@ -1354,14 +1354,14 @@ input[type="submit"]:hover,
     }
 }
         /* =========================================================
-   PREMIUM MAPA KLIENTOV SLOVENSKO
+   PREMIUM MAPA KLIENTOV SLOVENSKO — SVG VERZIA
 ========================================================= */
 
 .client-map-section {
     position: relative;
     padding: 120px 20px;
     background:
-        radial-gradient(circle at 50% 40%, rgba(56, 189, 248, 0.16), transparent 35%),
+        radial-gradient(circle at 50% 42%, rgba(56, 189, 248, 0.18), transparent 36%),
         radial-gradient(circle at 20% 20%, rgba(250, 204, 21, 0.08), transparent 25%),
         linear-gradient(180deg, #020617 0%, #0f172a 55%, #020617 100%);
     overflow: hidden;
@@ -1399,23 +1399,23 @@ input[type="submit"]:hover,
     line-height: 1.7;
 }
 
-.slovakia-map-wrapper {
+.svg-map-holder {
     position: relative;
-    max-width: 980px;
-    margin: 0 auto;
+    max-width: 1000px;
+    margin: 70px auto 0;
 }
 
-.slovakia-real-map {
-    display: block;
+.slovakia-svg-map {
     width: 100%;
     height: auto;
-    opacity: 0.78;
-    filter:
-        brightness(0.55)
-        contrast(1.25)
-        saturate(0.85)
-        drop-shadow(0 0 35px rgba(56, 189, 248, 0.35));
-    border-radius: 28px;
+    display: block;
+}
+
+.slovakia-shape {
+    fill: rgba(30, 41, 59, 0.96);
+    stroke: rgba(148, 163, 184, 0.45);
+    stroke-width: 3;
+    filter: drop-shadow(0 0 35px rgba(56, 189, 248, 0.28));
 }
 
 .client-dot {
@@ -1424,21 +1424,21 @@ input[type="submit"]:hover,
     height: 11px;
     border-radius: 50%;
     background: #facc15;
-    box-shadow:
-        0 0 10px #facc15,
-        0 0 24px #facc15,
-        0 0 48px rgba(250, 204, 21, 0.85);
     transform: translate(-50%, -50%);
     animation: mapPulse 2.4s infinite ease-in-out;
     z-index: 5;
+    box-shadow:
+        0 0 6px #facc15,
+        0 0 14px rgba(250, 204, 21, 0.9),
+        0 0 24px rgba(250, 204, 21, 0.55);
 }
 
 .client-dot::before {
     content: "";
     position: absolute;
-    inset: -14px;
+    inset: -12px;
     border-radius: 50%;
-    background: rgba(250, 204, 21, 0.18);
+    background: rgba(250, 204, 21, 0.15);
     animation: mapRipple 2.4s infinite ease-out;
 }
 
@@ -1449,7 +1449,7 @@ input[type="submit"]:hover,
     top: -9px;
     padding: 4px 8px;
     border-radius: 999px;
-    background: rgba(15, 23, 42, 0.82);
+    background: rgba(15, 23, 42, 0.88);
     border: 1px solid rgba(148, 163, 184, 0.25);
     color: #e5e7eb;
     font-size: 0.72rem;
@@ -1465,37 +1465,31 @@ input[type="submit"]:hover,
 }
 
 /* POZÍCIE MIEST */
-/* ZÁPAD */
-.dot-bratislava { left: 10%; top: 48%; }
-.dot-trnava { left: 18%; top: 43%; }
-.dot-nitra { left: 27%; top: 47%; }
-.dot-topolcany { left: 33%; top: 40%; }
-.dot-partizanske { left: 36%; top: 37%; }
+.dot-bratislava { left: 12%; top: 52%; }
+.dot-trnava { left: 21%; top: 48%; }
+.dot-nitra { left: 29%; top: 55%; }
+.dot-topolcany { left: 34%; top: 49%; }
+.dot-partizanske { left: 37%; top: 47%; }
 
-/* STRED */
-.dot-povazska { left: 39%; top: 31%; }
-.dot-zilina { left: 44%; top: 29%; }
-.dot-martin { left: 48%; top: 33%; }
-.dot-banska { left: 54%; top: 44%; }
-.dot-poprad { left: 65%; top: 35%; }
+.dot-povazska { left: 40%; top: 42%; }
+.dot-zilina { left: 45%; top: 40%; }
+.dot-martin { left: 48%; top: 45%; }
+.dot-banska { left: 54%; top: 56%; }
+.dot-poprad { left: 64%; top: 46%; }
 
-/* VÝCHOD */
-.dot-presov { left: 76%; top: 33%; }
-.dot-kosice { left: 81%; top: 46%; }
-.dot-vranov { left: 81%; top: 37%; }
-.dot-humenne { left: 87%; top: 35%; }
-.dot-straske { left: 86%; top: 43%; }
-.dot-michalovce { left: 90%; top: 46%; }
-.dot-trebisov { left: 86%; top: 53%; }
-        
-.dot-kosice,
-.dot-presov {
+.dot-presov { left: 72%; top: 47%; }
+.dot-kosice { left: 75%; top: 59%; }
+.dot-vranov { left: 77%; top: 50%; }
+.dot-humenne { left: 82%; top: 48%; }
+.dot-straske { left: 80%; top: 54%; }
+.dot-michalovce { left: 85%; top: 56%; }
+.dot-trebisov { left: 82%; top: 63%; }
+
+.dot-bratislava,
+.dot-presov,
+.dot-kosice {
     width: 15px;
     height: 15px;
-}
-.dot-bratislava {
-    width: 16px;
-    height: 16px;
 }
 
 @keyframes mapPulse {
@@ -1512,10 +1506,10 @@ input[type="submit"]:hover,
 @keyframes mapRipple {
     0% {
         transform: scale(0.6);
-        opacity: 0.65;
+        opacity: 0.55;
     }
     100% {
-        transform: scale(1.9);
+        transform: scale(1.8);
         opacity: 0;
     }
 }
@@ -1530,13 +1524,20 @@ input[type="submit"]:hover,
         padding: 85px 16px;
     }
 
-    .slovakia-real-map {
-        border-radius: 18px;
+    .svg-map-holder {
+        margin-top: 45px;
     }
 
     .client-dot {
         width: 8px;
         height: 8px;
+    }
+
+    .dot-bratislava,
+    .dot-presov,
+    .dot-kosice {
+        width: 10px;
+        height: 10px;
     }
 
     .client-dot::after {
@@ -2411,18 +2412,12 @@ input[type="submit"]:hover,
 </div>
 
 </section>
-    <!-- =========================================================
-     PREMIUM MAPA KLIENTOV SLOVENSKO
-========================================================= -->
-
-<section class="client-map-section">
+    <section class="client-map-section">
 
     <div class="section-header">
         <span class="section-badge">DÔVERA KLIENTOV</span>
 
-        <h2>
-            Klienti po celom Slovensku
-        </h2>
+        <h2>Klienti po celom Slovensku</h2>
 
         <p>
             Pomáham ľuďom z rôznych miest Slovenska nastaviť hypotéky,
@@ -2431,35 +2426,47 @@ input[type="submit"]:hover,
         </p>
     </div>
 
-    <div class="slovakia-map-wrapper">
+    <div class="svg-map-holder">
 
-    <img src="slovensko.jpg"
-     alt="Mapa Slovenska"
-     class="slovakia-real-map">
+        <svg class="slovakia-svg-map"
+             viewBox="0 0 1000 420"
+             preserveAspectRatio="xMidYMid meet">
 
-    <!-- ZÁPAD -->
-<div class="client-dot dot-bratislava" title="Bratislava"></div>
-<div class="client-dot dot-trnava" title="Trnava"></div>
-<div class="client-dot dot-nitra" title="Nitra"></div>
-<div class="client-dot dot-topolcany" title="Topoľčany"></div>
-<div class="client-dot dot-partizanske" title="Partizánske"></div>
+            <path
+                class="slovakia-shape"
+                d="M70,220
+                   C120,125 250,105 340,130
+                   C430,75 565,90 650,140
+                   C750,105 890,145 930,215
+                   C885,300 750,315 650,285
+                   C560,345 420,315 335,285
+                   C240,325 115,300 70,220 Z"/>
+        </svg>
 
-<!-- STRED -->
-<div class="client-dot dot-zilina" title="Žilina"></div>
-<div class="client-dot dot-banska" title="Banská Bystrica"></div>
-<div class="client-dot dot-martin" title="Martin"></div>
-<div class="client-dot dot-povazska" title="Považská Bystrica"></div>
-<div class="client-dot dot-poprad" title="Poprad"></div>
+        <!-- ZÁPAD -->
+        <div class="client-dot dot-bratislava" title="Bratislava"></div>
+        <div class="client-dot dot-trnava" title="Trnava"></div>
+        <div class="client-dot dot-nitra" title="Nitra"></div>
+        <div class="client-dot dot-topolcany" title="Topoľčany"></div>
+        <div class="client-dot dot-partizanske" title="Partizánske"></div>
 
-<!-- VÝCHOD -->
-<div class="client-dot dot-presov" title="Prešov"></div>
-<div class="client-dot dot-kosice" title="Košice"></div>
-<div class="client-dot dot-vranov" title="Vranov nad Topľou"></div>
-<div class="client-dot dot-humenne" title="Humenné"></div>
-<div class="client-dot dot-straske" title="Strážske"></div>
-<div class="client-dot dot-michalovce" title="Michalovce"></div>
-<div class="client-dot dot-trebisov" title="Trebišov"></div>
-</div>
+        <!-- STRED -->
+        <div class="client-dot dot-zilina" title="Žilina"></div>
+        <div class="client-dot dot-banska" title="Banská Bystrica"></div>
+        <div class="client-dot dot-martin" title="Martin"></div>
+        <div class="client-dot dot-povazska" title="Považská Bystrica"></div>
+        <div class="client-dot dot-poprad" title="Poprad"></div>
+
+        <!-- VÝCHOD -->
+        <div class="client-dot dot-presov" title="Prešov"></div>
+        <div class="client-dot dot-kosice" title="Košice"></div>
+        <div class="client-dot dot-vranov" title="Vranov nad Topľou"></div>
+        <div class="client-dot dot-humenne" title="Humenné"></div>
+        <div class="client-dot dot-straske" title="Strážske"></div>
+        <div class="client-dot dot-michalovce" title="Michalovce"></div>
+        <div class="client-dot dot-trebisov" title="Trebišov"></div>
+
+    </div>
 
     <div class="map-cta">
         <a href="#kontakt" class="btn-primary">

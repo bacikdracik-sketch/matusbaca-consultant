@@ -1598,6 +1598,42 @@ input[type="submit"]:hover,
         line-height: 1.8;
     }
 }
+        /* =========================================================
+   MOBILE CALCULATOR CLICK FIX
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .card,
+    .premium-card,
+    .card-icon,
+    .card-icon img,
+    .card-content {
+        position: relative !important;
+        z-index: 5 !important;
+        pointer-events: auto !important;
+    }
+
+    .card-icon {
+        cursor: pointer !important;
+        touch-action: manipulation !important;
+    }
+
+    .inline-calculator {
+        position: relative !important;
+        z-index: 10 !important;
+        pointer-events: auto !important;
+    }
+
+    section::before,
+    section::after,
+    .container::before,
+    .container::after,
+    .grid-3::before,
+    .grid-3::after {
+        pointer-events: none !important;
+    }
+}
     </style>
 </head>
   <nav>

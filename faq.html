@@ -396,33 +396,8 @@
     <p class="copyright">Všetky práva vyhradené &copy; 2026 | Matúš Bača</p>
 </footer>
 
-    <script>
-        // Accordion
-        document.querySelectorAll('.faq-question').forEach(button => {
-            button.addEventListener('click', () => {
-                const faqItem = button.parentElement;
-                document.querySelectorAll('.faq-item').forEach(item => { if (item !== faqItem) item.classList.remove('active'); });
-                faqItem.classList.toggle('active');
-            });
-        });
-
-        // Vyhľadávanie
-        function filterFAQ() {
-            let input = document.getElementById('faqSearch').value.toLowerCase();
-            document.querySelectorAll('.faq-item').forEach(item => {
-                item.style.display = item.innerText.toLowerCase().includes(input) ? "block" : "none";
-            });
-        }
-
-        // Animácie a Back to Top
-        window.onscroll = function() {
-            let btt = document.getElementById("backToTop");
-            if (window.pageYOffset > 400) { btt.style.display = "flex"; } else { btt.style.display = "none"; }
-            
-            document.querySelectorAll(".reveal").forEach(el => {
-                if (el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add("active");
-            });
-        };
-    </script>
+    function toggleMenu() {
+    document.getElementById("navLinks").classList.toggle("active");
+}
 </body>
 </html>

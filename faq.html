@@ -219,9 +219,9 @@
     cursor: pointer;
 }
 
-@media (max-width: 768px) {
-    .menu-toggle {
-        display: block;
+@media (max-width: 768px) { 
+    .nav-links { 
+        display: none; 
     }
 
     .nav-links.active {
@@ -234,8 +234,15 @@
         background: white;
         padding: 20px;
         box-shadow: 0 15px 30px rgba(0,0,0,0.12);
-        z-index: 999;
+        z-index: 9999;
     }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .partners-container { gap: 15px; } 
+    .partners-container img { height: 25px; }
 }
     </style>
 </head>

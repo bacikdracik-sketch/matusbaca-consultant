@@ -305,6 +305,38 @@ nav {
         height: 25px;
     }
 }
+    /* FINAL MOBILE MENU FIX */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .nav-links {
+        display: none !important;
+    }
+
+    .nav-links.active {
+        display: flex !important;
+        position: absolute;
+        top: 75px;
+        left: 8%;
+        right: 8%;
+        background: #111;
+        border-radius: 18px;
+        padding: 20px;
+        flex-direction: column;
+        gap: 18px;
+        z-index: 99999;
+    }
+
+    .nav-links.active a {
+        color: #ffffff !important;
+        text-decoration: none;
+        width: 100%;
+    }
+}
 </style>
 
 </head>

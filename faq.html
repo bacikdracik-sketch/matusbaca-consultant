@@ -213,40 +213,47 @@
         /* MOBILE MENU */
 .menu-toggle {
     display: none;
-    background: transparent;
-    border: none;
-    color: #ffffff;
-    font-size: 32px;
+    background: #111;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #fff;
+    font-size: 30px;
     line-height: 1;
     cursor: pointer;
-    padding: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Desktop navigácia */
+/* Desktop */
 .nav-links {
     display: flex;
     align-items: center;
     gap: 25px;
 }
 
+/* NAV */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
 /* Mobil */
 @media (max-width: 768px) {
 
-    nav {
-        position: relative;
-        z-index: 1000;
-    }
-
     .menu-toggle {
-        display: block;
+        display: flex;
         position: relative;
         z-index: 10001;
     }
 
     .nav-links {
         position: absolute;
-        top: 80px;
-        right: 20px;
+        top: 75px;
+        right: 0;
 
         background: #111;
 
@@ -283,7 +290,9 @@
 <nav>
     <a href="index.html" class="logo">OVB <span>Michalovce</span></a>
 
-    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <button class="menu-toggle" onclick="toggleMenu()" aria-label="Otvoriť menu">
+    ☰
+</button>
 
     <div class="nav-links" id="navLinks">
         <a href="index.html">Domov</a>

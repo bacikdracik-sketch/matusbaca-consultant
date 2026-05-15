@@ -650,14 +650,22 @@ function toggleMenu() {
     }
 }
         /* FAQ SEARCH FILTER */
+function normalizeText(text) {
+    return text
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim();
+}
+
 function filterFAQ() {
     const searchInput = document.getElementById("faqSearch");
-    const searchText = searchInput.value.toLowerCase().trim();
+    const searchText = normalizeText(searchInput.value);
     const faqItems = document.querySelectorAll(".faq-item");
 
     faqItems.forEach(item => {
-        const question = item.querySelector(".faq-question").innerText.toLowerCase();
-        const answer = item.querySelector(".faq-answer").innerText.toLowerCase();
+        const question = normalizeText(item.querySelector(".faq-question").innerText);
+        const answer = normalizeText(item.querySelector(".faq-answer").innerText);
 
         if (question.includes(searchText) || answer.includes(searchText)) {
             item.style.display = "block";
@@ -673,7 +681,6 @@ function filterFAQ() {
         }
     });
 }
-
 /* FAQ otváranie otázok - vždy otvorená iba jedna */
 document.querySelectorAll(".faq-question").forEach(question => {
     question.addEventListener("click", () => {

@@ -386,6 +386,53 @@
         bottom: 85px;
     }
 }
+        /* FAQ VISUAL UPGRADES */
+
+/* Jemný premium glow pri FAQ kartách */
+.faq-item:hover {
+    border-color: rgba(212, 175, 55, 0.45);
+    box-shadow: 0 16px 40px rgba(212, 175, 55, 0.10);
+}
+
+/* Aktívna FAQ karta */
+.faq-item.active {
+    border-color: var(--ovb-gold);
+    box-shadow: 0 18px 45px rgba(212, 175, 55, 0.16);
+}
+
+/* Modernejší hero gradient */
+.faq-header {
+    background:
+        radial-gradient(circle at top, rgba(212, 175, 55, 0.16), transparent 35%),
+        linear-gradient(135deg, #0F172A 0%, #111827 55%, #050505 100%);
+}
+
+/* Jemné zvýraznenie nadpisu */
+.faq-header h1 span,
+.faq-header h1 strong {
+    color: var(--ovb-gold);
+}
+
+/* Ikonky pri kategóriách cez emoji */
+.faq-category-title::before {
+    margin-right: 10px;
+}
+
+.faq-category-title:nth-of-type(1)::before {
+    content: "🤝";
+}
+
+.faq-category-title:nth-of-type(2)::before {
+    content: "🏠";
+}
+
+.faq-category-title:nth-of-type(3)::before {
+    content: "📈";
+}
+
+.faq-category-title:nth-of-type(4)::before {
+    content: "👨‍👩‍👧";
+}
 </style>
 
 </head>

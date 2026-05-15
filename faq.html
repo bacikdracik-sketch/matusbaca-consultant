@@ -597,25 +597,31 @@ function toggleMenu() {
     }
 }
 
-/* FAQ otváranie otázok */
+/* FAQ otváranie otázok - vždy otvorená iba jedna */
 document.querySelectorAll(".faq-question").forEach(question => {
     question.addEventListener("click", () => {
         const item = question.parentElement;
         const answer = item.querySelector(".faq-answer");
         const icon = question.querySelector(".faq-icon");
+        const isOpen = item.classList.contains("active");
 
-        item.classList.toggle("active");
+        document.querySelectorAll(".faq-item").forEach(otherItem => {
+            otherItem.classList.remove("active");
 
-        if (item.classList.contains("active")) {
+            const otherAnswer = otherItem.querySelector(".faq-answer");
+            const otherIcon = otherItem.querySelector(".faq-icon");
+
+            if (otherAnswer) otherAnswer.style.maxHeight = null;
+            if (otherIcon) otherIcon.textContent = "+";
+        });
+
+        if (!isOpen) {
+            item.classList.add("active");
             answer.style.maxHeight = answer.scrollHeight + "px";
             if (icon) icon.textContent = "−";
-        } else {
-            answer.style.maxHeight = null;
-            if (icon) icon.textContent = "+";
         }
     });
 });
-
 /* Animácie pri scrollovaní */
 const revealElements = document.querySelectorAll(".reveal");
 

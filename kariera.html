@@ -372,8 +372,6 @@ footer { padding: 60px 10% 30px; background: #0a101f; text-align: center; color:
     box-shadow: 0 10px 20px rgba(179, 142, 68, 0.2); /* Jemný zlatý tieň */
 }
 
-CSS
-    ... všetky ostatné štýly ...
     .card p {
         font-size: 1rem;
         color: var(--text-light);
@@ -400,29 +398,69 @@ CSS
 .card-new:hover .card-image-container img {
     transform: scale(1.05); /* Jemné priblíženie */
 }
-    /* --- RESPONZIVITA PRE MOBILY --- */
+    /* MOBILE MENU BUTTON */
+.menu-toggle {
+    display: none;
+    background: var(--primary-navy);
+    color: var(--pure-white);
+    border: 1px solid rgba(255,255,255,0.15);
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    font-size: 1.6rem;
+    cursor: pointer;
+}
+
+/* --- RESPONZIVITA PRE MOBILY --- */
 @media (max-width: 768px) {
-    .hero {
-        /* Zmeníme contain na cover, aby obrázok vyplnil celú plochu */
-        background-size: cover !important;
-        /* KĽÚČOVÉ: Zarovnáme na vrch, aby neosekalo hlavy */
-        background-position: top center !important; 
-        min-height: 80vh; /* Trochu skrátime výšku na mobile */
-        padding: 0 5%; /* Zmenšíme bočné okraje */
+
+    .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .nav-links.active {
         display: flex;
         flex-direction: column;
-        justify-content: flex-end; /* Text posunieme nižšie, aby nezakrýval tváre */
+        position: absolute;
+        top: 90px;
+        left: 8%;
+        right: 8%;
+        background: var(--primary-navy);
+        padding: 22px;
+        border-radius: 18px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+        gap: 18px;
+    }
+
+    .nav-links.active a {
+        color: white;
+    }
+
+    .hero {
+        background-size: cover !important;
+        background-position: top center !important;
+        min-height: 80vh;
+        padding: 0 5%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
         padding-bottom: 50px;
     }
 
     .hero-container {
-        margin-top: 0; /* Zrušíme ten veľký horný okraj */
+        margin-top: 0;
         max-width: 100%;
-        text-align: center; /* Na mobile to vyzerá lepšie vycentrované */
+        text-align: center;
     }
 
     .hero h1 {
-        font-size: 2.2rem; /* Zmenšíme písmo, aby sa zmestilo na šírku mobilu */
+        font-size: 2.2rem;
     }
 
     .hero p {
@@ -439,7 +477,12 @@ CSS
         <div class="logo-name">Matúš Bača</div>
         <div class="logo-sub">Finančný Konzultant</div>
     </div>
-    <div class="nav-links">
+
+    <button class="menu-toggle" onclick="toggleMenu()" aria-label="Otvoriť menu">
+        ☰
+    </button>
+
+    <div class="nav-links" id="navLinks">
         <a href="index.html#sluzby">Služby</a>
         <a href="index.html#investicie">Investovanie</a>
         <a href="index.html#filozofia">O mne</a>
@@ -501,7 +544,7 @@ CSS
     </div>
 </section>
     
-><section id="pozicie" style="background: var(--light-blue-bg);">
+<section id="pozicie" style="background: var(--light-blue-bg);">
     <div class="section-header">
         <h2>Otvárame <span>Pozície</span></h2>
     </div>
@@ -584,6 +627,22 @@ CSS
         <p style="font-size: 0.85rem; color: #d4af37; font-weight: 500;">Všetky práva vyhradené &copy; 2026 | Matúš Bača</p>
     </div>
 </footer>
+<script>
+function toggleMenu() {
+    const navLinks = document.getElementById("navLinks");
+    if (navLinks) {
+        navLinks.classList.toggle("active");
+    }
+}
 
+document.querySelectorAll("#navLinks a").forEach(link => {
+    link.addEventListener("click", () => {
+        const navLinks = document.getElementById("navLinks");
+        if (navLinks) {
+            navLinks.classList.remove("active");
+        }
+    });
+});
+</script>
 </body>
 </html>

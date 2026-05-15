@@ -468,6 +468,51 @@ footer { padding: 60px 10% 30px; background: #0a101f; text-align: center; color:
         margin: 15px 0 25px;
     }
 }
+    /* --- PRE KOHO JE KARIÉRA VHODNÁ --- */
+
+.ideal-section {
+    background: var(--pure-white);
+}
+
+.ideal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+}
+
+.ideal-card {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 40px 30px;
+    text-align: center;
+    transition: all 0.35s ease;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.04);
+}
+
+.ideal-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--gold-muted);
+    box-shadow: 0 18px 40px rgba(179, 142, 68, 0.16);
+}
+
+.ideal-icon {
+    font-size: 2.3rem;
+    margin-bottom: 18px;
+}
+
+.ideal-card h3 {
+    color: var(--primary-navy);
+    font-size: 1.05rem;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+}
+
+.ideal-card p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
 </style>
 </head>
 <body>
@@ -504,6 +549,31 @@ ktorá vám dá <b>slobodu aj rast</b>
                 <span style="font-family: serif; font-style: italic; font-size: 1.8rem; color: #d4af37; display: block; line-height: 1;">Matúš Bača</span>
                 <span style="font-size: 0.65rem; color: #d4af37; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;">Váš mentor</span>
             </div>
+        </div>
+    </div>
+</section>
+    <section id="pre-koho" class="ideal-section">
+    <div class="section-header">
+        <h2>Pre koho je táto <span>kariéra vhodná?</span></h2>
+    </div>
+
+    <div class="ideal-grid">
+        <div class="ideal-card">
+            <div class="ideal-icon">🚀</div>
+            <h3>Pre ambicióznych ľudí</h3>
+            <p>Ak nechcete ostať stáť na mieste a hľadáte priestor, kde môžete rásť podľa vlastného úsilia.</p>
+        </div>
+
+        <div class="ideal-card">
+            <div class="ideal-icon">🤝</div>
+            <h3>Pre komunikatívnych ľudí</h3>
+            <p>Ak radi pracujete s ľuďmi, viete počúvať a chcete im pomáhať robiť lepšie finančné rozhodnutia.</p>
+        </div>
+
+        <div class="ideal-card">
+            <div class="ideal-icon">📚</div>
+            <h3>Pre ľudí ochotných učiť sa</h3>
+            <p>Financie vás naučíme krok za krokom. Dôležitejšia než skúsenosť je chuť rásť a pracovať na sebe.</p>
         </div>
     </div>
 </section>

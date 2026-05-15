@@ -201,7 +201,9 @@
         .copyright { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; color: var(--ovb-gold); font-size: 0.85rem; }
         
         #backToTop { position: fixed; bottom: 30px; right: 30px; background: var(--ovb-gold); color: var(--ovb-blue); width: 45px; height: 45px; border-radius: 50%; display: none; align-items: center; justify-content: center; text-decoration: none; font-weight: bold; z-index: 1000; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-        
+        #backToTop.show {
+    display: flex;
+}
         .reveal { transform: translateY(30px); opacity: 0; transition: 0.8s all ease; }
         .reveal.active { transform: translateY(0); opacity: 1; }
 
@@ -211,7 +213,6 @@
             .partners-container img { height: 25px; }
         }
         /* MOBILE MENU */
-.menu-toggle {
 nav {
     display: flex;
     justify-content: space-between;
@@ -260,9 +261,9 @@ nav {
     cursor: pointer;
 }
 
-
-    /* FINAL MOBILE MENU FIX */
+/* FINAL MOBILE MENU FIX */
 @media (max-width: 768px) {
+
     .menu-toggle {
         display: flex !important;
         align-items: center;
@@ -284,12 +285,51 @@ nav {
         padding: 20px;
         border-radius: 18px;
         z-index: 99999;
+        gap: 15px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.4);
     }
 
     .nav-links.active a {
         color: white !important;
         text-decoration: none;
         padding: 10px 0;
+    }
+
+    .btn-nav {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* MOBILE STICKY CTA BUTTON */
+
+.mobile-sticky-cta {
+    display: none;
+}
+
+@media (max-width: 768px) {
+
+    .mobile-sticky-cta {
+        display: block;
+        position: fixed;
+        left: 20px;
+        right: 20px;
+        bottom: 18px;
+        background: var(--ovb-gold);
+        color: var(--ovb-blue);
+        text-align: center;
+        padding: 15px 20px;
+        border-radius: 14px;
+        font-weight: 800;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        z-index: 9999;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+    }
+
+    #backToTop {
+        bottom: 85px;
     }
 }
 </style>
@@ -481,7 +521,9 @@ nav {
     
     <p class="copyright">Všetky práva vyhradené &copy; 2026 | Matúš Bača</p>
 </footer>
-
+<a href="index.html#kontakt" class="mobile-sticky-cta">
+    Bezplatná konzultácia
+</a>
     <script>
 function toggleMenu() {
     const navLinks = document.getElementById("navLinks");
@@ -547,6 +589,16 @@ if (backToTop) {
         });
     });
 }
+     
+        /* Zavretie mobilného menu po kliknutí na odkaz */
+document.querySelectorAll("#navLinks a").forEach(link => {
+    link.addEventListener("click", () => {
+        const navLinks = document.getElementById("navLinks");
+        if (navLinks) {
+            navLinks.classList.remove("active");
+        }
+    });
+});
 </script>
 
 </body>

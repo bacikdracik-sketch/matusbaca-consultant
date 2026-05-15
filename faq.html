@@ -91,7 +91,8 @@
         .search-input { width: 100%; padding: 18px 30px; border-radius: 50px; border: 1px solid #ddd; box-shadow: 0 10px 25px rgba(0,0,0,0.05); font-size: 1rem; outline: none; transition: 0.3s; }
         .search-input:focus { border-color: var(--ovb-gold); box-shadow: 0 10px 25px rgba(212, 175, 55, 0.1); }
 
-        /* MODERN FAQ ACCORDION */
+       /* MODERN FAQ ACCORDION */
+
 .faq-container { 
     max-width: 900px; 
     margin: 0 auto 80px; 
@@ -118,16 +119,6 @@
     box-shadow: 0 8px 25px rgba(15, 23, 42, 0.04);
 }
 
-.faq-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 35px rgba(15, 23, 42, 0.08);
-}
-
-.faq-item.active {
-    border-color: var(--ovb-gold);
-    box-shadow: 0 12px 35px rgba(212, 175, 55, 0.12);
-}
-
 .faq-question {
     padding: 24px 28px;
     cursor: pointer;
@@ -138,37 +129,19 @@
     font-weight: 700;
     color: var(--ovb-blue);
     font-size: 1.05rem;
-    transition: 0.3s ease;
-}
-
-.faq-question:hover {
-    color: var(--ovb-gold);
 }
 
 .faq-icon {
     color: var(--ovb-gold);
     font-size: 1.5rem;
-    transition: transform 0.35s ease;
     flex-shrink: 0;
-}
-
-.faq-item.active .faq-icon {
-    transform: rotate(45deg);
 }
 
 .faq-answer {
     max-height: 0;
     overflow: hidden;
-    transition:
-        max-height 0.45s ease,
-        opacity 0.3s ease;
-    opacity: 0;
     background: #fafafa;
-}
-
-.faq-item.active .faq-answer {
-    max-height: 1000px;
-    opacity: 1;
+    transition: max-height 0.4s ease;
 }
 
 .faq-answer p {
@@ -179,6 +152,10 @@
     border-top: 1px solid #edf2f7;
 }
 
+.faq-item.active {
+    border-color: var(--ovb-gold);
+    box-shadow: 0 12px 35px rgba(212, 175, 55, 0.12);
+}
         /* NOVÁ VIZITKA S TLAČIDLOM NA OTÁZKU */
 .contact-card { 
     display: flex; 
@@ -315,8 +292,10 @@
     display: flex;
 }
         .reveal { transform: translateY(30px); opacity: 0; transition: 0.8s all ease; }
-        .reveal.active { transform: translateY(0); opacity: 1; }
-
+        .reveal.revealed {
+    transform: translateY(0);
+    opacity: 1;
+}
         @media (max-width: 768px) { 
             .nav-links { display: none; } 
             .partners-container { gap: 15px; } 
@@ -646,7 +625,7 @@ function revealOnScroll() {
         const windowHeight = window.innerHeight;
 
         if (elementTop < windowHeight - 80) {
-            element.classList.add("active");
+           element.classList.add("revealed");
         }
     });
 }

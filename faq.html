@@ -662,21 +662,37 @@ function filterFAQ() {
     const searchInput = document.getElementById("faqSearch");
     const searchText = normalizeText(searchInput.value);
     const faqItems = document.querySelectorAll(".faq-item");
+    let firstMatchOpened = false;
 
     faqItems.forEach(item => {
         const question = normalizeText(item.querySelector(".faq-question").innerText);
         const answer = normalizeText(item.querySelector(".faq-answer").innerText);
+        const answerBox = item.querySelector(".faq-answer");
+        const icon = item.querySelector(".faq-icon");
+
+        item.classList.remove("active");
+        answerBox.style.maxHeight = null;
+        if (icon) icon.textContent = "+";
+
+        if (searchText === "") {
+            item.style.display = "block";
+            item.classList.remove("search-match");
+            return;
+        }
 
         if (question.includes(searchText) || answer.includes(searchText)) {
             item.style.display = "block";
             item.classList.add("search-match");
+
+            if (!firstMatchOpened) {
+                item.classList.add("active");
+                answerBox.style.maxHeight = answerBox.scrollHeight + "px";
+                if (icon) icon.textContent = "−";
+                firstMatchOpened = true;
+            }
+
         } else {
             item.style.display = "none";
-            item.classList.remove("search-match");
-        }
-
-        if (searchText === "") {
-            item.style.display = "block";
             item.classList.remove("search-match");
         }
     });

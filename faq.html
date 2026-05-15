@@ -35,7 +35,40 @@
         .status-badge { display: inline-flex; align-items: center; background: rgba(34, 197, 94, 0.1); color: var(--success); padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 20px; }
         .dot { height: 8px; width: 8px; background-color: var(--success); border-radius: 50%; display: inline-block; margin-right: 8px; animation: pulse 2s infinite; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+        
+       /* FAQ HERO CONTENT */
 
+      .faq-header h1 {
+        font-size: clamp(2.2rem, 5vw, 4rem);
+        max-width: 850px;
+        margin: 0 auto 20px;
+        line-height: 1.1;
+  }
+
+     .faq-header p {
+       max-width: 760px;
+       margin: 0 auto 30px;
+       color: #cbd5e1;
+       font-size: 1.1rem;
+ }
+
+.hero-cta {
+    display: inline-block;
+    background: var(--ovb-gold);
+    color: var(--ovb-blue);
+    padding: 15px 30px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    transition: 0.3s ease;
+}
+
+.hero-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(212, 175, 55, 0.35);
+}
         /* --- POHYBLIVÝ PÁS PARTNEROV --- */
         .partners-section { padding: 60px 0; background: #fff; text-align: center; overflow: hidden; }
         .partners-title { font-size: 0.8rem; text-transform: uppercase; color: var(--text-gray); letter-spacing: 2px; margin-bottom: 30px; font-weight: 700; }
@@ -213,41 +246,6 @@
             .partners-container img { height: 25px; }
         }
         /* MOBILE MENU */
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 8%;
-    background: #050505;
-    position: relative;
-    z-index: 1000;
-}
-
-.logo {
-    color: #ffffff;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 1.2rem;
-}
-
-.logo span {
-    color: #d4af37;
-}
-
-.nav-links {
-    display: flex;
-    align-items: center;
-    gap: 25px;
-}
-
-.nav-links a {
-    color: #ffffff;
-    text-decoration: none;
-}
-
-.nav-links a:hover {
-    color: #d4af37;
-}
 
 .menu-toggle {
     display: none;
@@ -351,10 +349,21 @@ nav {
 </nav>
 
     <header class="faq-header">
-        <div class="status-badge"><span class="dot"></span> Aktuálne prijímam nových klientov</div>
-        <h1>Často kladené <span>otázky</span></h1>
-        <p>Všetko, čo potrebujete vedieť pred naším stretnutím.</p>
-    </header>
+    <div class="status-badge">
+        <span class="dot"></span> Aktuálne prijímam nových klientov
+    </div>
+
+    <h1>Bezplatne skontrolujem vaše financie</h1>
+
+    <p>
+        Odpovede na najčastejšie otázky o hypotékach, poistení, investovaní a spolupráci.
+        Ak nenájdete odpoveď, môžete mi rovno napísať.
+    </p>
+
+    <a href="index.html#kontakt" class="hero-cta">
+        Chcem bezplatnú konzultáciu
+    </a>
+</header>
     
 <section class="partners-section">
         <p class="partners-title">Spolupracujem s lídrami na finančnom trhu</p>

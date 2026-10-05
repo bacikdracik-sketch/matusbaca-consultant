@@ -2775,7 +2775,6 @@ function updateMajetok() {
     }
 }
 
-// --- 9. ODOSIELANIE (UNIVERZÁLNE) ---
 async function handleLeadSubmit(e, source) {
     e.preventDefault();
 
@@ -2788,22 +2787,66 @@ async function handleLeadSubmit(e, source) {
     const email = wrapper?.querySelector('input[type="email"]')?.value.trim() || "";
     const phone = wrapper?.querySelector('input[type="tel"]')?.value.trim() || "";
 
-    // Kontrola emailu
     if (!email || !email.includes("@")) {
         alert("⚠️ Zadajte platný e-mail.");
         return;
     }
 
-    // Kontrola telefónu
     if (phone.replace(/\D/g, "").length < 9) {
         alert("⚠️ Zadajte platné telefónne číslo.");
         return;
     }
 
     const originalText = btn.innerText;
-
     btn.disabled = true;
     btn.innerText = "ODOSIELAM...";
+
+    // Základné údaje
+    const data = {
+        email: email,
+        telefon: phone,
+        zdroj: source,
+        cas: new Date().toLocaleString('sk-SK')
+    };
+
+    // HYPOTEKÁRNY AUDIT
+    if (source === "Audit") {
+        data.vyska_hypoteky =
+            document.getElementById("rangeAmount")?.value + " €";
+
+        data.doba_splacania =
+            document.getElementById("rangeYears")?.value + " rokov";
+
+        data.aktualny_urok =
+            document.getElementById("rangeAuditRate")?.value + " %";
+
+        data.mesacna_splatka =
+            document.getElementById("auditMonthlyPayment")?.innerText + " €";
+
+        data.celkove_preplatenie =
+            document.getElementById("auditTotalOverpayment")?.innerText + " €";
+
+        data.odhad_uspory =
+            document.getElementById("auditSave")?.innerText + " €";
+    }
+
+    // REFINANCOVANIE
+    if (source === "Refinancovanie") {
+        data.sucasna_splatka =
+            document.getElementById("rangeCurrentPayment")?.value + " €";
+
+        data.sucasny_urok =
+            document.getElementById("rangeRate")?.value + " %";
+
+        data.zostatok_hypoteky =
+            document.getElementById("rangeDebt")?.value + " €";
+
+        data.odhad_novej_splatky =
+            document.getElementById("newPaymentVal")?.innerText + " €";
+
+        data.mesacna_uspora =
+            document.getElementById("estimatedSavings")?.innerText + " €";
+    }
 
     try {
         const response = await fetch(FORMSPREE_URL, {
@@ -2812,15 +2855,9 @@ async function handleLeadSubmit(e, source) {
                 "Content-Type": "application/json",
                 "Accept": "application/json"
             },
-            body: JSON.stringify({
-                email: email,
-                telefon: phone,
-                zdroj: source,
-                cas: new Date().toLocaleString('sk-SK')
-            })
+            body: JSON.stringify(data)
         });
 
-        // Ak Formspree odmietne formulár, neukážeme falošné "ODOSLANÉ"
         if (!response.ok) {
             throw new Error("Formspree odmietlo odoslanie.");
         }

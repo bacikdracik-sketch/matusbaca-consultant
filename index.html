@@ -2849,6 +2849,44 @@ async function handleLeadSubmit(e, source) {
             document.getElementById("estimatedSavings")?.innerText + " €";
     }
 
+    // INVESTOVANIE
+if (source === "Investovanie") {
+    data.mesacna_investicia =
+        document.getElementById("rangeInvest")?.value + " €";
+
+    data.doba_investovania =
+        document.getElementById("rangeYearsInvest")?.value + " rokov";
+
+    data.celkovo_vlozene =
+        document.getElementById("investTotal")?.innerText + " €";
+
+    data.odhadovana_hodnota =
+        document.getElementById("investFuture")?.innerText + " €";
+}
+
+// INFLÁCIA
+if (source === "Inflácia") {
+    data.suma_na_ucte =
+        document.getElementById("range5InfAmount")?.value + " €";
+
+    data.inflacia =
+        document.getElementById("range5InfRate")?.value + " %";
+
+    data.rocna_strata_hodnoty =
+        document.getElementById("inf5LossValue")?.innerText + " €";
+}
+
+// MAJETOK PRE DETI
+if (source === "Majetok pre deti") {
+    data.pociatocny_vklad =
+        document.getElementById("range6WealthBase")?.value + " €";
+
+    data.mesacne_odkladanie =
+        document.getElementById("range6WealthMonthly")?.value + " €";
+
+    data.kapital_o_20_rokov =
+        document.getElementById("wealth6ResultValue")?.innerText + " €";
+}
     try {
         const response = await fetch(FORMSPREE_URL, {
             method: "POST",

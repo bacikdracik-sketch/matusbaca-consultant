@@ -2778,29 +2778,61 @@ function updateMajetok() {
 // --- 9. ODOSIELANIE (UNIVERZÁLNE) ---
 async function handleLeadSubmit(e, source) {
     e.preventDefault();
-    const btn = e.target;
-    const wrapper = btn.closest('.calc-contact') || btn.closest('.card-content') || btn.closest('section');
-    const phone = wrapper?.querySelector('input[type="tel"]')?.value || "";
 
-    if (phone.length < 9) {
+    const btn = e.currentTarget || e.target;
+    const wrapper =
+        btn.closest('.calc-contact') ||
+        btn.closest('.card-content') ||
+        btn.closest('section');
+
+    const email = wrapper?.querySelector('input[type="email"]')?.value.trim() || "";
+    const phone = wrapper?.querySelector('input[type="tel"]')?.value.trim() || "";
+
+    // Kontrola emailu
+    if (!email || !email.includes("@")) {
+        alert("⚠️ Zadajte platný e-mail.");
+        return;
+    }
+
+    // Kontrola telefónu
+    if (phone.replace(/\D/g, "").length < 9) {
         alert("⚠️ Zadajte platné telefónne číslo.");
         return;
     }
 
     const originalText = btn.innerText;
+
     btn.disabled = true;
     btn.innerText = "ODOSIELAM...";
 
     try {
-        await fetch(FORMSPREE_URL, {
+        const response = await fetch(FORMSPREE_URL, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ zdroj: source, telefon: phone, cas: new Date().toLocaleString('sk-SK') })
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({
+                email: email,
+                telefon: phone,
+                zdroj: source,
+                cas: new Date().toLocaleString('sk-SK')
+            })
         });
+
+        // Ak Formspree odmietne formulár, neukážeme falošné "ODOSLANÉ"
+        if (!response.ok) {
+            throw new Error("Formspree odmietlo odoslanie.");
+        }
+
         btn.innerText = "ODOSLANÉ ✓";
-        alert("✅ Ďakujem, údaje boli odoslané.");
+        alert("✅ Ďakujem, údaje boli úspešne odoslané.");
+
     } catch (err) {
-        alert("❌ Chyba pri odosielaní.");
+        console.error(err);
+
+        alert("❌ Formulár sa nepodarilo odoslať. Skúste to prosím znova.");
+
         btn.innerText = originalText;
         btn.disabled = false;
     }

@@ -2911,13 +2911,28 @@ async function handleLeadSubmit(e, source) {
     btn.disabled = true;
     btn.innerText = "ODOSIELAM...";
 
+    // PREHĽADNÝ NÁZOV ZDROJA PRE EMAIL / FORMSPREE
+const sourceNames = {
+    "Audit": "1. Hypotekárny audit",
+    "Refinancovanie": "2. Refinancovanie hypotéky",
+    "Hypotekárny servis": "3. Hypotekárny servis",
+    "Investovanie": "4. Investovanie",
+    "Inflácia": "5. Vplyv inflácie na úspory",
+    "Majetok pre deti": "6. Kapitál pre dieťa",
+    "Dôchodok a renta": "7. Dôchodok a renta",
+    "Ochrana príjmu a rodiny": "8. Životné poistenie",
+    "Poistenie majetku a auta": "9. Poistenie majetku a auta"
+};
+
+const sourceLabel = sourceNames[source] || source;
+
     // Základné údaje
-    const data = {
-        email: email,
-        telefon: phone,
-        zdroj: source,
-        cas: new Date().toLocaleString('sk-SK')
-    };
+const data = {
+    email: email,
+    telefon: phone,
+    zdroj: sourceLabel,
+    cas: new Date().toLocaleString('sk-SK')
+};
 
     // HYPOTEKÁRNY AUDIT
     if (source === "Audit") {

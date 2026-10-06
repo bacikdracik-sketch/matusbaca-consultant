@@ -1725,6 +1725,12 @@ input[type="submit"]:hover,
         </span>
     </div>
 
+        <button class="btn-open-calc"
+        onclick="toggleCalculator('calc-audit','card-audit')"
+        style="background:#e2e8f0; color:#475569; border:none; padding:8px 15px; border-radius:6px; cursor:pointer; font-size:0.85rem; font-weight:600; margin-bottom:10px;">
+    Otvoriť hypotekárnu kalkulačku
+</button>
+
     <div id="calc-audit" class="inline-calculator" style="display:none;">
 
         <h4 style="
@@ -1831,6 +1837,12 @@ input[type="submit"]:hover,
         </span>
     </div>
 
+        <button class="btn-open-calc"
+        onclick="toggleCalculator('ref-inline-calc','card-refinance')"
+        style="background:#e2e8f0; color:#475569; border:none; padding:8px 15px; border-radius:6px; cursor:pointer; font-size:0.85rem; font-weight:600; margin-bottom:10px;">
+    Otvoriť kalkulačku refinancovania
+</button>
+
     <div id="ref-inline-calc" class="inline-calculator" style="display:none; border-top:1px solid #e2e8f0;">
             <h4 style="text-align:center; font-size:0.75rem; color:#94a3b8; margin:15px 0; text-transform:uppercase; font-weight:700;">
                 Modelácia vašej novej splátky
@@ -1933,12 +1945,11 @@ input[type="submit"]:hover,
         </span>
     </div>
 
-    <span class="click-info" style="
-        font-weight:700;
-        color:#B38E44;
-    ">
-        Pozrite sa, čo všetko vyriešime za vás ↓
-    </span>
+    <button class="btn-open-calc"
+        onclick="toggleCalculator('admin-inline-calc','card-admin')"
+        style="background:#e2e8f0; color:#475569; border:none; padding:8px 15px; border-radius:6px; cursor:pointer; font-size:0.85rem; font-weight:600; margin-bottom:10px;">
+    Otvoriť hypotekárny servis
+</button>
 
     <div id="admin-inline-calc" class="inline-calculator" style="display:none;" onclick="event.stopPropagation()">
             <h4 style="text-align:center; color:#0f172a; margin:15px 0; font-size:1rem;">ZÍSKAJTE KOMPLETNÝ SERVIS ZDARMA</h4>

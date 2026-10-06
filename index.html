@@ -2897,6 +2897,14 @@ async function handleLeadSubmit(e, source) {
     const email = wrapper?.querySelector('input[type="email"]')?.value.trim() || "";
     const phone = wrapper?.querySelector('input[type="tel"]')?.value.trim() || "";
 
+    // KONTROLA POTVRDENIA ZÁUJMU
+const agree = wrapper?.querySelector('input[type="checkbox"]');
+
+if (!agree || !agree.checked) {
+    alert("⚠️ Najprv prosím zaškrtnite políčko so záujmom.");
+    return;
+}
+
     if (!email || !email.includes("@")) {
         alert("⚠️ Zadajte platný e-mail.");
         return;

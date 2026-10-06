@@ -2263,6 +2263,12 @@ input[type="submit"]:hover,
         Väčšina ľudí netuší, aký veľký rozdiel bude medzi dnešným príjmom a budúcim dôchodkom.
     </p>
 
+        <button class="btn-open-calc"
+        onclick="toggleCalculator('calc-renta')"
+        style="background:#e2e8f0; color:#475569; border:none; padding:8px 15px; border-radius:6px; cursor:pointer; font-size:0.85rem; font-weight:600; margin-bottom:10px;">
+    Otvoriť kontrolu dôchodku
+</button>
+
     <div id="calc-renta" class="inline-calculator" style="display:none;">
 
         <div style="background:#fff5f5; border-left:4px solid #c53030; padding:14px; border-radius:8px; margin-bottom:18px;">
@@ -2273,13 +2279,7 @@ input[type="submit"]:hover,
                 Pripravím vám jednoduchú kontrolu 2. a 3. piliera a ukážem, ako si vytvoriť vlastnú rentu.
             </span>
         </div>
-
-        <button class="btn-open-calc"
-        onclick="toggleCalculator('calc-renta','card-renta')"
-        style="background:#e2e8f0; color:#475569; border:none; padding:8px 15px; border-radius:6px; cursor:pointer; font-size:0.85rem; font-weight:600; margin-bottom:10px;">
-    Skontrolovať môj dôchodok
-</button>
-
+        
         <div style="background:#f8fafc; padding:15px; border-radius:10px; margin-bottom:15px;">
             ✅ kontrola 2. piliera<br>
             ✅ nastavenie fondov<br>
@@ -2320,6 +2320,12 @@ input[type="submit"]:hover,
     <p style="font-size:0.92rem; color:#64748b; line-height:1.6; margin-bottom:15px;">
         Mnohé poistky vyzerajú dobre na papieri, ale pri vážnej situácii nemusia pokryť hypotéku, príjem ani rodinu.
     </p>
+
+        <button class="btn-open-calc"
+        onclick="toggleCalculator('calc-osoby')"
+        style="background:#e2e8f0; color:#475569; border:none; padding:8px 15px; border-radius:6px; cursor:pointer; font-size:0.85rem; font-weight:600; margin-bottom:10px;">
+    Otvoriť kontrolu životného poistenia
+</button>
         <div id="calc-osoby" class="inline-calculator" style="display:none;">
 
     <div style="background:#fff5f5; border-left:4px solid #c53030; padding:14px; border-radius:8px; margin-bottom:18px;">
@@ -2330,14 +2336,8 @@ input[type="submit"]:hover,
             Skontrolujem, či máte správne krytý príjem, hypotéku, invaliditu, PN, úraz aj vážne ochorenia.
         </span>
     </div>
-
-            <button class="btn-open-calc"
-        onclick="toggleCalculator('calc-renta','card-renta')"
-        style="background:#e2e8f0; color:#475569; border:none; padding:8px 15px; border-radius:6px; cursor:pointer; font-size:0.85rem; font-weight:600; margin-bottom:10px;">
-   Skontrolovať moje životné poistenie
-</button>
-
-    <div style="background:#f8fafc; padding:15px; border-radius:10px; margin-bottom:15px; font-size:0.9rem; line-height:1.8;">
+         
+        <div style="background:#f8fafc; padding:15px; border-radius:10px; margin-bottom:15px; font-size:0.9rem; line-height:1.8;">
         ✅ ochrana príjmu<br>
         ✅ krytie hypotéky<br>
         ✅ invalidita a vážne ochorenia<br>
@@ -2379,6 +2379,12 @@ input[type="submit"]:hover,
             Mnoho ľudí má staré poistky, slabé krytie alebo zbytočne drahé PZP. Stačí krátka kontrola a často sa dá nájsť lepší pomer ceny a ochrany.
         </p>
 
+        <button class="btn-open-calc"
+        onclick="toggleCalculator('calc-majetok')"
+        style="background:#e2e8f0; color:#475569; border:none; padding:8px 15px; border-radius:6px; cursor:pointer; font-size:0.85rem; font-weight:600; margin-bottom:10px;">
+    Otvoriť kontrolu poistenia majetku a auta
+</button>
+
         <div id="calc-majetok" class="inline-calculator" style="display:none;">
             <div style="background:#fffaf0; border-left:4px solid #B38E44; padding:14px; border-radius:8px; margin-bottom:18px;">
                 <strong style="display:block; color:#744210; margin-bottom:6px; font-size:0.92rem;">
@@ -2388,13 +2394,7 @@ input[type="submit"]:hover,
                     Porovnám PZP, havarijné poistenie, byt, dom alebo domácnosť a ukážem vám, kde sa dá ušetriť bez zníženia bezpečia.
                 </span>
             </div>
-
-            <button class="btn-open-calc"
-        onclick="toggleCalculator('calc-5-inflation','card-5-inflation')"
-        style="background:#e2e8f0; color:#475569; border:none; padding:8px 15px; border-radius:6px; cursor:pointer; font-size:0.85rem; font-weight:600; margin-bottom:10px;">
-    Skontrolovať moje poistenie
-</button>
-
+           
             <div style="background:#f8fafc; padding:15px; border-radius:10px; margin-bottom:15px; font-size:0.9rem; line-height:1.8;">
                 ✅ PZP a havarijné poistenie<br>
                 ✅ poistenie bytu a domu<br>

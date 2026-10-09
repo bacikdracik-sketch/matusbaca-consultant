@@ -2036,7 +2036,7 @@ input[type="submit"]:hover,
 </p>
                 <input type="email" id="adminEmail" placeholder="Váš E-mail" style="width:100%; padding:12px; margin-bottom:8px; border:1px solid #ddd; border-radius:6px;">
                 <input type="tel" id="adminPhone" placeholder="Váš Telefón" style="width:100%; padding:12px; margin-bottom:12px; border:1px solid #ddd; border-radius:6px;">
-                <button class="btn-gold-action" onclick="handleLeadSubmit(event, '3. Hypotekárny servis')" style="width:100%; padding:14px; font-weight:700;">CHCEM VYBAVIŤ HYPOTÉKU BEZ STRESU</button>
+                <button class="btn-gold-action" onclick="handleLeadSubmit(event, 'Hypotekárny servis')" style="width:100%; padding:14px; font-weight:700;">CHCEM VYBAVIŤ HYPOTÉKU BEZ STRESU</button>
              </div>
             </div>
          </div>  
@@ -2526,7 +2526,7 @@ input[type="submit"]:hover,
    <input type="checkbox" id="majetokAgree" class="lead-agree"
        style="width:16px; height:16px; accent-color:#B38E44;">
     <span style="font-size:0.75rem; font-weight:600; color:#475569;">
-        Mám záujem o kontrolu poistenia
+        Mám záujem o kontrolu poistenia majetku a auta
     </span>
 </label>
                 <p style="font-size:0.72rem; color:#64748b; line-height:1.5; margin:8px 0 12px 0;">
@@ -2784,7 +2784,7 @@ input[type="submit"]:hover,
 
                 <input type="email" name="email" placeholder="Váš e-mail" required>
 
-                <input type="tel" name="phone" placeholder="Telefónne číslo">
+                <input type="tel" name="phone" placeholder="Telefónne číslo" required>
 
                 <select name="topic" required>
                     <option value="">Čo chcete preveriť?</option>
@@ -3218,14 +3218,6 @@ function showMajetokTool(id, btn) {
     btn.parentElement.querySelectorAll('.tab-btn').forEach(b => { b.style.background = 'transparent'; b.style.color = '#555'; });
     btn.style.background = '#002e5d'; btn.style.color = '#fff';
     updateMajetok();
-}
-
-function toggleCalculator(calcId) {
-    const calc = document.getElementById(calcId);
-    if (!calc) return;
-    const vis = calc.style.display === "block";
-    document.querySelectorAll('.inline-calculator, .calculator-container').forEach(el => el.style.display = "none");
-    if (!vis) calc.style.display = "block";
 }
 
 // --- INICIALIZÁCIA ---

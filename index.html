@@ -3385,10 +3385,15 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     }
 
     if (consent === "accepted") {
-        loadGoogleAnalytics();
-    } else if (consent !== "rejected") {
-        banner.style.display = "block";
-    }
+    window["ga-disable-" + GA_ID] = false;
+    loadGoogleAnalytics();
+
+} else if (consent === "rejected") {
+    window["ga-disable-" + GA_ID] = true;
+
+} else {
+    banner.style.display = "block";
+}
 
     document.getElementById("cookie-accept").addEventListener("click", function () {
         localStorage.setItem("analyticsConsent", "accepted");

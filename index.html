@@ -1,14 +1,7 @@
 <!DOCTYPE html>
 <html lang="sk">
 <head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C49RR467BX"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-C49RR467BX');
-    </script>
+   
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Matúš Bača | Hypotéky, poistenie a investície – Michalovce</title>
@@ -3295,5 +3288,111 @@ if (hamburger && navLinks) {
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
+    <!-- COOKIE BANNER -->
+<div id="cookie-banner" style="
+    display:none;
+    position:fixed;
+    left:20px;
+    right:20px;
+    bottom:20px;
+    max-width:760px;
+    margin:0 auto;
+    background:#0F172A;
+    color:#fff;
+    padding:20px;
+    border-radius:14px;
+    box-shadow:0 10px 35px rgba(0,0,0,0.25);
+    z-index:99999;
+    font-family:Montserrat, sans-serif;
+">
+    <div style="font-size:1rem; font-weight:700; margin-bottom:8px;">
+        🍪 Nastavenie cookies
+    </div>
+
+    <p style="font-size:0.82rem; line-height:1.6; color:#cbd5e1; margin:0 0 15px 0;">
+        Nevyhnutné technické funkcie webu používame vždy.
+        Analytické cookies používame iba s vaším súhlasom na meranie návštevnosti webu.
+        Viac nájdete v
+        <a href="ochrana-osobnych-udajov.html"
+           target="_blank"
+           rel="noopener noreferrer"
+           style="color:#D4AF37; font-weight:600;">
+            informáciách o ochrane osobných údajov
+        </a>.
+    </p>
+
+    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button id="cookie-reject" type="button" style="
+            flex:1;
+            min-width:150px;
+            padding:11px 16px;
+            border-radius:8px;
+            border:1px solid #94a3b8;
+            background:transparent;
+            color:#fff;
+            cursor:pointer;
+            font-weight:700;
+        ">
+            Odmietnuť
+        </button>
+
+        <button id="cookie-accept" type="button" style="
+            flex:1;
+            min-width:150px;
+            padding:11px 16px;
+            border-radius:8px;
+            border:none;
+            background:#B38E44;
+            color:#fff;
+            cursor:pointer;
+            font-weight:700;
+        ">
+            Povoliť analytické cookies
+        </button>
+    </div>
+</div>
+
+<script>
+(function () {
+    const GA_ID = "G-C49RR467BX";
+    const consent = localStorage.getItem("analyticsConsent");
+    const banner = document.getElementById("cookie-banner");
+
+    function loadGoogleAnalytics() {
+        if (window.googleAnalyticsLoaded) return;
+        window.googleAnalyticsLoaded = true;
+
+        const script = document.createElement("script");
+        script.async = true;
+        script.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_ID;
+        document.head.appendChild(script);
+
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () {
+            dataLayer.push(arguments);
+        };
+
+        gtag("js", new Date());
+        gtag("config", GA_ID);
+    }
+
+    if (consent === "accepted") {
+        loadGoogleAnalytics();
+    } else if (consent !== "rejected") {
+        banner.style.display = "block";
+    }
+
+    document.getElementById("cookie-accept").addEventListener("click", function () {
+        localStorage.setItem("analyticsConsent", "accepted");
+        banner.style.display = "none";
+        loadGoogleAnalytics();
+    });
+
+    document.getElementById("cookie-reject").addEventListener("click", function () {
+        localStorage.setItem("analyticsConsent", "rejected");
+        banner.style.display = "none";
+    });
+})();
+</script>
 </body>
 </html>

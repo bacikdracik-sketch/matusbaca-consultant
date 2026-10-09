@@ -2879,6 +2879,14 @@ input[type="submit"]:hover,
        style="color:#B38E44; text-decoration:none; font-weight:600;">
         Ochrana osobných údajov
     </a>
+
+    <span style="color:#64748b; margin:0 8px;">|</span>
+
+    <button type="button"
+            id="cookie-settings"
+            style="background:none; border:none; padding:0; color:#B38E44; font-size:0.8rem; font-weight:600; cursor:pointer;">
+        Nastavenia cookies
+    </button>
 </p>
         
 
@@ -3384,14 +3392,36 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
 
     document.getElementById("cookie-accept").addEventListener("click", function () {
         localStorage.setItem("analyticsConsent", "accepted");
+       window["ga-disable-" + GA_ID] = false;
         banner.style.display = "none";
         loadGoogleAnalytics();
     });
 
-    document.getElementById("cookie-reject").addEventListener("click", function () {
-        localStorage.setItem("analyticsConsent", "rejected");
-        banner.style.display = "none";
+   document.getElementById("cookie-reject").addEventListener("click", function () {
+    localStorage.setItem("analyticsConsent", "rejected");
+
+    // Okamžite vypne Google Analytics
+    window["ga-disable-" + GA_ID] = true;
+
+    // Odstráni analytické cookies Google Analytics
+    document.cookie.split(";").forEach(function(cookie) {
+        const name = cookie.split("=")[0].trim();
+
+        if (name.startsWith("_ga")) {
+            document.cookie = name + "=; Max-Age=0; path=/";
+            document.cookie = name + "=; Max-Age=0; path=/; domain=.matusbaca.sk";
+        }
     });
+
+    banner.style.display = "none";
+});
+   const settingsButton = document.getElementById("cookie-settings");
+
+if (settingsButton) {
+    settingsButton.addEventListener("click", function () {
+        banner.style.display = "block";
+    });
+}
 })();
 </script>
 </body>

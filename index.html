@@ -3406,10 +3406,12 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     }
 
     if (consent === "accepted") {
+    banner.style.display = "none";
     window["ga-disable-" + GA_ID] = false;
     loadGoogleAnalytics();
 
-} else if (consent === "rejected") {
+}   else if (consent === "rejected") {
+    banner.style.display = "none";
     window["ga-disable-" + GA_ID] = true;
 
 } else {

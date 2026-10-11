@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Finančný blog | Hypotéky, poistenie a investovanie – Matúš Bača</title>
+
+    <meta name="description"
+          content="Praktické články o hypotékach, refinancovaní, poistení, investovaní a dôchodku. Matúš Bača – Michalovce a okolie.">
+
+    <link rel="canonical" href="https://matusbaca.sk/blog.html">
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #f8fafc;
+            color: #0F172A;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #ffffff;
+            padding: 22px 7%;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            text-decoration: none;
+            color: #0F172A;
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            display: block;
+            color: #B38E44;
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+        }
+
+        nav a {
+            margin-left: 25px;
+            text-decoration: none;
+            color: #0F172A;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        nav a:hover {
+            color: #B38E44;
+        }
+
+        .blog-hero {
+            background: #0F172A;
+            color: white;
+            text-align: center;
+            padding: 90px 20px;
+        }
+
+        .blog-hero small {
+            color: #B38E44;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .blog-hero h1 {
+            font-size: clamp(2.2rem, 5vw, 4rem);
+            margin: 15px 0;
+        }
+
+        .blog-hero p {
+            max-width: 720px;
+            margin: auto;
+            color: #cbd5e1;
+            font-size: 1.05rem;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: auto;
+            padding: 70px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #64748b;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 28px;
+        }
+
+        .article-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.05);
+        }
+
+        .article-tag {
+            color: #B38E44;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .article-card h2 {
+            font-size: 1.25rem;
+            margin: 12px 0;
+            line-height: 1.35;
+        }
+
+        .article-card p {
+            color: #64748b;
+            font-size: 0.92rem;
+            margin-bottom: 22px;
+        }
+
+        .article-card a {
+            color: #0F172A;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .article-card a:hover {
+            color: #B38E44;
+        }
+
+        .cta {
+            margin-top: 70px;
+            padding: 50px 30px;
+            background: #0F172A;
+            color: white;
+            text-align: center;
+            border-radius: 16px;
+        }
+
+        .cta h2 {
+            margin-bottom: 12px;
+        }
+
+        .cta p {
+            color: #cbd5e1;
+            margin-bottom: 25px;
+        }
+
+        .cta a {
+            display: inline-block;
+            background: #B38E44;
+            color: white;
+            padding: 14px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 800;
+        }
+
+        footer {
+            background: #0F172A;
+            color: #94a3b8;
+            text-align: center;
+            padding: 35px 20px;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav a {
+                margin: 0 8px;
+                font-size: 0.75rem;
+            }
+
+            .blog-hero {
+                padding: 65px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <a href="index.html" class="logo">
+        MATÚŠ BAČA
+        <span>Finančný Konzultant</span>
+    </a>
+
+    <nav>
+        <a href="index.html">DOMOV</a>
+        <a href="index.html#sluzby">SLUŽBY</a>
+        <a href="blog.html">BLOG</a>
+        <a href="index.html#kontakt">KONTAKT</a>
+    </nav>
+</header>
+
+<section class="blog-hero">
+    <small>Financie zrozumiteľne</small>
+
+    <h1>Finančný blog</h1>
+
+    <p>
+        Praktické informácie o hypotékach, poistení, investovaní
+        a finančnom zabezpečení bez zbytočne komplikovaných výrazov.
+    </p>
+</section>
+
+<main>
+
+    <div class="section-title">
+        <h2>Najnovšie články</h2>
+        <p>Praktické témy, ktoré vám môžu pomôcť pri finančných rozhodnutiach.</p>
+    </div>
+
+    <div class="blog-grid">
+
+        <article class="article-card">
+            <span class="article-tag">Hypotéky</span>
+
+            <h2>Kedy sa oplatí refinancovať hypotéku?</h2>
+
+            <p>
+                Nižší úrok ešte automaticky neznamená, že refinancovanie sa oplatí.
+                Pozrieme sa na to, čo treba porovnať.
+            </p>
+
+            <a href="refinancovanie-hypoteky.html">
+                Čítať článok →
+            </a>
+        </article>
+
+        <article class="article-card">
+            <span class="article-tag">Poistenie</span>
+
+            <h2>5 častých chýb pri životnom poistení</h2>
+
+            <p>
+                Poistenie môže byť drahé a pritom rodinu chrániť nedostatočne.
+                Na čo si dať pozor?
+            </p>
+
+            <strong>Pripravujeme</strong>
+        </article>
+
+        <article class="article-card">
+            <span class="article-tag">Hypotéky</span>
+
+            <h2>Koľko vlastných peňazí potrebujete na hypotéku?</h2>
+
+            <p>
+                Cena nehnuteľnosti nie je jediný výdavok. Pozrieme sa na vlastné
+                zdroje a ďalšie náklady.
+            </p>
+
+            <strong>Pripravujeme</strong>
+        </article>
+
+        <article class="article-card">
+            <span class="article-tag">Investovanie</span>
+
+            <h2>Investovanie pre deti: čo dokáže 50 € mesačne?</h2>
+
+            <p>
+                Aj menšia pravidelná suma môže počas rokov vytvoriť zaujímavý
+                kapitál do začiatku života.
+            </p>
+
+            <strong>Pripravujeme</strong>
+        </article>
+
+        <article class="article-card">
+            <span class="article-tag">Dôchodok</span>
+
+            <h2>2. a 3. pilier: aký je medzi nimi rozdiel?</h2>
+
+            <p>
+                Dva piliere, dva rôzne princípy. Jednoduché vysvetlenie bez
+                finančného žargónu.
+            </p>
+
+            <strong>Pripravujeme</strong>
+        </article>
+
+        <article class="article-card">
+            <span class="article-tag">Majetok</span>
+
+            <h2>Poistenie domu a bytu: čo býva nastavené zle?</h2>
+
+            <p>
+                Staré poistné sumy a podpoistenie môžu pri škode znamenať nepríjemné
+                prekvapenie.
+            </p>
+
+            <strong>Pripravujeme</strong>
+        </article>
+
+    </div>
+
+    <section class="cta">
+        <h2>Neviete, či máte financie nastavené správne?</h2>
+
+        <p>
+            Pozrieme sa na hypotéku, poistenie alebo investície nezáväzne.
+        </p>
+
+        <a href="index.html#kontakt">
+            CHCEM NEZÁVÄZNÚ KONTROLU
+        </a>
+    </section>
+
+</main>
+
+<footer>
+    © 2026 Matúš Bača • Finančný konzultant
+</footer>
+<!-- COOKIE BANNER -->
+<div id="cookie-banner" style="
+    display:block;
+    position:fixed;
+    left:20px;
+    right:20px;
+    bottom:20px;
+    max-width:760px;
+    margin:0 auto;
+    background:#0F172A;
+    color:#fff;
+    padding:20px;
+    border-radius:14px;
+    box-shadow:0 10px 35px rgba(0,0,0,0.25);
+    z-index:99999;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+">
+    <div style="font-size:1rem; font-weight:700; margin-bottom:8px;">
+        🍪 Nastavenie cookies
+    </div>
+
+    <p style="font-size:0.82rem; line-height:1.6; color:#cbd5e1; margin:0 0 15px 0;">
+        Nevyhnutné technické funkcie webu používame vždy.
+        Analytické cookies používame iba s vaším súhlasom na meranie návštevnosti webu.
+        Viac nájdete v
+        <a href="ochrana-osobnych-udajov.html"
+           target="_blank"
+           rel="noopener noreferrer"
+           style="color:#D4AF37; font-weight:600;">
+            informáciách o ochrane osobných údajov
+        </a>.
+    </p>
+
+    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button id="cookie-reject" type="button" style="
+            flex:1;
+            min-width:150px;
+            padding:11px 16px;
+            border-radius:8px;
+            border:1px solid #94a3b8;
+            background:transparent;
+            color:#fff;
+            cursor:pointer;
+            font-weight:700;
+        ">
+            Odmietnuť
+        </button>
+
+        <button id="cookie-accept" type="button" style="
+            flex:1;
+            min-width:150px;
+            padding:11px 16px;
+            border-radius:8px;
+            border:none;
+            background:#B38E44;
+            color:#fff;
+            cursor:pointer;
+            font-weight:700;
+        ">
+            Povoliť analytické cookies
+        </button>
+    </div>
+</div>
+  <script>
+(function () {
+    const GA_ID = "G-C49RR467BX";
+    const consent = localStorage.getItem("analyticsConsent");
+    const banner = document.getElementById("cookie-banner");
+
+    function loadGoogleAnalytics() {
+        if (window.googleAnalyticsLoaded) return;
+        window.googleAnalyticsLoaded = true;
+
+        const script = document.createElement("script");
+        script.async = true;
+        script.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_ID;
+        document.head.appendChild(script);
+
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () {
+            dataLayer.push(arguments);
+        };
+
+        gtag("js", new Date());
+        gtag("config", GA_ID);
+    }
+
+    if (consent === "accepted") {
+        banner.style.display = "none";
+        window["ga-disable-" + GA_ID] = false;
+        loadGoogleAnalytics();
+
+    } else if (consent === "rejected") {
+        banner.style.display = "none";
+        window["ga-disable-" + GA_ID] = true;
+
+    } else {
+        banner.style.display = "block";
+    }
+
+    document.getElementById("cookie-accept").addEventListener("click", function () {
+        localStorage.setItem("analyticsConsent", "accepted");
+        window["ga-disable-" + GA_ID] = false;
+        banner.style.display = "none";
+        loadGoogleAnalytics();
+    });
+
+    document.getElementById("cookie-reject").addEventListener("click", function () {
+        localStorage.setItem("analyticsConsent", "rejected");
+        window["ga-disable-" + GA_ID] = true;
+        banner.style.display = "none";
+    });
+})();
+</script>
+</body>
+</html>

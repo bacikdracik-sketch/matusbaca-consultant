@@ -647,7 +647,7 @@ background-repeat: no-repeat !important;
             display: block;
         }
 
-        .value-card h4 {
+        .value-card h3 {
             color: var(--primary-navy);
             font-size: 1.2rem;
             margin-bottom: 15px;
@@ -1757,6 +1757,7 @@ input[type="submit"]:hover,
         <a href="#kontakt">Kontakt</a>
     </div>
 </nav>
+       <main>
 
     <section class="hero" id="home" style="background: linear-gradient(rgba(10, 15, 28, 0.4), rgba(10, 15, 28, 0.5)), url('hero-office.webp') center/cover no-repeat !important; position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center;">
     
@@ -2354,14 +2355,14 @@ input[type="submit"]:hover,
 
     <div style="
         background:#f0fff4;
-        border-left:4px solid #2f855a;
+        border-left:4px solid #276749;
         padding:14px;
         border-radius:8px;
         margin-bottom:18px;
     ">
         <strong style="
             display:block;
-            color:#2f855a;
+            color:#276749;
             margin-bottom:6px;
             font-size:0.92rem;
         ">
@@ -2869,7 +2870,7 @@ input[type="submit"]:hover,
 
                 <input type="tel" name="phone" placeholder="Telefónne číslo" required>
 
-                <select name="topic" required>
+                <select name="topic" required aria-label="Čo chcete preveriť?">
                     <option value="">Čo chcete preveriť?</option>
                     <option>Hypotéku alebo refinancovanie</option>
                     <option>Spotrebné úvery / konsolidáciu</option>
@@ -2912,25 +2913,33 @@ input[type="submit"]:hover,
         <h2>Kde ma <span>nájdete</span></h2>
     </div>
     <div class="map-wrapper">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2629.418296719246!2d21.9168923!3d48.7548057!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47391990f19c80d1%3A0xc3910f191f633a6a!2sObchodn%C3%A1%202928%2F2%2C%20071%2001%20Michalovce!5e0!3m2!1ssk!2ssk!4v1715000000000!5m2!1ssk!2ssk" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-    </div>
+    <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2629.418296719246!2d21.9168923!3d48.7548057!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47391990f19c80d1%3A0xc3910f191f633a6a!2sObchodn%C3%A1%202928%2F2%2C%20071%2001%20Michalovce!5e0!3m2!1ssk!2ssk!4v1715000000000!5m2!1ssk!2ssk"
+        width="100%"
+        height="450"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        title="Mapa – Matúš Bača">
+    </iframe>
+</div>
 </section>
 
 <section class="values-section reveal" style="padding-bottom: 100px;">
     <div class="values-container">
         <div class="value-card">
             <span class="value-icon">🌍</span>
-            <h4>Globálny prehľad</h4>
+            <h3>Globálny prehľad</h3>
             <p>Sledujem trendy na svetových trhoch a prinášam vám overené informácie.</p>
         </div>
         <div class="value-card">
             <span class="value-icon">🛡️</span>
-            <h4>Individuálne riešenia</h4>
+            <h3>Individuálne riešenia</h3>
             <p>Financie nie sú univerzálne. Každý plán tvorím na mieru vašim potrebám.</p>
         </div>
         <div class="value-card">
             <span class="value-icon">🤝</span>
-            <h4>Férový prístup</h4>
+            <h3>Férový prístup</h3>
             <p>Zakladám si na úprimnosti a dlhodobom partnerstve.</p>
         </div>
     </div>
@@ -3360,7 +3369,9 @@ if (hamburger && navLinks) {
 <!-- WHATSAPP FLOAT -->
 <a href="https://wa.me/421951499890"
    class="whatsapp-float"
-   target="_blank">
+   target="_blank"
+   rel="noopener noreferrer"
+   aria-label="Napísať cez WhatsApp">
 
     <i class="fab fa-whatsapp"></i>
 

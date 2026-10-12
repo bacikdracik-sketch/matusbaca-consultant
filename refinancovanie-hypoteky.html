@@ -260,6 +260,57 @@
                 padding: 40px 12px;
             }
         }
+        
+        .refi-video-section {
+  padding: 70px 20px;
+  background: #ffffff;
+}
+
+.refi-video-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.refi-video-text {
+  max-width: 720px;
+  margin: 0 auto 30px;
+}
+
+.refi-video-badge {
+  display: inline-block;
+  margin-bottom: 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #B38E44;
+}
+
+.refi-video-text h2 {
+  margin-bottom: 16px;
+  color: #0F172A;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+}
+
+.refi-video-text p {
+  color: #475569;
+  line-height: 1.7;
+  font-size: 1.05rem;
+}
+
+.refi-video {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  border-radius: 18px;
+  box-shadow: 0 15px 40px rgba(15, 23, 42, 0.16);
+  background: #000;
+}
+
+.refi-video-cta {
+  margin-top: 28px;
+}
     </style>
 
     <script type="application/ld+json">
@@ -413,7 +464,38 @@
     že nová hypotéka bude pre vás výhodnejšia.
 </p>
 </section>
+<section class="refi-video-section">
+  <div class="refi-video-wrap">
 
+    <div class="refi-video-text">
+      <span class="refi-video-badge">VIDEO • HYPOTÉKA</span>
+
+      <h2>Čakať s kúpou bytu sa nemusí oplatiť</h2>
+
+      <p>
+        Aj malé zvýšenie ceny nehnuteľnosti môže znamenať tisíce eur navyše.
+        Vo videu ukazujem jednoduchý príklad, prečo nižší úrok ešte nemusí znamenať lacnejšiu kúpu.
+      </p>
+    </div>
+
+    <video
+      class="refi-video"
+      controls
+      playsinline
+      preload="metadata"
+    >
+      <source src="hypoteka-video-web/hypoteka-video-web.mp4" type="video/mp4">
+      Váš prehliadač nepodporuje prehrávanie videa.
+    </video>
+
+    <div class="refi-video-cta">
+      <a href="#kontakt" class="btn-primary">
+        Chcem prepočítať moju situáciu
+      </a>
+    </div>
+
+  </div>
+</section>
 <main>
 
     <a href="blog.html" class="back-blog">← Späť na finančný blog</a>

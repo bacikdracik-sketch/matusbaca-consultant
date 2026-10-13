@@ -3288,6 +3288,13 @@ if (source === "Majetok pre deti") {
         if (!response.ok) {
             throw new Error("Formspree odmietlo odoslanie.");
         }
+       // GA4 - úspešne odoslaný lead
+if (typeof window.gtag === "function") {
+    gtag("event", "lead_submit", {
+        lead_source: source,
+        lead_source_label: sourceLabel
+    });
+}
 
         btn.innerText = "ODOSLANÉ ✓";
         alert("✅ Ďakujem, údaje boli úspešne odoslané.");

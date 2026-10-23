@@ -2868,7 +2868,7 @@ input[type="submit"]:hover,
 
         <div class="contact-lead-form">
 
-                <form action="https://formspree.io/f/xeepvqqy" method="POST">
+               <form id="mainLeadForm" action="https://formspree.io/f/xeepvqqy" method="POST">
                 <input type="hidden" name="zdroj" value="10. Hlavný formulár – Bezplatná finančná kontrola">
 
                 <input type="text" name="name" placeholder="Meno a priezvisko" required>
@@ -3307,6 +3307,63 @@ if (typeof window.gtag === "function") {
         btn.innerText = originalText;
         btn.disabled = false;
     }
+}
+   // --- HLAVNÝ FORMULÁR č. 10 ---
+const mainLeadForm = document.getElementById("mainLeadForm");
+
+if (mainLeadForm) {
+    mainLeadForm.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const submitBtn = mainLeadForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn ? submitBtn.innerText : "";
+
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.innerText = "ODOSIELAM...";
+        }
+
+        const formData = new FormData(mainLeadForm);
+
+        try {
+            const response = await fetch(mainLeadForm.action, {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "Accept": "application/json"
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error("Formspree odmietlo odoslanie.");
+            }
+
+            if (typeof window.gtag === "function") {
+                gtag("event", "lead_submit", {
+                    lead_source: "Hlavný formulár",
+                    lead_source_label: "10. Hlavný formulár – Bezplatná finančná kontrola"
+                });
+            }
+
+            if (submitBtn) {
+                submitBtn.innerText = "ODOSLANÉ ✓";
+            }
+
+            alert("✅ Ďakujem, formulár bol úspešne odoslaný.");
+
+            mainLeadForm.reset();
+
+        } catch (err) {
+            console.error(err);
+
+            alert("❌ Formulár sa nepodarilo odoslať. Skúste to prosím znova.");
+
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerText = originalText;
+            }
+        }
+    });
 }
 
 // --- UI FUNKCIE ---

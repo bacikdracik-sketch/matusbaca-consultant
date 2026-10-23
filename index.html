@@ -3314,7 +3314,6 @@ const mainLeadForm = document.getElementById("mainLeadForm");
 if (mainLeadForm) {
     mainLeadForm.addEventListener("submit", async function (e) {
         e.preventDefault();
-       alert("TEST: nový formulár funguje");
 
         const submitBtn = mainLeadForm.querySelector('button[type="submit"]');
         const originalText = submitBtn ? submitBtn.innerText : "";

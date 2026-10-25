@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="sk">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,20 +11,425 @@
           content="Premýšľate nad zmenou alebo vedľajšou činnosťou? Pozrite sa, ako môže vyzerať práca vo financiách popri zamestnaní, čo obnáša začiatok a pre koho môže byť vhodná.">
 
     <meta name="author" content="Matúš Bača">
-
     <meta name="robots" content="index, follow">
 
     <link rel="canonical"
           href="https://matusbaca.sk/praca-vo-financiach-popri-zamestnani.html">
 
+    <link rel="icon" type="image/png" href="favicon.png">
+
     <!-- OPEN GRAPH -->
     <meta property="og:type" content="article">
-    <meta property="og:title"
-          content="Práca vo financiách popri zamestnaní: ako môže vyzerať prvý krok">
-    <meta property="og:description"
-          content="Nemusíte meniť celý život naraz. Pozrite sa, čo obnáša spolupráca vo financiách, komu môže dávať zmysel a ako môže vyzerať začiatok popri zamestnaní.">
+
     <meta property="og:url"
           content="https://matusbaca.sk/praca-vo-financiach-popri-zamestnani.html">
+
+    <meta property="og:title"
+          content="Práca vo financiách popri zamestnaní: ako môže vyzerať prvý krok">
+
+    <meta property="og:description"
+          content="Nemusíte zmeniť celý život naraz. Pozrite sa, čo obnáša spolupráca vo financiách a ako môže vyzerať začiatok popri zamestnaní.">
+
+    <meta property="og:image"
+          content="https://matusbaca.sk/praca-vo-financiach-popri-zamestnani.webp">
+
+    <meta property="og:image:alt"
+          content="Práca vo financiách popri zamestnaní – Matúš Bača">
+
+    <meta property="og:locale" content="sk_SK">
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: #0F172A;
+            background: #f8fafc;
+            line-height: 1.75;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            background: #ffffff;
+            padding: 22px 7%;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            text-decoration: none;
+            color: #0F172A;
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            display: block;
+            color: #B38E44;
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+        }
+
+        nav a {
+            margin-left: 24px;
+            color: #0F172A;
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 700;
+        }
+
+        nav a:hover {
+            color: #B38E44;
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .article-hero {
+            background: #0F172A;
+            color: #ffffff;
+            text-align: center;
+            padding: 70px 20px 60px;
+        }
+
+        .article-category {
+            color: #B38E44;
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .article-hero h1 {
+            max-width: 950px;
+            margin: 15px auto 30px;
+            font-size: clamp(2.1rem, 5vw, 4rem);
+            line-height: 1.15;
+        }
+
+        .hero-image {
+            max-width: 1100px;
+            margin: 0 auto 28px;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 18px;
+        }
+
+        .article-intro {
+            max-width: 760px;
+            margin: 0 auto;
+            color: #cbd5e1;
+            font-size: 1.05rem;
+        }
+
+
+        /* =========================
+           VIDEO
+        ========================= */
+
+        .career-video-section {
+            padding: 65px 20px;
+            background: #ffffff;
+        }
+
+        .career-video-wrap {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .career-video-text {
+            max-width: 720px;
+            margin: 0 auto 30px;
+        }
+
+        .career-video-badge {
+            display: inline-block;
+            margin-bottom: 12px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            color: #B38E44;
+        }
+
+        .career-video-text h2 {
+            margin-bottom: 16px;
+            color: #0F172A;
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            line-height: 1.25;
+        }
+
+        .career-video-text p {
+            color: #475569;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        .facebook-video {
+            width: 100%;
+            max-width: 500px;
+            height: 740px;
+            margin: 0 auto;
+            display: block;
+            border: none;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(15, 23, 42, 0.16);
+            background: #000000;
+        }
+
+        .video-fallback {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        .video-fallback a {
+            color: #B38E44;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .career-video-cta {
+            margin-top: 28px;
+        }
+
+        .career-video-btn {
+            display: inline-block;
+            padding: 14px 24px;
+            background: #B38E44;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 10px;
+            transition: 0.2s ease;
+        }
+
+        .career-video-btn:hover {
+            background: #9a7838;
+            transform: translateY(-1px);
+        }
+
+
+        /* =========================
+           ARTICLE
+        ========================= */
+
+        main {
+            max-width: 900px;
+            margin: auto;
+            padding: 65px 20px;
+        }
+
+        .back-blog {
+            display: inline-block;
+            margin-bottom: 35px;
+            color: #B38E44;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        article {
+            background: #ffffff;
+            padding: clamp(25px, 5vw, 55px);
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+        }
+
+        article h2 {
+            margin-top: 42px;
+            margin-bottom: 15px;
+            font-size: 1.7rem;
+            line-height: 1.3;
+        }
+
+        article h3 {
+            margin-top: 28px;
+            margin-bottom: 8px;
+            font-size: 1.2rem;
+        }
+
+        article p {
+            margin-bottom: 18px;
+            color: #334155;
+        }
+
+        article ul {
+            margin: 15px 0 25px 24px;
+            color: #334155;
+        }
+
+        article li {
+            margin-bottom: 9px;
+        }
+
+
+        /* =========================
+           HIGHLIGHT
+        ========================= */
+
+        .highlight {
+            background: #f8f4ea;
+            border-left: 4px solid #B38E44;
+            padding: 22px;
+            margin: 30px 0;
+            border-radius: 8px;
+        }
+
+        .highlight strong {
+            color: #0F172A;
+        }
+
+
+        /* =========================
+           POSITIVE BOX
+        ========================= */
+
+        .check-box {
+            background: #f8fafc;
+            border-left: 4px solid #B38E44;
+            padding: 22px;
+            margin: 30px 0;
+            border-radius: 8px;
+        }
+
+        .check-box strong {
+            color: #0F172A;
+        }
+
+
+        /* =========================
+           CTA
+        ========================= */
+
+        .cta {
+            background: #0F172A;
+            color: white;
+            text-align: center;
+            padding: 45px 30px;
+            border-radius: 14px;
+            margin-top: 50px;
+        }
+
+        .cta h2 {
+            margin: 0 0 12px;
+            color: white;
+        }
+
+        .cta p {
+            color: #cbd5e1;
+            max-width: 620px;
+            margin: 0 auto 24px;
+        }
+
+        .cta a {
+            display: inline-block;
+            background: #B38E44;
+            color: white;
+            padding: 14px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 800;
+        }
+
+        .cta a:hover {
+            background: #9a7838;
+        }
+
+
+        /* =========================
+           FAQ
+        ========================= */
+
+        .faq {
+            margin-top: 50px;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 20px 0;
+        }
+
+        .faq-item h3 {
+            margin: 0 0 8px;
+        }
+
+        .disclaimer {
+            margin-top: 35px;
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 768px) {
+
+            header {
+                flex-direction: column;
+                gap: 14px;
+            }
+
+            nav {
+                text-align: center;
+            }
+
+            nav a {
+                margin: 0 7px;
+                font-size: 0.72rem;
+            }
+
+            .article-hero {
+                padding: 50px 14px 45px;
+            }
+
+            .article-hero h1 {
+                font-size: clamp(2rem, 10vw, 3rem);
+                margin-bottom: 25px;
+            }
+
+            .article-intro {
+                color: #ffffff !important;
+            }
+
+            main {
+                padding: 40px 12px;
+            }
+
+            .career-video-section {
+                padding: 50px 15px;
+            }
+
+            .facebook-video {
+                height: 650px;
+            }
+        }
+
+    </style>
+
 
     <!-- ARTICLE SCHEMA -->
     <script type="application/ld+json">
@@ -31,9 +437,11 @@
       "@context": "https://schema.org",
       "@type": "BlogPosting",
       "headline": "Práca vo financiách popri zamestnaní: ako môže vyzerať prvý krok",
-      "description": "Premýšľate nad zmenou alebo vedľajšou činnosťou? Pozrite sa, ako môže vyzerať práca vo financiách popri zamestnaní, čo obnáša začiatok a pre koho môže byť vhodná.",
+      "description": "Premýšľate nad zmenou alebo vedľajšou činnosťou? Pozrite sa, ako môže vyzerať práca vo financiách popri zamestnaní.",
       "datePublished": "2026-10-25",
       "dateModified": "2026-10-25",
+      "inLanguage": "sk-SK",
+      "image": "https://matusbaca.sk/praca-vo-financiach-popri-zamestnani.webp",
       "author": {
         "@type": "Person",
         "name": "Matúš Bača",
@@ -51,545 +459,51 @@
     }
     </script>
 
-    <style>
-        * {
-            box-sizing: border-box;
+
+    <!-- FAQ SCHEMA -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Dá sa práca vo financiách začať popri zamestnaní?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Áno, začiatok môže byť postupný. Človek sa môže vzdelávať, získavať skúsenosti a zistiť, či mu tento spôsob práce vyhovuje, bez toho, aby musel okamžite opustiť svoje súčasné zamestnanie."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Potrebujem predchádzajúce skúsenosti z financií?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Predchádzajúce skúsenosti môžu pomôcť, ale nie sú jediným predpokladom. Dôležitá je ochota učiť sa, zodpovednosť, komunikácia a férový prístup k ľuďom."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Je spolupráca vhodná pre každého?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nie. Práca s klientmi vyžaduje učenie, komunikáciu, aktivitu a vytrvalosť. Nemá zmysel presviedčať človeka do spolupráce, ktorá mu nesedí."
+          }
         }
+      ]
+    }
+    </script>
 
-        body {
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f8fafc;
-            color: #1e293b;
-            line-height: 1.7;
-        }
-
-        header {
-            background: #0F172A;
-            padding: 18px 20px;
-        }
-
-        .topbar {
-            max-width: 1050px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .brand {
-            color: white;
-            font-size: 1.05rem;
-            font-weight: 700;
-            text-decoration: none;
-        }
-
-        .brand span {
-            color: #D4AF37;
-        }
-
-        .back-link {
-            color: #D4AF37;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .hero {
-            background: #0F172A;
-            color: white;
-            padding: 65px 20px 80px;
-            text-align: center;
-        }
-
-        .hero-inner {
-            max-width: 850px;
-            margin: 0 auto;
-        }
-
-        .category {
-            color: #D4AF37;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.78rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-        }
-
-        h1 {
-            font-size: clamp(2rem, 5vw, 3.3rem);
-            line-height: 1.15;
-            margin: 0 0 20px;
-        }
-
-        .lead {
-            max-width: 720px;
-            margin: 0 auto;
-            color: #cbd5e1;
-            font-size: 1.1rem;
-            line-height: 1.7;
-        }
-
-        .article-meta {
-            margin-top: 25px;
-            color: #94a3b8;
-            font-size: 0.85rem;
-        }
-
-        main {
-            max-width: 820px;
-            margin: -35px auto 70px;
-            background: white;
-            border-radius: 18px;
-            padding: 55px 55px 65px;
-            box-shadow: 0 15px 45px rgba(15,23,42,0.08);
-            position: relative;
-        }
-
-        h2 {
-            color: #0F172A;
-            margin-top: 42px;
-            margin-bottom: 15px;
-            font-size: 1.65rem;
-            line-height: 1.3;
-        }
-
-        h3 {
-            color: #0F172A;
-            margin-top: 30px;
-        }
-
-        p {
-            margin: 0 0 20px;
-        }
-
-        .highlight {
-            background: #f8fafc;
-            border-left: 4px solid #B38E44;
-            padding: 22px 24px;
-            border-radius: 8px;
-            margin: 30px 0;
-        }
-
-        .video-section {
-            margin: 45px 0;
-            text-align: center;
-        }
-
-        .video-wrapper {
-            max-width: 500px;
-            margin: 25px auto;
-            background: #000;
-            border-radius: 16px;
-            overflow: hidden;
-        }
-
-        .video-wrapper iframe {
-            display: block;
-            width: 100%;
-            height: 740px;
-            border: 0;
-        }
-
-        .check-list {
-            padding-left: 0;
-            list-style: none;
-        }
-
-        .check-list li {
-            margin: 12px 0;
-            padding-left: 30px;
-            position: relative;
-        }
-
-        .check-list li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #B38E44;
-            font-weight: 800;
-        }
-
-        .not-list li::before {
-            content: "×";
-        }
-
-        .cta-box {
-            margin-top: 50px;
-            background: #0F172A;
-            color: white;
-            border-radius: 18px;
-            padding: 35px;
-            text-align: center;
-        }
-
-        .cta-box h2 {
-            color: white;
-            margin-top: 0;
-        }
-
-        .cta-box p {
-            color: #cbd5e1;
-        }
-
-        .cta-button {
-            display: inline-block;
-            margin-top: 10px;
-            background: #B38E44;
-            color: white;
-            text-decoration: none;
-            padding: 14px 26px;
-            border-radius: 9px;
-            font-weight: 700;
-        }
-
-        .secondary-link {
-            display: inline-block;
-            margin-top: 22px;
-            color: #D4AF37;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .author-box {
-            border-top: 1px solid #e2e8f0;
-            margin-top: 45px;
-            padding-top: 30px;
-        }
-
-        .author-box strong {
-            color: #0F172A;
-        }
-
-        @media (max-width: 700px) {
-            main {
-                margin: 0;
-                border-radius: 0;
-                padding: 35px 22px 50px;
-            }
-
-            .hero {
-                padding: 45px 20px 55px;
-            }
-
-            .topbar {
-                align-items: flex-start;
-            }
-
-            .video-wrapper iframe {
-                height: 650px;
-            }
-        }
-    </style>
 </head>
+
 
 <body>
 
-<header>
-    <div class="topbar">
-        <a class="brand" href="index.html">
-            Matúš Bača <span>| Financie</span>
-        </a>
 
-        <a class="back-link" href="blog.html">
-            ← Finančný blog
-        </a>
-    </div>
-</header>
+<!-- =========================
+     COOKIE BANNER
+========================= -->
 
-
-<section class="hero">
-    <div class="hero-inner">
-
-        <div class="category">
-            Kariéra • Spolupráca
-        </div>
-
-        <h1>
-            Práca vo financiách popri zamestnaní:
-            ako môže vyzerať prvý krok
-        </h1>
-
-        <p class="lead">
-            Nemusíte zmeniť celý svoj život zo dňa na deň.
-            Niekedy stačí začať popri práci, naučiť sa niečo nové
-            a postupne zistiť, či vám táto cesta dáva zmysel.
-        </p>
-
-        <div class="article-meta">
-            Matúš Bača • 25. október 2026
-        </div>
-
-    </div>
-</section>
-
-  <div style="
-    max-width:1100px;
-    margin:-35px auto 55px;
-    padding:0 20px;
-    position:relative;
-    z-index:2;
-">
-    <img
-        src="praca-vo-financiach-popri-zamestnani.webp"
-        alt="Práca vo financiách popri zamestnaní – ako môže vyzerať prvý krok"
-        width="1672"
-        height="941"
-        loading="eager"
-        fetchpriority="high"
-        style="
-            display:block;
-            width:100%;
-            height:auto;
-            border-radius:18px;
-            box-shadow:0 15px 45px rgba(15,23,42,0.15);
-        ">
-</div>
-
-
-<main>
-
-    <p>
-        Veľa ľudí premýšľa nad zmenou práce, ďalším príjmom alebo nad tým,
-        že by sa chceli profesijne posunúť. Zároveň však majú rodinu,
-        hypotéku, pravidelné výdavky a jednoducho si nemôžu dovoliť
-        zo dňa na deň podať výpoveď a začínať od nuly.
-    </p>
-
-    <p>
-        Poznám tento pocit veľmi dobre.
-    </p>
-
-    <p>
-        Aj preto som svoju cestu vo financiách nezačal tak,
-        že by som jedného dňa zahodil všetko, čo som dovtedy robil.
-        Začal som postupne, popri svojej práci.
-    </p>
-
-
-    <div class="highlight">
-        <strong>
-            Podľa mňa nemusí byť prvým krokom výpoveď.
-        </strong>
-        Prvým krokom môže byť jednoducho to, že sa človek pozrie na novú
-        možnosť, niečo sa naučí a až potom sa rozhodne, či mu táto cesta sedí.
-    </div>
-
-
-    <h2>Prečo som sa rozhodol skúsiť financie</h2>
-
-    <p>
-        Dlhé roky som pracoval mimo finančného sektora.
-        Práve preto veľmi dobre rozumiem človeku, ktorý sa na túto oblasť
-        pozerá zvonka a hovorí si:
-        „Veď ja o financiách neviem dosť.“
-    </p>
-
-    <p>
-        Ani ja som nezačínal ako človek, ktorý všetko vedel.
-        Postupne som sa učil oblasti ako hypotéky, poistenie,
-        investovanie či dôchodkové zabezpečenie a hlavne komunikáciu
-        s ľuďmi a riešenie ich konkrétnych situácií.
-    </p>
-
-    <p>
-        Dnes práve toto považujem za jednu z najväčších výhod tejto práce:
-        človek sa vzdeláva v oblasti, ktorú využíva nielen pri práci,
-        ale aj vo vlastnom živote.
-    </p>
-
-
-    <section class="video-section">
-
-        <h2>Nemusíte zmeniť celý život naraz</h2>
-
-        <p>
-            Túto myšlienku som sa snažil zachytiť aj v krátkom videu.
-            Ak cítite, že by ste chceli skúsiť niečo nové popri práci,
-            nemusíte hneď robiť radikálne rozhodnutia.
-        </p>
-
-        <div class="video-wrapper">
-            <iframe
-                src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1737776874126271&show_text=false&width=500"
-                width="500"
-                height="740"
-                style="border:none;overflow:hidden"
-                scrolling="no"
-                frameborder="0"
-                allowfullscreen="true"
-                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-            </iframe>
-        </div>
-
-        <p style="font-size:0.88rem;color:#64748b;">
-            Ak sa video nezobrazí, môžete ho otvoriť priamo na
-            <a href="https://www.facebook.com/reel/1737776874126271"
-               target="_blank"
-               rel="noopener noreferrer"
-               style="color:#B38E44;font-weight:600;">
-                Facebooku
-            </a>.
-        </p>
-
-    </section>
-
-
-    <h2>Čo práca vo financiách reálne znamená?</h2>
-
-    <p>
-        Nie je to iba o produktoch, tabuľkách alebo číslach.
-        Veľká časť práce je o komunikácii s ľuďmi.
-    </p>
-
-    <p>
-        Klient môže riešiť hypotéku, ochranu príjmu, poistenie,
-        investovanie alebo budúci dôchodok. Úlohou finančného sprostredkovateľa
-        je pochopiť jeho situáciu, vysvetliť možnosti zrozumiteľne
-        a pomôcť mu nájsť vhodné riešenie.
-    </p>
-
-    <p>
-        Preto podľa mňa nie je najdôležitejšie, či človek pri štarte pozná
-        všetky finančné pojmy.
-    </p>
-
-
-    <h2>Čo je podľa mňa dôležitejšie než skúsenosti?</h2>
-
-    <ul class="check-list">
-        <li>ochota učiť sa nové veci,</li>
-        <li>spoľahlivosť a zodpovednosť,</li>
-        <li>schopnosť komunikovať s ľuďmi,</li>
-        <li>slušný a férový prístup,</li>
-        <li>trpezlivosť a vytrvalosť,</li>
-        <li>ochota pracovať na sebe.</li>
-    </ul>
-
-    <p>
-        Odborné znalosti sa dajú postupne získavať.
-        Charakter a prístup k ľuďom sú podľa mňa oveľa dôležitejší základ.
-    </p>
-
-
-    <h2>Dá sa začať popri zamestnaní?</h2>
-
-    <p>
-        Práve toto je cesta, ktorú som si zvolil aj ja.
-    </p>
-
-    <p>
-        Človek nemusí automaticky opustiť svoju súčasnú prácu.
-        Začať sa dá postupne – vzdelávaním, získavaním skúseností,
-        stretnutiami a zisťovaním, či mu tento spôsob práce vyhovuje.
-    </p>
-
-    <p>
-        Samozrejme, nie je to cesta bez práce.
-        Vyžaduje si čas, učenie, komunikáciu a aktivitu.
-        Výsledky neprichádzajú automaticky len preto,
-        že sa človek rozhodne začať.
-    </p>
-
-
-    <div class="highlight">
-        <strong>Nesľubujem ľahké ani rýchle peniaze.</strong><br>
-        Ak však niekto hľadá možnosť naučiť sa nový odbor,
-        rozvíjať sa v komunikácii a postupne si budovať vlastnú cestu,
-        môžeme sa o tejto možnosti otvorene porozprávať.
-    </div>
-
-
-    <h2>Pre koho môže byť táto práca zaujímavá?</h2>
-
-    <ul class="check-list">
-        <li>pre človeka, ktorý chce profesijne rásť,</li>
-        <li>pre človeka, ktorého baví komunikácia s ľuďmi,</li>
-        <li>pre niekoho, kto hľadá vedľajšiu aktivitu popri práci,</li>
-        <li>pre človeka, ktorý chce lepšie rozumieť financiám,</li>
-        <li>pre niekoho, kto chce časom väčšiu pracovnú flexibilitu,</li>
-        <li>pre človeka, ktorý je ochotný na sebe pracovať.</li>
-    </ul>
-
-
-    <h2>A pre koho pravdepodobne nie?</h2>
-
-    <ul class="check-list not-list">
-        <li>pre človeka, ktorý očakáva peniaze bez práce,</li>
-        <li>pre niekoho, kto nechce komunikovať s ľuďmi,</li>
-        <li>pre človeka, ktorý sa nechce učiť,</li>
-        <li>pre niekoho, kto hľadá zaručený rýchly výsledok.</li>
-    </ul>
-
-    <p>
-        Aj toto považujem za dôležité povedať otvorene.
-        Nemá zmysel presviedčať niekoho do práce, ktorá mu nesedí.
-    </p>
-
-
-    <h2>Ako môže vyzerať prvý krok?</h2>
-
-    <p>
-        Nemusí to byť pracovný pohovor ani žiadny záväzok.
-    </p>
-
-    <p>
-        Môžeme si jednoducho sadnúť alebo zavolať a porozprávať sa
-        o tom, čo momentálne robíte, čo od práce očakávate
-        a prečo vôbec uvažujete nad zmenou.
-    </p>
-
-    <p>
-        Ja vám vysvetlím, ako spolupráca funguje, čo obnáša začiatok
-        a čo sa od človeka očakáva.
-        Potom si sami vyhodnotíte, či vám to dáva zmysel.
-    </p>
-
-
-    <div class="cta-box">
-
-        <h2>Zaujíma vás spolupráca?</h2>
-
-        <p>
-            Ak premýšľate nad zmenou, vedľajšou činnosťou
-            alebo vás jednoducho zaujíma, ako práca vo financiách funguje,
-            môžete sa mi nezáväzne ozvať.
-        </p>
-
-        <a href="kariera.html" class="cta-button">
-            Chcem sa nezáväzne porozprávať
-        </a>
-
-        <br>
-
-        <a href="blog.html" class="secondary-link">
-            ← Späť na finančný blog
-        </a>
-
-    </div>
-
-
-    <div class="author-box">
-
-        <p>
-            <strong>Autor: Matúš Bača</strong><br>
-            Finančný sprostredkovateľ pôsobiaci pod spoločnosťou
-            OVB Allfinanz Slovensko a.s.
-        </p>
-
-        <p style="font-size:0.9rem;color:#64748b;">
-            Článok vychádza z mojich osobných skúseností
-            a opisuje všeobecný pohľad na možnosť spolupráce.
-            Nejde o prísľub konkrétneho príjmu alebo pracovného výsledku.
-        </p>
-
-    </div>
-
-</main>
-
-
-<!-- COOKIE BANNER -->
 <div id="cookie-banner" style="
     display:block;
     position:fixed;
@@ -606,6 +520,7 @@
     z-index:99999;
     font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 ">
+
     <div style="font-size:1rem; font-weight:700; margin-bottom:8px;">
         🍪 Nastavenie cookies
     </div>
@@ -614,6 +529,7 @@
         Nevyhnutné technické funkcie webu používame vždy.
         Analytické cookies používame iba s vaším súhlasom na meranie návštevnosti webu.
         Viac nájdete v
+
         <a href="ochrana-osobnych-udajov.html"
            target="_blank"
            rel="noopener noreferrer"
@@ -623,85 +539,657 @@
     </p>
 
     <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <button id="cookie-reject" type="button" style="
-            flex:1;
-            min-width:150px;
-            padding:11px 16px;
-            border-radius:8px;
-            border:1px solid #94a3b8;
-            background:transparent;
-            color:#fff;
-            cursor:pointer;
-            font-weight:700;
-        ">
+
+        <button id="cookie-reject"
+                type="button"
+                style="
+                    flex:1;
+                    min-width:150px;
+                    padding:11px 16px;
+                    border-radius:8px;
+                    border:1px solid #94a3b8;
+                    background:transparent;
+                    color:#fff;
+                    cursor:pointer;
+                    font-weight:700;
+                ">
             Odmietnuť
         </button>
 
-        <button id="cookie-accept" type="button" style="
-            flex:1;
-            min-width:150px;
-            padding:11px 16px;
-            border-radius:8px;
-            border:none;
-            background:#B38E44;
-            color:#fff;
-            cursor:pointer;
-            font-weight:700;
-        ">
+        <button id="cookie-accept"
+                type="button"
+                style="
+                    flex:1;
+                    min-width:150px;
+                    padding:11px 16px;
+                    border-radius:8px;
+                    border:none;
+                    background:#B38E44;
+                    color:#fff;
+                    cursor:pointer;
+                    font-weight:700;
+                ">
             Povoliť analytické cookies
         </button>
+
     </div>
+
 </div>
 
 
-<footer style="padding: 60px 20px 40px; background: #0F172A; text-align: center; color: #cbd5e0; font-family: 'Montserrat', sans-serif;">
 
-    <p style="opacity: 0.5; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; font-size: 0.75rem; font-weight: 600; color: white;">
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+    <a href="index.html" class="logo">
+        MATÚŠ BAČA
+        <span>Finančný Konzultant</span>
+    </a>
+
+    <nav aria-label="Hlavná navigácia">
+        <a href="index.html">DOMOV</a>
+        <a href="index.html#sluzby">SLUŽBY</a>
+        <a href="blog.html">BLOG</a>
+        <a href="index.html#kontakt">KONTAKT</a>
+    </nav>
+
+</header>
+
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="article-hero">
+
+    <div class="article-category">
+        KARIÉRA • SPOLUPRÁCA
+    </div>
+
+    <h1>
+        Práca vo financiách popri zamestnaní:
+        ako môže vyzerať prvý krok
+    </h1>
+
+    <div class="hero-image">
+
+        <img
+            src="praca-vo-financiach-popri-zamestnani.webp"
+            alt="Práca vo financiách popri zamestnaní – ako môže vyzerať prvý krok"
+            width="1672"
+            height="941"
+            loading="eager"
+            fetchpriority="high">
+
+    </div>
+
+    <p class="article-intro">
+        Nemusíte zmeniť celý svoj život zo dňa na deň.
+        Niekedy stačí začať popri práci, naučiť sa niečo nové
+        a postupne zistiť, či vám táto cesta dáva zmysel.
+    </p>
+
+</section>
+
+
+
+<!-- =========================
+     VIDEO
+========================= -->
+
+<section class="career-video-section">
+
+    <div class="career-video-wrap">
+
+        <div class="career-video-text">
+
+            <span class="career-video-badge">
+                VIDEO • KARIÉRA
+            </span>
+
+            <h2>
+                Nemusíte zmeniť celý život naraz
+            </h2>
+
+            <p>
+                Ak cítite, že by ste chceli skúsiť niečo nové popri práci,
+                nemusíte hneď robiť radikálne rozhodnutie.
+                Niekedy stačí urobiť prvý krok a zistiť,
+                či vám nová cesta dáva zmysel.
+            </p>
+
+        </div>
+
+
+        <iframe
+            class="facebook-video"
+            src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1737776874126271&show_text=false&width=500"
+            scrolling="no"
+            frameborder="0"
+            allowfullscreen="true"
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+        </iframe>
+
+
+        <p class="video-fallback">
+            Ak sa video nezobrazí,
+            <a href="https://www.facebook.com/reel/1737776874126271"
+               target="_blank"
+               rel="noopener noreferrer">
+                pozrite si ho priamo na Facebooku
+            </a>.
+        </p>
+
+
+        <div class="career-video-cta">
+
+            <a href="kariera.html"
+               class="career-video-btn">
+                CHCEM VEDIEŤ VIAC O SPOLUPRÁCI
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     MAIN ARTICLE
+========================= -->
+
+<main>
+
+    <a href="blog.html" class="back-blog">
+        ← Späť na finančný blog
+    </a>
+
+
+    <article>
+
+
+        <p>
+            Veľa ľudí premýšľa nad zmenou práce, ďalším príjmom
+            alebo nad tým, že by sa chceli profesijne posunúť.
+            Zároveň však majú rodinu, hypotéku, pravidelné výdavky
+            a jednoducho si nemôžu dovoliť zo dňa na deň podať výpoveď
+            a začínať od nuly.
+        </p>
+
+        <p>
+            Poznám tento pocit veľmi dobre.
+        </p>
+
+        <p>
+            Aj preto som svoju cestu vo financiách nezačal tak,
+            že by som jedného dňa zahodil všetko, čo som dovtedy robil.
+            Začal som postupne, popri svojej práci.
+        </p>
+
+
+        <div class="highlight">
+
+            <strong>
+                Podľa mňa nemusí byť prvým krokom výpoveď.
+            </strong>
+
+            Prvým krokom môže byť jednoducho to,
+            že sa človek pozrie na novú možnosť,
+            niečo sa naučí a až potom sa rozhodne,
+            či mu táto cesta sedí.
+
+        </div>
+
+
+
+        <h2>
+            Prečo som sa rozhodol skúsiť financie
+        </h2>
+
+        <p>
+            Dlhé roky som pracoval mimo finančného sektora.
+            Preto veľmi dobre rozumiem človeku,
+            ktorý sa na túto oblasť pozerá zvonka a hovorí si:
+            „Veď ja o financiách neviem dosť.“
+        </p>
+
+        <p>
+            Ani ja som nezačínal ako človek,
+            ktorý všetko vedel.
+        </p>
+
+        <p>
+            Postupne som sa učil oblasti ako hypotéky,
+            poistenie, investovanie či dôchodkové zabezpečenie
+            a najmä komunikáciu s ľuďmi
+            a riešenie ich konkrétnych situácií.
+        </p>
+
+        <p>
+            Dnes práve toto považujem za jednu z výhod tejto práce:
+            človek sa vzdeláva v oblasti,
+            ktorú využíva nielen pri práci,
+            ale aj vo vlastnom živote.
+        </p>
+
+
+
+        <h2>
+            Čo práca vo financiách reálne znamená?
+        </h2>
+
+        <p>
+            Nie je to iba o produktoch, tabuľkách alebo číslach.
+            Veľká časť práce je o komunikácii s ľuďmi.
+        </p>
+
+        <p>
+            Klient môže riešiť hypotéku, ochranu príjmu,
+            poistenie, investovanie alebo budúci dôchodok.
+        </p>
+
+        <p>
+            Úlohou finančného sprostredkovateľa je pochopiť jeho situáciu,
+            vysvetliť možnosti zrozumiteľne
+            a pomôcť mu orientovať sa medzi možnosťami.
+        </p>
+
+
+        <div class="check-box">
+
+            <strong>
+                Dôležitejšie než vedieť všetko hneď na začiatku
+                je byť ochotný učiť sa.
+            </strong>
+
+        </div>
+
+
+
+        <h2>
+            Čo je podľa mňa dôležitejšie než skúsenosti?
+        </h2>
+
+        <ul>
+            <li>ochota učiť sa nové veci,</li>
+            <li>spoľahlivosť a zodpovednosť,</li>
+            <li>schopnosť komunikovať s ľuďmi,</li>
+            <li>slušný a férový prístup,</li>
+            <li>trpezlivosť a vytrvalosť,</li>
+            <li>ochota pracovať na sebe.</li>
+        </ul>
+
+        <p>
+            Odborné znalosti sa dajú postupne získavať.
+            Charakter a prístup k ľuďom sú podľa mňa
+            oveľa dôležitejší základ.
+        </p>
+
+
+
+        <h2>
+            Dá sa začať popri zamestnaní?
+        </h2>
+
+        <p>
+            Práve toto je cesta,
+            ktorú som si zvolil aj ja.
+        </p>
+
+        <p>
+            Človek nemusí automaticky opustiť svoju súčasnú prácu.
+            Začať sa dá postupne – vzdelávaním,
+            získavaním skúseností, stretnutiami
+            a zisťovaním, či mu tento spôsob práce vyhovuje.
+        </p>
+
+        <p>
+            Samozrejme, nie je to cesta bez práce.
+            Vyžaduje si čas, učenie, komunikáciu a aktivitu.
+            Výsledky neprichádzajú automaticky len preto,
+            že sa človek rozhodne začať.
+        </p>
+
+
+        <div class="highlight">
+
+            <strong>
+                Nesľubujem ľahké ani rýchle peniaze.
+            </strong>
+
+            Ak však niekto hľadá možnosť naučiť sa nový odbor,
+            rozvíjať sa v komunikácii
+            a postupne si budovať vlastnú cestu,
+            môžeme sa o tejto možnosti otvorene porozprávať.
+
+        </div>
+
+
+
+        <h2>
+            Pre koho môže byť táto práca zaujímavá?
+        </h2>
+
+        <ul>
+            <li>pre človeka, ktorý chce profesijne rásť,</li>
+            <li>pre človeka, ktorého baví komunikácia s ľuďmi,</li>
+            <li>pre niekoho, kto hľadá vedľajšiu aktivitu popri práci,</li>
+            <li>pre človeka, ktorý chce lepšie rozumieť financiám,</li>
+            <li>pre niekoho, kto chce časom väčšiu pracovnú flexibilitu,</li>
+            <li>pre človeka, ktorý je ochotný na sebe pracovať.</li>
+        </ul>
+
+
+
+        <h2>
+            A pre koho pravdepodobne nie?
+        </h2>
+
+        <ul>
+            <li>pre človeka, ktorý očakáva peniaze bez práce,</li>
+            <li>pre niekoho, kto nechce komunikovať s ľuďmi,</li>
+            <li>pre človeka, ktorý sa nechce učiť,</li>
+            <li>pre niekoho, kto očakáva zaručený rýchly výsledok.</li>
+        </ul>
+
+        <p>
+            Aj toto považujem za dôležité povedať otvorene.
+            Nemá zmysel presviedčať niekoho do práce,
+            ktorá mu nesedí.
+        </p>
+
+
+
+        <h2>
+            Ako môže vyzerať prvý krok?
+        </h2>
+
+        <p>
+            Nemusí to byť pracovný pohovor
+            ani žiadny záväzok.
+        </p>
+
+        <p>
+            Môžeme sa jednoducho porozprávať o tom,
+            čo momentálne robíte,
+            čo od práce očakávate
+            a prečo vôbec premýšľate nad zmenou.
+        </p>
+
+        <p>
+            Ja vám vysvetlím,
+            ako spolupráca funguje,
+            čo obnáša začiatok
+            a čo sa od človeka očakáva.
+        </p>
+
+        <p>
+            Potom si sami vyhodnotíte,
+            či vám to dáva zmysel.
+        </p>
+
+
+
+        <!-- CTA -->
+
+        <div class="cta">
+
+            <h2>
+                Zaujíma vás spolupráca?
+            </h2>
+
+            <p>
+                Ak premýšľate nad zmenou,
+                vedľajšou činnosťou
+                alebo vás jednoducho zaujíma,
+                ako práca vo financiách funguje,
+                môžete sa mi nezáväzne ozvať.
+            </p>
+
+            <a href="kariera.html">
+                CHCEM VEDIEŤ VIAC O SPOLUPRÁCI
+            </a>
+
+        </div>
+
+
+
+        <!-- FAQ -->
+
+        <section class="faq">
+
+            <h2>
+                Časté otázky o spolupráci vo financiách
+            </h2>
+
+
+            <div class="faq-item">
+
+                <h3>
+                    Dá sa začať popri zamestnaní?
+                </h3>
+
+                <p>
+                    Áno. Začiatok môže byť postupný.
+                    Človek sa môže vzdelávať,
+                    získavať prvé skúsenosti
+                    a postupne zistiť,
+                    či mu tento spôsob práce vyhovuje.
+                </p>
+
+            </div>
+
+
+            <div class="faq-item">
+
+                <h3>
+                    Potrebujem skúsenosti z financií?
+                </h3>
+
+                <p>
+                    Predchádzajúce skúsenosti môžu byť výhodou,
+                    ale nie sú jediným predpokladom.
+                    Dôležitá je ochota učiť sa,
+                    komunikovať a pracovať na sebe.
+                </p>
+
+            </div>
+
+
+            <div class="faq-item">
+
+                <h3>
+                    Je spolupráca vhodná pre každého?
+                </h3>
+
+                <p>
+                    Nie. Táto práca vyžaduje komunikáciu s ľuďmi,
+                    učenie, aktivitu a vytrvalosť.
+                    Preto je podľa mňa dôležité najprv zistiť,
+                    či človeku tento spôsob práce vôbec sedí.
+                </p>
+
+            </div>
+
+
+            <div class="faq-item">
+
+                <h3>
+                    Musím sa hneď rozhodnúť?
+                </h3>
+
+                <p>
+                    Nie. Prvý rozhovor môže byť úplne nezáväzný.
+                    Cieľom je vysvetliť si,
+                    ako spolupráca funguje
+                    a až potom sa rozhodnúť,
+                    či má význam pokračovať.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <p class="disclaimer">
+
+            Článok vychádza z mojich osobných skúseností
+            a opisuje všeobecný pohľad na možnosť spolupráce.
+            Nejde o prísľub konkrétneho príjmu,
+            kariérneho postupu alebo pracovného výsledku.
+
+        </p>
+
+    </article>
+
+</main>
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer style="
+    padding:60px 20px 40px;
+    background:#0F172A;
+    text-align:center;
+    color:#cbd5e0;
+    font-family:'Montserrat', sans-serif;
+">
+
+    <p style="
+        opacity:0.5;
+        margin-bottom:20px;
+        text-transform:uppercase;
+        letter-spacing:2px;
+        font-size:0.75rem;
+        font-weight:600;
+        color:white;
+    ">
         Sledujte moju prácu
     </p>
 
-    <div style="display: flex; justify-content: center; margin-bottom: 50px;">
+
+    <div style="
+        display:flex;
+        justify-content:center;
+        margin-bottom:50px;
+    ">
+
         <a href="https://www.facebook.com/matus.baca.ovb"
            target="_blank"
-           style="display: flex; align-items: center; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 15px 30px; border-radius: 15px; text-decoration: none; gap: 20px;">
+           rel="noopener noreferrer"
+           style="
+                display:flex;
+                align-items:center;
+                background:rgba(255,255,255,0.03);
+                border:1px solid rgba(255,255,255,0.1);
+                padding:15px 30px;
+                border-radius:15px;
+                text-decoration:none;
+                gap:20px;
+           ">
 
-            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg"
-                 alt="FB"
-                 style="width: 40px; height: 40px;">
+            <img
+                src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg"
+                alt="Facebook"
+                style="
+                    width:40px;
+                    height:40px;
+                ">
 
-            <div style="text-align: left;">
-                <span style="display: block; font-size: 1.1rem; font-weight: 700; color: white;">
+            <div style="text-align:left;">
+
+                <span style="
+                    display:block;
+                    font-size:1.1rem;
+                    font-weight:700;
+                    color:white;
+                ">
                     Facebook
                 </span>
-                <span style="display: block; font-size: 0.85rem; color: #d4af37;">
+
+                <span style="
+                    display:block;
+                    font-size:0.85rem;
+                    color:#d4af37;
+                ">
                     matus.baca.ovb
                 </span>
+
             </div>
+
         </a>
+
     </div>
 
-    <div style="max-width: 800px; margin: 0 auto;">
 
-        <span style="display: block; font-weight: 700; letter-spacing: 1.5px; color: #cbd5e0; margin-bottom: 15px; font-size: 0.9rem;">
+    <div style="
+        max-width:800px;
+        margin:0 auto;
+    ">
+
+        <span style="
+            display:block;
+            font-weight:700;
+            letter-spacing:1.5px;
+            color:#cbd5e0;
+            margin-bottom:15px;
+            font-size:0.9rem;
+        ">
             OVB ALLFINANZ SLOVENSKO A.S.
         </span>
 
-        <p style="font-size: 0.75rem; line-height: 1.8; opacity: 0.7; color: #cbd5e0; margin-bottom: 40px;">
-            Matúš Bača vykonáva finančné sprostredkovanie ako podriadený finančný agent pod záštitou spoločnosti OVB Allfinanz Slovensko a.s., zapísanej v registri NBS pod číslom 5538917.
+
+        <p style="
+            font-size:0.75rem;
+            line-height:1.8;
+            opacity:0.7;
+            color:#cbd5e0;
+            margin-bottom:40px;
+        ">
+            Matúš Bača vykonáva finančné sprostredkovanie
+            ako podriadený finančný agent pod záštitou spoločnosti
+            OVB Allfinanz Slovensko a.s.,
+            zapísanej v registri NBS pod číslom 5538917.
+            Všetky poskytované informácie majú informatívny charakter
+            a nenahrádzajú konkrétnu zmluvnú dokumentáciu.
         </p>
 
-        <p style="font-size:0.8rem; margin:0 0 14px 0;">
+
+        <p style="
+            font-size:0.8rem;
+            margin:0 0 14px 0;
+        ">
 
             <a href="ochrana-osobnych-udajov.html"
                target="_blank"
                rel="noopener noreferrer"
-               style="color:#B38E44; text-decoration:none; font-weight:600;">
+               style="
+                    color:#B38E44;
+                    text-decoration:none;
+                    font-weight:600;
+               ">
                 Ochrana osobných údajov
             </a>
 
-            <span style="color:#64748b; margin:0 8px;">|</span>
+            <span style="
+                color:#64748b;
+                margin:0 8px;
+            ">
+                |
+            </span>
 
-            <button type="button"
+
+            <button
+                type="button"
                 id="cookie-settings"
                 style="
                     background:none !important;
@@ -721,115 +1209,251 @@
 
         </p>
 
-        <p style="font-size: 0.85rem; color: #d4af37; font-weight: 500;">
+
+        <p style="
+            font-size:0.85rem;
+            color:#d4af37;
+            font-weight:500;
+        ">
             Všetky práva vyhradené © 2026 | Matúš Bača
         </p>
 
     </div>
+
 </footer>
 
 
-<script>
-(function () {
-    const GA_ID = "G-C49RR467BX";
-    const consent = localStorage.getItem("analyticsConsent");
-    const banner = document.getElementById("cookie-banner");
 
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = window.gtag || function () {
-        window.dataLayer.push(arguments);
-    };
+<!-- =========================
+     CONSENT MODE V2 + GA4
+========================= -->
+
+<script>
+
+(function () {
+
+    const GA_ID = "G-C49RR467BX";
+
+    const consent =
+        localStorage.getItem("analyticsConsent");
+
+    const banner =
+        document.getElementById("cookie-banner");
+
+
+    window.dataLayer =
+        window.dataLayer || [];
+
+
+    window.gtag =
+        window.gtag || function () {
+            window.dataLayer.push(arguments);
+        };
+
 
     gtag("consent", "default", {
+
         analytics_storage: "denied",
+
         ad_storage: "denied",
+
         ad_user_data: "denied",
+
         ad_personalization: "denied"
+
     });
+
+
 
     function loadGoogleAnalytics() {
+
         if (window.googleAnalyticsLoaded) return;
+
         window.googleAnalyticsLoaded = true;
 
-        const script = document.createElement("script");
+
+        const script =
+            document.createElement("script");
+
+
         script.async = true;
-        script.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_ID;
+
+        script.src =
+            "https://www.googletagmanager.com/gtag/js?id="
+            + GA_ID;
+
+
         document.head.appendChild(script);
 
+
         gtag("js", new Date());
+
         gtag("config", GA_ID);
+
     }
+
+
 
     if (consent === "accepted") {
+
         banner.style.display = "none";
 
+
         gtag("consent", "update", {
+
             analytics_storage: "granted",
+
             ad_storage: "denied",
+
             ad_user_data: "denied",
+
             ad_personalization: "denied"
+
         });
 
+
         window["ga-disable-" + GA_ID] = false;
+
         loadGoogleAnalytics();
+
 
     } else if (consent === "rejected") {
+
+
         banner.style.display = "none";
+
         window["ga-disable-" + GA_ID] = true;
+
 
     } else {
+
+
         banner.style.display = "block";
+
     }
 
-    document.getElementById("cookie-accept").addEventListener("click", function () {
-        localStorage.setItem("analyticsConsent", "accepted");
 
-        gtag("consent", "update", {
-            analytics_storage: "granted",
-            ad_storage: "denied",
-            ad_user_data: "denied",
-            ad_personalization: "denied"
+
+    document
+        .getElementById("cookie-accept")
+        .addEventListener("click", function () {
+
+
+            localStorage.setItem(
+                "analyticsConsent",
+                "accepted"
+            );
+
+
+            gtag("consent", "update", {
+
+                analytics_storage: "granted",
+
+                ad_storage: "denied",
+
+                ad_user_data: "denied",
+
+                ad_personalization: "denied"
+
+            });
+
+
+            window["ga-disable-" + GA_ID] = false;
+
+
+            banner.style.display = "none";
+
+
+            loadGoogleAnalytics();
+
         });
 
-        window["ga-disable-" + GA_ID] = false;
-        banner.style.display = "none";
-        loadGoogleAnalytics();
-    });
 
-    document.getElementById("cookie-reject").addEventListener("click", function () {
-        localStorage.setItem("analyticsConsent", "rejected");
 
-        gtag("consent", "update", {
-            analytics_storage: "denied",
-            ad_storage: "denied",
-            ad_user_data: "denied",
-            ad_personalization: "denied"
+    document
+        .getElementById("cookie-reject")
+        .addEventListener("click", function () {
+
+
+            localStorage.setItem(
+                "analyticsConsent",
+                "rejected"
+            );
+
+
+            gtag("consent", "update", {
+
+                analytics_storage: "denied",
+
+                ad_storage: "denied",
+
+                ad_user_data: "denied",
+
+                ad_personalization: "denied"
+
+            });
+
+
+            window["ga-disable-" + GA_ID] = true;
+
+
+            document.cookie
+                .split(";")
+                .forEach(function (cookie) {
+
+
+                    const name =
+                        cookie
+                            .split("=")[0]
+                            .trim();
+
+
+                    if (name.startsWith("_ga")) {
+
+
+                        document.cookie =
+                            name +
+                            "=; Max-Age=0; path=/";
+
+
+                        document.cookie =
+                            name +
+                            "=; Max-Age=0; path=/; domain=.matusbaca.sk";
+
+                    }
+
+                });
+
+
+            banner.style.display = "none";
+
         });
 
-        window["ga-disable-" + GA_ID] = true;
 
-        document.cookie.split(";").forEach(function (cookie) {
-            const name = cookie.split("=")[0].trim();
 
-            if (name.startsWith("_ga")) {
-                document.cookie = name + "=; Max-Age=0; path=/";
-                document.cookie = name + "=; Max-Age=0; path=/; domain=.matusbaca.sk";
-            }
-        });
+    const settingsButton =
+        document.getElementById("cookie-settings");
 
-        banner.style.display = "none";
-    });
-
-    const settingsButton = document.getElementById("cookie-settings");
 
     if (settingsButton) {
-        settingsButton.addEventListener("click", function () {
-            banner.style.display = "block";
-        });
+
+
+        settingsButton.addEventListener(
+            "click",
+            function () {
+
+                banner.style.display = "block";
+
+            }
+        );
+
     }
 
+
 })();
+
 </script>
+
 
 </body>
 </html>

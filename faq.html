@@ -711,20 +711,207 @@
         Matúš Bača vykonáva finančné sprostredkovanie ako podriadený finančný agent pod záštitou spoločnosti OVB Allfinanz Slovensko a.s., zapísanej v registri NBS pod číslom 5538917. Všetky poskytované informácie majú informatívny charakter a nenahrádzajú konkrétnu zmluvnú dokumentáciu.
     </div>
 
-        <p style="font-size:0.8rem; margin:0 0 14px 0;">
+     <p style="font-size:0.8rem; margin:0 0 14px 0;">
     <a href="ochrana-osobnych-udajov.html"
        target="_blank"
        rel="noopener noreferrer"
        style="color:#B38E44; text-decoration:none; font-weight:600;">
         Ochrana osobných údajov
     </a>
+
+    <span style="color:#64748b; margin:0 8px;">|</span>
+
+    <button
+        type="button"
+        id="cookie-settings"
+        style="
+            background:none !important;
+            border:none !important;
+            padding:0 !important;
+            margin:0 !important;
+            color:#B38E44 !important;
+            font-size:0.8rem !important;
+            font-weight:600 !important;
+            font-family:inherit !important;
+            text-transform:none !important;
+            cursor:pointer;
+            vertical-align:baseline;
+        ">
+        Nastavenia cookies
+    </button>
 </p>
     
     <p class="copyright">Všetky práva vyhradené &copy; 2026 | Matúš Bača</p>
 </footer>
+
+    <!-- COOKIE BANNER -->
+<div id="cookie-banner" style="
+    display:block;
+    position:fixed;
+    left:20px;
+    right:20px;
+    bottom:20px;
+    max-width:760px;
+    margin:0 auto;
+    background:#0F172A;
+    color:#fff;
+    padding:20px;
+    border-radius:14px;
+    box-shadow:0 10px 35px rgba(0,0,0,0.25);
+    z-index:99999;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+">
+    <div style="font-size:1rem; font-weight:700; margin-bottom:8px;">
+        🍪 Nastavenie cookies
+    </div>
+
+    <p style="font-size:0.82rem; line-height:1.6; color:#cbd5e1; margin:0 0 15px 0;">
+        Nevyhnutné technické funkcie webu používame vždy.
+        Analytické cookies používame iba s vaším súhlasom na meranie návštevnosti webu.
+        Viac nájdete v
+        <a href="ochrana-osobnych-udajov.html"
+           target="_blank"
+           rel="noopener noreferrer"
+           style="color:#D4AF37; font-weight:600;">
+            informáciách o ochrane osobných údajov
+        </a>.
+    </p>
+
+    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button id="cookie-reject" type="button" style="
+            flex:1;
+            min-width:150px;
+            padding:11px 16px;
+            border-radius:8px;
+            border:1px solid #94a3b8;
+            background:transparent;
+            color:#fff;
+            cursor:pointer;
+            font-weight:700;
+        ">
+            Odmietnuť
+        </button>
+
+        <button id="cookie-accept" type="button" style="
+            flex:1;
+            min-width:150px;
+            padding:11px 16px;
+            border-radius:8px;
+            border:none;
+            background:#B38E44;
+            color:#fff;
+            cursor:pointer;
+            font-weight:700;
+        ">
+            Povoliť analytické cookies
+        </button>
+    </div>
+</div>
 <a href="index.html#kontakt" class="mobile-sticky-cta">
     Bezplatná konzultácia
 </a>
+
+    <script>
+(function () {
+    const GA_ID = "G-C49RR467BX";
+    const consent = localStorage.getItem("analyticsConsent");
+    const banner = document.getElementById("cookie-banner");
+
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function () {
+        window.dataLayer.push(arguments);
+    };
+
+    gtag("consent", "default", {
+        analytics_storage: "denied",
+        ad_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied"
+    });
+
+    function loadGoogleAnalytics() {
+        if (window.googleAnalyticsLoaded) return;
+        window.googleAnalyticsLoaded = true;
+
+        const script = document.createElement("script");
+        script.async = true;
+        script.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_ID;
+        document.head.appendChild(script);
+
+        gtag("js", new Date());
+        gtag("config", GA_ID);
+    }
+
+    if (consent === "accepted") {
+        banner.style.display = "none";
+
+        gtag("consent", "update", {
+            analytics_storage: "granted",
+            ad_storage: "denied",
+            ad_user_data: "denied",
+            ad_personalization: "denied"
+        });
+
+        window["ga-disable-" + GA_ID] = false;
+        loadGoogleAnalytics();
+
+    } else if (consent === "rejected") {
+        banner.style.display = "none";
+        window["ga-disable-" + GA_ID] = true;
+
+    } else {
+        banner.style.display = "block";
+    }
+
+    document.getElementById("cookie-accept").addEventListener("click", function () {
+        localStorage.setItem("analyticsConsent", "accepted");
+
+        gtag("consent", "update", {
+            analytics_storage: "granted",
+            ad_storage: "denied",
+            ad_user_data: "denied",
+            ad_personalization: "denied"
+        });
+
+        window["ga-disable-" + GA_ID] = false;
+        banner.style.display = "none";
+        loadGoogleAnalytics();
+    });
+
+    document.getElementById("cookie-reject").addEventListener("click", function () {
+        localStorage.setItem("analyticsConsent", "rejected");
+
+        gtag("consent", "update", {
+            analytics_storage: "denied",
+            ad_storage: "denied",
+            ad_user_data: "denied",
+            ad_personalization: "denied"
+        });
+
+        window["ga-disable-" + GA_ID] = true;
+
+        document.cookie.split(";").forEach(function (cookie) {
+            const name = cookie.split("=")[0].trim();
+
+            if (name.startsWith("_ga")) {
+                document.cookie = name + "=; Max-Age=0; path=/";
+                document.cookie = name + "=; Max-Age=0; path=/; domain=.matusbaca.sk";
+            }
+        });
+
+        banner.style.display = "none";
+    });
+
+    const settingsButton = document.getElementById("cookie-settings");
+
+    if (settingsButton) {
+        settingsButton.addEventListener("click", function () {
+            banner.style.display = "block";
+        });
+    }
+})();
+</script>
+    
     <script>
 function toggleMenu() {
     const navLinks = document.getElementById("navLinks");

@@ -476,66 +476,72 @@ footer { padding: 60px 10% 30px; background: #0a101f; text-align: center; color:
 </head>
 <body>
 
-    <div id="cookie-banner" style="
-    display:none;
+<!-- COOKIE BANNER -->
+<div id="cookie-banner" style="
+    display:block;
     position:fixed;
-    bottom:24px;
-    left:50%;
-    transform:translateX(-50%);
-    width:calc(100% - 32px);
+    left:20px;
+    right:20px;
+    bottom:20px;
     max-width:760px;
-    background:#0f172a;
-    color:#ffffff;
-    padding:22px 24px;
-    border:1px solid rgba(212,175,55,0.35);
-    border-radius:16px;
+    margin:0 auto;
+    background:#0F172A;
+    color:#fff;
+    padding:20px;
+    border-radius:14px;
+    box-shadow:0 10px 35px rgba(0,0,0,0.25);
     z-index:99999;
-    box-shadow:0 12px 35px rgba(0,0,0,0.45);
-    font-family:inherit;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 ">
-    <div style="
-        font-size:16px;
-        line-height:1.55;
-        margin-bottom:16px;
-        color:#f8fafc;
-    ">
-        Používame analytické cookies na meranie návštevnosti a zlepšovanie stránky.
+    <div style="font-size:1rem; font-weight:700; margin-bottom:8px;">
+        🍪 Nastavenie cookies
     </div>
 
-    <div style="
-        display:flex;
-        gap:12px;
-        flex-wrap:wrap;
-    ">
-        <button id="cookie-accept" type="button" style="
-            background:#d4af37;
-            color:#111827;
-            border:none;
-            padding:11px 22px;
+    <p style="font-size:0.82rem; line-height:1.6; color:#cbd5e1; margin:0 0 15px 0;">
+        Nevyhnutné technické funkcie webu používame vždy.
+        Analytické cookies používame iba s vaším súhlasom na meranie návštevnosti webu.
+        Viac nájdete v
+        <a href="ochrana-osobnych-udajov.html"
+           target="_blank"
+           rel="noopener noreferrer"
+           style="color:#D4AF37; font-weight:600;">
+            informáciách o ochrane osobných údajov
+        </a>.
+    </p>
+
+    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button id="cookie-reject" type="button" style="
+            flex:1;
+            min-width:150px;
+            padding:11px 16px;
             border-radius:8px;
-            font-weight:700;
-            font-size:14px;
+            border:1px solid #94a3b8;
+            background:transparent;
+            color:#fff;
             cursor:pointer;
+            font-weight:700;
         ">
-            Súhlasím
+            Odmietnuť
         </button>
 
-        <button id="cookie-reject" type="button" style="
-            background:transparent;
-            color:#ffffff;
-            border:1px solid rgba(255,255,255,0.35);
-            padding:11px 22px;
+        <button id="cookie-accept" type="button" style="
+            flex:1;
+            min-width:150px;
+            padding:11px 16px;
             border-radius:8px;
-            font-weight:600;
-            font-size:14px;
+            border:none;
+            background:#B38E44;
+            color:#fff;
             cursor:pointer;
+            font-weight:700;
         ">
-            Odmietam
+            Povoliť analytické cookies
         </button>
     </div>
 </div>
 
 <nav>
+
     <div class="logo-container" onclick="window.location.href='index.html'">
         <div class="logo-name">Matúš Bača</div>
         <div class="logo-sub">Finančný Konzultant</div>

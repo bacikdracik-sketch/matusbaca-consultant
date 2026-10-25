@@ -691,9 +691,13 @@ nav a:hover {
         <div class="career-video-cta">
 
             <a href="kariera.html"
-               class="career-video-btn">
-                CHCEM VEDIEŤ VIAC O SPOLUPRÁCI
-            </a>
+   class="career-video-btn"
+   onclick="gtag('event', 'career_click', {
+       click_source: 'Video sekcia',
+       target_page: 'kariera.html'
+   });">
+    CHCEM VEDIEŤ VIAC O SPOLUPRÁCI
+</a>
 
         </div>
 
@@ -955,9 +959,13 @@ nav a:hover {
                 môžete sa mi nezáväzne ozvať.
             </p>
 
-            <a href="kariera.html">
-                CHCEM VEDIEŤ VIAC O SPOLUPRÁCI
-            </a>
+            <a href="kariera.html"
+   onclick="gtag('event', 'career_click', {
+       click_source: 'Hlavné CTA článku',
+       target_page: 'kariera.html'
+   });">
+    CHCEM VEDIEŤ VIAC O SPOLUPRÁCI
+</a>
 
         </div>
 

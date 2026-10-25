@@ -479,25 +479,59 @@ footer { padding: 60px 10% 30px; background: #0a101f; text-align: center; color:
     <div id="cookie-banner" style="
     display:none;
     position:fixed;
-    bottom:20px;
-    left:20px;
-    right:20px;
-    max-width:900px;
-    margin:auto;
-    background:#111;
-    color:#fff;
-    padding:18px;
-    border-radius:12px;
+    bottom:24px;
+    left:50%;
+    transform:translateX(-50%);
+    width:calc(100% - 32px);
+    max-width:760px;
+    background:#0f172a;
+    color:#ffffff;
+    padding:22px 24px;
+    border:1px solid rgba(212,175,55,0.35);
+    border-radius:16px;
     z-index:99999;
-    box-shadow:0 10px 30px rgba(0,0,0,0.35);
+    box-shadow:0 12px 35px rgba(0,0,0,0.45);
+    font-family:inherit;
 ">
-    <div style="margin-bottom:12px; line-height:1.5;">
+    <div style="
+        font-size:16px;
+        line-height:1.55;
+        margin-bottom:16px;
+        color:#f8fafc;
+    ">
         Používame analytické cookies na meranie návštevnosti a zlepšovanie stránky.
     </div>
 
-    <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <button id="cookie-accept" type="button">Súhlasím</button>
-        <button id="cookie-reject" type="button">Odmietam</button>
+    <div style="
+        display:flex;
+        gap:12px;
+        flex-wrap:wrap;
+    ">
+        <button id="cookie-accept" type="button" style="
+            background:#d4af37;
+            color:#111827;
+            border:none;
+            padding:11px 22px;
+            border-radius:8px;
+            font-weight:700;
+            font-size:14px;
+            cursor:pointer;
+        ">
+            Súhlasím
+        </button>
+
+        <button id="cookie-reject" type="button" style="
+            background:transparent;
+            color:#ffffff;
+            border:1px solid rgba(255,255,255,0.35);
+            padding:11px 22px;
+            border-radius:8px;
+            font-weight:600;
+            font-size:14px;
+            cursor:pointer;
+        ">
+            Odmietam
+        </button>
     </div>
 </div>
 
